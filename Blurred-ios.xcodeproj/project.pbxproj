@@ -1,0 +1,616 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F69244F550300E11BF9 /* AppDelegate.swift */; };
+		E1DF6F6C244F550300E11BF9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */; };
+		E1DF6F6E244F550300E11BF9 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6D244F550300E11BF9 /* FirstViewController.swift */; };
+		E1DF6F70244F550300E11BF9 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6F244F550300E11BF9 /* SecondViewController.swift */; };
+		E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F71244F550300E11BF9 /* Main.storyboard */; };
+		E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */; };
+		E1DF6F78244F550600E11BF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F77244F550600E11BF9 /* Assets.xcassets */; };
+		E1DF6F7B244F550600E11BF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F79244F550600E11BF9 /* LaunchScreen.storyboard */; };
+		E1DF6F86244F550600E11BF9 /* Blurred_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F85244F550600E11BF9 /* Blurred_iosTests.swift */; };
+		E1DF6F91244F550700E11BF9 /* Blurred_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F90244F550700E11BF9 /* Blurred_iosUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1DF6F82244F550600E11BF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1DF6F5E244F550300E11BF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1DF6F65244F550300E11BF9;
+			remoteInfo = "Blurred-ios";
+		};
+		E1DF6F8D244F550700E11BF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1DF6F5E244F550300E11BF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1DF6F65244F550300E11BF9;
+			remoteInfo = "Blurred-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E1DF6F66244F550300E11BF9 /* Blurred-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blurred-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1DF6F69244F550300E11BF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		E1DF6F6D244F550300E11BF9 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		E1DF6F6F244F550300E11BF9 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		E1DF6F72244F550300E11BF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E1DF6F75244F550300E11BF9 /* Blurred_ios.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Blurred_ios.xcdatamodel; sourceTree = "<group>"; };
+		E1DF6F77244F550600E11BF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1DF6F7A244F550600E11BF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E1DF6F7C244F550600E11BF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1DF6F81244F550600E11BF9 /* Blurred-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blurred-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1DF6F85244F550600E11BF9 /* Blurred_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blurred_iosTests.swift; sourceTree = "<group>"; };
+		E1DF6F87244F550600E11BF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1DF6F8C244F550700E11BF9 /* Blurred-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blurred-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1DF6F90244F550700E11BF9 /* Blurred_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blurred_iosUITests.swift; sourceTree = "<group>"; };
+		E1DF6F92244F550700E11BF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E1DF6F63244F550300E11BF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1DF6F7E244F550600E11BF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1DF6F89244F550700E11BF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E1DF6F5D244F550300E11BF9 = {
+			isa = PBXGroup;
+			children = (
+				E1DF6F68244F550300E11BF9 /* Blurred-ios */,
+				E1DF6F84244F550600E11BF9 /* Blurred-iosTests */,
+				E1DF6F8F244F550700E11BF9 /* Blurred-iosUITests */,
+				E1DF6F67244F550300E11BF9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E1DF6F67244F550300E11BF9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1DF6F66244F550300E11BF9 /* Blurred-ios.app */,
+				E1DF6F81244F550600E11BF9 /* Blurred-iosTests.xctest */,
+				E1DF6F8C244F550700E11BF9 /* Blurred-iosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E1DF6F68244F550300E11BF9 /* Blurred-ios */ = {
+			isa = PBXGroup;
+			children = (
+				E1DF6F69244F550300E11BF9 /* AppDelegate.swift */,
+				E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */,
+				E1DF6F6D244F550300E11BF9 /* FirstViewController.swift */,
+				E1DF6F6F244F550300E11BF9 /* SecondViewController.swift */,
+				E1DF6F71244F550300E11BF9 /* Main.storyboard */,
+				E1DF6F77244F550600E11BF9 /* Assets.xcassets */,
+				E1DF6F79244F550600E11BF9 /* LaunchScreen.storyboard */,
+				E1DF6F7C244F550600E11BF9 /* Info.plist */,
+				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
+			);
+			path = "Blurred-ios";
+			sourceTree = "<group>";
+		};
+		E1DF6F84244F550600E11BF9 /* Blurred-iosTests */ = {
+			isa = PBXGroup;
+			children = (
+				E1DF6F85244F550600E11BF9 /* Blurred_iosTests.swift */,
+				E1DF6F87244F550600E11BF9 /* Info.plist */,
+			);
+			path = "Blurred-iosTests";
+			sourceTree = "<group>";
+		};
+		E1DF6F8F244F550700E11BF9 /* Blurred-iosUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E1DF6F90244F550700E11BF9 /* Blurred_iosUITests.swift */,
+				E1DF6F92244F550700E11BF9 /* Info.plist */,
+			);
+			path = "Blurred-iosUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E1DF6F65244F550300E11BF9 /* Blurred-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1DF6F95244F550700E11BF9 /* Build configuration list for PBXNativeTarget "Blurred-ios" */;
+			buildPhases = (
+				E1DF6F62244F550300E11BF9 /* Sources */,
+				E1DF6F63244F550300E11BF9 /* Frameworks */,
+				E1DF6F64244F550300E11BF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Blurred-ios";
+			productName = "Blurred-ios";
+			productReference = E1DF6F66244F550300E11BF9 /* Blurred-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E1DF6F80244F550600E11BF9 /* Blurred-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1DF6F98244F550700E11BF9 /* Build configuration list for PBXNativeTarget "Blurred-iosTests" */;
+			buildPhases = (
+				E1DF6F7D244F550600E11BF9 /* Sources */,
+				E1DF6F7E244F550600E11BF9 /* Frameworks */,
+				E1DF6F7F244F550600E11BF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1DF6F83244F550600E11BF9 /* PBXTargetDependency */,
+			);
+			name = "Blurred-iosTests";
+			productName = "Blurred-iosTests";
+			productReference = E1DF6F81244F550600E11BF9 /* Blurred-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E1DF6F8B244F550700E11BF9 /* Blurred-iosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1DF6F9B244F550700E11BF9 /* Build configuration list for PBXNativeTarget "Blurred-iosUITests" */;
+			buildPhases = (
+				E1DF6F88244F550700E11BF9 /* Sources */,
+				E1DF6F89244F550700E11BF9 /* Frameworks */,
+				E1DF6F8A244F550700E11BF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1DF6F8E244F550700E11BF9 /* PBXTargetDependency */,
+			);
+			name = "Blurred-iosUITests";
+			productName = "Blurred-iosUITests";
+			productReference = E1DF6F8C244F550700E11BF9 /* Blurred-iosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E1DF6F5E244F550300E11BF9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = BlurrMC;
+				TargetAttributes = {
+					E1DF6F65244F550300E11BF9 = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
+					E1DF6F80244F550600E11BF9 = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = E1DF6F65244F550300E11BF9;
+					};
+					E1DF6F8B244F550700E11BF9 = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = E1DF6F65244F550300E11BF9;
+					};
+				};
+			};
+			buildConfigurationList = E1DF6F61244F550300E11BF9 /* Build configuration list for PBXProject "Blurred-ios" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E1DF6F5D244F550300E11BF9;
+			productRefGroup = E1DF6F67244F550300E11BF9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E1DF6F65244F550300E11BF9 /* Blurred-ios */,
+				E1DF6F80244F550600E11BF9 /* Blurred-iosTests */,
+				E1DF6F8B244F550700E11BF9 /* Blurred-iosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E1DF6F64244F550300E11BF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1DF6F7B244F550600E11BF9 /* LaunchScreen.storyboard in Resources */,
+				E1DF6F78244F550600E11BF9 /* Assets.xcassets in Resources */,
+				E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1DF6F7F244F550600E11BF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1DF6F8A244F550700E11BF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E1DF6F62244F550300E11BF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1DF6F70244F550300E11BF9 /* SecondViewController.swift in Sources */,
+				E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */,
+				E1DF6F6E244F550300E11BF9 /* FirstViewController.swift in Sources */,
+				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
+				E1DF6F6C244F550300E11BF9 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1DF6F7D244F550600E11BF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1DF6F86244F550600E11BF9 /* Blurred_iosTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1DF6F88244F550700E11BF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1DF6F91244F550700E11BF9 /* Blurred_iosUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1DF6F83244F550600E11BF9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1DF6F65244F550300E11BF9 /* Blurred-ios */;
+			targetProxy = E1DF6F82244F550600E11BF9 /* PBXContainerItemProxy */;
+		};
+		E1DF6F8E244F550700E11BF9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1DF6F65244F550300E11BF9 /* Blurred-ios */;
+			targetProxy = E1DF6F8D244F550700E11BF9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E1DF6F71244F550300E11BF9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1DF6F72244F550300E11BF9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E1DF6F79244F550600E11BF9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1DF6F7A244F550600E11BF9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E1DF6F93244F550700E11BF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E1DF6F94244F550700E11BF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E1DF6F96244F550700E11BF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 693PKCRWW3;
+				INFOPLIST_FILE = "Blurred-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blurrmc.Blurred-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E1DF6F97244F550700E11BF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 693PKCRWW3;
+				INFOPLIST_FILE = "Blurred-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blurrmc.Blurred-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E1DF6F99244F550700E11BF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 693PKCRWW3;
+				INFOPLIST_FILE = "Blurred-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blurrmc.Blurred-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blurred-ios.app/Blurred-ios";
+			};
+			name = Debug;
+		};
+		E1DF6F9A244F550700E11BF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 693PKCRWW3;
+				INFOPLIST_FILE = "Blurred-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blurrmc.Blurred-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blurred-ios.app/Blurred-ios";
+			};
+			name = Release;
+		};
+		E1DF6F9C244F550700E11BF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 693PKCRWW3;
+				INFOPLIST_FILE = "Blurred-iosUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blurrmc.Blurred-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Blurred-ios";
+			};
+			name = Debug;
+		};
+		E1DF6F9D244F550700E11BF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 693PKCRWW3;
+				INFOPLIST_FILE = "Blurred-iosUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blurrmc.Blurred-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Blurred-ios";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E1DF6F61244F550300E11BF9 /* Build configuration list for PBXProject "Blurred-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1DF6F93244F550700E11BF9 /* Debug */,
+				E1DF6F94244F550700E11BF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1DF6F95244F550700E11BF9 /* Build configuration list for PBXNativeTarget "Blurred-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1DF6F96244F550700E11BF9 /* Debug */,
+				E1DF6F97244F550700E11BF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1DF6F98244F550700E11BF9 /* Build configuration list for PBXNativeTarget "Blurred-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1DF6F99244F550700E11BF9 /* Debug */,
+				E1DF6F9A244F550700E11BF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1DF6F9B244F550700E11BF9 /* Build configuration list for PBXNativeTarget "Blurred-iosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1DF6F9C244F550700E11BF9 /* Debug */,
+				E1DF6F9D244F550700E11BF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E1DF6F75244F550300E11BF9 /* Blurred_ios.xcdatamodel */,
+			);
+			currentVersion = E1DF6F75244F550300E11BF9 /* Blurred_ios.xcdatamodel */;
+			path = Blurred_ios.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E1DF6F5E244F550300E11BF9 /* Project object */;
+}

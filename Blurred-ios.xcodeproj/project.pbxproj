@@ -9,14 +9,17 @@
 /* Begin PBXBuildFile section */
 		E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F69244F550300E11BF9 /* AppDelegate.swift */; };
 		E1DF6F6C244F550300E11BF9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */; };
-		E1DF6F6E244F550300E11BF9 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6D244F550300E11BF9 /* FirstViewController.swift */; };
-		E1DF6F70244F550300E11BF9 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6F244F550300E11BF9 /* SecondViewController.swift */; };
+		E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */; };
+		E1DF6F70244F550300E11BF9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6F244F550300E11BF9 /* SearchViewController.swift */; };
 		E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F71244F550300E11BF9 /* Main.storyboard */; };
 		E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */; };
-		E1DF6F78244F550600E11BF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F77244F550600E11BF9 /* Assets.xcassets */; };
-		E1DF6F7B244F550600E11BF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F79244F550600E11BF9 /* LaunchScreen.storyboard */; };
 		E1DF6F86244F550600E11BF9 /* Blurred_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F85244F550600E11BF9 /* Blurred_iosTests.swift */; };
 		E1DF6F91244F550700E11BF9 /* Blurred_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F90244F550700E11BF9 /* Blurred_iosUITests.swift */; };
+		E1DF6F9F244F559100E11BF9 /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F9E244F559100E11BF9 /* assets.xcassets */; };
+		E1DF6FA5244F578700E11BF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6FA4244F578700E11BF9 /* LaunchScreen.storyboard */; };
+		E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6FB8244F5DBD00E11BF9 /* RecordViewController.swift */; };
+		E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */; };
+		E1DF6FBD244F5DE300E11BF9 /* ChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,12 +43,10 @@
 		E1DF6F66244F550300E11BF9 /* Blurred-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blurred-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DF6F69244F550300E11BF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E1DF6F6D244F550300E11BF9 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		E1DF6F6F244F550300E11BF9 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E1DF6F6F244F550300E11BF9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E1DF6F72244F550300E11BF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E1DF6F75244F550300E11BF9 /* Blurred_ios.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Blurred_ios.xcdatamodel; sourceTree = "<group>"; };
-		E1DF6F77244F550600E11BF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E1DF6F7A244F550600E11BF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1DF6F7C244F550600E11BF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1DF6F81244F550600E11BF9 /* Blurred-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blurred-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DF6F85244F550600E11BF9 /* Blurred_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blurred_iosTests.swift; sourceTree = "<group>"; };
@@ -53,6 +54,11 @@
 		E1DF6F8C244F550700E11BF9 /* Blurred-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blurred-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DF6F90244F550700E11BF9 /* Blurred_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blurred_iosUITests.swift; sourceTree = "<group>"; };
 		E1DF6F92244F550700E11BF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1DF6F9E244F559100E11BF9 /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
+		E1DF6FA4244F578700E11BF9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E1DF6FB8244F5DBD00E11BF9 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,15 +109,18 @@
 		E1DF6F68244F550300E11BF9 /* Blurred-ios */ = {
 			isa = PBXGroup;
 			children = (
+				E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */,
+				E1DF6FB8244F5DBD00E11BF9 /* RecordViewController.swift */,
+				E1DF6F9E244F559100E11BF9 /* assets.xcassets */,
 				E1DF6F69244F550300E11BF9 /* AppDelegate.swift */,
 				E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */,
-				E1DF6F6D244F550300E11BF9 /* FirstViewController.swift */,
-				E1DF6F6F244F550300E11BF9 /* SecondViewController.swift */,
+				E1DF6FA4244F578700E11BF9 /* LaunchScreen.storyboard */,
+				E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */,
+				E1DF6F6F244F550300E11BF9 /* SearchViewController.swift */,
 				E1DF6F71244F550300E11BF9 /* Main.storyboard */,
-				E1DF6F77244F550600E11BF9 /* Assets.xcassets */,
-				E1DF6F79244F550600E11BF9 /* LaunchScreen.storyboard */,
 				E1DF6F7C244F550600E11BF9 /* Info.plist */,
 				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
+				E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */,
 			);
 			path = "Blurred-ios";
 			sourceTree = "<group>";
@@ -238,9 +247,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1DF6F7B244F550600E11BF9 /* LaunchScreen.storyboard in Resources */,
-				E1DF6F78244F550600E11BF9 /* Assets.xcassets in Resources */,
+				E1DF6FA5244F578700E11BF9 /* LaunchScreen.storyboard in Resources */,
 				E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */,
+				E1DF6F9F244F559100E11BF9 /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,10 +274,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1DF6F70244F550300E11BF9 /* SecondViewController.swift in Sources */,
+				E1DF6F70244F550300E11BF9 /* SearchViewController.swift in Sources */,
 				E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */,
-				E1DF6F6E244F550300E11BF9 /* FirstViewController.swift in Sources */,
+				E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */,
+				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
+				E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */,
+				E1DF6FBD244F5DE300E11BF9 /* ChannelViewController.swift in Sources */,
 				E1DF6F6C244F550300E11BF9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,14 +323,6 @@
 				E1DF6F72244F550300E11BF9 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E1DF6F79244F550600E11BF9 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E1DF6F7A244F550600E11BF9 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -445,6 +449,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -463,6 +468,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

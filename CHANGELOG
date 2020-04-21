@@ -1,1 +1,6 @@
 # Changelog
+## v0.1 (PRERELEASE)
+In version 0.1 we moved this project from swift to storyboard! Here is what we have added!
+* Icons
+* Each page with controller
+* Initial commit (woooo!)

@@ -249,6 +249,21 @@
             </objects>
             <point key="canvasLocation" x="2642" y="-1410"/>
         </scene>
+        <!--Authenticate Controller-->
+        <scene sceneID="lhV-Bk-unT">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="TBe-HX-4sR" userLabel="Authenticate Controller" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WHN-s5-ai0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="dCO-JR-N8j"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ExS-4M-l0k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="865" y="948"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="75W-AN-KPT"/>

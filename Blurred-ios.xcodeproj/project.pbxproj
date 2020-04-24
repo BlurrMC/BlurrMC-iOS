@@ -22,6 +22,7 @@
 		E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */; };
 		E1DF6FBD244F5DE300E11BF9 /* ChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */; };
 		E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBD0B8245377E800FE901F /* SettingsViewController.swift */; };
+		E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelViewController.swift; sourceTree = "<group>"; };
 		E1EBD0B8245377E800FE901F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
+		E1EBD0BC2453A1CE00FE901F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,7 @@
 		E1DF6F5D244F550300E11BF9 = {
 			isa = PBXGroup;
 			children = (
+				E1EBD0BC2453A1CE00FE901F /* CHANGELOG.md */,
 				E1DF6F68244F550300E11BF9 /* Blurred-ios */,
 				E1DF6F84244F550600E11BF9 /* Blurred-iosTests */,
 				E1DF6F8F244F550700E11BF9 /* Blurred-iosUITests */,
@@ -122,6 +126,7 @@
 				E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */,
 				E1DF6F6F244F550300E11BF9 /* SearchViewController.swift */,
 				E1DF6F71244F550300E11BF9 /* Main.storyboard */,
+				E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */,
 				E1EBD0B8245377E800FE901F /* SettingsViewController.swift */,
 				E1884CDC24527A2D001A0AD7 /* GalleryViewController.swift */,
 				E1DF6F7C244F550600E11BF9 /* Info.plist */,
@@ -288,6 +293,7 @@
 				E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */,
 				E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */,
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
+				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
 				E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */,

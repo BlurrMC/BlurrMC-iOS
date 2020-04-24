@@ -159,6 +159,8 @@
 			dependencies = (
 			);
 			name = "Blurred-ios";
+			packageProductDependencies = (
+			);
 			productName = "Blurred-ios";
 			productReference = E1DF6F66244F550300E11BF9 /* Blurred-ios.app */;
 			productType = "com.apple.product-type.application";
@@ -231,6 +233,8 @@
 				Base,
 			);
 			mainGroup = E1DF6F5D244F550300E11BF9;
+			packageReferences = (
+			);
 			productRefGroup = E1DF6F67244F550300E11BF9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

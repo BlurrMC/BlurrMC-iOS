@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E1884CDD24527A2D001A0AD7 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1884CDC24527A2D001A0AD7 /* GalleryViewController.swift */; };
 		E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F69244F550300E11BF9 /* AppDelegate.swift */; };
 		E1DF6F6C244F550300E11BF9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */; };
 		E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E1884CDC24527A2D001A0AD7 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		E1DF6F66244F550300E11BF9 /* Blurred-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blurred-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DF6F69244F550300E11BF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */,
 				E1DF6F6F244F550300E11BF9 /* SearchViewController.swift */,
 				E1DF6F71244F550300E11BF9 /* Main.storyboard */,
+				E1884CDC24527A2D001A0AD7 /* GalleryViewController.swift */,
 				E1DF6F7C244F550600E11BF9 /* Info.plist */,
 				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
 				E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */,
@@ -284,6 +287,7 @@
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
 				E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */,
+				E1884CDD24527A2D001A0AD7 /* GalleryViewController.swift in Sources */,
 				E1DF6FBD244F5DE300E11BF9 /* ChannelViewController.swift in Sources */,
 				E1DF6F6C244F550300E11BF9 /* SceneDelegate.swift in Sources */,
 			);

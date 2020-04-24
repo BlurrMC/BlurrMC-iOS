@@ -103,6 +103,9 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aI-7V-SRR">
                                 <rect key="frame" x="256" y="590" width="45" height="46"/>
                                 <state key="normal" image="grid"/>
+                                <connections>
+                                    <segue destination="bfo-AO-8I8" kind="show" id="HKN-eY-1ul"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -123,6 +126,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="record" id="PYy-An-ApD"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="f5r-Jn-aNK"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EZA-m4-xe9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -179,7 +183,36 @@
             </objects>
             <point key="canvasLocation" x="2643" y="-674"/>
         </scene>
+        <!--Gallery Controller-->
+        <scene sceneID="6iZ-jV-1Bp">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="bfo-AO-8I8" userLabel="Gallery Controller" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gPh-Sf-Ikk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" id="Gsm-os-s8x">
+                                <rect key="frame" x="16" y="20" width="31" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="arrow.left" catalog="system"/>
+                                <connections>
+                                    <segue destination="bMe-qO-UEv" kind="show" id="75W-AN-KPT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="eYY-NN-Dlb"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="g2s-5c-vP7"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a3Y-i9-m7k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="865" y="-1410"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="75W-AN-KPT"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
         <image name="channel" width="30" height="30"/>

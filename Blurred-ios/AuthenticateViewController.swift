@@ -17,6 +17,7 @@ class AuthenticateViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
     }
+     
 
     
 

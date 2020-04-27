@@ -1,4 +1,7 @@
 # Changelog
+## Unrelease
+* Added more authentication controllers 
+* Added logout feature (doesn't ACTUALLY sign you out)
 ## v0.1.1 (PRERELEASE)
 * Added part 1 of videos
 * Added more controllers (settings, gallery, and authenticate)

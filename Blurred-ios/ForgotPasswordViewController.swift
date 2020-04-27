@@ -9,6 +9,8 @@
 import UIKit
 
 class ForgotPasswordViewController: UIViewController {
+    
+    // Send devise api the email or username, the devise api makes sure it's good then sends out the email
 
     override func viewDidLoad() {
         super.viewDidLoad()

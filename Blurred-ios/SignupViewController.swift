@@ -9,7 +9,8 @@
 import UIKit
 
 class SignupViewController: UIViewController {
-
+    
+    // Has to contact the devise api sending it's info to write it in the database
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true

@@ -10,14 +10,14 @@ import UIKit
 
 class AuthenticateViewController: UIViewController {
     
-    // More setup needs to be done once I finish the rails api
+    // Has to contact the devise api sending it's credentials to make sure it's good then it sends a token back
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
-
         // Do any additional setup after loading the view.
     }
+
     
 
     /*

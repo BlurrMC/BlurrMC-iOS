@@ -1,16 +1,14 @@
 //
-//  AuthenticateViewController.swift
+//  ForgotPasswordViewController.swift
 //  Blurred-ios
 //
-//  Created by Martin Velev on 4/24/20.
+//  Created by Martin Velev on 4/26/20.
 //  Copyright © 2020 BlurrMC. All rights reserved.
 //
 
 import UIKit
 
-class AuthenticateViewController: UIViewController {
-    
-    // More setup needs to be done once I finish the rails api
+class ForgotPasswordViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -17,9 +17,16 @@ class AuthenticateViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
     }
+    @IBAction func SubmitCreds(_ sender: Any) {
+    }
+    
+    
      
 
     
+
+
+
 
     /*
     // MARK: - Navigation

@@ -10,15 +10,24 @@ import UIKit
 
 class AuthenticateViewController: UIViewController {
     
+    @IBOutlet weak var EmailCredsField: UITextField!
+    @IBOutlet weak var PasswordCredsField: UITextField!
+    
+    
     // Has to contact the devise api sending it's credentials to make sure it's good then it sends a token back
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
+        EmailCredsField.delegate = self
+        PasswordCredsField.delegate = self
     }
-    @IBAction func SubmitCreds(_ sender: Any) {
+
+    @IBAction func SubmitCreds(_ sender: UIButton) {
     }
+    
+    
     
     
      
@@ -38,4 +47,10 @@ class AuthenticateViewController: UIViewController {
     }
     */
 
+}
+extension AuthenticateViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

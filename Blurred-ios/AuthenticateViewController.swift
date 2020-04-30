@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class AuthenticateViewController: UIViewController {
     
@@ -68,7 +69,10 @@ class AuthenticateViewController: UIViewController {
                     let accessToken = parseJSON["token"] as? String
                     let userId = parseJSON["id"] as? String
                     print("Access token: \(String(describing: accessToken!))")
-                    
+                    let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
+                    let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
+                    print("The access token: \(saveAccessToken)")
+                    print("The user id: \(saveUserId)")
                     if (accessToken?.isEmpty)! {
                         self.displayMessage(userMessage: "Server error. Please try again later.")
                         return

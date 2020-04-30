@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftKeychainWrapper
 
 
 @available(iOS 13.0, *) // Again, ios 13?
@@ -18,6 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let accessToken: String? = KeychainWrapper.standard.string(forKey: "accessToken")
+        if accessToken != nil {
+            let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // change  "main" to something else IF home is in a new storyboard file
+            let homePage = mainStoryboard.instantiateViewController(identifier:  "HomeViewController") as! HomeViewController
+            self.window?.rootViewController = homePage  // HOMMMMMMMMME
+        }
         return true
     }
 

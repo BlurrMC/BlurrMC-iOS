@@ -10,10 +10,15 @@ import UIKit
 
 class SignupViewController: UIViewController {
     
+    @IBOutlet weak var SignUpButton: UIButton!
+    @IBAction func BackButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     // Has to contact the devise api sending it's info to write it in the database
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // You gotta hide it
+        
 
         // Do any additional setup after loading the view.
     }

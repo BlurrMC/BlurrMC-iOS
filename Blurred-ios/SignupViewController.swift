@@ -14,7 +14,7 @@ class SignupViewController: UIViewController {
     @IBAction func BackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    // Has to contact the devise api sending it's info to write it in the database
+    // Setup the Devise api to accept sign ups through the api. Shouldn't be hard, right?????!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // You gotta hide it

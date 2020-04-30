@@ -25,6 +25,7 @@ class AuthenticateViewController: UIViewController {
         passwordCredsField.delegate = self
     }
 
+    @available(iOS 13.0, *)
     @IBAction func SubmitCreds(_ sender: UIButton) {
         let username = usernameCredsField.text
         let password = passwordCredsField.text
@@ -77,7 +78,7 @@ class AuthenticateViewController: UIViewController {
                         return
                     }
                     DispatchQueue.main.async {
-                        let homePage = self.storyboard?.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
+                        let homePage = self.storyboard?.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
                         let appDelegate = UIApplication.shared.delegate
                         appDelegate?.window??.rootViewController = homePage
                     }

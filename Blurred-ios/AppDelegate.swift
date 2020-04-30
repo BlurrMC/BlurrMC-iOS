@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let accessToken: String? = KeychainWrapper.standard.string(forKey: "accessToken")
         if accessToken != nil {
-            let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil) // change  "main" to something else IF home is in a new storyboard file
-            let homePage = mainStoryboard.instantiateViewController(identifier:  "HomeViewController") as! HomeViewController
+            let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil) // change  "main" to something else IF home is in a new storyboard file
+            let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController  
             self.window?.rootViewController = homePage  // HOMMMMMMMMME
         }
         return true

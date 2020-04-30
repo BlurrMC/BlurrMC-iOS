@@ -347,7 +347,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Submit">
+                                <state key="normal" title="Log in">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -482,23 +482,32 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIE-bB-Zm2">
-                                <rect key="frame" x="156" y="450.5" width="70" height="36"/>
+                                <rect key="frame" x="85.5" y="441" width="208" height="62"/>
+                                <color key="backgroundColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="DEA-qJ-5am"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="IsH-8a-VGk"/>
+                                    <constraint firstAttribute="height" constant="62" id="DEA-qJ-5am"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="208" id="IsH-8a-VGk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Sign Up"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="leading" secondItem="dv9-iJ-Chr" secondAttribute="leading" id="38S-fq-Qz4"/>
+                            <constraint firstItem="KIE-bB-Zm2" firstAttribute="centerY" secondItem="exd-Mh-gFh" secondAttribute="centerY" constant="138.5" id="4wa-hv-YKJ"/>
                             <constraint firstItem="FsI-dl-zOA" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="58a-ZM-Jrv"/>
+                            <constraint firstItem="KIE-bB-Zm2" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" constant="2" id="6tV-eZ-elj"/>
                             <constraint firstItem="YQu-l8-y91" firstAttribute="centerY" secondItem="exd-Mh-gFh" secondAttribute="centerY" constant="-234.5" id="AC3-29-Eto"/>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="leading" secondItem="yBT-Vy-Kr1" secondAttribute="leading" id="DEl-SY-2MQ"/>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="leading" secondItem="JF9-o9-ic0" secondAttribute="leading" id="IQ3-NY-KDp"/>
-                            <constraint firstItem="KIE-bB-Zm2" firstAttribute="centerY" secondItem="exd-Mh-gFh" secondAttribute="centerY" constant="135" id="MQL-nu-cUL"/>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="centerX" secondItem="JF9-o9-ic0" secondAttribute="centerX" id="PO1-Eh-zYW"/>
                             <constraint firstItem="YQu-l8-y91" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" constant="4" id="YOw-Fz-Rb9"/>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="centerX" secondItem="dv9-iJ-Chr" secondAttribute="centerX" id="dfn-TC-Obi"/>
@@ -510,7 +519,6 @@
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="leading" secondItem="FsI-dl-zOA" secondAttribute="leading" id="ok3-uF-w4F"/>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="centerX" secondItem="yBT-Vy-Kr1" secondAttribute="centerX" id="vKo-ct-tpv"/>
                             <constraint firstItem="dv9-iJ-Chr" firstAttribute="top" secondItem="TZT-5r-p5u" secondAttribute="bottom" constant="8" id="xHR-Q4-zkw"/>
-                            <constraint firstItem="KIE-bB-Zm2" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" constant="3.5" id="yeV-ha-n6O"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pJs-xI-t2i"/>
                     </view>
@@ -522,7 +530,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3Wc-XW-aG7"/>
         <segue reference="AIb-pw-fzm"/>
         <segue reference="Bv2-bB-TQM"/>
         <segue reference="BMX-9V-nLh"/>

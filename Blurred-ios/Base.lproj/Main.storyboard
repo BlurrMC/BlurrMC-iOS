@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TBe-HX-4sR">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -240,7 +240,7 @@
         <!--Gallery Controller-->
         <scene sceneID="6iZ-jV-1Bp">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="bfo-AO-8I8" userLabel="Gallery Controller" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="bfo-AO-8I8" userLabel="Gallery Controller" customClass="GalleryViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gPh-Sf-Ikk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -266,7 +266,7 @@
         <!--Settings Controller-->
         <scene sceneID="QI5-82-euP">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="MJx-gh-FGt" userLabel="Settings Controller" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="MJx-gh-FGt" userLabel="Settings Controller" customClass="SettingsViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d5c-ZW-K9X">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -310,7 +310,7 @@
         <!--Authenticate Controller-->
         <scene sceneID="lhV-Bk-unT">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="TBe-HX-4sR" userLabel="Authenticate Controller" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="TBe-HX-4sR" userLabel="Authenticate Controller" customClass="AuthenticateViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WHN-s5-ai0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -333,10 +333,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
-                                <connections>
-                                    <action selector="PassCreds:" destination="fL5-Qx-FwP" eventType="editingDidEnd" id="wNA-fl-hl5"/>
-                                    <action selector="PasswordCreds:" destination="fL5-Qx-FwP" eventType="editingDidEnd" id="TY2-0v-TyJ"/>
-                                </connections>
                             </textField>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZi-Y7-Hdk">
                                 <rect key="frame" x="83.5" y="346" width="208" height="62"/>
@@ -356,6 +352,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="SubmitCreds:" destination="TBe-HX-4sR" eventType="touchUpInside" id="F44-gn-foY"/>
                                     <action selector="SubmitCreds:" destination="fL5-Qx-FwP" eventType="touchUpInside" id="T7q-dF-fIy"/>
                                     <segue destination="49e-Tb-3d3" kind="show" id="BMX-9V-nLh"/>
                                 </connections>
@@ -368,9 +365,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="EmailCreds:" destination="fL5-Qx-FwP" eventType="editingDidEnd" id="2wF-fi-w9e"/>
-                                </connections>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="F6s-67-4yo">
                                 <rect key="frame" x="43" y="621" width="260" height="32"/>
@@ -417,6 +411,10 @@
                         <viewLayoutGuide key="safeArea" id="dCO-JR-N8j"/>
                     </view>
                     <navigationItem key="navigationItem" id="1Zj-Bh-mUI"/>
+                    <connections>
+                        <outlet property="passwordCredsField" destination="5fm-9y-UjU" id="ZdO-JQ-8Jn"/>
+                        <outlet property="usernameCredsField" destination="qpU-iK-3sJ" id="6Ov-dx-abI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ExS-4M-l0k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="fL5-Qx-FwP" userLabel="Exit" sceneMemberID="exit"/>
@@ -426,7 +424,7 @@
         <!--Signup Controller-->
         <scene sceneID="teq-MA-qTS">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="4Hi-5f-KfX" userLabel="Signup Controller" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="4Hi-5f-KfX" userLabel="Signup Controller" customClass="SignupViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="exd-Mh-gFh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -530,8 +528,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="AIb-pw-fzm"/>
-        <segue reference="Bv2-bB-TQM"/>
+        <segue reference="rna-Y0-bYD"/>
+        <segue reference="75W-AN-KPT"/>
         <segue reference="BMX-9V-nLh"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -12,9 +12,10 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true // Again with the tab barss.
 
         // Do any additional setup after loading the view.
+        // I did not hit her!
     }
     
 

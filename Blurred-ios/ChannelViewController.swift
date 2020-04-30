@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChannelViewController: UIViewController {
+class ChannelViewController: UIViewController { // Look at youself. Look at what you have done.
 
     override func viewDidLoad() {
         super.viewDidLoad()

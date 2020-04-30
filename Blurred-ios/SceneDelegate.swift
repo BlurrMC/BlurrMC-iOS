@@ -7,7 +7,7 @@
 //
 
 import UIKit
-@available(iOS 13.0, *)
+@available(iOS 13.0, *) // Is ios 13 available?
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     

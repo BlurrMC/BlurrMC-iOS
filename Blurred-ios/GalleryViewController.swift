@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GalleryViewController: UIViewController {
+class GalleryViewController: UIViewController { // Let THE PEOPLE look at their pics <3
 
     override func viewDidLoad() {
         super.viewDidLoad()

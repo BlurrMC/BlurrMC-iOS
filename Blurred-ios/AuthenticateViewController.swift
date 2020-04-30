@@ -47,7 +47,7 @@ class AuthenticateViewController: UIViewController {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        let postString = ["username": username!, "password": password!] as [String: String]
+        let postString = ["login": username!, "password": password!] as [String: String]
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
         } catch let error { // Catch the VICTORY ROYALE
@@ -66,9 +66,8 @@ class AuthenticateViewController: UIViewController {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
-                    let accessToken = parseJSON["token"] as? String
-                    let userId = parseJSON["id"] as? String
-                    print("Access token: \(String(describing: accessToken!))")
+                    let accessToken = parseJSON["authentication_token"] as? String
+                    let userId = parseJSON["id"] as? Bool
                     let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
                     let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
                     print("The access token: \(saveAccessToken)")

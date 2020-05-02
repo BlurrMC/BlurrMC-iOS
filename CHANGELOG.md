@@ -1,4 +1,11 @@
 # Changelog
+## Unrelease
+* Added more authentication controllers 
+* Logout feature (with keychain)
+* Sign in api and keychain feature
+* Alamofire + cocoapods
+* Added support for iOS 12.4 (only for development purposes)
+* Fixed some bugs
 ## v0.1.1 (PRERELEASE)
 * Added part 1 of videos
 * Added more controllers (settings, gallery, and authenticate)

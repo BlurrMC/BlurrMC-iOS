@@ -9,7 +9,7 @@
 import UIKit
 
 class NotificationsViewController: UIViewController {
-
+    // Put the notifications for THE PEOPLE!!!!!! "We the people...."
     override func viewDidLoad() {
         super.viewDidLoad()
 

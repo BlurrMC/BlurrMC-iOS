@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "12"
             endingLineNumber = "12"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "AuthenticateViewController"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "6E1C0797-E8E9-4079-B32A-A0CEC51BF033 - 838c269e74d4f0ca"
@@ -109,12 +109,12 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "13"
             endingLineNumber = "13"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "AuthenticateViewController"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "914FC90A-F80D-4762-BCC6-01E75D9E3C79 - 8a5765c367a25294"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Blurred_ios.AuthenticateViewController.usernameCredsField.getter : Swift.Optional&lt;__C.UITextField&gt;"
@@ -123,13 +123,13 @@
                   urlString = "file:///Users/martinvelev/Documents/Blurred-ios/Blurred-ios/AuthenticateViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "88">
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "128">
                </Location>
                <Location
                   uuid = "914FC90A-F80D-4762-BCC6-01E75D9E3C79 - f30eefcd5b56ba50"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Blurred_ios.AuthenticateViewController.usernameCredsField.setter : Swift.Optional&lt;__C.UITextField&gt;"
@@ -138,13 +138,13 @@
                   urlString = "file:///Users/martinvelev/Documents/Blurred-ios/Blurred-ios/AuthenticateViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "155">
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "200">
                </Location>
                <Location
                   uuid = "914FC90A-F80D-4762-BCC6-01E75D9E3C79 - 2b236610fe4e689b"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Blurred_ios.AuthenticateViewController.usernameCredsField.modify : Swift.Optional&lt;__C.UITextField&gt;"
@@ -155,11 +155,11 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
                   endingLineNumber = "0"
-                  offsetFromSymbolStart = "65">
+                  offsetFromSymbolStart = "64">
                </Location>
                <Location
                   uuid = "914FC90A-F80D-4762-BCC6-01E75D9E3C79 - 4d0ae4c2a20a0c43"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Blurred_ios.AuthenticateViewController.usernameCredsField.modify : Swift.Optional&lt;__C.UITextField&gt; with unmangled suffix &quot;.resume.0&quot;"
@@ -168,13 +168,13 @@
                   urlString = "file:///Users/martinvelev/Documents/Blurred-ios/Blurred-ios/AuthenticateViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "80">
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "76">
                </Location>
                <Location
                   uuid = "914FC90A-F80D-4762-BCC6-01E75D9E3C79 - fb3d308419846465"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Blurred_ios.AuthenticateViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Blurred_ios.AuthenticateViewController"
@@ -183,13 +183,13 @@
                   urlString = "file:///Users/martinvelev/Documents/Blurred-ios/Blurred-ios/AuthenticateViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "181">
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "188">
                </Location>
                <Location
                   uuid = "914FC90A-F80D-4762-BCC6-01E75D9E3C79 - 33009607a8077b2"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Blurred_ios.AuthenticateViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Blurred_ios.AuthenticateViewController&gt;"
@@ -198,9 +198,9 @@
                   urlString = "file:///Users/martinvelev/Documents/Blurred-ios/Blurred-ios/AuthenticateViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "119">
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "132">
                </Location>
             </Locations>
          </BreakpointContent>

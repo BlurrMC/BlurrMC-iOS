@@ -8,14 +8,16 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UISearchBarDelegate {
     
     // Fill it up
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.searchBarTextField?.delegate? = self
         // Do any additional setup after loading the view.
     }
-
+    @IBOutlet weak var searchBarTextField: UISearchBar!
+    
 
 }
 

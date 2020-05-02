@@ -32,6 +32,9 @@ class SettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
         // I did not hit her!
     }
+    @IBAction func settingsBackButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
 
     /*

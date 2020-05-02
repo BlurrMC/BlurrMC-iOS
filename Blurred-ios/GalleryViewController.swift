@@ -10,6 +10,9 @@ import UIKit
 
 class GalleryViewController: UIViewController { // Let THE PEOPLE look at their pics <3
 
+    @IBAction func galleryBackButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

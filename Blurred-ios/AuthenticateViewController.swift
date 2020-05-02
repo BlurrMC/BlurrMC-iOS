@@ -9,10 +9,10 @@
 import UIKit
 import SwiftKeychainWrapper
 
-class AuthenticateViewController: UIViewController {
+class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak internal var usernameCredsField: UITextField!
-    @IBOutlet weak internal var passwordCredsField: UITextField!
+    @IBOutlet weak internal var usernameTextField: UITextField!
+    @IBOutlet weak internal var passwordTextField: UITextField!
     // CRAP I forgot to declare these until now ^^^
     
     // Has to contact the devise api sending it's credentials to make sure it's good then it sends a token back
@@ -21,14 +21,19 @@ class AuthenticateViewController: UIViewController {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
-        usernameCredsField.delegate = self
-        passwordCredsField.delegate = self
+        usernameTextField?.delegate? = self
+        passwordTextField?.delegate? = self
+        usernameTextField?.tag = 0
+        passwordTextField?.tag = 1
     }
-
     @available(iOS 13.0, *)
     @IBAction func SubmitCreds(_ sender: UIButton) {
-        let username = usernameCredsField.text
-        let password = passwordCredsField.text
+        sendCreds()
+    }
+    @available(iOS 13.0, *)
+    private func sendCreds() {
+        let username = usernameTextField.text
+        let password = passwordTextField.text
         
         if (username?.isEmpty)! || (password?.isEmpty)! {
             print("Username \(String(describing: username)) or password \(String(describing: password)) is empty")
@@ -43,7 +48,7 @@ class AuthenticateViewController: UIViewController {
         myActivityIndicator.startAnimating()
         view.addSubview(myActivityIndicator)
         // Contact the server about the people ^ (if u don't they gonna be sad)
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/sessions/")
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/sessions.json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -69,14 +74,17 @@ class AuthenticateViewController: UIViewController {
                 if let parseJSON = json {
                     let userId = parseJSON["id"] as? Bool
                     let accessToken = parseJSON["token"] as? String
-                    let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
+                    let errorToken = parseJSON["error"] as? String
+                    if ((errorToken?.isEmpty) == nil) {
+                        print("No error")
+                    } else {
+                        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        self.displayMessage(userMessage: "Wrong username or password.")
+                    }
                     let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
+                    let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
                     print("The access token: \(saveAccessToken)")
                     print("The user id: \(saveUserId)")
-                    if (accessToken?.isEmpty)! {
-                        self.displayMessage(userMessage: "Server error. Please try again later.")
-                        return
-                    }
                     DispatchQueue.main.async {
                         let homePage = self.storyboard?.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
                         let appDelegate = UIApplication.shared.delegate
@@ -93,8 +101,6 @@ class AuthenticateViewController: UIViewController {
             }
         }
         task.resume()
-            
-        
     }
     
     func displayMessage(userMessage:String) -> Void {
@@ -119,18 +125,21 @@ class AuthenticateViewController: UIViewController {
             activityIndicator.removeFromSuperview()
         }
     }
-    
-    
-    
-    
-    
-     
-
-    
-
-
-
-
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if #available(iOS 13.0, *) {
+            if textField == usernameTextField {
+                textField.resignFirstResponder()
+                passwordTextField.becomeFirstResponder()
+            } else if textField == passwordTextField {
+                textField.resignFirstResponder()
+            } else {
+                sendCreds()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        return true
+    }
     /*
     // MARK: - Navigation
 
@@ -141,10 +150,4 @@ class AuthenticateViewController: UIViewController {
     }
     */
 
-}
-extension AuthenticateViewController : UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
 }

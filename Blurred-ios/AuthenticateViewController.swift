@@ -67,10 +67,10 @@ class AuthenticateViewController: UIViewController {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
-                    let accessToken = parseJSON["authentication_token"] as? String
                     let userId = parseJSON["id"] as? Bool
-                    let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
+                    let accessToken = parseJSON["token"] as? String
                     let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
+                    let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
                     print("The access token: \(saveAccessToken)")
                     print("The user id: \(saveUserId)")
                     if (accessToken?.isEmpty)! {

@@ -13,15 +13,15 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        // Setup the view so you can integerate it right away with the channel api.
     }
     // func loadMemberChannel() {
     //     let accessToken: String? = KeychainWrapper.standard.string(forKey: "accessToken")
     //     let userId: String? = KeychainWrapper.standard.string(forKey: "userId")
     //     let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/cs/\(userId!)")
-    //     var request = URLRequest(url:myUrl!)  // Setup the rest after devise api is done
+    //     var request = URLRequest(url:myUrl!)  // Setup the rest after api is done
     // } I will set this up later.
+    // This checks in with the api and makes sure the token is right and then with the id it goes to the id's (or current user's) channel.
 
     /*
     // MARK: - Navigation

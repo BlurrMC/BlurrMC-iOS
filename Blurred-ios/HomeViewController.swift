@@ -9,6 +9,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {  // Ah yes, home
+    
+    // Communicates with the api to check for any new updates
 
     override func viewDidLoad() {
         super.viewDidLoad()

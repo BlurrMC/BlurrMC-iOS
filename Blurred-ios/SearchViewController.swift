@@ -10,7 +10,7 @@ import UIKit
 
 class SearchViewController: UIViewController, UISearchBarDelegate {
     
-    // Fill it up
+    // Communicates with the api for search results
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchBarTextField?.delegate? = self

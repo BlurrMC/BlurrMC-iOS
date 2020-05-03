@@ -33,7 +33,6 @@ class SettingsViewController: UIViewController {
         // I did not hit her!
     }
     @IBAction func settingsBackButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
     }
     
 

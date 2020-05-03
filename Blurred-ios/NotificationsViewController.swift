@@ -12,6 +12,8 @@ class NotificationsViewController: UIViewController {
     // Put the notifications for THE PEOPLE!!!!!! "We the people...."
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Communicates with the notifications api to check for any new updates that the user hasn't received.
 
         // Do any additional setup after loading the view.
     }

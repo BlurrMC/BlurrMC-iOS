@@ -5,7 +5,7 @@
 * Sign in api and keychain feature
 * Alamofire + cocoapods
 * Added support for iOS 12.4 (only for development purposes)
-* Fixed some bugs
+* Fixed some bugs (including the alert box one)
 ## v0.1.1 (PRERELEASE)
 * Added part 1 of videos
 * Added more controllers (settings, gallery, and authenticate)

@@ -15,6 +15,7 @@ class GalleryViewController: UIViewController { // Let THE PEOPLE look at their 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        // After picking the video it sends it to upload it to the rails app.
 
         // Do any additional setup after loading the view.
     }

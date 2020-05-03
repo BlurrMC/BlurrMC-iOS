@@ -22,5 +22,6 @@ class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // No tab bar for you!
+        // Saves the video to gallery and then uploads that video from gallery. The user doesn't have to pick that they are uploading it from gallery though.
     }
 }

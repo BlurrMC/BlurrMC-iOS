@@ -37,6 +37,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         
         if (username?.isEmpty)! || (password?.isEmpty)! {
             print("Username \(String(describing: username)) or password \(String(describing: password)) is empty")
+            showEmptyAlert()
              
             
             return
@@ -58,13 +59,12 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
         } catch let error { // Catch the VICTORY ROYALE
             print(error.localizedDescription) // I hope it doesn't screw up
-            displayMessage(userMessage: "Something went wrong!") // WHAT DID THE PEOPLE DO?
+            showErrorContactingServer() // WHAT DID THE PEOPLE DO?
             return
         }
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in // error. Error? ERRORRRR???!!??!?!
-            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
             if error != nil {
-                self.displayMessage(userMessage: "Could not contact the server. Try again later.") // LOL probably some kids wifi router in the attic.
+                self.showNoResponseFromServer() // LOL probably some kids wifi router in the attic.
                 print("error=\(String(describing: error))")
                 return
             }
@@ -78,8 +78,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                     if ((errorToken?.isEmpty) == nil) {
                         print("No error")
                     } else {
-                        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                        self.displayMessage(userMessage: "Wrong username or password.")
+                        self.showIncorrectCreds()
                     }
                     let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
                     let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
@@ -91,39 +90,16 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                         appDelegate?.window??.rootViewController = homePage
                     }
                 } else {  // else what?
-                    self.displayMessage(userMessage: "Try again later.") // if If IF IF WHTA??
+                    self.showNoResponseFromServer() // if If IF IF WHTA??
+                    print(error ?? "No warning")
                 }
                 
             } catch {
-                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                self.displayMessage(userMessage: "Error contacting the server. Try again later.")
+                self.showErrorContactingServer()
                 print(error)
             }
         }
         task.resume()
-    }
-    
-    func displayMessage(userMessage:String) -> Void {
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "Alert", message: userMessage, preferredStyle: .alert)  // Oh hi mark!
-            
-            let OKAction = UIAlertAction(title: "OK", style: .default) {
-            (action: UIAlertAction!) in
-            print("Ok button tapped")  // "ok", very funny
-                DispatchQueue.main.sync {
-                    self.dismiss(animated: true, completion: nil)
-                }
-            }
-            alertController.addAction(OKAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
-    
-    func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
-        DispatchQueue.main.async {
-            activityIndicator.stopAnimating()
-            activityIndicator.removeFromSuperview()
-        }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if #available(iOS 13.0, *) {
@@ -139,6 +115,50 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             // Fallback on earlier versions
         }
         return true
+    }
+    func showEmptyAlert() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Alert", message: "The username or password is missing.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    func showErrorContactingServer() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    func showNoResponseFromServer() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    func showIncorrectCreds() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "Wrong username or password.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
     }
     /*
     // MARK: - Navigation

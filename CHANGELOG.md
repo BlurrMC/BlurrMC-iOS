@@ -1,4 +1,6 @@
 # Changelog
+## Unreleased
+* Some design changes
 ## v0.1.5 (PRERELEASE)
 * Added more authentication controllers 
 * Logout feature (with keychain)

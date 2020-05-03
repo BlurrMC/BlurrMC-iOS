@@ -10,9 +10,14 @@ import UIKit
 import SwiftKeychainWrapper
 
 class ChannelViewController: UIViewController { // Look at youself. Look at what you have done.
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let lineView = UIView(frame: CGRect(x: 0, y: 220, width: self.view.frame.size.width, height: 1))
+        lineView.backgroundColor = UIColor.black
+        self.view.addSubview(lineView)
+        
         // Setup the view so you can integerate it right away with the channel api.
     }
     // func loadMemberChannel() {

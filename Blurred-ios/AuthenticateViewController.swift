@@ -80,6 +80,10 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                     } else {
                         self.showIncorrectCreds()
                     }
+                    if ((accessToken?.isEmpty) != nil) {
+                        self.showIncorrectCreds()
+                        print("Wrong creds")
+                    }
                     let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
                     let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
                     print("The access token: \(saveAccessToken)")

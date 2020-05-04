@@ -3,7 +3,7 @@
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)
 * Fixed some bugs with token and id not being saved to keychain
-* Fixed login page bug (not being able to login)
+* Fixed login page bug (not being able to login and keyboard not going down)
 ## v0.1.5 (PRERELEASE)
 * Added more authentication controllers 
 * Logout feature (with keychain)

@@ -1,7 +1,7 @@
 # Changelog
 ## Unreleased
 * Some design changes
-* Added channel avatar, username, and names
+* Added most channel attrbitues that update (except followers and following)
 * Fixed some bugs with token and id not being saved to keychain
 * Fixed login page bug (not being able to login)
 ## v0.1.5 (PRERELEASE)

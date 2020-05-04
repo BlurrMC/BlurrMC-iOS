@@ -1,6 +1,9 @@
 # Changelog
 ## Unreleased
 * Some design changes
+* Added channel avatar, username, and names
+* Fixed some bugs with token and id not being saved to keychain
+* Fixed login page bug (not being able to login)
 ## v0.1.5 (PRERELEASE)
 * Added more authentication controllers 
 * Logout feature (with keychain)

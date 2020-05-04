@@ -10,6 +10,7 @@
 		0D81082D068F71EEEF45F04A /* Pods_Blurred_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAE9BA564235C9D40B2D093 /* Pods_Blurred_ios.framework */; };
 		9781C55A5BAEC9220B261C1E /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
 		D839AE13C55FBB2440896A3B /* Pods_Blurred_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */; };
+		E1039FC524605E6E00B88E6E /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E1039FC424605E6E00B88E6E /* Nuke */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
 		E1884CDD24527A2D001A0AD7 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1884CDC24527A2D001A0AD7 /* GalleryViewController.swift */; };
 		E1CC95432458E2B500ADDDAA /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F9E244F559100E11BF9 /* assets.xcassets */; };
@@ -90,6 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D81082D068F71EEEF45F04A /* Pods_Blurred_ios.framework in Frameworks */,
+				E1039FC524605E6E00B88E6E /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +219,9 @@
 			dependencies = (
 			);
 			name = "Blurred-ios";
+			packageProductDependencies = (
+				E1039FC424605E6E00B88E6E /* Nuke */,
+			);
 			productName = "Blurred-ios";
 			productReference = E1DF6F66244F550300E11BF9 /* Blurred-ios.app */;
 			productType = "com.apple.product-type.application";
@@ -294,6 +299,7 @@
 			mainGroup = E1DF6F5D244F550300E11BF9;
 			packageReferences = (
 				E19F331B245907F800A570F8 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E1039FC324605E6E00B88E6E /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = E1DF6F67244F550300E11BF9 /* Products */;
 			projectDirPath = "";
@@ -787,6 +793,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E1039FC324605E6E00B88E6E /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.4.1;
+			};
+		};
 		E19F331B245907F800A570F8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -796,6 +810,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E1039FC424605E6E00B88E6E /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1039FC324605E6E00B88E6E /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */ = {

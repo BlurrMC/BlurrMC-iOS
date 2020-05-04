@@ -72,7 +72,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
-                    let userId = parseJSON["id"] as? Bool
+                    let userId = parseJSON["id"] as? Int
                     let accessToken = parseJSON["token"] as? String
                     let errorToken = parseJSON["error"] as? String
                     if ((errorToken?.isEmpty) == nil) {
@@ -80,14 +80,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                     } else {
                         self.showIncorrectCreds()
                     }
-                    if ((accessToken?.isEmpty) != nil) {
-                        self.showIncorrectCreds()
-                        print("Wrong creds")
-                    }
                     let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
                     let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
-                    print("The access token: \(saveAccessToken)")
-                    print("The user id: \(saveUserId)")
                     DispatchQueue.main.async {
                         let homePage = self.storyboard?.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
                         let appDelegate = UIApplication.shared.delegate
@@ -95,7 +89,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                     }
                 } else {  // else what?
                     self.showNoResponseFromServer() // if If IF IF WHTA??
-                    print(error ?? "No warning")
+                    print(error ?? "No error")
                 }
                 
             } catch {

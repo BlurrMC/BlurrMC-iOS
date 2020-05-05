@@ -9,7 +9,24 @@
 import UIKit
 import SwiftKeychainWrapper
 
-class FollowerListViewController: UIViewController, UITableViewDelegate {
+class FollowerListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return followers.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        parseFollowers()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
+        tableView.dataSource = self;
+        let follower = followers[indexPath.row]
+        cell.textLabel!.text = follower.username
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        return cell
+
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,31 +34,36 @@ class FollowerListViewController: UIViewController, UITableViewDelegate {
 
         // Do any additional setup after loading the view.
     }
-    struct follower : Decodable {
-        private enum CodingKeys : String, CodingKey {
-            case username = "Username"
+    struct Root: Codable {
+        let followers : FollowerData
+    }
+    struct FollowerData: Codable {
+        enum CodingKeys: String, CodingKey {
+            case username = "username"
         }
         let username : String
     }
     @IBOutlet weak var tableView: UITableView!
-    var followers = [follower]()
+    var followers = [FollowerData]()
     func parseFollowers() {
-        let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
-        let url =  URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")
-        let jsonData = NSData(contentsOf: url!)
-        self.followers = try! JSONDecoder().decode([follower].self, from: jsonData! as Data)
-        self.tableView.reloadData()
+        let decoder = JSONDecoder()
+        do {
+            let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
+            let url =  URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")
+            let jsonData = NSData(contentsOf: url!)
+            let output = try decoder.decode(Root.self, from: jsonData! as Data)
+        } catch {
+            print(error.localizedDescription)
+            showNoResponseFromServer()
+            return
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return followers.count
-    }
-
-    private func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
-      let follower = followers[indexPath.row]
-      cell.textLabel!.text = follower.username
-      return cell
-    }
+    // func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //   return followers.count
+    // }
     func showNoResponseFromServer() {
 
         // create the alert

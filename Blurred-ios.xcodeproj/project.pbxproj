@@ -304,7 +304,6 @@
 			);
 			mainGroup = E1DF6F5D244F550300E11BF9;
 			packageReferences = (
-				E19F331B245907F800A570F8 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E1039FC324605E6E00B88E6E /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = E1DF6F67244F550300E11BF9 /* Products */;
@@ -639,7 +638,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -659,7 +658,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -807,14 +806,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 8.4.1;
-			};
-		};
-		E19F331B245907F800A570F8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

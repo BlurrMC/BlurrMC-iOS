@@ -57,9 +57,10 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         if #available(iOS 13.0, *) {
             let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
             myActivityIndicator.center = view.center
-            myActivityIndicator.hidesWhenStopped = false
+            myActivityIndicator.hidesWhenStopped = true
             myActivityIndicator.startAnimating()
             view.addSubview(myActivityIndicator)
+            
         } else {
             // nothing
         }
@@ -98,9 +99,9 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                     let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
                     let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")  // Ignore these error messages it's just swift being a little baby
                     DispatchQueue.main.async {
-                        let homePage = self.storyboard?.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
-                        let appDelegate = UIApplication.shared.delegate
-                        appDelegate?.window??.rootViewController = homePage
+                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+                        self.present(nextViewController, animated: true, completion: nil)
                     }
                 } else {  // else what?
                     self.showNoResponseFromServer() // if If IF IF WHTA??

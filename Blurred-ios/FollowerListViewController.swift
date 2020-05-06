@@ -7,83 +7,57 @@
 //
 
 import UIKit
+import SwiftUI
 import SwiftKeychainWrapper
+import Alamofire
+import Combine
 
-class FollowerListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return followers.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        parseFollowers()
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
-        tableView.dataSource = self;
-        let follower = followers[indexPath.row]
-        cell.textLabel!.text = follower.username
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        return cell
-
-    }
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        parseFollowers()
-
-        // Do any additional setup after loading the view.
-    }
-    struct Root: Codable {
-        let followers : FollowerData
-    }
-    struct FollowerData: Codable {
-        enum CodingKeys: String, CodingKey {
-            case username = "username"
-        }
-        let username : String
-    }
-    @IBOutlet weak var tableView: UITableView!
-    var followers = [FollowerData]()
-    func parseFollowers() {
-        let decoder = JSONDecoder()
-        do {
-            let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
-            let url =  URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")
-            let jsonData = NSData(contentsOf: url!)
-            let output = try decoder.decode(Root.self, from: jsonData! as Data)
-        } catch {
-            print(error.localizedDescription)
-            showNoResponseFromServer()
-            return
-        }
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    // func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //   return followers.count
-    // }
-    func showNoResponseFromServer() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+struct Root: Codable {
+    let followers : FollowerData
 }
+struct FollowerData: Codable {
+    enum CodingKeys: String, CodingKey {
+        case username = "username"
+    }
+    let username: String
+}
+
+@available(iOS 13.0, *)
+class NetworkManager {
+    var didChange = PassthroughSubject<NetworkManager, Never>()
+    
+    var followers = [FollowerData]() {
+        didSet {
+            didChange.send(self)
+        }
+    }
+    
+    init() {
+        let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
+        guard let url = URL(string: "http://10.0.0.2:3000/api/v1/channels\(userId!).json") else { return }
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            guard let data = data else { return }
+            let followers = try! JSONDecoder().decode([FollowerData].self, from: data)
+            DispatchQueue.main.async {
+                self.followers = followers
+            }
+            print("Completed fetching json")
+        }.resume()
+    }
+}
+
+
+
+struct ContentView : View {
+       @State var networkManager = NetworkManager()
+       var body: some View {
+           NavigationView {
+            List (
+                networkManager.followers, id: \.username
+            ) {
+                Text($0.username)
+            }.navigationBarTitle(Text("Followers"))
+        }
+    }
+}
+

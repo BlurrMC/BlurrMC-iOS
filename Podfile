@@ -7,6 +7,7 @@ target 'Blurred-ios' do
 
   # Pods for Blurred-ios
   pod 'SwiftKeychainWrapper', '~> 3.4'
+  pod 'Alamofire'
   # Pods end
 
   target 'Blurred-iosTests' do

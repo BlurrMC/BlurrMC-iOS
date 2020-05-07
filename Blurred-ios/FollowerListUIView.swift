@@ -1,32 +1,32 @@
 //
-//  FollowerListViewController.swift
+//  FollowerListUIView.swift
 //  Blurred-ios
 //
-//  Created by Martin Velev on 5/4/20.
+//  Created by Martin Velev on 5/6/20.
 //  Copyright © 2020 BlurrMC. All rights reserved.
 //
 
-import UIKit
 import SwiftUI
 import SwiftKeychainWrapper
-import Alamofire
 import Combine
+import Foundation
 
 struct Root: Codable {
-    let followers : FollowerData
+    let followers: [Followers]
 }
-struct FollowerData: Codable {
-    enum CodingKeys: String, CodingKey {
-        case username = "username"
-    }
+struct Followers: Codable {
     let username: String
 }
-
 @available(iOS 13.0, *)
 class NetworkManager {
     var didChange = PassthroughSubject<NetworkManager, Never>()
     
-    var followers = [FollowerData]() {
+    var followers = [Followers]() {
+        didSet {
+            didChange.send(self)
+        }
+    }
+    var root = Root.self {
         didSet {
             didChange.send(self)
         }
@@ -34,12 +34,12 @@ class NetworkManager {
     
     init() {
         let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
-        guard let url = URL(string: "http://10.0.0.2:3000/api/v1/channels\(userId!).json") else { return }
+        guard let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json") else { return }
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             guard let data = data else { return }
-            let followers = try! JSONDecoder().decode([FollowerData].self, from: data)
+            let root = try! JSONDecoder().decode(Root.self, from: data)
             DispatchQueue.main.async {
-                self.followers = followers
+                root.followers
             }
             print("Completed fetching json")
         }.resume()
@@ -48,7 +48,7 @@ class NetworkManager {
 
 
 
-struct ContentView : View {
+struct FollowerListUIView : View {
        @State var networkManager = NetworkManager()
        var body: some View {
            NavigationView {

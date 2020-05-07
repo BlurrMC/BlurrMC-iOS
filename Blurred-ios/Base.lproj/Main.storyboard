@@ -307,7 +307,7 @@
                                     <color key="titleColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ZGj-dC-MBe" kind="show" id="F9J-QU-Fca"/>
+                                    <segue destination="cgv-vr-t76" kind="show" destinationCreationSelector="swiftUIAction:" id="wJS-NQ-5bw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -343,6 +343,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WBt-OF-9Wp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2642.4000000000001" y="-674.21289355322347"/>
+        </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="1K0-Wp-ZA1">
+            <objects>
+                <hostingController modalPresentationStyle="fullScreen" id="cgv-vr-t76" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="hop-S0-SBy"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Why-g4-yS0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2641" y="36"/>
         </scene>
         <!--Follow List View Controller-->
         <scene sceneID="cZB-bS-bu8">
@@ -443,33 +453,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dhq-no-gDy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2642" y="-1410"/>
-        </scene>
-        <!--Follower List View Controller-->
-        <scene sceneID="Zw6-AO-rTy">
-            <objects>
-                <viewController modalPresentationStyle="fullScreen" id="ZGj-dC-MBe" customClass="FollowerListViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="xHo-pe-iTg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" id="3oi-08-W9g">
-                                <rect key="frame" x="16" y="20" width="31" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="arrow.left"/>
-                                <connections>
-                                    <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="kcU-ef-E7O"/>
-                                    <segue destination="49e-Tb-3d3" kind="show" id="1KO-Gm-3fl"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="UcE-Rx-uiK"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="fhp-Aj-Ch2"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0xi-Sx-faZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2640.8000000000002" y="35.532233883058474"/>
         </scene>
         <!--Authenticate Controller-->
         <scene sceneID="lhV-Bk-unT">
@@ -702,7 +685,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="75W-AN-KPT"/>
-        <segue reference="1KO-Gm-3fl"/>
+        <segue reference="MCW-uH-Dve"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="16" height="13"/>

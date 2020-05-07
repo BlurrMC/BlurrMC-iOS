@@ -9,10 +9,14 @@
 import UIKit
 import SwiftKeychainWrapper
 import Nuke
+import SwiftUI
 
 class ChannelViewController: UIViewController { // Look at youself. Look at what you have done.
     
 
+    @IBSegueAction func swiftUIAction(_ coder: NSCoder) -> UIViewController? {
+        return UIHostingController(coder: coder, rootView: FollowerListUIView())
+    }
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!

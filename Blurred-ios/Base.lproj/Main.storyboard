@@ -352,6 +352,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" id="32H-Nc-KMX">
+                                <rect key="frame" x="16" y="20" width="31" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="arrow.left"/>
+                                <connections>
+                                    <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="6Oe-6o-s9l"/>
+                                    <segue destination="49e-Tb-3d3" kind="show" id="wiY-r1-jwt"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0lk-yY-Q0N">
                                 <rect key="frame" x="0.0" y="63" width="375" height="604"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -733,7 +742,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="75W-AN-KPT"/>
-        <segue reference="MCW-uH-Dve"/>
+        <segue reference="wiY-r1-jwt"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="16" height="13"/>

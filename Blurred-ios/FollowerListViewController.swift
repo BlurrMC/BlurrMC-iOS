@@ -22,7 +22,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
     }
     func downloadJson() { // Still not done we need to add the user's butt image
         let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {

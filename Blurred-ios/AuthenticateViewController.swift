@@ -91,6 +91,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                     let userId = parseJSON["id"] as? Int
                     let accessToken = parseJSON["token"] as? String
                     let errorToken = parseJSON["error"] as? String
+                    print(userId)
                     if ((errorToken?.isEmpty) == nil) {
                         print("No error")
                     } else {

@@ -11,25 +11,32 @@ import SwiftKeychainWrapper
 import Combine
 import Foundation
 
-var array = [[String:Any]]()
+
 struct Root: Codable {
-    let followers = (array[0]["followers"] as! [String])[0] // Fucking kill me
+    let followers: [Followers]
 }
-@available(iOS 13.0, *)
+struct Followers: Codable {
+    let followers: String
+    let followerList: FollowerList
+}
+struct FollowerList: Codable {
+    let username: String
+}
+
 class NetworkManager {
     var willChange = PassthroughSubject<NetworkManager, Never>()
     
-    var root:Root {
+    var root = Root.self {
         didSet {
             willChange.send(self)
         }
     }
-    var rot = [Root]() {
+    var followers = Followers.self {
         didSet {
             willChange.send(self)
         }
     }
-    var followers = [Root]() {
+    var followes = [FollowerList]() {
         didSet {
             willChange.send(self)
         }
@@ -39,11 +46,11 @@ class NetworkManager {
         guard let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json") else { return }
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             guard let data = data else { return }
-            let root = try! JSONDecoder().decode(Root.self, from: data)
+            let followes = try! JSONDecoder().decode([FollowerList].self, from: data)
             DispatchQueue.main.async {
-                self.root = root
+                self.followes = followes
             }
-            print(root)
+            print(followes)
             print("Completed fetching json")
         }.resume()
     }
@@ -56,9 +63,9 @@ struct FollowerListUIView : View {
        var body: some View {
            NavigationView {
             List (
-                $networkManager.followers, id: \.followers
+                networkManager.followes, id: \.username
             ) {
-                Text($0.followers)
+                Text($0.username)
             }.navigationBarTitle(Text("username"))
         }
     }

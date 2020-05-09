@@ -307,7 +307,7 @@
                                     <color key="titleColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="cgv-vr-t76" kind="show" destinationCreationSelector="swiftUIAction:" id="wJS-NQ-5bw"/>
+                                    <segue destination="HsG-lV-Nx0" kind="show" id="OF0-da-AHo"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -344,15 +344,63 @@
             </objects>
             <point key="canvasLocation" x="2642.4000000000001" y="-674.21289355322347"/>
         </scene>
-        <!--Hosting Controller-->
-        <scene sceneID="1K0-Wp-ZA1">
+        <!--Follower List View Controller-->
+        <scene sceneID="Sog-Ce-j8Q">
             <objects>
-                <hostingController modalPresentationStyle="fullScreen" id="cgv-vr-t76" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="hop-S0-SBy"/>
-                </hostingController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Why-g4-yS0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController modalPresentationStyle="fullScreen" id="HsG-lV-Nx0" customClass="FollowerListViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PXE-iE-6DG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0lk-yY-Q0N">
+                                <rect key="frame" x="0.0" y="63" width="375" height="604"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowerCell" id="iSr-4v-hs7" customClass="FollowerCell" customModule="Blurred_ios" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iSr-4v-hs7" id="qKf-UB-sSL">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgh-Cz-Gwg">
+                                                    <rect key="frame" x="10" y="11.5" width="89" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="vJ0-JQ-Egy"/>
+                                                        <constraint firstAttribute="width" constant="89" id="y1w-L8-Xzn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Xgh-Cz-Gwg" firstAttribute="centerY" secondItem="qKf-UB-sSL" secondAttribute="centerY" id="2xZ-rd-wYh"/>
+                                                <constraint firstItem="Xgh-Cz-Gwg" firstAttribute="centerX" secondItem="qKf-UB-sSL" secondAttribute="centerX" constant="-133" id="Q9X-xA-OBK"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="followerUsername" destination="Xgh-Cz-Gwg" id="oXG-kF-pQY"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="HsG-lV-Nx0" id="VPV-6P-qIw"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="AQ2-Ed-8Jg"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="w4g-hg-mYD"/>
+                    <connections>
+                        <outlet property="tableView" destination="0lk-yY-Q0N" id="MwV-46-per"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="11j-Fi-dB0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2641" y="36"/>
+            <point key="canvasLocation" x="2640.8000000000002" y="35.532233883058474"/>
         </scene>
         <!--Follow List View Controller-->
         <scene sceneID="cZB-bS-bu8">

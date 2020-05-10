@@ -29,7 +29,9 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
         self.followersLabel.isUserInteractionEnabled = true
         self.followingLabel.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.tapFunction))
+        let tapp = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.tappFunction))
         followersLabel.addGestureRecognizer(tap)
+        followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
         
         // Setup the view so you can integerate it right away with the channel api.
@@ -37,6 +39,9 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         print("tap working")
         goToFollowersList()
+    }
+    @objc func tappFunction(sender:UITapGestureRecognizer) {
+        goToFollowingList()
     }
     func goToFollowersList() {
         let followersListPage = self.storyboard?.instantiateViewController(identifier: "FollowerListViewController") as! FollowerListViewController

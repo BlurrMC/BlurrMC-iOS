@@ -62,9 +62,6 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
             self.id = id
         }
     }
-    func getFollowerAvatar() {
-        
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return followers.count
     }

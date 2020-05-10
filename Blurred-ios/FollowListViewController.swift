@@ -20,6 +20,7 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadJson()
+        tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
     func downloadJson() { // Still not done we need to add the user's butt image

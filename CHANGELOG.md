@@ -2,6 +2,7 @@
 ## Unrelease
 * Added more error handling
 * Some more constraints
+* Removed extra cells from follower and following list
 ## v0.2 (PRERELEASE)
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)

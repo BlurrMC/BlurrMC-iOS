@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "Alamofire",
-        "repositoryURL": "https://github.com/Alamofire/Alamofire",
+        "package": "Nuke",
+        "repositoryURL": "https://github.com/kean/Nuke",
         "state": {
           "branch": null,
-          "revision": "fca036f7aeca07124067cb6e0c12b0ad6359e3d4",
-          "version": "5.1.0"
+          "revision": "6001489d22e5f41a4956c1b6cd4cf7cbe8f44dff",
+          "version": "8.4.1"
         }
       }
     ]

@@ -19,6 +19,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBAction func BackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    func sendSignupCreds() {
+        // Setup the api over here.
+    }
     // Setup the Devise api to accept sign ups through the api. Shouldn't be hard, right?????!
     override func viewDidLoad() {
         super.viewDidLoad()

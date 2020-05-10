@@ -11,8 +11,8 @@ import SwiftKeychainWrapper
 
 class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak internal var usernameTextField: UITextField!
-    @IBOutlet weak internal var passwordTextField: UITextField!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     // CRAP I forgot to declare these until now ^^^
     
     // Has to contact the devise api sending it's credentials to make sure it's good then it sends a token back
@@ -21,17 +21,27 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
-        usernameTextField?.delegate? = self
-        passwordTextField?.delegate? = self
+        usernameTextField?.delegate = self
+        passwordTextField?.delegate = self
         usernameTextField?.tag = 0
         passwordTextField?.tag = 1
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameTextField {
+            textField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            sendCreds()
+        }
+        return true
     }
     @available(iOS 13.0, *)
     @IBAction func SubmitCreds(_ sender: UIButton) {
         sendCreds()
     }
-    @available(iOS 13.0, *)
-    private func sendCreds() {
+  
+    func sendCreds() {
         let username = usernameTextField.text
         let password = passwordTextField.text
         
@@ -43,11 +53,17 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             return
         }
         // MAKE THE PEOPLE WAIT GOD DAMN IT
-        let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
+        
+        if #available(iOS 13.0, *) {
+            let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+            myActivityIndicator.center = view.center
+            myActivityIndicator.hidesWhenStopped = true
+            myActivityIndicator.startAnimating()
+            view.addSubview(myActivityIndicator)
+            
+        } else {
+            // nothing
+        }
         // Contact the server about the people ^ (if u don't they gonna be sad)
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/sessions.json")
         var request = URLRequest(url:myUrl!)
@@ -72,26 +88,25 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
-                    let userId = parseJSON["id"] as? Bool
+                    let userId = parseJSON["id"] as? Int
                     let accessToken = parseJSON["token"] as? String
                     let errorToken = parseJSON["error"] as? String
+                    print(userId)
                     if ((errorToken?.isEmpty) == nil) {
                         print("No error")
                     } else {
                         self.showIncorrectCreds()
                     }
                     let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
-                    let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")
-                    print("The access token: \(saveAccessToken)")
-                    print("The user id: \(saveUserId)")
+                    let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")  // Ignore these error messages it's just swift being a little baby
                     DispatchQueue.main.async {
-                        let homePage = self.storyboard?.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
-                        let appDelegate = UIApplication.shared.delegate
-                        appDelegate?.window??.rootViewController = homePage
+                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+                        self.present(nextViewController, animated: true, completion: nil)
                     }
                 } else {  // else what?
                     self.showNoResponseFromServer() // if If IF IF WHTA??
-                    print(error ?? "No warning")
+                    print(error ?? "No error")
                 }
                 
             } catch {
@@ -100,21 +115,6 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             }
         }
         task.resume()
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if #available(iOS 13.0, *) {
-            if textField == usernameTextField {
-                textField.resignFirstResponder()
-                passwordTextField.becomeFirstResponder()
-            } else if textField == passwordTextField {
-                textField.resignFirstResponder()
-            } else {
-                sendCreds()
-            }
-        } else {
-            // Fallback on earlier versions
-        }
-        return true
     }
     func showEmptyAlert() {
 
@@ -160,14 +160,5 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         // show the alert
         self.present(alert, animated: true, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

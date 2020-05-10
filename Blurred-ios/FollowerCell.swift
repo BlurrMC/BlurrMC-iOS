@@ -16,6 +16,8 @@ class FollowerCell: UITableViewCell {
     }
 
     
+    @IBOutlet weak var followerAvatar: UIImageView!
+    @IBOutlet weak var followerName: UILabel!
     @IBOutlet weak var followerUsername: UILabel!
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

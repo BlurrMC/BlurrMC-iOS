@@ -363,27 +363,38 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowerCell" id="iSr-4v-hs7" customClass="FollowerCell" customModule="Blurred_ios" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iSr-4v-hs7" id="qKf-UB-sSL">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iSr-4v-hs7" id="qKf-UB-sSL">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgh-Cz-Gwg">
-                                                    <rect key="frame" x="10" y="11.5" width="89" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="vJ0-JQ-Egy"/>
-                                                        <constraint firstAttribute="width" constant="89" id="y1w-L8-Xzn"/>
-                                                    </constraints>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LME-co-Swz">
+                                                    <rect key="frame" x="15" y="4" width="35" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="16"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcW-b6-jlh">
+                                                    <rect key="frame" x="58" y="2" width="150" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgh-Cz-Gwg">
+                                                    <rect key="frame" x="58" y="22" width="150" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Xgh-Cz-Gwg" firstAttribute="centerY" secondItem="qKf-UB-sSL" secondAttribute="centerY" id="2xZ-rd-wYh"/>
-                                                <constraint firstItem="Xgh-Cz-Gwg" firstAttribute="centerX" secondItem="qKf-UB-sSL" secondAttribute="centerX" constant="-133" id="Q9X-xA-OBK"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="followerAvatar" destination="LME-co-Swz" id="mPh-Vr-fQX"/>
+                                            <outlet property="followerName" destination="jcW-b6-jlh" id="SKq-wz-89g"/>
                                             <outlet property="followerUsername" destination="Xgh-Cz-Gwg" id="oXG-kF-pQY"/>
                                         </connections>
                                     </tableViewCell>
@@ -736,7 +747,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="75W-AN-KPT"/>
-        <segue reference="MCW-uH-Dve"/>
+        <segue reference="wiY-r1-jwt"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="16" height="13"/>

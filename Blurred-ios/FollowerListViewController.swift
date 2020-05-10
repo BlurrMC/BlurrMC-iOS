@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import Nuke
 
 class FollowerListViewController: UIViewController, UITableViewDataSource {
     
@@ -50,9 +51,16 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
     }
     class Follower: Codable {
         let username: String
-        init(username: String) {
+        let name: String
+        let id: Int
+        init(username: String, name: String, id: Int) {
             self.username = username
+            self.name = name
+            self.id = id
         }
+    }
+    func getFollowerAvatar() {
+        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return followers.count
@@ -61,9 +69,59 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell") as? FollowerCell else { return UITableViewCell() }
         cell.followerUsername.text = followers[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
+        cell.followerName.text = followers[indexPath.row].name
+        let Id: Int? = followers[indexPath.row].id
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                self.showErrorContactingServer()
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let imageUrl: String? = parseJSON["image_url"] as? String
+                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/public/default-avatar-3")")
+                    DispatchQueue.main.async {
+                        Nuke.loadImage(with: railsUrl!, into: cell.followerAvatar)
+                        }
+                } else {
+                    self.showErrorContactingServer()
+                    print(error ?? "No error")
+                }
+            } catch {
+                    self.showNoResponseFromServer()
+                    print(error)
+                }
+        }
+        task.resume()
         return cell
     }
-    
+    func showErrorContactingServer() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    func showNoResponseFromServer() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

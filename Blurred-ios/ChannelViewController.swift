@@ -13,18 +13,42 @@ import SwiftUI
 
 class ChannelViewController: UIViewController { // Look at youself. Look at what you have done.
     
+    
 
+    @IBOutlet weak var followersLabel: UILabel!
+    @IBOutlet weak var followingLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let lineView = UIView(frame: CGRect(x: 0, y: 220, width: self.view.frame.size.width, height: 1))
         lineView.backgroundColor = UIColor.black
         self.view.addSubview(lineView)
+        self.followersLabel.isUserInteractionEnabled = true
+        self.followingLabel.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.tapFunction))
+        followersLabel.addGestureRecognizer(tap)
         loadMemberChannel()
         
         // Setup the view so you can integerate it right away with the channel api.
+    }
+    @objc func tapFunction(sender:UITapGestureRecognizer) {
+        print("tap working")
+        goToFollowersList()
+    }
+    func goToFollowersList() {
+        let followersListPage = self.storyboard?.instantiateViewController(identifier: "FollowerListViewController") as! FollowerListViewController
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = followersListPage
+        self.present(followersListPage, animated:true, completion:nil)
+    }
+    func goToFollowingList() {
+        let followeringListPage = self.storyboard?.instantiateViewController(identifier: "FollowListViewController") as! FollowListViewController
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = followeringListPage
+        self.present(followeringListPage, animated:true, completion:nil)
     }
     func loadMemberChannel() {
         let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
@@ -40,15 +64,30 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
+                    let username: String? = parseJSON["username"] as? String
+                    let name: String? = parseJSON["name"] as? String
+                    let imageUrl: String? = parseJSON["image_url"] as? String
+                    let followerCount: Int? = parseJSON["followers_count"] as? Int
+                    let followingCount: Int? = parseJSON["following_count"] as? Int
+                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/public/default-avatar-3")")
                     DispatchQueue.main.async {
-                        let username: String? = parseJSON["username"] as? String
-                        let name: String? = parseJSON["name"] as? String
-                        let imageUrl: String? = parseJSON["image_url"] as? String
                         if username?.isEmpty != true && name?.isEmpty != true {
                             self.usernameLabel.text = username!
                             self.nameLabel.text = name!
+                        } else {
+                            self.showNoResponseFromServer()
                         }
-                        let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/public/default-avatar-3")")
+                        print(followerCount ?? "none")
+                        if followerCount != 0 {
+                            self.followersLabel.text = "\(followerCount ?? 0)"
+                        } else {
+                            self.followersLabel.text = "0"
+                        }
+                        if followingCount != 0 {
+                            self.followingLabel.text = "\(followingCount ?? 0)"
+                        } else {
+                            self.followingLabel.text = "0"
+                        }
                         Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
                         }
                 } else {

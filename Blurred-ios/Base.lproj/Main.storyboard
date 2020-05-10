@@ -282,50 +282,42 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwJ-ah-GbU">
-                                <rect key="frame" x="321" y="113" width="30" height="34"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPa-fX-Vjp">
+                                <rect key="frame" x="327" y="118.5" width="16" height="27.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="1XK-4h-bfI"/>
-                                    <constraint firstAttribute="height" constant="34" id="GeH-cX-eWq"/>
+                                    <constraint firstAttribute="width" constant="16" id="5Ia-ZP-Fvs"/>
+                                    <constraint firstAttribute="height" constant="27.5" id="FNE-4b-iqt"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="0">
-                                    <color key="titleColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="bz6-2B-Bru" kind="show" id="7JH-XM-hig"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvc-h8-ifD">
-                                <rect key="frame" x="250" y="113" width="30" height="34"/>
+                                <color key="textColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxn-mI-3dZ">
+                                <rect key="frame" x="257" y="119" width="16" height="26.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="1pA-b8-fss"/>
-                                    <constraint firstAttribute="height" constant="34" id="mz8-0I-h4g"/>
+                                    <constraint firstAttribute="width" constant="16" id="3Wv-LA-n4Z"/>
+                                    <constraint firstAttribute="height" constant="26.5" id="uRy-Ry-UAF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="0">
-                                    <color key="titleColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="HsG-lV-Nx0" kind="show" id="OF0-da-AHo"/>
-                                </connections>
-                            </button>
+                                <color key="textColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="hvc-h8-ifD" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="77.5" id="8Zh-Pf-0iD"/>
-                            <constraint firstItem="gwJ-ah-GbU" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-193.5" id="CG7-F4-6TO"/>
+                            <constraint firstItem="jPa-fX-Vjp" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="147.5" id="3DV-wG-20I"/>
                             <constraint firstItem="CWO-bg-LiG" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="-10" id="OEv-pJ-TIb"/>
                             <constraint firstItem="CWO-bg-LiG" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-218.5" id="Q9I-6z-H46"/>
                             <constraint firstItem="n4T-sG-LtN" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" id="Rhk-GV-4G3"/>
                             <constraint firstItem="i6n-qU-tOq" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-164.5" id="ZDr-3t-gJC"/>
                             <constraint firstItem="bcx-Is-Y37" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-164.5" id="bf9-Ch-QR6"/>
                             <constraint firstItem="LQW-7F-FtJ" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-191" id="cnM-e4-kUO"/>
+                            <constraint firstItem="jPa-fX-Vjp" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-191.5" id="eg7-bF-dyv"/>
+                            <constraint firstItem="Vxn-mI-3dZ" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="77.5" id="gRR-nZ-uqu"/>
                             <constraint firstItem="CaP-ep-KB9" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="77.5" id="iCB-yg-Tcj"/>
                             <constraint firstItem="CaP-ep-KB9" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-164.5" id="jWr-k4-H7n"/>
-                            <constraint firstItem="hvc-h8-ifD" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-193.5" id="t1P-WO-SSL"/>
+                            <constraint firstItem="Vxn-mI-3dZ" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-191.5" id="kJV-Xn-koi"/>
                             <constraint firstItem="n4T-sG-LtN" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" id="v1y-kV-MOy"/>
-                            <constraint firstItem="gwJ-ah-GbU" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="148.5" id="vRT-Cu-4kq"/>
                             <constraint firstItem="LQW-7F-FtJ" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="-125" id="xDk-F7-YGl"/>
                             <constraint firstItem="bcx-Is-Y37" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="-10" id="yWR-CS-YfK"/>
                             <constraint firstItem="i6n-qU-tOq" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="148.5" id="z1E-te-iwh"/>
@@ -336,6 +328,8 @@
                     <navigationItem key="navigationItem" id="wjm-3M-2dI"/>
                     <connections>
                         <outlet property="avatarImage" destination="LQW-7F-FtJ" id="2Yd-bE-Nto"/>
+                        <outlet property="followersLabel" destination="Vxn-mI-3dZ" id="0UB-in-L67"/>
+                        <outlet property="followingLabel" destination="jPa-fX-Vjp" id="l9Q-Rn-lZI"/>
                         <outlet property="nameLabel" destination="CWO-bg-LiG" id="MLb-eP-swY"/>
                         <outlet property="usernameLabel" destination="bcx-Is-Y37" id="Ojz-Q0-mdp"/>
                     </connections>
@@ -347,7 +341,7 @@
         <!--Follower List View Controller-->
         <scene sceneID="Sog-Ce-j8Q">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="HsG-lV-Nx0" customClass="FollowerListViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowerListViewController" modalPresentationStyle="fullScreen" id="HsG-lV-Nx0" customClass="FollowerListViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PXE-iE-6DG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -414,7 +408,7 @@
         <!--Follow List View Controller-->
         <scene sceneID="cZB-bS-bu8">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="bz6-2B-Bru" customClass="FollowListViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowListViewController" modalPresentationStyle="fullScreen" id="bz6-2B-Bru" customClass="FollowListViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dvd-yT-fms">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -742,7 +736,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="75W-AN-KPT"/>
-        <segue reference="wiY-r1-jwt"/>
+        <segue reference="MCW-uH-Dve"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="16" height="13"/>

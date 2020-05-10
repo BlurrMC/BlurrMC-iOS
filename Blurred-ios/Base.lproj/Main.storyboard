@@ -117,6 +117,7 @@
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
                                     <action selector="recordBackButton:" destination="bMe-qO-UEv" eventType="touchUpInside" id="tXA-PL-lQx"/>
+                                    <segue destination="49e-Tb-3d3" kind="show" id="Bvt-h1-M8t"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ziz-ew-ZSm">
@@ -742,6 +743,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Bvt-h1-M8t"/>
         <segue reference="rna-Y0-bYD"/>
     </inferredMetricsTieBreakers>
     <resources>

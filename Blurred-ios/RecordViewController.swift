@@ -18,6 +18,8 @@ class RecordViewController: UIViewController {
     @IBAction func recordButtonPress(_ sender: Any) {
     }
     @IBAction func recordBackButton(_ sender: Any) {
+        // We can't have the dismiss because it brings you back to the authentication page to sign you in.
+        // We could just implement a token when loading back into the tab bar section....
     }
     override func viewDidLoad() {
         super.viewDidLoad()

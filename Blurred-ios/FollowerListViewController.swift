@@ -12,6 +12,9 @@ import Nuke
 
 class FollowerListViewController: UIViewController, UITableViewDataSource {
     
+    @IBAction func backButtonClicked(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     private var followers = [Follower]()
     
     @IBOutlet weak var tableView: UITableView!

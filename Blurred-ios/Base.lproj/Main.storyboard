@@ -12,11 +12,11 @@
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" title="Home" modalPresentationStyle="fullScreen" id="9pv-A4-QxB" userLabel="Home Controller" customClass="HomeViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-z3-GDW">
-                                <rect key="frame" x="164.5" y="313" width="46" height="21"/>
+                                <rect key="frame" x="164.5" y="323" width="46" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -41,11 +41,11 @@
             <objects>
                 <viewController title="Search" modalPresentationStyle="fullScreen" id="8rJ-Kc-sve" userLabel="Search Controller" customClass="SearchViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aj2-Tl-s1c">
-                                <rect key="frame" x="160.5" y="313" width="54" height="21"/>
+                                <rect key="frame" x="160.5" y="323" width="54" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="54" id="Hbx-Wo-go3"/>
                                     <constraint firstAttribute="height" constant="21" id="ykL-99-AFa"/>
@@ -55,7 +55,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="mkw-xo-Qlp">
-                                <rect key="frame" x="0.0" y="12" width="375" height="56"/>
+                                <rect key="frame" x="0.0" y="22" width="375" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="M7O-YD-YUu"/>
                                     <constraint firstAttribute="height" constant="56" id="yuF-jm-isa"/>
@@ -117,7 +117,6 @@
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
                                     <action selector="recordBackButton:" destination="bMe-qO-UEv" eventType="touchUpInside" id="tXA-PL-lQx"/>
-                                    <segue destination="49e-Tb-3d3" kind="show" id="Dy8-j9-zb3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ziz-ew-ZSm">
@@ -177,11 +176,11 @@
             <objects>
                 <viewController title="Notifications" modalPresentationStyle="fullScreen" id="dSR-fU-uzR" userLabel="Notifications Controller" customClass="NotificationsViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rRW-pu-cP6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSO-lv-W78">
-                                <rect key="frame" x="139" y="313" width="97" height="21"/>
+                                <rect key="frame" x="139" y="323" width="97" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="3mz-fa-ewR"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" id="QAL-OR-BKP"/>
@@ -209,11 +208,11 @@
             <objects>
                 <viewController title="Channel" modalPresentationStyle="fullScreen" id="xBp-jV-MSv" userLabel="Channel Controller" customClass="ChannelViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tn3-A8-y1F">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4T-sG-LtN">
-                                <rect key="frame" x="156" y="313" width="63" height="21"/>
+                                <rect key="frame" x="156" y="323" width="63" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="63" id="d3h-Lg-Bmo"/>
                                     <constraint firstAttribute="height" constant="21" id="tve-dD-RwR"/>
@@ -231,7 +230,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LQW-7F-FtJ">
-                                <rect key="frame" x="10" y="80" width="105" height="105"/>
+                                <rect key="frame" x="10" y="90" width="105" height="105"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="105" id="Ehc-Gt-fal"/>
                                     <constraint firstAttribute="width" constant="105" id="WTY-n5-kA6"/>
@@ -243,7 +242,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcx-Is-Y37">
-                                <rect key="frame" x="122.5" y="149" width="110" height="20"/>
+                                <rect key="frame" x="122.5" y="159" width="110" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="W5M-5M-Q1K"/>
                                     <constraint firstAttribute="width" constant="110" id="eAo-XW-PYA"/>
@@ -253,7 +252,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-bg-LiG">
-                                <rect key="frame" x="122.5" y="95" width="110" height="20"/>
+                                <rect key="frame" x="122.5" y="105" width="110" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="Bbh-je-Va7"/>
                                     <constraint firstAttribute="height" constant="20" id="eaK-F8-82l"/>
@@ -263,7 +262,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CaP-ep-KB9">
-                                <rect key="frame" x="240" y="152" width="50" height="14"/>
+                                <rect key="frame" x="240" y="162" width="50" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="71N-8D-ecC"/>
                                     <constraint firstAttribute="height" constant="14" id="f9j-tW-v4L"/>
@@ -273,7 +272,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Following" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6n-qU-tOq">
-                                <rect key="frame" x="311" y="152" width="50" height="14"/>
+                                <rect key="frame" x="311" y="162" width="50" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="0ZC-He-23E"/>
                                     <constraint firstAttribute="height" constant="14" id="jQk-wL-Oad"/>
@@ -283,7 +282,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPa-fX-Vjp">
-                                <rect key="frame" x="327" y="118.5" width="16" height="27.5"/>
+                                <rect key="frame" x="327" y="128.5" width="16" height="27.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="5Ia-ZP-Fvs"/>
                                     <constraint firstAttribute="height" constant="27.5" id="FNE-4b-iqt"/>
@@ -293,7 +292,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxn-mI-3dZ">
-                                <rect key="frame" x="257" y="119" width="16" height="26.5"/>
+                                <rect key="frame" x="257" y="129" width="16" height="26.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="3Wv-LA-n4Z"/>
                                     <constraint firstAttribute="height" constant="26.5" id="uRy-Ry-UAF"/>
@@ -351,8 +350,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
+                                    <action selector="backButtonClicked:" destination="HsG-lV-Nx0" eventType="touchUpInside" id="kTl-zm-GZ5"/>
                                     <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="6Oe-6o-s9l"/>
-                                    <segue destination="49e-Tb-3d3" kind="show" id="wiY-r1-jwt"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0lk-yY-Q0N">
@@ -429,8 +428,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
+                                    <action selector="backButtonTapped:" destination="bz6-2B-Bru" eventType="touchUpInside" id="6cv-Jm-ykn"/>
                                     <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="4w1-7P-nDM"/>
-                                    <segue destination="49e-Tb-3d3" kind="show" id="MCW-uH-Dve"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -457,7 +456,6 @@
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
                                     <action selector="galleryBackButton:" destination="bfo-AO-8I8" eventType="touchUpInside" id="Aq0-wY-hyF"/>
-                                    <segue destination="bMe-qO-UEv" kind="show" id="75W-AN-KPT"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -484,7 +482,6 @@
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
                                     <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="Zgt-3M-UV0"/>
-                                    <segue destination="49e-Tb-3d3" kind="show" id="gBJ-B1-zaP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rrs-sq-ymG">
@@ -746,8 +743,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="rna-Y0-bYD"/>
-        <segue reference="75W-AN-KPT"/>
-        <segue reference="wiY-r1-jwt"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="16" height="13"/>

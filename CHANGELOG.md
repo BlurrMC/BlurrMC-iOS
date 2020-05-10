@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## v0.2 (PRERELEASE)
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)
 * Fixed some bugs with token and id not being saved to keychain

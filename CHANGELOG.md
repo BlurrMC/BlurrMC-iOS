@@ -1,4 +1,7 @@
 # Changelog
+## Unrelease
+* Added more error handling
+* Some more constraints
 ## v0.2 (PRERELEASE)
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)

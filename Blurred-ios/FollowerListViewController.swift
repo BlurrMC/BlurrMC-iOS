@@ -30,7 +30,9 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
-                print("uh oh")
+                DispatchQueue.main.async {
+                    self.showNoResponseFromServer()
+                }
                 return
             }
             print("I got the data")
@@ -42,6 +44,9 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
                     self.tableView.reloadData()
                 }
             } catch {
+                DispatchQueue.main.async {
+                    self.showErrorContactingServer() // f
+                }
                 print("You have no followers go die.")
             }
         }.resume()
@@ -76,7 +81,9 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
-                self.showErrorContactingServer()
+                DispatchQueue.main.async {
+                    self.showErrorContactingServer()
+                }
                 return
             }
             
@@ -89,12 +96,16 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
                         Nuke.loadImage(with: railsUrl!, into: cell.followerAvatar)
                         }
                 } else {
-                    self.showErrorContactingServer()
+                    DispatchQueue.main.async {
+                        self.showErrorContactingServer()
+                    }
                     print(error ?? "No error")
                 }
             } catch {
+                DispatchQueue.main.async {
                     self.showNoResponseFromServer()
-                    print(error)
+                }
+                print(error)
                 }
         }
         task.resume()

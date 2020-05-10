@@ -28,6 +28,9 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
+                DispatchQueue.main.async {
+                    self.showNoResponseFromServer()
+                }
                 print("uh oh")
                 return
             }
@@ -75,7 +78,9 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
-                self.showErrorContactingServer()
+                DispatchQueue.main.async {
+                    self.showErrorContactingServer()
+                }
                 return
             }
             do {
@@ -85,14 +90,18 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/public/default-avatar-3")")
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl!, into: cell.followingAvatar)
-                        }
+                    }
                 } else {
-                    self.showErrorContactingServer()
+                    DispatchQueue.main.async {
+                        self.showErrorContactingServer()
+                    }
                     print(error ?? "No error")
                 }
             } catch {
+                DispatchQueue.main.async {
                     self.showNoResponseFromServer()
-                    print(error)
+                }
+                print(error)
                 }
         }
         task.resume()

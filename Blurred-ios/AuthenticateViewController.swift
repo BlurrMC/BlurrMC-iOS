@@ -56,6 +56,14 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             return
         }
         // MAKE THE PEOPLE WAIT GOD DAMN ITz
+        let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = true
+        myActivityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.view.addSubview(myActivityIndicator)
+        }
+
         // Contact the server about the people ^ (if u don't they gonna be sad)
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/sessions.json")
         var request = URLRequest(url:myUrl!)
@@ -92,24 +100,28 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                         print("No error")
                     } else {
                         DispatchQueue.main.async {
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                             self.showIncorrectCreds()
                         }
                     }
                     let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
                     let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")  // Ignore these error messages it's just swift being a little baby
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     DispatchQueue.main.async {
                         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                         let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
                         self.present(nextViewController, animated: true, completion: nil)
                     }
                 } else {  // else what?
+                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     DispatchQueue.main.async {
                         self.showNoResponseFromServer()
-                    } // if If IF IF WHTA??
+                    } // if If IF IF WHTA?
                     print(error ?? "No error")
                 }
                 
             } catch {
+                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                 DispatchQueue.main.async {
                     self.showErrorContactingServer()
                 }
@@ -117,6 +129,12 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             }
         }
         task.resume()
+    }
+    func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
+        DispatchQueue.main.async {
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        }
     }
     func showEmptyAlert() {
 
@@ -154,7 +172,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     func showIncorrectCreds() {
 
         // create the alert
-        let alert = UIAlertController(title: "Error", message: "Wrong username or password.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Alert", message: "Wrong username or password.", preferredStyle: UIAlertController.Style.alert)
 
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))

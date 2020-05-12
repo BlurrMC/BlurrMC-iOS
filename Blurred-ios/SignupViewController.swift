@@ -45,7 +45,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        let postString = ["name": nameTextField.text!, "username": usernameTextField.text!, "email": emailTextField.text!, "password": passwordTextField.text!, "confirmation-password": confirmPasswordTextField.text!] as [String: String]
+        let postString = ["user":["name": nameTextField.text!, "username": usernameTextField.text!, "email": emailTextField.text!, "password": passwordTextField.text!, "confirmation-password": confirmPasswordTextField.text!]] as [String:[String: String]] // Missing params missing whatever i hate you go die
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
         } catch let error {

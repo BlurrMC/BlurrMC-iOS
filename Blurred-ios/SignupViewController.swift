@@ -143,7 +143,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     func showConfirmPasswordDoesNotMatch() {
         DispatchQueue.main.async {
             // create the alert
-            let alert = UIAlertController(title: "Alert", message: "You must fill out all the fields.", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "Alert", message: "Your confirmation password does not enter the one you have entered.", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))

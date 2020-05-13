@@ -1,4 +1,13 @@
 # Changelog
+## Unrelease
+* Added more error handling
+* Some more constraints
+* Removed extra cells from follower and following list
+* Added acitvity indicator
+* Improved error handling
+* Added functioning json post request sender.
+* Signing up now works through the app
+* Fixed the default avatar
 ## v0.2 (PRERELEASE)
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)

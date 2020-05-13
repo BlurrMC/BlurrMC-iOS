@@ -21,6 +21,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadJson()
+        tableView.tableFooterView = UIView()
 
         // Do any additional setup after loading the view.
     }
@@ -30,7 +31,9 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
-                print("uh oh")
+                DispatchQueue.main.async {
+                    self.showNoResponseFromServer()
+                }
                 return
             }
             print("I got the data")
@@ -42,6 +45,9 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
                     self.tableView.reloadData()
                 }
             } catch {
+                DispatchQueue.main.async {
+                    self.showErrorContactingServer() // f
+                }
                 print("You have no followers go die.")
             }
         }.resume()
@@ -76,7 +82,9 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
-                self.showErrorContactingServer()
+                DispatchQueue.main.async {
+                    self.showErrorContactingServer()
+                }
                 return
             }
             
@@ -84,17 +92,21 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let imageUrl: String? = parseJSON["image_url"] as? String
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/public/default-avatar-3")")
+                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl!, into: cell.followerAvatar)
                         }
                 } else {
-                    self.showErrorContactingServer()
+                    DispatchQueue.main.async {
+                        self.showErrorContactingServer()
+                    }
                     print(error ?? "No error")
                 }
             } catch {
+                DispatchQueue.main.async {
                     self.showNoResponseFromServer()
-                    print(error)
+                }
+                print(error)
                 }
         }
         task.resume()

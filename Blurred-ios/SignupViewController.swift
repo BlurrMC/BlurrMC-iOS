@@ -21,6 +21,76 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     func sendSignupCreds() {
         // Setup the api over here.
+        if (nameTextField.text?.isEmpty)! ||
+            (usernameTextField.text?.isEmpty)! ||
+            (emailTextField.text?.isEmpty)! ||
+            (passwordTextField.text?.isEmpty)! ||
+            (confirmPasswordTextField.text?.isEmpty)! {
+            self.showEmptyFields()
+            return
+        }
+        if ((passwordTextField.text?.elementsEqual(confirmPasswordTextField.text!))! != true) {
+            self.showConfirmPasswordDoesNotMatch()
+            return // YA YA YA Y A YA
+        }
+        let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = true
+        myActivityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.view.addSubview(myActivityIndicator)
+        }
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/registrations.json")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let postString = ["user":["name": nameTextField.text!, "username": usernameTextField.text!, "email": emailTextField.text!, "password": passwordTextField.text!, "confirmation-password": confirmPasswordTextField.text!]] as [String:[String: String]] // Missing params missing whatever i hate you go die
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
+        } catch let error {
+            self.showErrorContactingServer()
+            print(error.localizedDescription)
+        }
+        let task = URLSession.shared.dataTask(with: request) { (Data, URLResponse, Error) in
+            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+            if Error != nil {
+                self.showErrorContactingServer()
+                print("error=\(String(describing: Error))")
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: Data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let userId = parseJSON["userId"] as? String
+                    print("User Id: \(String(describing: userId))")
+                    if (userId?.isEmpty)! {
+                        self.showErrorContactingServer()
+                        return
+                    } else {
+                        self.showRegisterComplete()
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true, completion: nil) 
+                        }
+                    }
+                } else {
+                    self.showErrorContactingServer()
+                }
+            } catch {
+                self.showErrorContactingServer()
+                print(error)
+            }
+        }
+        task.resume()
+    }
+    func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
+        DispatchQueue.main.async {
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        }
+    }
+    @IBAction func signUpButtonTapped(_ sender: Any) {
+        sendSignupCreds()
     }
     // Setup the Devise api to accept sign ups through the api. Shouldn't be hard, right?????!
     override func viewDidLoad() {
@@ -59,17 +129,53 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-    
-    
+    func showEmptyFields() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Alert", message: "You must fill out all the fields.", preferredStyle: UIAlertController.Style.alert)
 
-    /*
-    // MARK: - Navigation
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
     }
-    */
+    func showConfirmPasswordDoesNotMatch() {
+        DispatchQueue.main.async {
+            // create the alert
+            let alert = UIAlertController(title: "Alert", message: "Your confirmation password does not enter the one you have entered.", preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func showErrorContactingServer() {
+        DispatchQueue.main.async {
+            // create the alert
+            let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func showRegisterComplete() {
+        DispatchQueue.main.async {
+            // create the alert
+            let alert = UIAlertController(title: "Success", message: "Your new account has been registered. Go to your email to confirm it.", preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
 
 }

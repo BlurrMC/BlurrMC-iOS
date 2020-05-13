@@ -74,7 +74,7 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
                     let imageUrl: String? = parseJSON["image_url"] as? String
                     let followerCount: Int? = parseJSON["followers_count"] as? Int
                     let followingCount: Int? = parseJSON["following_count"] as? Int
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/public/default-avatar-3")")
+                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                     DispatchQueue.main.async {
                         if username?.isEmpty != true && name?.isEmpty != true {
                             self.usernameLabel.text = username!

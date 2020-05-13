@@ -92,7 +92,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let imageUrl: String? = parseJSON["image_url"] as? String
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/public/default-avatar-3")")
+                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl!, into: cell.followerAvatar)
                         }

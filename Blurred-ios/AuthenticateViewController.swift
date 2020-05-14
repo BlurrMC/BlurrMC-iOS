@@ -104,13 +104,19 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                             self.showIncorrectCreds()
                         }
                     }
-                    let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
-                    let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")  // Ignore these error messages it's just swift being a little baby
-                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                    DispatchQueue.main.async {
-                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
-                        self.present(nextViewController, animated: true, completion: nil)
+                    if accessToken?.isEmpty == nil {
+                        DispatchQueue.main.async {
+                            self.showIncorrectCreds()
+                        }
+                    } else {
+                        let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
+                        let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")  // Ignore these error messages it's just swift being a little baby
+                        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        DispatchQueue.main.async {
+                            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+                            self.present(nextViewController, animated: true, completion: nil)
+                        }
                     }
                 } else {  // else what?
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)

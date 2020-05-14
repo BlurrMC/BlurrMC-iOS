@@ -31,22 +31,6 @@
       "filename" : "my_channel_dark-60.png",
       "idiom" : "universal",
       "scale" : "2x"
-    },
-    {
-      "filename" : "my_channel_light-30.png",
-      "idiom" : "universal",
-      "scale" : "3x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "my_channel_dark-30.png",
-      "idiom" : "universal",
-      "scale" : "3x"
     }
   ],
   "info" : {

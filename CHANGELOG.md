@@ -9,6 +9,7 @@
 * Signing up now works through the app
 * Fixed the default avatar
 * Fixed api url
+* Added api fetching (10 second interval)
 ## v0.2 (PRERELEASE)
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)

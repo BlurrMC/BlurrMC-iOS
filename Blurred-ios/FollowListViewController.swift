@@ -12,6 +12,7 @@ import Nuke
 
 class FollowListViewController: UIViewController, UITableViewDataSource {
     private var followings = [Following]()
+    var timer = Timer()
 
     @IBOutlet weak var tableView: UITableView!
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -21,7 +22,12 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
+        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view.
+    }
+    @objc func timerAction() {
+        print("timer activated")
+        downloadJson()
     }
     func downloadJson() { // Still not done we need to add the user's butt image
         let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")

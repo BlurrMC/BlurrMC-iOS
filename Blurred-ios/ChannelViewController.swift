@@ -20,6 +20,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+    var timer = Timer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
-        
+        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Setup the view so you can integerate it right away with the channel api.
     }
     @objc func imageTapped(gesture: UIGestureRecognizer) {
@@ -46,6 +47,10 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             pickAvatar()
 
         }
+    }
+    @objc func timerAction() {
+        print("timer activated")
+        loadMemberChannel()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         print("tap working")

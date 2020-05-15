@@ -10,6 +10,7 @@
 * Fixed the default avatar
 * Fixed api url
 * Added api fetching (10 second interval)
+* Changed SwiftKeychainWrapper to Valet (Should fix the keychain issue)
 ## v0.2 (PRERELEASE)
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)

@@ -6,7 +6,7 @@ target 'Blurred-ios' do
   use_frameworks!
 
   # Pods for Blurred-ios
-  pod 'SwiftKeychainWrapper', '~> 3.4'
+  pod 'Valet'
   pod 'Alamofire'
   # Pods end
 

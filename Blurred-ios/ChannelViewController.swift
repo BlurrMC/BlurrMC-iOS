@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
+import Valet
 import Nuke
 import SwiftUI
 
@@ -21,6 +21,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
     var timer = Timer()
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +74,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         self.present(followeringListPage, animated:true, completion:nil)
     }
     func loadMemberChannel() {
-        let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
+        let userId: String?  = myValet.string(forKey: "Id")
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"

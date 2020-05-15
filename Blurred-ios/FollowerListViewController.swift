@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
+import Valet
 import Nuke
 
 class FollowerListViewController: UIViewController, UITableViewDataSource {
@@ -31,8 +31,10 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         print("timer activated")
         downloadJson()
     }
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func downloadJson() { // Still not done we need to add the user's butt image
-        let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
+        let userId: String?  = myValet.string(forKey: "Id")
         let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowers/\(userId!).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in

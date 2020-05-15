@@ -24,6 +24,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
+    @IBAction func settingsButtonTap(_ sender: Any) {
+        self.timer.invalidate()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         let lineView = UIView(frame: CGRect(x: 0, y: 220, width: self.view.frame.size.width, height: 1))
@@ -75,7 +78,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     func loadMemberChannel() {
         let userId: String?  = myValet.string(forKey: "Id")
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")
+        let Id = Int(userId!)
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in

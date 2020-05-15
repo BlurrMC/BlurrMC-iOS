@@ -11,6 +11,8 @@
 * Fixed api url
 * Added api fetching (10 second interval)
 * Changed SwiftKeychainWrapper to Valet (Should fix the keychain issue)
+* Fixed bug where timer would continue when user would log out.
+* Added "nothing here" on follower list and following list when a user doesn't have any followers or any one they are following.
 ## v0.2 (PRERELEASE)
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)

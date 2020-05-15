@@ -94,7 +94,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 
                 if let parseJSON = json {
                     let userIdInt = parseJSON["id"] as? Int
-                    var userId = "\(userIdInt!)"
+                    let userId = "\(userIdInt!)"
                     let accessToken = parseJSON["token"] as? String
                     let errorToken = parseJSON["error"] as? String
                     print(userId)

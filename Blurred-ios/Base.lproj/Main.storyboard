@@ -367,6 +367,7 @@
                                 <rect key="frame" x="343" y="87" width="38" height="38"/>
                                 <state key="normal" image="gear"/>
                                 <connections>
+                                    <action selector="settingsButtonTap:" destination="xBp-jV-MSv" eventType="touchUpInside" id="Kh2-qU-iuU"/>
                                     <segue destination="MJx-gh-FGt" kind="show" id="vmX-uT-25W"/>
                                 </connections>
                             </button>
@@ -510,12 +511,20 @@
                                     <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="6Oe-6o-s9l"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2pu-Oq-5mk">
+                                <rect key="frame" x="0.0" y="426" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="AQ2-Ed-8Jg"/>
                     </view>
                     <navigationItem key="navigationItem" id="w4g-hg-mYD"/>
                     <connections>
+                        <outlet property="nothingHere" destination="2pu-Oq-5mk" id="mJs-1E-7Hr"/>
                         <outlet property="tableView" destination="0lk-yY-Q0N" id="MwV-46-per"/>
                     </connections>
                 </viewController>
@@ -605,12 +614,20 @@
                                     <outlet property="dataSource" destination="bz6-2B-Bru" id="k5n-Vr-FIc"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rct-v6-76M">
+                                <rect key="frame" x="0.0" y="426" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Zxv-v2-9YF"/>
                     </view>
                     <navigationItem key="navigationItem" id="iCh-sw-4lc"/>
                     <connections>
+                        <outlet property="nothingHere" destination="rct-v6-76M" id="zlT-uX-uKJ"/>
                         <outlet property="tableView" destination="MfF-yu-Cir" id="p8P-gv-f4M"/>
                     </connections>
                 </viewController>

@@ -11,9 +11,10 @@ import Valet
 import Nuke
 
 class FollowerListViewController: UIViewController, UITableViewDataSource {
-    
+    @IBOutlet weak var nothingHere: UILabel!
     @IBAction func backButtonClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        self.timer.invalidate()
     }
     private var followers = [Follower]()
     var timer = Timer()
@@ -35,7 +36,8 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func downloadJson() { // Still not done we need to add the user's butt image
         let userId: String?  = myValet.string(forKey: "Id")
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowers/\(userId!).json")  // 23:40
+        let Id = Int(userId ?? "0")
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowers/\(Id!).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -84,6 +86,13 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell") as? FollowerCell else { return UITableViewCell() }
         cell.followerUsername.text = followers[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
         cell.followerName.text = followers[indexPath.row].name
+        DispatchQueue.main.async {
+            if cell.followerUsername.text == nil {
+                self.nothingHere.text = String("Nothing Here")
+            } else {
+                self.nothingHere.text = String("")
+            }
+        }
         let Id: Int? = followers[indexPath.row].id
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
         var request = URLRequest(url:myUrl!)

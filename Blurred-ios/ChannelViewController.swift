@@ -244,7 +244,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     data.append(image.image!.pngData()!)
 
     // End the raw http request data, note that there is 2 extra dash ("-") at the end, this is to indicate the end of the data
-    // According to the HTTP 1.1 specification https://tools.ietf.org/html/rfc7230
     data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
 
     // Send a POST request to the URL, with the data we created earlier
@@ -252,6 +251,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         
         if(error != nil){
             print("\(error!.localizedDescription)")
+            self.showErrorContactingServer()
         }
         
         guard let responseData = responseData else {

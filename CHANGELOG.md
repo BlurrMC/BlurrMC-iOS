@@ -15,6 +15,7 @@
 * Added "nothing here" on follower list and following list when a user doesn't have any followers or any one they are following.
 * Added account settings view controller (Doesn't actually contact the api. Just placeholder for now.)
 * Moved Nuke dependency from Swift Package Manger to Cocoapods.
+* Gallery for record page works now (but doesn't send any file anywhere)
 ## v0.2 (PRERELEASE)
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)

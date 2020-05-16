@@ -8,6 +8,7 @@ target 'Blurred-ios' do
   # Pods for Blurred-ios
   pod 'Valet'
   pod 'Alamofire'
+  pod 'Nuke'
   # Pods end
 
   target 'Blurred-iosTests' do

@@ -22,15 +22,16 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
-        if myValet.string(forKey: "Id") == nil {
-            self.timer.invalidate()
-        }
         timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
+        if myValet.string(forKey: "Id") == nil {
+            self.timer.invalidate()
+        } else {
+            downloadJson()
+        }
         print("timer activated")
-        downloadJson()
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)

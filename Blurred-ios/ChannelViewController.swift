@@ -43,9 +43,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
-        if myValet.string(forKey: "Id") == nil {
-            self.timer.invalidate()
-        }
         timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Setup the view so you can integerate it right away with the channel api.
     }
@@ -57,8 +54,12 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     @objc func timerAction() {
+        if myValet.string(forKey: "Id") == nil {
+            self.timer.invalidate()
+        } else {
+            loadMemberChannel()
+        }
         print("timer activated")
-        loadMemberChannel()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         print("tap working")
@@ -144,17 +145,37 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         image.sourceType = UIImagePickerController.SourceType.photoLibrary
         image.allowsEditing = true
         self.present(image, animated: true) {
+            let token: String?  = self.tokenValet.string(forKey: "Token")
+            let userId: String?  = self.myValet.string(forKey: "Id")
+            let Id = Int(userId!)
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(token!)",
+                "Accept": "application/json"
+            ]
+            let url = String("http://10.0.0.2:3000/api/v1/registrations/\(Id!)")
+            var image = UIImage()
+            image = UIImage(named: "edit.png")!
+            let imageData = image.jpegData(compressionQuality: 0.50)
+            // Insert AF upload patch request here.
             
         }
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            avatarImage.image = image
-        } else {
-            self.showUnkownError()
+        guard let image = info[.editedImage] as? UIImage else { return }
+
+        let imageName = UUID().uuidString
+        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+        
+        if let jpegData = image.jpegData(compressionQuality: 0.8) {
+            try? jpegData.write(to: imagePath)
         }
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+
     func takePicture() {
         let image = UIImagePickerController()
         image.delegate = self
@@ -215,19 +236,5 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             // show the alert
             self.present(alert, animated: true, completion: nil)
         }
-        // Removed the post request for the photo because I will use alamofire to send the avatar.
-        
     }
-    // This checks in with the api and makes sure the token is right and then with the id it goes to the id's (or current user's) channel.
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

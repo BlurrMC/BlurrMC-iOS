@@ -7,11 +7,12 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
+import Valet
 import Nuke
 import SwiftUI
+import Alamofire
 
-class ChannelViewController: UIViewController { // Look at youself. Look at what you have done.
+class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate { // Look at youself. Look at what you have done.
     
     
 
@@ -20,12 +21,22 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var bioLabel: UILabel!
+    var timer = Timer()
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
+    @IBAction func settingsButtonTap(_ sender: Any) {
+        self.timer.invalidate()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 220, width: self.view.frame.size.width, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: 245, width: self.view.frame.size.width, height: 1))
         lineView.backgroundColor = UIColor.black
         self.view.addSubview(lineView)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
+        avatarImage.isUserInteractionEnabled = true
+        avatarImage.addGestureRecognizer(tapGesture)
         self.followersLabel.isUserInteractionEnabled = true
         self.followingLabel.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.tapFunction))
@@ -33,8 +44,19 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
-        
+        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Setup the view so you can integerate it right away with the channel api.
+    }
+    @objc func imageTapped(gesture: UIGestureRecognizer) {
+        // if the tapped view is a UIImageView then set it to imageview
+        if (gesture.view as? UIImageView) != nil {
+            print("Image Tapped")
+            pickAvatar()
+        }
+    }
+    @objc func timerAction() {
+        print("timer activated")
+        loadMemberChannel()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         print("tap working")
@@ -56,8 +78,9 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
         self.present(followeringListPage, animated:true, completion:nil)
     }
     func loadMemberChannel() {
-        let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")
+        let userId: String?  = myValet.string(forKey: "Id")
+        let Id = Int(userId!)
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -74,8 +97,14 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
                     let imageUrl: String? = parseJSON["image_url"] as? String
                     let followerCount: Int? = parseJSON["followers_count"] as? Int
                     let followingCount: Int? = parseJSON["following_count"] as? Int
+                    let bio: String? = parseJSON["bio"] as? String
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                     DispatchQueue.main.async {
+                        if bio?.isEmpty != true {
+                            self.bioLabel.text = bio!
+                        } else {
+                            self.bioLabel.text = String("")
+                        }
                         if username?.isEmpty != true && name?.isEmpty != true {
                             self.usernameLabel.text = username!
                             self.nameLabel.text = name!
@@ -105,7 +134,34 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
                 }
         }
         task.resume()
-    } // I will set this up later.
+    } // I will set this up later
+    
+    func importImage() {
+        let image = UIImagePickerController()
+        image.delegate = self
+        image.sourceType = UIImagePickerController.SourceType.photoLibrary
+        image.allowsEditing = true
+        self.present(image, animated: true) {
+            
+        }
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            avatarImage.image = image
+        } else {
+            self.showUnkownError()
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    func takePicture() {
+        let image = UIImagePickerController()
+        image.delegate = self
+        image.sourceType = UIImagePickerController.SourceType.camera
+        image.allowsEditing = true
+        self.present(image, animated: true) {
+            
+        }
+    }
     func showErrorContactingServer() {
 
         // create the alert
@@ -127,6 +183,38 @@ class ChannelViewController: UIViewController { // Look at youself. Look at what
 
         // show the alert
         self.present(alert, animated: true, completion: nil)
+    }
+    func showUnkownError() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "We don't know what happend wrong here! Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    func pickAvatar() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Avatar", message: "Change your avatar.", preferredStyle: UIAlertController.Style.actionSheet)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "Pick from gallery", style: UIAlertAction.Style.default, handler: { action in
+                print("Pick from gallery")
+                self.importImage()
+            }))
+            alert.addAction(UIAlertAction(title: "Take photo", style: UIAlertAction.Style.default, handler: { action in
+                print("Take photo")
+                self.takePicture()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
+        // Removed the post request for the photo because I will use alamofire to send the avatar.
+        
     }
     // This checks in with the api and makes sure the token is right and then with the id it goes to the id's (or current user's) channel.
 

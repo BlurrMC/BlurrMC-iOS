@@ -8,25 +8,18 @@
 
 import UIKit
 import CoreData
-import SwiftKeychainWrapper
-
+import Valet
 
 @available(iOS 13.0, *) // Again, ios 13?
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    let isUnlocked = UIApplication.shared.isProtectedDataAvailable
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        let accessToken: String? = KeychainWrapper.standard.string(forKey: "accessToken")
-        if accessToken != nil {
-            let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil) // change  "main" to something else IF home is in a new storyboard file
-            let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController  
-            self.window?.rootViewController = homePage  // HOMMMMMMMMME
-        }
-        return true
-    }
+
 
     // MARK: UISceneSession Lifecycle
 
@@ -88,6 +81,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        if isUnlocked {
+            print("yes")
+        let accessToken: String? = tokenValet.string(forKey: "Token")
+            if accessToken?.isEmpty == nil {
+                print("yeee")
+            let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil) // change  "main" to something else IF home is in a new storyboard file
+            let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+            self.window?.rootViewController = homePage  // HOMMMMMMMMME
+            }}
+        return true
     }
 
 }

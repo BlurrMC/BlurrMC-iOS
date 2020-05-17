@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
+import Valet
 
 class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     
@@ -40,7 +40,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     @IBAction func SubmitCreds(_ sender: UIButton) {
         sendCreds()
     }
-  
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func sendCreds() {
         let username = usernameTextField.text
         let password = passwordTextField.text
@@ -92,7 +93,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
-                    let userId = parseJSON["id"] as? Int
+                    let userIdInt = parseJSON["id"] as? Int
+                    let userId = "\(userIdInt!)"
                     let accessToken = parseJSON["token"] as? String
                     let errorToken = parseJSON["error"] as? String
                     print(userId)
@@ -100,17 +102,22 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                         print("No error")
                     } else {
                         DispatchQueue.main.async {
-                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                             self.showIncorrectCreds()
                         }
                     }
-                    let saveAccessToken: Bool = KeychainWrapper.standard.set(accessToken!, forKey: "accessToken")
-                    let saveUserId: Bool = KeychainWrapper.standard.set(userId!, forKey: "userId")  // Ignore these error messages it's just swift being a little baby
-                    self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                    DispatchQueue.main.async {
-                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
-                        self.present(nextViewController, animated: true, completion: nil)
+                    if accessToken?.isEmpty == nil {
+                        DispatchQueue.main.async {
+                            self.showIncorrectCreds()
+                        }
+                    } else {
+                        self.tokenValet.set(string: accessToken!, forKey: "Token")
+                        self.myValet.set(string: userId, forKey: "Id")
+                        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        DispatchQueue.main.async {
+                            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+                            self.present(nextViewController, animated: true, completion: nil)
+                        }
                     }
                 } else {  // else what?
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)

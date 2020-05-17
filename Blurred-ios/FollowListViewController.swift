@@ -7,25 +7,35 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
+import Valet
 import Nuke
 
 class FollowListViewController: UIViewController, UITableViewDataSource {
     private var followings = [Following]()
-
+    var timer = Timer()
+    @IBOutlet weak var nothingHere: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func backButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        self.timer.invalidate()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
+        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view.
     }
+    @objc func timerAction() {
+        print("timer activated")
+        downloadJson()
+    }
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func downloadJson() { // Still not done we need to add the user's butt image
-        let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")  // 23:40
+        let userId: String?  = myValet.string(forKey: "Id")
+        let Id = Int(userId ?? "0")
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowing/\(Id!).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -73,6 +83,11 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell") as? FollowingCell else { return UITableViewCell() }
         cell.followingUsername.text = followings[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
         cell.followingName.text = followings[indexPath.row].name
+        if followings == nil {
+            nothingHere.text = String("Nothing Here")
+        } else {
+            nothingHere.text = String("")
+        }
         let Id: Int? = followings[indexPath.row].id
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
         var request = URLRequest(url:myUrl!)

@@ -7,27 +7,37 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
+import Valet
 import Nuke
 
 class FollowerListViewController: UIViewController, UITableViewDataSource {
-    
+    @IBOutlet weak var nothingHere: UILabel!
     @IBAction func backButtonClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        self.timer.invalidate()
     }
     private var followers = [Follower]()
+    var timer = Timer()
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
+        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
         // Do any additional setup after loading the view.
     }
+    @objc func timerAction() {
+        print("timer activated")
+        downloadJson()
+    }
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func downloadJson() { // Still not done we need to add the user's butt image
-        let userId: Int?  = KeychainWrapper.standard.integer(forKey: "userId")
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(userId!).json")  // 23:40
+        let userId: String?  = myValet.string(forKey: "Id")
+        let Id = Int(userId ?? "0")
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowers/\(Id!).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -76,6 +86,13 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell") as? FollowerCell else { return UITableViewCell() }
         cell.followerUsername.text = followers[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
         cell.followerName.text = followers[indexPath.row].name
+        DispatchQueue.main.async {
+            if cell.followerUsername.text == nil {
+                self.nothingHere.text = String("Nothing Here")
+            } else {
+                self.nothingHere.text = String("")
+            }
+        }
         let Id: Int? = followers[indexPath.row].id
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
         var request = URLRequest(url:myUrl!)

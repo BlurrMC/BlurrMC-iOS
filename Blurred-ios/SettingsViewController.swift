@@ -7,13 +7,15 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
+import Valet
 
 class SettingsViewController: UIViewController {
 
     @IBAction func signOutButtonPressed(_ sender: Any) {
-        KeychainWrapper.standard.removeObject(forKey: "accessToken")
-        KeychainWrapper.standard.removeObject(forKey: "userId")
+        let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+        let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+        myValet.removeObject(forKey: "Id")
+        tokenValet.removeObject(forKey: "Token")
         if #available(iOS 13.0, *) {
             let signInPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
             let appDelegate = UIApplication.shared.delegate

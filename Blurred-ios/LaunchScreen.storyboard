@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,9 +15,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="header5" translatesAutoresizingMaskIntoConstraints="NO" id="CLt-rm-P3P">
-                                <rect key="frame" x="-542" y="-491" width="1552" height="1545"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="header5" translatesAutoresizingMaskIntoConstraints="NO" id="CLt-rm-P3P">
+                                <rect key="frame" x="-726" y="-258.5" width="1920" height="1080"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1080" id="D8b-kC-oOI"/>
+                                    <constraint firstAttribute="width" constant="1920" id="rFg-bG-tjn"/>
+                                </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Blurr_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="7JJ-S6-zcp">
                                 <rect key="frame" x="39" y="206.5" width="297" height="254"/>
@@ -43,6 +45,8 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="CLt-rm-P3P" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" constant="46.5" id="Kab-FF-lBs"/>
+                            <constraint firstItem="CLt-rm-P3P" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-52" id="T5p-bl-KYb"/>
                             <constraint firstItem="7JJ-S6-zcp" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="W63-Vk-FBQ"/>
                             <constraint firstItem="7JJ-S6-zcp" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="dz1-6t-CRW"/>
                         </constraints>

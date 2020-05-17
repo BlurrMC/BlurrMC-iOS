@@ -8,12 +8,16 @@
 
 import UIKit
 import Foundation
+import AVFoundation
+import MobileCoreServices
+import Alamofire
 
-class RecordViewController: UIViewController {
+class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     
 
     @IBAction func galleryButtonPress(_ sender: Any) {
+        openVideoGallery()
     }
     @IBAction func recordButtonPress(_ sender: Any) {
     }
@@ -26,4 +30,14 @@ class RecordViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true // No tab bar for you!
         // Saves the video to gallery and then uploads that video from gallery. The user doesn't have to pick that they are uploading it from gallery though.
     }
+    func openVideoGallery() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .savedPhotosAlbum
+        picker.mediaTypes = [kUTTypeMovie as String]
+        picker.videoMaximumDuration = 7
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    // Use alamofire to upload video.
 }

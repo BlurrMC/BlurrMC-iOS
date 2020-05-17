@@ -10,14 +10,14 @@
 		0D81082D068F71EEEF45F04A /* Pods_Blurred_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAE9BA564235C9D40B2D093 /* Pods_Blurred_ios.framework */; };
 		9781C55A5BAEC9220B261C1E /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
 		D839AE13C55FBB2440896A3B /* Pods_Blurred_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */; };
-		E1039FC524605E6E00B88E6E /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E1039FC424605E6E00B88E6E /* Nuke */; };
 		E1039FC92460765D00B88E6E /* FollowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1039FC82460765D00B88E6E /* FollowListViewController.swift */; };
 		E10BD27424685A4F004E9243 /* FollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BD27324685A4F004E9243 /* FollowingCell.swift */; };
+		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
 		E17BF2C524670C8900073B66 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BF2C424670C8900073B66 /* FollowerCell.swift */; };
-		E1884CDD24527A2D001A0AD7 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1884CDC24527A2D001A0AD7 /* GalleryViewController.swift */; };
 		E1CC95432458E2B500ADDDAA /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F9E244F559100E11BF9 /* assets.xcassets */; };
 		E1CC95442458E2B600ADDDAA /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F9E244F559100E11BF9 /* assets.xcassets */; };
+		E1D8C896246F119000F1EAD1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E1D8C895246F119000F1EAD1 /* Settings.bundle */; };
 		E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F69244F550300E11BF9 /* AppDelegate.swift */; };
 		E1DF6F6C244F550300E11BF9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */; };
 		E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */; };
@@ -64,9 +64,10 @@
 		CF9ECF27FDD727A974459E4E /* Pods-Blurred-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		E1039FC82460765D00B88E6E /* FollowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowListViewController.swift; sourceTree = "<group>"; };
 		E10BD27324685A4F004E9243 /* FollowingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingCell.swift; sourceTree = "<group>"; };
+		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E17BF2C424670C8900073B66 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
-		E1884CDC24527A2D001A0AD7 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		E1D8C895246F119000F1EAD1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E1DF6F66244F550300E11BF9 /* Blurred-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blurred-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DF6F69244F550300E11BF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,7 +100,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D81082D068F71EEEF45F04A /* Pods_Blurred_ios.framework in Frameworks */,
-				E1039FC524605E6E00B88E6E /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +167,8 @@
 				E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */,
 				E1DF6F6F244F550300E11BF9 /* SearchViewController.swift */,
 				E1DF6F71244F550300E11BF9 /* Main.storyboard */,
+				E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */,
+				E1D8C895246F119000F1EAD1 /* Settings.bundle */,
 				E10BD27324685A4F004E9243 /* FollowingCell.swift */,
 				E17BF2C424670C8900073B66 /* FollowerCell.swift */,
 				E1FF22312467061F0094DDD2 /* FollowerListViewController.swift */,
@@ -174,7 +176,6 @@
 				E12808CC245659D6001BF3F3 /* SignupViewController.swift */,
 				E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */,
 				E1EBD0B8245377E800FE901F /* SettingsViewController.swift */,
-				E1884CDC24527A2D001A0AD7 /* GalleryViewController.swift */,
 				E1DF6F7C244F550600E11BF9 /* Info.plist */,
 				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
 				E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */,
@@ -232,7 +233,6 @@
 			);
 			name = "Blurred-ios";
 			packageProductDependencies = (
-				E1039FC424605E6E00B88E6E /* Nuke */,
 			);
 			productName = "Blurred-ios";
 			productReference = E1DF6F66244F550300E11BF9 /* Blurred-ios.app */;
@@ -310,7 +310,6 @@
 			);
 			mainGroup = E1DF6F5D244F550300E11BF9;
 			packageReferences = (
-				E1039FC324605E6E00B88E6E /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = E1DF6F67244F550300E11BF9 /* Products */;
 			projectDirPath = "";
@@ -328,6 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D8C896246F119000F1EAD1 /* Settings.bundle in Resources */,
 				E1DF6FA5244F578700E11BF9 /* LaunchScreen.storyboard in Resources */,
 				E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */,
 				E1DF6F9F244F559100E11BF9 /* assets.xcassets in Resources */,
@@ -466,12 +466,12 @@
 				E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */,
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
+				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */,
 				E1039FC92460765D00B88E6E /* FollowListViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
 				E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */,
-				E1884CDD24527A2D001A0AD7 /* GalleryViewController.swift in Sources */,
 				E1DF6FBD244F5DE300E11BF9 /* ChannelViewController.swift in Sources */,
 				E1DF6F6C244F550300E11BF9 /* SceneDelegate.swift in Sources */,
 				E1FF22322467061F0094DDD2 /* FollowerListViewController.swift in Sources */,
@@ -812,25 +812,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E1039FC324605E6E00B88E6E /* XCRemoteSwiftPackageReference "Nuke" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/Nuke";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.4.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E1039FC424605E6E00B88E6E /* Nuke */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E1039FC324605E6E00B88E6E /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = Nuke;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */ = {

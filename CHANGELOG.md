@@ -1,5 +1,5 @@
 # Changelog
-## v0.2.5 (PRERELEASE)
+## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints
 * Removed extra cells from follower and following list
@@ -16,7 +16,6 @@
 * Moved Nuke dependency from Swift Package Manger to Cocoapods.
 * Gallery for record page works now (but doesn't send any file anywhere)
 * Added bio to channel page.
-## v0.2 (PRERELEASE)
 * Some design changes
 * Added most channel attrbitues that update (except followers and following)
 * Fixed some bugs with token and id not being saved to keychain

@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import AVFoundation
 import MobileCoreServices
+import Alamofire
 
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
@@ -38,4 +39,5 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         picker.allowsEditing = true
         present(picker, animated: true, completion: nil)
     }
+    // Use alamofire to upload video.
 }

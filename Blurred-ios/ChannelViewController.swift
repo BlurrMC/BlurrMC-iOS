@@ -21,6 +21,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var bioLabel: UILabel!
     var timer = Timer()
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
@@ -30,7 +31,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 220, width: self.view.frame.size.width, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: 245, width: self.view.frame.size.width, height: 1))
         lineView.backgroundColor = UIColor.black
         self.view.addSubview(lineView)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
@@ -97,8 +98,14 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     let imageUrl: String? = parseJSON["image_url"] as? String
                     let followerCount: Int? = parseJSON["followers_count"] as? Int
                     let followingCount: Int? = parseJSON["following_count"] as? Int
+                    let bio: String? = parseJSON["bio"] as? String
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                     DispatchQueue.main.async {
+                        if bio?.isEmpty != true {
+                            self.bioLabel.text = bio!
+                        } else {
+                            self.bioLabel.text = String("")
+                        }
                         if username?.isEmpty != true && name?.isEmpty != true {
                             self.usernameLabel.text = username!
                             self.nameLabel.text = name!

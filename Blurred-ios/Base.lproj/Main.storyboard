@@ -370,6 +370,16 @@
                                     <segue destination="MJx-gh-FGt" kind="show" id="vmX-uT-25W"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NjE-vg-ubZ">
+                                <rect key="frame" x="31.5" y="234.5" width="351" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="351" id="210-zJ-41l"/>
+                                    <constraint firstAttribute="height" constant="17" id="UXW-MR-aK1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.25650723927602304" green="0.23436356926538449" blue="0.27833549222797926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -386,9 +396,11 @@
                             <constraint firstItem="LQW-7F-FtJ" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-286.5" id="OHD-49-UOa"/>
                             <constraint firstItem="jPa-fX-Vjp" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-287.25" id="QUR-kY-V9T"/>
                             <constraint firstItem="CWO-bg-LiG" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-314" id="Uu1-S0-QOC"/>
+                            <constraint firstItem="NjE-vg-ubZ" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" id="ho9-e3-UMU"/>
                             <constraint firstItem="i6n-qU-tOq" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-260" id="qI3-Cv-pUS"/>
                             <constraint firstItem="PZh-Gy-ONv" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="155" id="rDs-Dn-f3c"/>
                             <constraint firstItem="Vxn-mI-3dZ" firstAttribute="centerX" secondItem="tn3-A8-y1F" secondAttribute="centerX" constant="80" id="uE8-Ec-ciI"/>
+                            <constraint firstItem="NjE-vg-ubZ" firstAttribute="centerY" secondItem="tn3-A8-y1F" secondAttribute="centerY" constant="-205" id="zod-Tk-uaZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yPG-m5-oMe"/>
                         <variation key="default">
@@ -435,6 +447,7 @@
                     <navigationItem key="navigationItem" id="wjm-3M-2dI"/>
                     <connections>
                         <outlet property="avatarImage" destination="LQW-7F-FtJ" id="2Yd-bE-Nto"/>
+                        <outlet property="bioLabel" destination="NjE-vg-ubZ" id="0FV-5g-Xpk"/>
                         <outlet property="followersLabel" destination="Vxn-mI-3dZ" id="0UB-in-L67"/>
                         <outlet property="followingLabel" destination="jPa-fX-Vjp" id="l9Q-Rn-lZI"/>
                         <outlet property="nameLabel" destination="CWO-bg-LiG" id="MLb-eP-swY"/>

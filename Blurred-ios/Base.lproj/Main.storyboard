@@ -733,7 +733,7 @@
                                     <constraint firstAttribute="width" constant="275" id="j52-uH-1gQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" textContentType="name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IWh-Il-Itp">
                                 <rect key="frame" x="69.5" y="202" width="275" height="34"/>
@@ -742,7 +742,7 @@
                                     <constraint firstAttribute="height" constant="34" id="kIJ-Wm-USA"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" textContentType="username"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8aj-tL-aYg">
                                 <rect key="frame" x="69.5" y="252" width="275" height="34"/>
@@ -751,7 +751,7 @@
                                     <constraint firstAttribute="height" constant="34" id="yN2-wL-kna"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Bio" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oTi-nr-gnw">
                                 <rect key="frame" x="69.5" y="302" width="275" height="34"/>
@@ -763,7 +763,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTP-yg-9bj">
-                                <rect key="frame" x="155" y="421" width="104" height="54"/>
+                                <rect key="frame" x="155" y="371" width="104" height="54"/>
                                 <color key="backgroundColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="BYs-si-pvI"/>
@@ -793,23 +793,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Current Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9jP-tC-xxE">
-                                <rect key="frame" x="69.5" y="352" width="275" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="275" id="LTX-RB-K5J"/>
-                                    <constraint firstAttribute="height" constant="34" id="TqK-Vl-sHN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="kTP-yg-9bj" firstAttribute="centerY" secondItem="1h2-UX-IaQ" secondAttribute="centerY" id="0wd-Oy-zkd"/>
+                            <constraint firstItem="kTP-yg-9bj" firstAttribute="centerY" secondItem="1h2-UX-IaQ" secondAttribute="centerY" constant="-50" id="0wd-Oy-zkd"/>
                             <constraint firstItem="2vM-ar-hvy" firstAttribute="centerX" secondItem="1h2-UX-IaQ" secondAttribute="centerX" id="0xM-GV-2Gx"/>
-                            <constraint firstItem="9jP-tC-xxE" firstAttribute="centerX" secondItem="1h2-UX-IaQ" secondAttribute="centerX" id="1dN-eZ-kX0"/>
                             <constraint firstItem="kTP-yg-9bj" firstAttribute="centerX" secondItem="1h2-UX-IaQ" secondAttribute="centerX" id="4Mm-65-4Zv"/>
-                            <constraint firstItem="9jP-tC-xxE" firstAttribute="centerY" secondItem="1h2-UX-IaQ" secondAttribute="centerY" constant="-79" id="7xO-JP-jw6"/>
                             <constraint firstItem="oTi-nr-gnw" firstAttribute="centerY" secondItem="1h2-UX-IaQ" secondAttribute="centerY" constant="-129" id="Hx9-Jx-UHd"/>
                             <constraint firstItem="IWh-Il-Itp" firstAttribute="centerY" secondItem="1h2-UX-IaQ" secondAttribute="centerY" constant="-229" id="JkK-yH-Xuk"/>
                             <constraint firstItem="8aj-tL-aYg" firstAttribute="centerY" secondItem="1h2-UX-IaQ" secondAttribute="centerY" constant="-179" id="OjZ-HD-FNt"/>
@@ -823,6 +812,12 @@
                         <viewLayoutGuide key="safeArea" id="I0Y-Kp-Wba"/>
                     </view>
                     <navigationItem key="navigationItem" id="XgH-iV-zPe"/>
+                    <connections>
+                        <outlet property="bioField" destination="oTi-nr-gnw" id="vc1-vL-iN2"/>
+                        <outlet property="editButton" destination="kTP-yg-9bj" id="e6M-wb-QDZ"/>
+                        <outlet property="nameField" destination="Tv2-r1-F6X" id="SEn-Pe-hXm"/>
+                        <outlet property="usernameField" destination="IWh-Il-Itp" id="X1q-RS-1en"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EIy-We-Lp0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

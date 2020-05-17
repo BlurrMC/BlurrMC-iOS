@@ -52,7 +52,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         if (gesture.view as? UIImageView) != nil {
             print("Image Tapped")
             pickAvatar()
-
         }
     }
     @objc func timerAction() {

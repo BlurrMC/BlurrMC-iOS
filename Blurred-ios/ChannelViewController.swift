@@ -27,7 +27,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
     @IBAction func settingsButtonTap(_ sender: Any) {
-        self.timer.invalidate()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +43,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
+        if myValet.string(forKey: "Id") == nil {
+            self.timer.invalidate()
+        }
         timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Setup the view so you can integerate it right away with the channel api.
     }

@@ -14,7 +14,6 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var nothingHere: UILabel!
     @IBAction func backButtonClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-        self.timer.invalidate()
     }
     private var followers = [Follower]()
     var timer = Timer()
@@ -24,6 +23,9 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
+        if myValet.string(forKey: "Id") == nil {
+            self.timer.invalidate()
+        }
         timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
         // Do any additional setup after loading the view.

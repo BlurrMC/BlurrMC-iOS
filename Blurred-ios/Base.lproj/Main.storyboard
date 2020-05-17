@@ -777,6 +777,9 @@
                                         <integer key="value" value="16"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="editButtonTapped:" destination="3CI-Sa-bhX" eventType="touchUpInside" id="y28-Cz-HWJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" id="ScS-St-X2H">
                                 <rect key="frame" x="20" y="44" width="31" height="31"/>
@@ -814,7 +817,7 @@
                     <navigationItem key="navigationItem" id="XgH-iV-zPe"/>
                     <connections>
                         <outlet property="bioField" destination="oTi-nr-gnw" id="vc1-vL-iN2"/>
-                        <outlet property="editButton" destination="kTP-yg-9bj" id="e6M-wb-QDZ"/>
+                        <outlet property="emailField" destination="8aj-tL-aYg" id="t0s-fV-Pbm"/>
                         <outlet property="nameField" destination="Tv2-r1-F6X" id="SEn-Pe-hXm"/>
                         <outlet property="usernameField" destination="IWh-Il-Itp" id="X1q-RS-1en"/>
                     </connections>

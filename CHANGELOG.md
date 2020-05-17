@@ -1,5 +1,5 @@
 # Changelog
-## Unrelease
+## v0.2.5 (PRERELEASE)
 * Added more error handling
 * Some more constraints
 * Removed extra cells from follower and following list

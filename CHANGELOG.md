@@ -4,6 +4,7 @@
 * Fixed bug where timer would stop forever and load any user info until app restart
 * Fixed bug where timer would go one last cycle after logging out.
 * Added some navigation improvments.
+* Avatar changes now go through the api (and actually change. wow!)
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

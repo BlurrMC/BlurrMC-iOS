@@ -145,19 +145,21 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         image.sourceType = UIImagePickerController.SourceType.photoLibrary
         image.allowsEditing = true
         self.present(image, animated: true) {
-            let token: String?  = self.tokenValet.string(forKey: "Token")
-            let userId: String?  = self.myValet.string(forKey: "Id")
-            let Id = Int(userId!)
-            let headers: HTTPHeaders = [
-                "Authorization": "Bearer \(token!)",
-                "Accept": "application/json"
-            ]
-            let url = String("http://10.0.0.2:3000/api/v1/registrations/\(Id!)")
-            let image = UIImage()
-            let imageData = image.jpegData(compressionQuality: 0.50)
-            // Insert AF upload patch request here.
             
         }
+    }
+    func upload() {
+        let token: String?  = self.tokenValet.string(forKey: "Token")
+        let userId: String?  = self.myValet.string(forKey: "Id")
+        let Id = Int(userId!)
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token!)",
+            "Accept": "application/json"
+        ]
+        let url = String("http://10.0.0.2:3000/api/v1/registrations/\(Id!)")
+        let image = UIImage()
+        let imageData = image.jpegData(compressionQuality: 0.50)
+        // Insert AF upload patch request here.
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }

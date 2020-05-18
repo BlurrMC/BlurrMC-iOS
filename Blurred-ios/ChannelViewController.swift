@@ -157,20 +157,28 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             "Accept": "application/json"
         ]
         let url = String("http://10.0.0.2:3000/api/v1/registrations/\(Id!)")
-        let image = UIImage()
-        let imageData = image.jpegData(compressionQuality: 0.50)
+        let image = avatarImage.image///haha im small
+        guard let imgcompressed = image?.jpegData(compressionQuality: 0.5) else { return }
         // Insert AF upload patch request here.
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imgcompressed, withName: "avatar" , fileName: "\(Id!)-avatar.png", mimeType: "image/png")
+        },
+            to: url, method: .patch , headers: headers)
+            .response { resp in
+                print(resp)
+
+
+        }
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.editedImage] as? UIImage else { return }
-
-        let imageName = UUID().uuidString
-        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
-        
-        if let jpegData = image.jpegData(compressionQuality: 0.8) {
-            try? jpegData.write(to: imagePath)
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            avatarImage.image = image
+            upload()
+        } else {
+            self.showUnkownError()
         }
-        dismiss(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

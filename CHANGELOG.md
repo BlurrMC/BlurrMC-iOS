@@ -3,6 +3,7 @@
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart
 * Fixed bug where timer would go one last cycle after logging out.
+* Added some navigation improvments.
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

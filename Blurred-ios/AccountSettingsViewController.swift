@@ -14,6 +14,7 @@ class AccountSettingsViewController: UIViewController {
 
     @IBAction func editButtonTapped(_ sender: Any) {
         updateAccount()
+        self.dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var usernameField: UITextField!

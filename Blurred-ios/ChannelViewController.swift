@@ -153,8 +153,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 "Accept": "application/json"
             ]
             let url = String("http://10.0.0.2:3000/api/v1/registrations/\(Id!)")
-            var image = UIImage()
-            image = UIImage(named: "edit.png")!
+            let image = UIImage()
             let imageData = image.jpegData(compressionQuality: 0.50)
             // Insert AF upload patch request here.
             

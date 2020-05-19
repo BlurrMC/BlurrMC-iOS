@@ -1,46 +1,53 @@
 //
-//  FollowerListViewController.swift
+//  OtherFollowerListViewController.swift
 //  Blurred-ios
 //
-//  Created by Martin Velev on 5/9/20.
+//  Created by Martin Velev on 5/19/20.
 //  Copyright © 2020 BlurrMC. All rights reserved.
 //
 
 import UIKit
-import Valet
 import Nuke
+import Valet
 
-class FollowerListViewController: UIViewController, UITableViewDataSource {
-    @IBOutlet weak var nothingHere: UILabel!
-    @IBAction func backButtonClicked(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
+    @IBOutlet weak var nothingHereLabel: UILabel!
+    @IBAction func backButton(_ sender: Any) {
+        self.dismiss(animated: true)
     }
+    var followerVar = String()
+    @IBOutlet weak var tableView: UITableView!
     private var followers = [Follower]()
     var timer = Timer()
-    
-    @IBOutlet weak var tableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
-        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+
 
         // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
         if myValet.string(forKey: "Id") == nil {
             self.timer.invalidate()
+        } else if followerVar == nil {
+            self.timer.invalidate()
         } else {
             downloadJson()
+            print("timer activated")
+
         }
-        print("timer activated")
     }
+    var followerId = String()
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func downloadJson() { // Still not done we need to add the user's butt image
-        let userId: String?  = myValet.string(forKey: "Id")
-        let Id = Int(userId ?? "0")
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowers/\(Id!).json")  // 23:40
+        let Id = followerVar
+        followerId = Id
+        print("\(Id)")
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowers/\(followerId).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -49,7 +56,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
                 }
                 return
             }
-            print("I got the data")
+            print("I got the ")
             do {
                 let decoder = JSONDecoder()
                 let downloadedFollower = try decoder.decode(Followers.self, from: data)
@@ -96,14 +103,15 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell") as? FollowerCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFollowerCell") as? OtherFollowerCell else { return UITableViewCell() }
         cell.followerUsername.text = followers[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
         cell.followerName.text = followers[indexPath.row].name
+        print("\(followers[indexPath.row].name)")
         DispatchQueue.main.async {
             if cell.followerUsername.text == nil {
-                self.nothingHere.text = String("Nothing Here")
+                self.nothingHereLabel.text = String("Nothing Here")
             } else {
-                self.nothingHere.text = String("")
+                self.nothingHereLabel.text = String("")
             }
         }
         let Id: Int? = followers[indexPath.row].id
@@ -143,6 +151,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     func showErrorContactingServer() {
+        self.timer.invalidate()
 
         // create the alert
         let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
@@ -154,6 +163,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         self.present(alert, animated: true, completion: nil)
     }
     func showNoResponseFromServer() {
+        self.timer.invalidate()
 
         // create the alert
         let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
@@ -164,6 +174,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         // show the alert
         self.present(alert, animated: true, completion: nil)
     }
+    
 
     /*
     // MARK: - Navigation

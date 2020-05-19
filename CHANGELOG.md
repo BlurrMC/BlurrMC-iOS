@@ -6,6 +6,9 @@
 * Added some navigation improvments.
 * Avatar changes now go through the api (and actually change. wow!)
 * Added record feature to record view controller (doesn't contact api yet.)
+* Changed timer time on some view controllers
+* Added other profiles.
+* Added follower list to other user's profiles.
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

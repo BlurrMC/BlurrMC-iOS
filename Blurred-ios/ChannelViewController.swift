@@ -9,7 +9,6 @@
 import UIKit
 import Valet
 import Nuke
-import SwiftUI
 import Alamofire
 
 class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate { // Look at youself. Look at what you have done.
@@ -31,7 +30,11 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         let lineView = UIView(frame: CGRect(x: 0, y: 245, width: self.view.frame.size.width, height: 1))
-        lineView.backgroundColor = UIColor.black
+        if traitCollection.userInterfaceStyle == .light {
+            lineView.backgroundColor = UIColor.black
+        } else {
+            lineView.backgroundColor = UIColor.white
+        }
         self.view.addSubview(lineView)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
         avatarImage.isUserInteractionEnabled = true
@@ -43,7 +46,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
-        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 40.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Setup the view so you can integerate it right away with the channel api.
     }
     @objc func imageTapped(gesture: UIGestureRecognizer) {

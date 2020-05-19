@@ -22,7 +22,7 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
-        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
@@ -81,7 +81,17 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return followings.count
     }
-    
+    func tableView(tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let destinationVC = OtherChannelViewController()
+        destinationVC.performSegue(withIdentifier: "showChannel", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = tableView.indexPathForSelectedRow{
+            let selectedRow = indexPath.row
+            let detailVC = segue.destination as! OtherChannelViewController
+            detailVC.channelVar = followings[selectedRow].username
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell") as? FollowingCell else { return UITableViewCell() }
         cell.followingUsername.text = followings[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here

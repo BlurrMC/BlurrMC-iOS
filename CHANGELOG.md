@@ -9,6 +9,7 @@
 * Changed timer time on some view controllers
 * Added other profiles.
 * Added follower list to other user's profiles.
+* Made profile divider change to white if user's theme is set to dark mode.
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

@@ -19,6 +19,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     @IBAction func galleryButtonPress(_ sender: Any) {
         openVideoGallery()
     }
+    @IBAction func recordButtonReleased(_ sender: Any) {
+        stopRecording()
+    }
     @IBAction func recordButtonPress(_ sender: Any) {
         startCapture()
     }

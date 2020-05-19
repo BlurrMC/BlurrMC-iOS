@@ -18,6 +18,7 @@
 		E1CC95432458E2B500ADDDAA /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F9E244F559100E11BF9 /* assets.xcassets */; };
 		E1CC95442458E2B600ADDDAA /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F9E244F559100E11BF9 /* assets.xcassets */; };
 		E1D8C896246F119000F1EAD1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E1D8C895246F119000F1EAD1 /* Settings.bundle */; };
+		E1D92C9824732D6700EDABAA /* VideoPlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */; };
 		E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F69244F550300E11BF9 /* AppDelegate.swift */; };
 		E1DF6F6C244F550300E11BF9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */; };
 		E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */; };
@@ -68,6 +69,7 @@
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E17BF2C424670C8900073B66 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		E1D8C895246F119000F1EAD1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackViewController.swift; sourceTree = "<group>"; };
 		E1DF6F66244F550300E11BF9 /* Blurred-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blurred-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DF6F69244F550300E11BF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */,
 				E1DF6FB8244F5DBD00E11BF9 /* RecordViewController.swift */,
+				E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */,
 				E1DF6F9E244F559100E11BF9 /* assets.xcassets */,
 				E1DF6F69244F550300E11BF9 /* AppDelegate.swift */,
 				E1DF6F6B244F550300E11BF9 /* SceneDelegate.swift */,
@@ -462,6 +465,7 @@
 			files = (
 				E1DF6F70244F550300E11BF9 /* SearchViewController.swift in Sources */,
 				E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */,
+				E1D92C9824732D6700EDABAA /* VideoPlaybackViewController.swift in Sources */,
 				E17BF2C524670C8900073B66 /* FollowerCell.swift in Sources */,
 				E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */,
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
@@ -643,6 +647,7 @@
 			baseConfigurationReference = 7857A336EF291D3D713578FE /* Pods-Blurred-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -659,6 +664,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blurrmc.Blurred-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -669,6 +675,7 @@
 			baseConfigurationReference = CF0CF050DAFC11EFD08A2A31 /* Pods-Blurred-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
@@ -679,6 +686,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blurrmc.Blurred-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

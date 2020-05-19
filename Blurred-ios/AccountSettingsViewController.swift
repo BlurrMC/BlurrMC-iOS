@@ -11,7 +11,7 @@ import Foundation
 import Valet
 
 class AccountSettingsViewController: UIViewController {
-
+    // Make the text fill in with what your username/name,etc. is and then when typing begins clear it.
     @IBAction func editButtonTapped(_ sender: Any) {
         updateAccount()
         self.dismiss(animated: true, completion: nil)

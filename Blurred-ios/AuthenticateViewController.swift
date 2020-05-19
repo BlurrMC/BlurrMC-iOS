@@ -94,29 +94,37 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 
                 if let parseJSON = json {
                     let userIdInt = parseJSON["id"] as? Int
-                    let userId = "\(userIdInt!)"
-                    let accessToken = parseJSON["token"] as? String
-                    let errorToken = parseJSON["error"] as? String
-                    print(userId)
-                    if ((errorToken?.isEmpty) == nil) {
-                        print("No error")
-                    } else {
+                    if userIdInt == nil {
                         DispatchQueue.main.async {
                             self.showIncorrectCreds()
-                        }
-                    }
-                    if accessToken?.isEmpty == nil {
-                        DispatchQueue.main.async {
-                            self.showIncorrectCreds()
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         }
                     } else {
-                        self.tokenValet.set(string: accessToken!, forKey: "Token")
-                        self.myValet.set(string: userId, forKey: "Id")
-                        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                        DispatchQueue.main.async {
-                            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
-                            self.present(nextViewController, animated: true, completion: nil)
+                        let userId = "\(userIdInt!)"
+                        let accessToken = parseJSON["token"] as? String
+                        let errorToken = parseJSON["error"] as? String
+                        print(userId)
+                        if ((errorToken?.isEmpty) == nil) {
+                            print("No error")
+                        } else {
+                            DispatchQueue.main.async {
+                                self.showIncorrectCreds()
+                            }
+                        }
+                        if accessToken?.isEmpty == nil {
+                            DispatchQueue.main.async {
+                                self.showIncorrectCreds()
+                                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            }
+                        } else {
+                            self.tokenValet.set(string: accessToken!, forKey: "Token")
+                            self.myValet.set(string: userId, forKey: "Id")
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            DispatchQueue.main.async {
+                                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+                                self.present(nextViewController, animated: true, completion: nil)
+                            }
                         }
                     }
                 } else {  // else what?

@@ -95,6 +95,67 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="-674.33035714285711"/>
         </scene>
+        <!--Video Playback View Controller-->
+        <scene sceneID="023-Q4-sr9">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="i6k-Pp-sSl" customClass="VideoPlaybackViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oan-MK-vdV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pf2-uH-y5s">
+                                <rect key="frame" x="19.5" y="42" width="425" height="900"/>
+                                <subviews>
+                                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jfk-Sa-Ah2">
+                                        <rect key="frame" x="13.5" y="85" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="3iv-oo-RDz"/>
+                                            <constraint firstAttribute="height" constant="50" id="NLs-P0-pqx"/>
+                                        </constraints>
+                                        <state key="normal" image="arrow.left"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="3iv-oo-RDz"/>
+                                                <exclude reference="NLs-P0-pqx"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="3iv-oo-RDz"/>
+                                                <include reference="NLs-P0-pqx"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="backButton:" destination="i6k-Pp-sSl" eventType="touchUpInside" id="a1c-sY-ZxA"/>
+                                            <action selector="recordBackButton:" destination="bMe-qO-UEv" eventType="touchUpInside" id="Kut-13-ed2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="425" id="H8e-SD-Uw8"/>
+                                    <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="centerY" secondItem="pf2-uH-y5s" secondAttribute="centerY" constant="-340" id="Lv3-IY-qwN"/>
+                                    <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="centerX" secondItem="pf2-uH-y5s" secondAttribute="centerX" constant="-174" id="jzi-nw-4Gu"/>
+                                    <constraint firstAttribute="height" constant="900" id="kQV-7A-eGR"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="pf2-uH-y5s" firstAttribute="centerY" secondItem="oan-MK-vdV" secondAttribute="centerY" constant="44" id="4uB-xf-5W9"/>
+                            <constraint firstItem="pf2-uH-y5s" firstAttribute="centerX" secondItem="oan-MK-vdV" secondAttribute="centerX" constant="25" id="wXj-yz-JGU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jkT-LJ-KiB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="wnt-3G-Q63"/>
+                    <connections>
+                        <outlet property="previewView" destination="pf2-uH-y5s" id="tOv-Vd-ppe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lmf-SX-vhn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="863.768115942029" y="-1410.2678571428571"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
@@ -125,6 +186,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cgl-bZ-ljl">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="912"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ziz-ew-ZSm">
                                 <rect key="frame" x="176.5" y="747" width="61" height="60"/>
                                 <constraints>
@@ -235,6 +301,10 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="f5r-Jn-aNK"/>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="videoView" destination="Cgl-bZ-ljl" id="2Q3-oT-J3g"/>
+                        <segue destination="i6k-Pp-sSl" kind="show" identifier="showVideo" id="zwu-Vq-I6h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EZA-m4-xe9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -377,7 +447,7 @@
                                     <constraint firstAttribute="height" constant="17" id="UXW-MR-aK1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.25650723927602304" green="0.23436356926538449" blue="0.27833549222797926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1058,7 +1128,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Bvt-h1-M8t"/>
         <segue reference="rna-Y0-bYD"/>
     </inferredMetricsTieBreakers>
     <resources>

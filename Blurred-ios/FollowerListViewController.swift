@@ -24,8 +24,6 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         downloadJson()
         tableView.tableFooterView = UIView()
         timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-
-        // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
         if myValet.string(forKey: "Id") == nil {

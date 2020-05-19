@@ -127,7 +127,6 @@
                                         </variation>
                                         <connections>
                                             <action selector="backButton:" destination="i6k-Pp-sSl" eventType="touchUpInside" id="a1c-sY-ZxA"/>
-                                            <action selector="recordBackButton:" destination="bMe-qO-UEv" eventType="touchUpInside" id="Kut-13-ed2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -658,6 +657,7 @@
                         <outlet property="nameLabel" destination="fB5-sr-lPI" id="QzD-8C-vUo"/>
                         <outlet property="usernameLabel" destination="uzw-Tq-P48" id="IVD-rt-616"/>
                         <segue destination="QcA-Gj-WsG" kind="show" identifier="showOtherFollower" id="745-eJ-5Gd"/>
+                        <segue destination="0Mr-xg-87d" kind="show" identifier="showOtherFollowing" id="exv-N4-hW9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Ii-gj-aZc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -727,11 +727,10 @@
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
                                     <action selector="backButtonClicked:" destination="HsG-lV-Nx0" eventType="touchUpInside" id="kTl-zm-GZ5"/>
-                                    <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="6Oe-6o-s9l"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2pu-Oq-5mk">
-                                <rect key="frame" x="0.0" y="426" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="440" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
@@ -749,7 +748,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="11j-Fi-dB0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2640.579710144928" y="35.491071428571423"/>
+            <point key="canvasLocation" x="2641" y="35"/>
         </scene>
         <!--Follow List View Controller-->
         <scene sceneID="cZB-bS-bu8">
@@ -765,7 +764,6 @@
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
                                     <action selector="backButtonTapped:" destination="bz6-2B-Bru" eventType="touchUpInside" id="6cv-Jm-ykn"/>
-                                    <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="4w1-7P-nDM"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MfF-yu-Cir">
@@ -826,6 +824,7 @@
                                             <outlet property="followingAvatar" destination="UwD-aD-zHF" id="uyR-Sn-dHe"/>
                                             <outlet property="followingName" destination="9Mm-y0-FgX" id="P8v-8v-zDu"/>
                                             <outlet property="followingUsername" destination="nLb-P4-2An" id="7EB-VC-yIK"/>
+                                            <segue destination="C9p-qA-0Zi" kind="show" identifier="showChannel" id="74T-yE-MMO"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -834,7 +833,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rct-v6-76M">
-                                <rect key="frame" x="0.0" y="426" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="440" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
@@ -848,7 +847,6 @@
                     <connections>
                         <outlet property="nothingHere" destination="rct-v6-76M" id="zlT-uX-uKJ"/>
                         <outlet property="tableView" destination="MfF-yu-Cir" id="p8P-gv-f4M"/>
-                        <segue destination="C9p-qA-0Zi" kind="show" identifier="showChannel" id="Vol-b8-V42"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H8x-c6-dg4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -995,7 +993,6 @@
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
                                     <action selector="backButton:" destination="3CI-Sa-bhX" eventType="touchUpInside" id="w8t-IM-Hnc"/>
-                                    <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="RUC-82-f71"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vM-ar-hvy">
@@ -1322,7 +1319,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tRh-5V-WTq">
-                                <rect key="frame" x="0.0" y="426" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="440" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
@@ -1334,8 +1331,6 @@
                                 <state key="normal" image="arrow.left"/>
                                 <connections>
                                     <action selector="backButton:" destination="QcA-Gj-WsG" eventType="touchUpInside" id="SdO-ic-Vbm"/>
-                                    <action selector="backButtonClicked:" destination="HsG-lV-Nx0" eventType="touchUpInside" id="Bhi-8U-afo"/>
-                                    <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="ias-bl-w9Q"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1355,13 +1350,84 @@
         <!--Other Follow List View Controller-->
         <scene sceneID="0ww-Em-7rG">
             <objects>
-                <viewController storyboardIdentifier="OtherFollowViewController" id="0Mr-xg-87d" customClass="OtherFollowListViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OtherFollowViewController" modalPresentationStyle="fullScreen" id="0Mr-xg-87d" customClass="OtherFollowListViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OKS-bX-ROS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OM0-Nb-1c4">
+                                <rect key="frame" x="0.0" y="83" width="414" height="813"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OtherFollowingCell" id="rCQ-ao-dFg" customClass="OtherFollowingCell" customModule="Blurred_ios" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rCQ-ao-dFg" id="eYe-fE-kuF">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-Wd-lZP">
+                                                    <rect key="frame" x="15" y="4" width="35" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="16"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CT5-RM-GLG">
+                                                    <rect key="frame" x="58" y="2" width="150" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuD-BK-gPD">
+                                                    <rect key="frame" x="58" y="22" width="150" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="followingAvatar" destination="fKA-Wd-lZP" id="xwR-CR-6jM"/>
+                                            <outlet property="followingName" destination="CT5-RM-GLG" id="zte-kI-phk"/>
+                                            <outlet property="followingUsername" destination="XuD-BK-gPD" id="PrQ-hU-bSn"/>
+                                            <segue destination="C9p-qA-0Zi" kind="show" identifier="showChannel" id="GH9-4u-Awk"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="0Mr-xg-87d" id="ZQG-dZ-aDE"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ycf-yI-LmH">
+                                <rect key="frame" x="0.0" y="440" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" id="FXL-65-CQL">
+                                <rect key="frame" x="20" y="44" width="31" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="arrow.left"/>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="0Mr-xg-87d" eventType="touchUpInside" id="OKR-An-ird"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Gsj-0e-PsV"/>
                     </view>
+                    <navigationItem key="navigationItem" id="6BX-wQ-nvj"/>
+                    <connections>
+                        <outlet property="nothingHere" destination="Ycf-yI-LmH" id="LCi-M5-CIP"/>
+                        <outlet property="tableView" destination="OM0-Nb-1c4" id="pEr-mh-2Zi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fw9-WE-Q0l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1371,7 +1437,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Bvt-h1-M8t"/>
         <segue reference="rna-Y0-bYD"/>
-        <segue reference="cDm-cP-iYp"/>
+        <segue reference="GH9-4u-Awk"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="16" height="13"/>

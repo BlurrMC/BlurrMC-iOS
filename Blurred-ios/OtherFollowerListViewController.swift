@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Nuke
 import Valet
+import Nuke
 
 class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var nothingHereLabel: UILabel!

@@ -89,7 +89,7 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         if let indexPath = tableView.indexPathForSelectedRow{
             let selectedRow = indexPath.row
             let detailVC = segue.destination as! OtherChannelViewController
-            detailVC.channelVar = followings[selectedRow].username
+            detailVC.chanelVar = followings[selectedRow].username
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

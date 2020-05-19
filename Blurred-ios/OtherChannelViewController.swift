@@ -14,7 +14,7 @@ import Foundation
 class OtherChannelViewController: UIViewController {
     
     var chanelVar = String()
-    var channelVar = String()
+    var channelVar = String() // Remove all channelVar methods (it's not in use)
     var timer = Timer()
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
@@ -54,11 +54,7 @@ class OtherChannelViewController: UIViewController {
             loadMemberChannel()
         }
         if chanelVar == nil {
-            if channelVar == nil {
-                self.timer.invalidate()
-            } else {
-                loadMemberChannel()
-            }
+            self.timer.invalidate()
         } else {
             loadMemberChannel()
         }
@@ -75,10 +71,7 @@ class OtherChannelViewController: UIViewController {
         self.performSegue(withIdentifier: "showOtherFollower", sender: self)
     }
     func goToFollowingList() {
-        let followeringListPage = self.storyboard?.instantiateViewController(identifier: "OtherFollowListViewController") as! OtherFollowListViewController
-        let appDelegate = UIApplication.shared.delegate
-        appDelegate?.window??.rootViewController = followeringListPage
-        self.present(followeringListPage, animated:true, completion:nil)
+        self.performSegue(withIdentifier: "showOtherFollowing", sender: self)
     }
     var channelUsername = String()
     func loadMemberChannel() {
@@ -204,15 +197,16 @@ class OtherChannelViewController: UIViewController {
         {
             if let vc = segue.destination as? OtherFollowerListViewController {
                 if segue.identifier == "showOtherFollower" {
-                    if channelVar != nil {
-                        vc.followerVar = channelUsername
-                        print("\(channelUsername)")
-                    } else if chanelVar != nil {
-                        vc.followerVar = channelUsername
-                    }
+                    vc.followerVar = channelUsername
                 }
             } else {
                 self.showErrorContactingServer()
+            }
+        } else if segue.destination is OtherFollowListViewController {
+            if let vc = segue.destination as? OtherFollowListViewController {
+                if segue.identifier == "showOtherFollowing" {
+                    vc.followingVar = channelUsername
+                }
             }
         }
     }

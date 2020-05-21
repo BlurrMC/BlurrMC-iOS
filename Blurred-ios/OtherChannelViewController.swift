@@ -99,13 +99,13 @@ class OtherChannelViewController: UIViewController {
                         let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                         DispatchQueue.main.async {
                             if bio?.isEmpty != true {
-                                self.bioLabel.text = bio!
+                                self.bioLabel.text = bio ?? ""
                             } else {
                                 self.bioLabel.text = String("")
                             }
                             if username?.isEmpty != true && name?.isEmpty != true {
-                                self.usernameLabel.text = username!
-                                self.nameLabel.text = name!
+                                self.usernameLabel.text = username ?? ""
+                                self.nameLabel.text = name ?? ""
                             } else {
                                 self.showNoResponseFromServer()
                             }

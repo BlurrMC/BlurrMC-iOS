@@ -12,7 +12,9 @@
 * Made profile divider change to white if user's theme is set to dark mode.
 * Improved error handling (haha again!)
 * Added following list to other user's profiles. (You can view them and stuff)
-* Minor changes.
+* Minor design changes
+* Improvements (ah yes so specific)
+* Fixed bug where if bio was empty app would crash.
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

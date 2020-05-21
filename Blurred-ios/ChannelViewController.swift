@@ -29,7 +29,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 245, width: self.view.frame.size.width, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: 260, width: self.view.frame.size.width, height: 1))
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
         } else {
@@ -107,13 +107,13 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                     DispatchQueue.main.async {
                         if bio?.isEmpty != true {
-                            self.bioLabel.text = bio!
+                            self.bioLabel.text = bio ?? ""
                         } else {
                             self.bioLabel.text = String("")
                         }
                         if username?.isEmpty != true && name?.isEmpty != true {
-                            self.usernameLabel.text = username!
-                            self.nameLabel.text = name!
+                            self.usernameLabel.text = username ?? ""
+                            self.nameLabel.text = name ?? ""
                         } else {
                             self.showNoResponseFromServer()
                         }

@@ -103,11 +103,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pf2-uH-y5s">
-                                <rect key="frame" x="19.5" y="42" width="425" height="900"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pf2-uH-y5s">
+                                <rect key="frame" x="0.0" y="0.0" width="434" height="900"/>
                                 <subviews>
                                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jfk-Sa-Ah2">
-                                        <rect key="frame" x="13.5" y="85" width="50" height="50"/>
+                                        <rect key="frame" x="21.5" y="83" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="3iv-oo-RDz"/>
                                             <constraint firstAttribute="height" constant="50" id="NLs-P0-pqx"/>
@@ -133,16 +133,16 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="425" id="H8e-SD-Uw8"/>
-                                    <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="centerY" secondItem="pf2-uH-y5s" secondAttribute="centerY" constant="-340" id="Lv3-IY-qwN"/>
-                                    <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="centerX" secondItem="pf2-uH-y5s" secondAttribute="centerX" constant="-174" id="jzi-nw-4Gu"/>
+                                    <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="centerY" secondItem="pf2-uH-y5s" secondAttribute="centerY" constant="-342" id="Lv3-IY-qwN"/>
+                                    <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="centerX" secondItem="pf2-uH-y5s" secondAttribute="centerX" constant="-166" id="jzi-nw-4Gu"/>
                                     <constraint firstAttribute="height" constant="900" id="kQV-7A-eGR"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="pf2-uH-y5s" firstAttribute="centerY" secondItem="oan-MK-vdV" secondAttribute="centerY" constant="44" id="4uB-xf-5W9"/>
-                            <constraint firstItem="pf2-uH-y5s" firstAttribute="centerX" secondItem="oan-MK-vdV" secondAttribute="centerX" constant="25" id="wXj-yz-JGU"/>
+                            <constraint firstItem="pf2-uH-y5s" firstAttribute="centerY" secondItem="oan-MK-vdV" secondAttribute="centerY" id="4uB-xf-5W9"/>
+                            <constraint firstItem="pf2-uH-y5s" firstAttribute="centerX" secondItem="oan-MK-vdV" secondAttribute="centerX" id="wXj-yz-JGU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jkT-LJ-KiB"/>
                     </view>
@@ -1436,7 +1436,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Bvt-h1-M8t"/>
-        <segue reference="exv-N4-hW9"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="GH9-4u-Awk"/>
     </inferredMetricsTieBreakers>

@@ -7,6 +7,8 @@
 //
 import AVFoundation
 import UIKit
+import Valet
+import Alamofire
 
 class VideoPlaybackViewController: UIViewController {
     @IBOutlet weak var previewView: UIView!
@@ -16,6 +18,8 @@ class VideoPlaybackViewController: UIViewController {
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     var videoURL: URL!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +36,37 @@ class VideoPlaybackViewController: UIViewController {
         avPlayer.play()
 
         // Do any additional setup after loading the view.
+    }
+    @IBAction func doneButton(_ sender: Any) {
+    }
+    // I want to die
+    func showErrorContactingServer() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func showNoResponseFromServer() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
+        DispatchQueue.main.async {
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        }
     }
     
 

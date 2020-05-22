@@ -15,6 +15,7 @@
 * Minor design changes
 * Improvements (ah yes so specific)
 * Fixed bug where if bio was empty app would crash.
+* Video player now restarts
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

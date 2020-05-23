@@ -64,17 +64,14 @@ class VideoPlaybackViewController: UIViewController {
         let userId: String? = myValet.string(forKey: "Id")
         let token: String? = tokenValet.string(forKey: "Token")
         let Id = Int(userId!)
-        let params = ["video":["id": Id!]]
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
         AF.upload(
             multipartFormData: { multipartFormData in
-                for (_, _) in params {
-                    multipartFormData.append(self.videoURL, withName: "clip" , fileName: "avatar.png", mimeType: "video/mp4")
-                    multipartFormData.append("\(Id)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"Id")
-                }
+                multipartFormData.append(self.videoURL, withName: "video[clip]" , fileName: "clip.mp4", mimeType: "video/mp4")
+                multipartFormData.append("\(Id)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"Id")
         },
             to: "http://10.0.0.2:3000/api/v1/videouploads.json", method: .post, headers: headers)
             .response { resp in

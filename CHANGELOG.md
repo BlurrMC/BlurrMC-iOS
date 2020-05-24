@@ -15,8 +15,10 @@
 * Minor design changes
 * Improvements (ah yes so specific)
 * Fixed bug where if bio was empty app would crash.
-* Video player now restarts
+* Video player now loops
 * Added upload code for videos (Still needs more development.)
+* Fixed bug where edited image wouldn't save
+* Fixed bug where video would keep looping even when you dismissed the screen.
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

@@ -65,9 +65,10 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     func setupSession() -> Bool {
 
         captureSession.sessionPreset = AVCaptureSession.Preset.high
-
+        
         // Setup Camera
         let camera = AVCaptureDevice.default(for: AVMediaType.video)!
+        
 
         do {
 
@@ -84,7 +85,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
         // Setup Microphone
         let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
-
+    
         do {
             let micInput = try AVCaptureDeviceInput(device: microphone)
             if captureSession.canAddInput(micInput) {
@@ -103,6 +104,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
         return true
     }
+
     func setupCaptureMode(_ mode: Int) {
         // Video Mode
 

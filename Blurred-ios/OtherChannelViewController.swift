@@ -29,7 +29,7 @@ class OtherChannelViewController: UIViewController {
     @IBOutlet weak var followingLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 245, width: self.view.frame.size.width, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: 260, width: self.view.frame.size.width, height: 1))
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
         } else {

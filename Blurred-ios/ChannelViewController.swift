@@ -161,8 +161,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         ]
         let url = String("http://10.0.0.2:3000/api/v1/registrations/\(Id!)")
         let image = avatarImage.image///haha im small
-        guard let imgcompressed = image?.jpegData(compressionQuality: 0.5) else { return }
-        // Insert AF upload patch request here.
+        // let image = [UIImagePickerController.InfoKey.editedImage]
+        guard let imgcompressed = image!.jpegData(compressionQuality: 0.5) else { return }
         AF.upload(
             multipartFormData: { multipartFormData in
                 multipartFormData.append(imgcompressed, withName: "avatar" , fileName: "\(Id!)-avatar.png", mimeType: "image/png")
@@ -175,7 +175,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             avatarImage.image = image
             upload()
         } else {

@@ -14,10 +14,23 @@ class VideoPlaybackViewController: UIViewController {
     @IBOutlet weak var previewView: UIView!
     let avPlayer = AVPlayer()
     var avPlayerLayer: AVPlayerLayer!
-
+    var timer = Timer()
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        isDismissed = true
+        avPlayer.pause()
     }
+    
+    @objc func timerAction() {
+        let token: String? = tokenValet.string(forKey: "Token")
+        if token == nil {
+            self.timer.invalidate()
+        } else {
+            isDismissed = false
+            avPlayer.pause()
+        }
+    }
+    var isDismissed: Bool = false
     fileprivate var player: AVPlayer? {
         didSet { player?.play() }
     }
@@ -31,6 +44,19 @@ class VideoPlaybackViewController: UIViewController {
     var videoURL: URL!
     override func viewDidLoad() {
         super.viewDidLoad()
+        babaPlayer()
+                // Do any additional setup after loading the view.
+    }
+    func viewWillAppear() {
+        super.viewWillAppear(true)
+        isDismissed = false
+        babaPlayer()
+    }
+    func viewWillDisappear() {
+        super.viewWillDisappear(true)
+        isDismissed = true
+    }
+    func babaPlayer() {
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
         avPlayerLayer.frame = view.bounds
         avPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -40,15 +66,19 @@ class VideoPlaybackViewController: UIViewController {
 
         let playerItem = AVPlayerItem(url: videoURL as URL)
         avPlayer.replaceCurrentItem(with: playerItem)
-        let resetPlayer = { 
-            self.avPlayer.seek(to: CMTime.zero)
-            self.avPlayer.play()
-        }
-        playerObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: avPlayer.currentItem, queue: nil) { notification in
-            resetPlayer()
+        if isDismissed != true {
+            let resetPlayer = {
+                self.avPlayer.seek(to: CMTime.zero)
+                self.avPlayer.play()
+            }
+            playerObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: avPlayer.currentItem, queue: nil) { notification in
+                resetPlayer()
+            }
+        } else {
+            avPlayer.pause()
         }
         avPlayer.play()
-        // Do any additional setup after loading the view.
+
     }
     @IBAction func doneButton(_ sender: Any) {
         startRequest()

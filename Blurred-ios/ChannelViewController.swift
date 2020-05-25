@@ -46,6 +46,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
+        self.avatarImage.contentScaleFactor = 1.5
         // Setup the view so you can integerate it right away with the channel api.
     }
     func viewWillAppear() {

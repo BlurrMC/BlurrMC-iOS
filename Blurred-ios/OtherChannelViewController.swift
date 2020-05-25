@@ -43,6 +43,7 @@ class OtherChannelViewController: UIViewController {
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
+        self.avatarImage.contentScaleFactor = 1.5
         
 
         // Do any additional setup after loading the view.

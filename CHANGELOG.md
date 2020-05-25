@@ -19,7 +19,7 @@
 * Fixed bug where edited image wouldn't save
 * Fixed bug where video would keep looping even when you dismissed the screen.
 * Fixed bug where user's bio would overlap with profile divider line.
-* Uploading videos now works!
+* Uploading videos now works! 
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

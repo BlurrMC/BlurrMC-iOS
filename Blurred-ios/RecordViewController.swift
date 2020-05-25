@@ -25,9 +25,11 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     @IBAction func recordButtonPress(_ sender: Any) {
         startCapture()
     }
+    func camera() {
+        
+    }
     @IBAction func recordBackButton(_ sender: Any) {
-        // We can't have the dismiss because it brings you back to the authentication page to sign you in.
-        // We could just implement a token when loading back into the tab bar section....
+        self.dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var videoView: UIView!
 
@@ -38,8 +40,35 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     let movieOutput = AVCaptureMovieFileOutput()
 
     var previewLayer: AVCaptureVideoPreviewLayer!
+    var captureDevice: AVCaptureDevice!
+    @IBAction func pinchToZoom(_ sender: UIPinchGestureRecognizer) {
+
+        guard let device = captureDevice else { return }
+
+        if sender.state == .changed {
+
+            let maxZoomFactor = device.activeFormat.videoMaxZoomFactor
+            let pinchVelocityDividerFactor: CGFloat = 5.0
+
+            do {
+
+                try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
+
+                let desiredZoomFactor = device.videoZoomFactor + atan2(sender.velocity, pinchVelocityDividerFactor)
+                device.videoZoomFactor = max(1.0, min(desiredZoomFactor, maxZoomFactor))
+
+            } catch {
+                print(error)
+            }
+        }
+    }
 
     var activeInput: AVCaptureDeviceInput!
+    let minimumZoom: CGFloat = 1.0
+    let maximumZoom: CGFloat = 3.0
+    var lastZoomFactor: CGFloat = 1.0
+    
     
 
     var outputURL: URL!
@@ -47,6 +76,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // No tab bar for you!
+        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinchToZoom(_:)))
+        self.videoView.addGestureRecognizer(pinchRecognizer)
         if setupSession() {
             setupPreview()
             startSession()
@@ -82,7 +113,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             print("Error setting device video input: \(error)")
             return false
         }
-
         // Setup Microphone
         let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
     

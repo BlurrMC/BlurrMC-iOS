@@ -101,7 +101,7 @@ class VideoPlaybackViewController: UIViewController {
         AF.upload(
             multipartFormData: { multipartFormData in
                 multipartFormData.append(self.videoURL, withName: "video[clip]" , fileName: "clip.mp4", mimeType: "video/mp4")
-                multipartFormData.append("\(Id!)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"Id")
+                multipartFormData.append("\(Id!)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"user[Id]")
 
         },
             to: "http://10.0.0.2:3000/api/v1/videouploads.json", method: .post, headers: headers)

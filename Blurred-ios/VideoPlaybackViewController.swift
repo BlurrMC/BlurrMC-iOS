@@ -20,7 +20,24 @@ class VideoPlaybackViewController: UIViewController {
         isDismissed = true
         avPlayer.pause()
     }
-    
+    @IBAction func nextButton(_ sender: Any) {
+        self.performSegue(withIdentifier: "showUploadDetails", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is UploadDetailsViewController
+        {
+            if let vc = segue.destination as? UploadDetailsViewController {
+                if segue.identifier == "showUploadDetails" {
+                    vc.videoDetails = (videoURL.absoluteString as String)
+                }
+            } else {
+                self.showErrorContactingServer()
+            }
+        } else {
+            self.showNoVideo()
+        }
+    }
     @objc func timerAction() {
         let token: String? = tokenValet.string(forKey: "Token")
         if token == nil {
@@ -83,7 +100,7 @@ class VideoPlaybackViewController: UIViewController {
     @IBAction func doneButton(_ sender: Any) {
         startRequest()
     }
-    func startRequest() {
+    func startRequest() { // Move this to upload details and pass data using segue.
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = true
@@ -131,6 +148,17 @@ class VideoPlaybackViewController: UIViewController {
 
             // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func showNoVideo() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "What?", message: "There's no video! How did this happen????", preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "bruh moment", style: UIAlertAction.Style.default, handler: nil))
 
             // show the alert
             self.present(alert, animated: true, completion: nil)

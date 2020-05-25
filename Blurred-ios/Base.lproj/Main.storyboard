@@ -95,6 +95,55 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="-674.33035714285711"/>
         </scene>
+        <!--Upload Details View Controller-->
+        <scene sceneID="aAU-wu-i3M">
+            <objects>
+                <viewController storyboardIdentifier="UploadDetailsViewController" modalPresentationStyle="fullScreen" id="rI1-w4-KTI" customClass="UploadDetailsViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tSC-AL-95h">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y1t-Mc-F9c">
+                                <rect key="frame" x="353" y="44" width="41" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="doneButton:" destination="rI1-w4-KTI" eventType="touchUpInside" id="xpF-5K-XXq"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lm5-5z-XSP">
+                                <rect key="frame" x="20" y="44" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gIg-0Z-9Ov">
+                                <rect key="frame" x="20" y="202" width="374" height="95"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" returnKeyType="done"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="y1t-Mc-F9c" firstAttribute="centerY" secondItem="tSC-AL-95h" secondAttribute="centerY" constant="-387.5" id="86B-GG-kVG"/>
+                            <constraint firstItem="y1t-Mc-F9c" firstAttribute="centerX" secondItem="tSC-AL-95h" secondAttribute="centerX" constant="166.5" id="keh-u5-2JI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qSZ-ui-2am"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LOD-UD-mPU"/>
+                    <connections>
+                        <outlet property="descriptionField" destination="gIg-0Z-9Ov" id="GJh-Xn-TLy"/>
+                        <outlet property="thumbnailView" destination="Lm5-5z-XSP" id="NGG-Pk-Yse"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qmk-NK-eTe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="863.768115942029" y="-2131.4732142857142"/>
+        </scene>
         <!--Video Playback View Controller-->
         <scene sceneID="023-Q4-sr9">
             <objects>
@@ -103,8 +152,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pf2-uH-y5s">
-                                <rect key="frame" x="0.0" y="0.0" width="434" height="900"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pf2-uH-y5s">
+                                <rect key="frame" x="-5.5" y="-2" width="425" height="900"/>
                                 <subviews>
                                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jfk-Sa-Ah2">
                                         <rect key="frame" x="21.5" y="83" width="50" height="50"/>
@@ -129,20 +178,37 @@
                                             <action selector="backButton:" destination="i6k-Pp-sSl" eventType="touchUpInside" id="a1c-sY-ZxA"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i92-tI-0T7">
-                                        <rect key="frame" x="302" y="90" width="47" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Done"/>
+                                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhm-eJ-pwI">
+                                        <rect key="frame" x="340.5" y="83" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="a2X-Kd-Bj8"/>
+                                            <constraint firstAttribute="width" constant="50" id="x0W-Aw-bQv"/>
+                                        </constraints>
+                                        <state key="normal" image="arrow.right" catalog="system"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="a2X-Kd-Bj8"/>
+                                                <exclude reference="x0W-Aw-bQv"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="a2X-Kd-Bj8"/>
+                                                <include reference="x0W-Aw-bQv"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
-                                            <action selector="doneButton:" destination="i6k-Pp-sSl" eventType="touchUpInside" id="GVF-OE-TRC"/>
+                                            <action selector="nextButton:" destination="i6k-Pp-sSl" eventType="touchUpInside" id="uou-4e-u14"/>
+                                            <segue destination="rI1-w4-KTI" kind="show" identifier="showUploadDetails" id="kCc-RC-5eE"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
+                                    <constraint firstItem="vhm-eJ-pwI" firstAttribute="centerX" secondItem="pf2-uH-y5s" secondAttribute="centerX" constant="153" id="A7K-26-lqc"/>
                                     <constraint firstAttribute="width" constant="425" id="H8e-SD-Uw8"/>
                                     <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="centerY" secondItem="pf2-uH-y5s" secondAttribute="centerY" constant="-342" id="Lv3-IY-qwN"/>
+                                    <constraint firstItem="vhm-eJ-pwI" firstAttribute="centerY" secondItem="pf2-uH-y5s" secondAttribute="centerY" constant="-342" id="S3Q-6l-oYk"/>
                                     <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="centerX" secondItem="pf2-uH-y5s" secondAttribute="centerX" constant="-166" id="jzi-nw-4Gu"/>
                                     <constraint firstAttribute="height" constant="900" id="kQV-7A-eGR"/>
                                 </constraints>
@@ -757,7 +823,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="11j-Fi-dB0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2641" y="35"/>
+            <point key="canvasLocation" x="2641" y="161"/>
         </scene>
         <!--Follow List View Controller-->
         <scene sceneID="cZB-bS-bu8">
@@ -860,7 +926,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H8x-c6-dg4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3675.36231884058" y="34.821428571428569"/>
+            <point key="canvasLocation" x="3674" y="161"/>
         </scene>
         <!--Settings Controller-->
         <scene sceneID="QI5-82-euP">
@@ -1038,7 +1104,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EIy-We-Lp0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3400.0000000000005" y="-1410.2678571428571"/>
+            <point key="canvasLocation" x="3674" y="-1410"/>
         </scene>
         <!--Authenticate Controller-->
         <scene sceneID="lhV-Bk-unT">
@@ -1354,7 +1420,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r2M-r8-ay5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2640.579710144928" y="699.77678571428567"/>
+            <point key="canvasLocation" x="2642" y="948"/>
         </scene>
         <!--Other Follow List View Controller-->
         <scene sceneID="0ww-Em-7rG">
@@ -1440,16 +1506,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fw9-WE-Q0l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3675" y="700"/>
+            <point key="canvasLocation" x="3675" y="958"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Bvt-h1-M8t"/>
         <segue reference="rna-Y0-bYD"/>
-        <segue reference="GH9-4u-Awk"/>
+        <segue reference="cDm-cP-iYp"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="16" height="13"/>
+        <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="channel" width="30" height="30"/>
         <image name="gear" width="19" height="19"/>
         <image name="grid" width="40" height="40"/>

@@ -1,5 +1,5 @@
 # Changelog
-## Unrelease
+## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart
 * Fixed bug where timer would go one last cycle after logging out.

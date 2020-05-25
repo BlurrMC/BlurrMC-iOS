@@ -24,7 +24,6 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
-        timer = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
 
         // Do any additional setup after loading the view.
@@ -39,6 +38,15 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
             print("timer activated")
 
         }
+    }
+    func viewWillAppear() {
+        super.viewWillAppear(true)
+        downloadJson()
+        timer = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    func viewWillDisappear() {
+        super.viewWillDisappear(true)
+        timer.invalidate()
     }
     var followerId = String()
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)

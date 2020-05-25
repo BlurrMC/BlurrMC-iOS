@@ -43,9 +43,18 @@ class OtherChannelViewController: UIViewController {
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
-        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        
 
         // Do any additional setup after loading the view.
+    }
+    func viewWillAppear() {
+        super.viewWillAppear(true)
+        loadMemberChannel()
+        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    func viewWillDisappear() {
+        super.viewWillDisappear(true)
+        timer.invalidate()
     }
     @objc func timerAction() {
         if myValet.string(forKey: "Id") == nil {

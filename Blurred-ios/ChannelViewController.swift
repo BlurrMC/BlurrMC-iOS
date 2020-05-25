@@ -46,8 +46,16 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
-        timer = Timer.scheduledTimer(timeInterval: 40.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Setup the view so you can integerate it right away with the channel api.
+    }
+    func viewWillAppear() {
+        super.viewWillAppear(true)
+        loadMemberChannel()
+        timer = Timer.scheduledTimer(timeInterval: 40.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    func viewWillDisappear() {
+        super.viewWillDisappear(true)
+        timer.invalidate()
     }
     @objc func imageTapped(gesture: UIGestureRecognizer) {
         // if the tapped view is a UIImageView then set it to imageview

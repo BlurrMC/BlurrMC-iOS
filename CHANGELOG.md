@@ -20,6 +20,7 @@
 * Fixed bug where video would keep looping even when you dismissed the screen.
 * Fixed bug where user's bio would overlap with profile divider line.
 * Uploading videos now works! 
+* Added feature where when user dismissed the view, it will invalidate the timer, and when the view appeared again it validated the timer.
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

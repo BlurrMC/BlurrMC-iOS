@@ -22,7 +22,6 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
-        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
@@ -32,6 +31,15 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
             downloadJson()
         }
         print("timer activated")
+    }
+    func viewWillAppear() {
+        super.viewWillAppear(true)
+        downloadJson()
+        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    func viewWillDisappear() {
+        super.viewWillDisappear(true)
+        timer.invalidate()
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)

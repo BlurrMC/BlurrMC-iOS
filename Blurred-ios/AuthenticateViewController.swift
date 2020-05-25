@@ -48,9 +48,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         
         if (username?.isEmpty)! || (password?.isEmpty)! {
             print("Username \(String(describing: username)) or password \(String(describing: password)) is empty")
-            DispatchQueue.main.async {
-                self.showEmptyAlert() // WHAT DID THE PEOPLE DO?
-            }
+            self.showEmptyAlert() // WHAT DID THE PEOPLE DO?
 
              
             
@@ -76,16 +74,14 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
         } catch let error { // Catch the VICTORY ROYALE
             print(error.localizedDescription) // I hope it doesn't screw up
-            DispatchQueue.main.async {
-                self.showErrorContactingServer() // WHAT DID THE PEOPLE DO?
-            }
+            self.showErrorContactingServer() // WHAT DID THE PEOPLE DO?
+            removeActivityIndicator(activityIndicator: myActivityIndicator)
             return
         }
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in // error. Error? ERRORRRR???!!??!?!
             if error != nil {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer() // WHAT DID THE PEOPLE DO?
-                } // LOL probably some kids wifi router in the attic.
+                self.showNoResponseFromServer()
+                self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                 print("error=\(String(describing: error))")
                 return
             }
@@ -94,44 +90,43 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 
                 if let parseJSON = json {
                     let userIdInt = parseJSON["id"] as? Int
-                    let userId = "\(userIdInt!)"
-                    let accessToken = parseJSON["token"] as? String
-                    let errorToken = parseJSON["error"] as? String
-                    print(userId)
-                    if ((errorToken?.isEmpty) == nil) {
-                        print("No error")
-                    } else {
-                        DispatchQueue.main.async {
-                            self.showIncorrectCreds()
-                        }
-                    }
-                    if accessToken?.isEmpty == nil {
-                        DispatchQueue.main.async {
-                            self.showIncorrectCreds()
-                        }
-                    } else {
-                        self.tokenValet.set(string: accessToken!, forKey: "Token")
-                        self.myValet.set(string: userId, forKey: "Id")
+                    if userIdInt == nil {
+                        self.showIncorrectCreds()
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                        DispatchQueue.main.async {
-                            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
-                            self.present(nextViewController, animated: true, completion: nil)
+                    } else {
+                        let userId = "\(userIdInt!)"
+                        let accessToken = parseJSON["token"] as? String
+                        let errorToken = parseJSON["error"] as? String
+                        print(userId)
+                        if ((errorToken?.isEmpty) == nil) {
+                            print("No error")
+                        } else {
+                            self.showIncorrectCreds()
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        }
+                        if accessToken?.isEmpty == nil {
+                            self.showIncorrectCreds()
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        } else {
+                            self.tokenValet.set(string: accessToken!, forKey: "Token")
+                            self.myValet.set(string: userId, forKey: "Id")
+                            self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            DispatchQueue.main.async {
+                                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+                                self.present(nextViewController, animated: true, completion: nil)
+                            }
                         }
                     }
                 } else {  // else what?
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                    DispatchQueue.main.async {
-                        self.showNoResponseFromServer()
-                    } // if If IF IF WHTA?
+                    self.showNoResponseFromServer()
                     print(error ?? "No error")
                 }
                 
             } catch {
                 self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                DispatchQueue.main.async {
-                    self.showErrorContactingServer()
-                }
+                self.showErrorContactingServer()
                 print(error)
             }
         }
@@ -144,48 +139,47 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         }
     }
     func showEmptyAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Alert", message: "The username or password is missing.", preferredStyle: UIAlertController.Style.alert)
 
-        // create the alert
-        let alert = UIAlertController(title: "Alert", message: "The username or password is missing.", preferredStyle: UIAlertController.Style.alert)
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showErrorContactingServer() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showNoResponseFromServer() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showIncorrectCreds() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Alert", message: "Wrong username or password.", preferredStyle: UIAlertController.Style.alert)
 
-        // create the alert
-        let alert = UIAlertController(title: "Alert", message: "Wrong username or password.", preferredStyle: UIAlertController.Style.alert)
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
     }
-
 }

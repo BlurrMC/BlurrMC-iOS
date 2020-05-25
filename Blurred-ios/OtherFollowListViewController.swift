@@ -1,8 +1,8 @@
 //
-//  FollowListViewController.swift
+//  OtherFollowListViewController.swift
 //  Blurred-ios
 //
-//  Created by Martin Velev on 5/4/20.
+//  Created by Martin Velev on 5/19/20.
 //  Copyright © 2020 BlurrMC. All rights reserved.
 //
 
@@ -10,7 +10,8 @@ import UIKit
 import Valet
 import Nuke
 
-class FollowListViewController: UIViewController, UITableViewDataSource {
+class OtherFollowListViewController: UIViewController, UITableViewDataSource {
+    var followingVar = String()
     private var followings = [Following]()
     var timer = Timer()
     @IBOutlet weak var nothingHere: UILabel!
@@ -18,24 +19,30 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
     @IBAction func backButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
+        print("\(followingVar)")
+
         // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
         if myValet.string(forKey: "Id") == nil {
             self.timer.invalidate()
-        } else {
+        } else if followingVar == nil {
+            self.timer.invalidate()
+        } else if followingVar != nil && myValet.string(forKey: "Id") != nil {
             downloadJson()
+            print("timer activated")
         }
-        print("timer activated")
     }
     func viewWillAppear() {
         super.viewWillAppear(true)
         downloadJson()
-        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 360.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
     func viewWillDisappear() {
         super.viewWillDisappear(true)
@@ -44,9 +51,8 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func downloadJson() { // Still not done we need to add the user's butt image
-        let userId: String?  = myValet.string(forKey: "Id")
-        let Id = Int(userId ?? "0")
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowing/\(Id!).json")  // 23:40
+        let Id = followingVar
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowing/\(Id).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -101,13 +107,15 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell") as? FollowingCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFollowingCell") as? OtherFollowingCell else { return UITableViewCell() }
         cell.followingUsername.text = followings[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
         cell.followingName.text = followings[indexPath.row].name
-        if followings == nil {
-            nothingHere.text = String("Nothing Here")
-        } else {
-            nothingHere.text = String("")
+        DispatchQueue.main.async {
+            if cell.followingUsername.text == nil {
+                self.nothingHere.text = String("Nothing Here")
+            } else {
+                self.nothingHere.text = String("")
+            }
         }
         let Id: Int? = followings[indexPath.row].id
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
@@ -145,6 +153,7 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     func showErrorContactingServer() {
+        self.timer.invalidate()
 
         // create the alert
         let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
@@ -156,6 +165,7 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         self.present(alert, animated: true, completion: nil)
     }
     func showNoResponseFromServer() {
+        self.timer.invalidate()
 
         // create the alert
         let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)

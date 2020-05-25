@@ -9,7 +9,6 @@
 import UIKit
 import Valet
 import Nuke
-import SwiftUI
 import Alamofire
 
 class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate { // Look at youself. Look at what you have done.
@@ -27,12 +26,15 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
     @IBAction func settingsButtonTap(_ sender: Any) {
-        self.timer.invalidate()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 245, width: self.view.frame.size.width, height: 1))
-        lineView.backgroundColor = UIColor.black
+        let lineView = UIView(frame: CGRect(x: 0, y: 260, width: self.view.frame.size.width, height: 1))
+        if traitCollection.userInterfaceStyle == .light {
+            lineView.backgroundColor = UIColor.black
+        } else {
+            lineView.backgroundColor = UIColor.white
+        }
         self.view.addSubview(lineView)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
         avatarImage.isUserInteractionEnabled = true
@@ -44,8 +46,16 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
-        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Setup the view so you can integerate it right away with the channel api.
+    }
+    func viewWillAppear() {
+        super.viewWillAppear(true)
+        loadMemberChannel()
+        timer = Timer.scheduledTimer(timeInterval: 40.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    func viewWillDisappear() {
+        super.viewWillDisappear(true)
+        timer.invalidate()
     }
     @objc func imageTapped(gesture: UIGestureRecognizer) {
         // if the tapped view is a UIImageView then set it to imageview
@@ -55,8 +65,12 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     @objc func timerAction() {
+        if myValet.string(forKey: "Id") == nil {
+            self.timer.invalidate()
+        } else {
+            loadMemberChannel()
+        }
         print("timer activated")
-        loadMemberChannel()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         print("tap working")
@@ -101,13 +115,13 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                     DispatchQueue.main.async {
                         if bio?.isEmpty != true {
-                            self.bioLabel.text = bio!
+                            self.bioLabel.text = bio ?? ""
                         } else {
                             self.bioLabel.text = String("")
                         }
                         if username?.isEmpty != true && name?.isEmpty != true {
-                            self.usernameLabel.text = username!
-                            self.nameLabel.text = name!
+                            self.usernameLabel.text = username ?? ""
+                            self.nameLabel.text = name ?? ""
                         } else {
                             self.showNoResponseFromServer()
                         }
@@ -145,14 +159,43 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             
         }
     }
+    func upload() {
+        let token: String?  = self.tokenValet.string(forKey: "Token")
+        let userId: String?  = self.myValet.string(forKey: "Id")
+        let Id = Int(userId!)
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token!)",
+            "Accept": "application/json"
+        ]
+        let url = String("http://10.0.0.2:3000/api/v1/registrations/\(Id!)")
+        let image = avatarImage.image///haha im small
+        // let image = [UIImagePickerController.InfoKey.editedImage]
+        guard let imgcompressed = image!.jpegData(compressionQuality: 0.5) else { return }
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imgcompressed, withName: "avatar" , fileName: "\(Id!)-avatar.png", mimeType: "image/png")
+        },
+            to: url, method: .patch , headers: headers)
+            .response { resp in
+                print(resp)
+
+
+        }
+    }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             avatarImage.image = image
+            upload()
         } else {
             self.showUnkownError()
         }
         self.dismiss(animated: true, completion: nil)
     }
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+
     func takePicture() {
         let image = UIImagePickerController()
         image.delegate = self
@@ -213,19 +256,5 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             // show the alert
             self.present(alert, animated: true, completion: nil)
         }
-        // Removed the post request for the photo because I will use alamofire to send the avatar.
-        
     }
-    // This checks in with the api and makes sure the token is right and then with the id it goes to the id's (or current user's) channel.
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

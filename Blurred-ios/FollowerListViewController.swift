@@ -14,7 +14,6 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var nothingHere: UILabel!
     @IBAction func backButtonClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-        self.timer.invalidate()
     }
     private var followers = [Follower]()
     var timer = Timer()
@@ -24,13 +23,23 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
-        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-
-        // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
+        if myValet.string(forKey: "Id") == nil {
+            self.timer.invalidate()
+        } else {
+            downloadJson()
+        }
         print("timer activated")
+    }
+    func viewWillAppear() {
+        super.viewWillAppear(true)
         downloadJson()
+        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    func viewWillDisappear() {
+        super.viewWillDisappear(true)
+        timer.invalidate()
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
@@ -81,7 +90,17 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return followers.count
     }
-    
+    func tableView(tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let destinationVC = OtherChannelViewController()
+        destinationVC.performSegue(withIdentifier: "showChannel", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = tableView.indexPathForSelectedRow{
+            let selectedRow = indexPath.row
+            let detailVC = segue.destination as! OtherChannelViewController
+            detailVC.chanelVar = followers[selectedRow].username
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell") as? FollowerCell else { return UITableViewCell() }
         cell.followerUsername.text = followers[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here

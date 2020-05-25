@@ -1,4 +1,26 @@
 # Changelog
+## v0.2.5 (PRERELEASE)
+* Account settings editing now works (actually contacts the api)
+* Fixed bug where timer would stop forever and load any user info until app restart
+* Fixed bug where timer would go one last cycle after logging out.
+* Added some navigation improvments.
+* Avatar changes now go through the api (and actually change. wow!)
+* Added record feature to record view controller (doesn't contact api yet.)
+* Changed timer time on some view controllers
+* Added other profiles.
+* Added follower list to other user's profiles.
+* Made profile divider change to white if user's theme is set to dark mode.
+* Improved error handling (haha again!)
+* Added following list to other user's profiles. (You can view them and stuff)
+* Minor design changes
+* Improvements (ah yes so specific)
+* Fixed bug where if bio was empty app would crash.
+* Video player now loops
+* Fixed bug where edited image wouldn't save
+* Fixed bug where video would keep looping even when you dismissed the screen.
+* Fixed bug where user's bio would overlap with profile divider line.
+* Uploading videos now works! 
+* Added feature where when user dismissed the view, it will invalidate the timer, and when the view appeared again it validated the timer.
 ## v0.2 (PRERELEASE)
 * Added more error handling
 * Some more constraints

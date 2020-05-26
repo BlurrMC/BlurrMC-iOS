@@ -84,7 +84,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         }
 
         videoView.addSubview(cameraButton)
-        // Saves the video to gallery and then uploads that video from gallery. The user doesn't have to pick that they are uploading it from gallery though.
     }
     func setupPreview() {
         // Configure previewLayer
@@ -187,7 +186,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         return nil
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
         let vc = segue.destination as? VideoPlaybackViewController
         vc?.videoURL = sender as? URL
     }

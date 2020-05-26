@@ -29,7 +29,7 @@ class VideoPlaybackViewController: UIViewController {
         {
             if let vc = segue.destination as? UploadDetailsViewController {
                 if segue.identifier == "showUploadDetails" {
-                    vc.videoDetails = (videoURL.absoluteString as String)
+                    vc.videoDetails = videoURL
                 }
             } else {
                 self.showErrorContactingServer()
@@ -98,38 +98,8 @@ class VideoPlaybackViewController: UIViewController {
 
     }
     @IBAction func doneButton(_ sender: Any) {
-        startRequest()
+        performSegue(withIdentifier: "showUploadDetails", sender: self)
     }
-    func startRequest() { // Move this to upload details and pass data using segue.
-        let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = true
-        myActivityIndicator.startAnimating()
-        DispatchQueue.main.async {
-            self.view.addSubview(myActivityIndicator)
-        }
-        let userId: String? = myValet.string(forKey: "Id")
-        let token: String? = tokenValet.string(forKey: "Token")
-        let Id = Int(userId!)
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token!)",
-            "Accept": "application/json"
-        ]
-        AF.upload(
-            multipartFormData: { multipartFormData in
-                multipartFormData.append(self.videoURL, withName: "video[clip]" , fileName: "clip.mp4", mimeType: "video/mp4")
-                multipartFormData.append("\(Id!)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"user[Id]")
-
-        },
-            to: "http://10.0.0.2:3000/api/v1/videouploads.json", method: .post, headers: headers)
-            .response { resp in
-                print(resp)
-
-
-        }
-        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-    }
-    // I want to die
     func showErrorContactingServer() {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
@@ -170,16 +140,5 @@ class VideoPlaybackViewController: UIViewController {
             activityIndicator.removeFromSuperview()
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

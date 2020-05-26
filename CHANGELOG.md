@@ -1,7 +1,9 @@
 # Changelog
 ## Unreleased
 * Changed scale factor of avatar image in channel view.
-* Added new controller.
+* Added description field
+* Moved upload to another controller
+* Added thumbnail view of video in upload details controller.
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

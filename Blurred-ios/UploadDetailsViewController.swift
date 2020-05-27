@@ -14,6 +14,9 @@ import AVKit
 class UploadDetailsViewController: UIViewController {
     
     var videoDetails: URL!
+    @IBAction func backButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBAction func doneButton(_ sender: Any) {
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         uploadRequest()

@@ -4,6 +4,10 @@
 * Added description field
 * Moved upload to another controller
 * Added thumbnail view of video in upload details controller.
+* Added back button to upload details.
+* Added channel video controller for videos on channels.
+* Added collection view to channel view controller (doesn't do anything yet)
+* Added collection view to other channel view controller (doesn't do anything yet)
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

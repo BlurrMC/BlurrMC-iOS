@@ -27,4 +27,5 @@ class ChannelVideoViewController: UIViewController, UICollectionViewDataSource {
 
         // Do any additional setup after loading the view.
     }
+    // Setup function to contact api for each video thumbnail to load it 
 }

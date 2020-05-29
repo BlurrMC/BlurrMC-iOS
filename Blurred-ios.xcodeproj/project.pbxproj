@@ -40,6 +40,7 @@
 		E1DF6FBD244F5DE300E11BF9 /* ChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */; };
 		E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBD0B8245377E800FE901F /* SettingsViewController.swift */; };
 		E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */; };
+		E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */; };
 		E1F28474247C19CE009F8B0B /* UploadDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */; };
 		E1FF22322467061F0094DDD2 /* FollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FF22312467061F0094DDD2 /* FollowerListViewController.swift */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,7 @@
 		E1EBD0B8245377E800FE901F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
 		E1EBD0BC2453A1CE00FE901F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
+		E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoCell.swift; sourceTree = "<group>"; };
 		E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDetailsViewController.swift; sourceTree = "<group>"; };
 		E1FF22312467061F0094DDD2 /* FollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListViewController.swift; sourceTree = "<group>"; };
 		ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +187,7 @@
 				E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */,
 				E1DF6F6F244F550300E11BF9 /* SearchViewController.swift */,
 				E1DF6F71244F550300E11BF9 /* Main.storyboard */,
+				E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */,
 				E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */,
 				E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */,
 				E146ACF6247441DE00D3ED10 /* OtherFollowerCell.swift */,
@@ -495,6 +498,7 @@
 				E146ACF9247441F100D3ED10 /* OtherFollowingCell.swift in Sources */,
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
+				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */,

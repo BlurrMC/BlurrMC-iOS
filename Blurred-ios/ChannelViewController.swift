@@ -11,7 +11,18 @@ import Valet
 import Nuke
 import Alamofire
 
-class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate { // Look at youself. Look at what you have done.
+class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource { // Look at youself. Look at what you have done.
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return videos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Need to add something here to make it compile
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
+        return cell
+    }
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     
 
@@ -91,6 +102,42 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = followeringListPage
         self.present(followeringListPage, animated:true, completion:nil)
+    }
+    class Videos: Codable {
+        let videos: [Video]
+        init(videos: [Video]) {
+            self.videos = videos
+        }
+    }
+    class Video: Codable {
+        let id: Int
+        init(username: String, name: String, id: Int) {
+            self.id = id // Pass id through a seuge to channelvideo
+        }
+    }
+    private var videos = [Video]()
+    func channelVideoIds() { // Still not done we need to add the user's butt image
+        let userId: String?  = myValet.string(forKey: "Id")
+        let Id = Int(userId!)
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")  // 23:40
+        guard let downloadURL = url else { return }
+        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
+            guard let data = data, error == nil, urlResponse != nil else {
+                DispatchQueue.main.async {
+                    self.showNoResponseFromServer()
+                }
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                self.videos = downloadedVideo.videos
+            } catch {
+                DispatchQueue.main.async {
+                    self.showErrorContactingServer() // f
+                }
+            }
+        }.resume()
     }
     func loadMemberChannel() {
         let userId: String?  = myValet.string(forKey: "Id")

@@ -11,8 +11,114 @@ import Nuke
 import Valet
 import Foundation
 
-class OtherChannelViewController: UIViewController {
+class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
+    @IBOutlet weak var collectionView: UICollectionView!
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return videos.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Need to add something here to make it compile
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }
+        let Id: Int? = videos[indexPath.row].id
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(Id!).json")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.showErrorContactingServer()
+                }
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let imageUrl: String? = parseJSON["thumbnail_url"] as? String
+                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
+                    DispatchQueue.main.async {
+                        Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.showErrorContactingServer()
+                    }
+                    print(error ?? "No error")
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.showNoResponseFromServer()
+                }
+                print(error)
+                }
+        }
+        task.resume()
+        return cell
+    }
+    class Videos: Codable {
+        let videos: [Video]
+        init(videos: [Video]) {
+            self.videos = videos
+        }
+    }
+    class Video: Codable {
+        let id: Int
+        init(username: String, name: String, id: Int) {
+            self.id = id // Pass id through a seuge to channelvideo
+        }
+    }
+    private var videos = [Video]()
+    func channelVideoIds() { // Still not done we need to add the user's butt image
+        if chanelVar != nil {
+            let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(chanelVar).json")  // 23:40
+            guard let downloadURL = url else { return }
+            URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
+                guard let data = data, error == nil, urlResponse != nil else {
+                    DispatchQueue.main.async {
+                        self.showNoResponseFromServer()
+                    }
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                    self.videos = downloadedVideo.videos
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        self.showErrorContactingServer() // f
+                    }
+                }
+            }.resume()
+        } else if channelVar != nil {
+            let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(channelVar).json")  // 23:40
+            guard let downloadURL = url else { return }
+            URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
+                guard let data = data, error == nil, urlResponse != nil else {
+                    DispatchQueue.main.async {
+                        self.showNoResponseFromServer()
+                    }
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                    self.videos = downloadedVideo.videos
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        self.showErrorContactingServer() // f
+                    }
+                }
+            }.resume()
+        }
+        
+    }
     var chanelVar = String()
     var channelVar = String() // Remove all channelVar methods (it's not in use)
     var timer = Timer()
@@ -43,6 +149,7 @@ class OtherChannelViewController: UIViewController {
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
+        channelVideoIds()
         self.avatarImage.contentScaleFactor = 1.5
         
 
@@ -51,6 +158,7 @@ class OtherChannelViewController: UIViewController {
     func viewWillAppear() {
         super.viewWillAppear(true)
         loadMemberChannel()
+        channelVideoIds()
         timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
     func viewWillDisappear() {
@@ -62,6 +170,7 @@ class OtherChannelViewController: UIViewController {
             self.timer.invalidate()
         } else {
             loadMemberChannel()
+            channelVideoIds()
         }
         if chanelVar == nil {
             self.timer.invalidate()
@@ -158,7 +267,7 @@ class OtherChannelViewController: UIViewController {
                     if let parseJSON = json {
                         let username: String? = parseJSON["username"] as? String
                         let name: String? = parseJSON["name"] as? String
-                        let imageUrl: String? = parseJSON["image_url"] as? String
+                        let imageUrl: String? = parseJSON["avatar_url"] as? String
                         let followerCount: Int? = parseJSON["followers_count"] as? Int
                         let followingCount: Int? = parseJSON["following_count"] as? Int
                         let bio: String? = parseJSON["bio"] as? String
@@ -253,16 +362,4 @@ class OtherChannelViewController: UIViewController {
         // show the alert
         self.present(alert, animated: true, completion: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

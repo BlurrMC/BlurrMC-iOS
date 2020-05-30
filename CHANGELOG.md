@@ -11,7 +11,7 @@
 * Moved profile divider line down by 5px
 * Added thumbnails to videos on your own channel
 * Updated api request for avatar urls.
-* Added thumbnails to videos on others' channels (Thumbnail sizing broken)
+* Added thumbnails to videos on others' channels 
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

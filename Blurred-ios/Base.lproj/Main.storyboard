@@ -820,47 +820,43 @@
                                 <color key="textColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fVP-Ir-7LO">
-                                <rect key="frame" x="0.0" y="308" width="414" height="588"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Af4-p0-Xxy">
+                                <rect key="frame" x="0.0" y="308" width="414" height="505"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="588" id="ARr-CM-EgX"/>
-                                    <constraint firstAttribute="width" constant="414" id="xls-MX-YFN"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZZz-j6-1PX">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qcm-xz-fWo">
                                     <size key="itemSize" width="127" height="127"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="OtherChannelVideoCell" id="sRw-i2-HXm" customClass="OtherChannelVideoCell" customModule="Blurred_ios" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OtherChannelVideoCell" id="6Ib-C8-MAV" customClass="OtherChannelVideoCell" customModule="Blurred_ios" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="127" height="127"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tUp-U9-Ovc">
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hn2-DL-Nc0">
                                             <rect key="frame" x="0.0" y="0.0" width="127" height="127"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="spV-E4-mCK">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kiO-0T-tMH">
                                                     <rect key="frame" x="8" y="8" width="111" height="111"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="thumbnailView" destination="spV-E4-mCK" id="0TO-Fp-h9C"/>
+                                            <outlet property="thumbnailView" destination="kiO-0T-tMH" id="rFg-fj-jGN"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="C9p-qA-0Zi" id="j1o-mR-nAI"/>
+                                    <outlet property="dataSource" destination="C9p-qA-0Zi" id="8Dn-4K-YYq"/>
                                 </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="fB5-sr-lPI" firstAttribute="centerX" secondItem="YMz-Hh-Adh" secondAttribute="centerX" constant="-7" id="17Y-1w-haH"/>
-                            <constraint firstItem="fVP-Ir-7LO" firstAttribute="centerY" secondItem="YMz-Hh-Adh" secondAttribute="centerY" constant="154" id="17o-Ar-9vn"/>
                             <constraint firstItem="sHH-62-lgO" firstAttribute="centerY" secondItem="YMz-Hh-Adh" secondAttribute="centerY" constant="-260" id="1Ee-jg-6bL"/>
                             <constraint firstItem="uzw-Tq-P48" firstAttribute="centerY" secondItem="YMz-Hh-Adh" secondAttribute="centerY" constant="-260" id="7rv-e7-2vy"/>
                             <constraint firstItem="sHH-62-lgO" firstAttribute="centerX" secondItem="YMz-Hh-Adh" secondAttribute="centerX" constant="80" id="Bi0-lL-Bar"/>
@@ -875,7 +871,6 @@
                             <constraint firstItem="Mta-wt-Viq" firstAttribute="centerX" secondItem="YMz-Hh-Adh" secondAttribute="centerX" constant="150" id="dFu-Nu-VjW"/>
                             <constraint firstItem="Qfr-oR-0FF" firstAttribute="centerY" secondItem="YMz-Hh-Adh" secondAttribute="centerY" constant="-260" id="e0U-mA-So8"/>
                             <constraint firstItem="Nvd-xk-rh0" firstAttribute="centerX" secondItem="YMz-Hh-Adh" secondAttribute="centerX" constant="-122.5" id="lSe-gN-T7n"/>
-                            <constraint firstItem="fVP-Ir-7LO" firstAttribute="centerX" secondItem="YMz-Hh-Adh" secondAttribute="centerX" id="pgy-du-Pu5"/>
                             <constraint firstItem="Qfr-oR-0FF" firstAttribute="centerX" secondItem="YMz-Hh-Adh" secondAttribute="centerX" constant="151" id="x6I-p8-HdM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oP4-gb-LJI"/>
@@ -884,7 +879,7 @@
                     <connections>
                         <outlet property="avatarImage" destination="Nvd-xk-rh0" id="IQX-Da-HlC"/>
                         <outlet property="bioLabel" destination="ety-ge-e3T" id="nWe-BM-THS"/>
-                        <outlet property="collectionView" destination="fVP-Ir-7LO" id="fPN-qs-pMJ"/>
+                        <outlet property="collectionView" destination="Af4-p0-Xxy" id="Kt7-3A-Sas"/>
                         <outlet property="followersLabel" destination="YSr-hM-0xL" id="VOP-Ed-9SU"/>
                         <outlet property="followingLabel" destination="Mta-wt-Viq" id="jQy-yv-TYs"/>
                         <outlet property="nameLabel" destination="fB5-sr-lPI" id="QzD-8C-vUo"/>
@@ -1669,7 +1664,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Bvt-h1-M8t"/>
-        <segue reference="745-eJ-5Gd"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="cDm-cP-iYp"/>
     </inferredMetricsTieBreakers>

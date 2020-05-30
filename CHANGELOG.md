@@ -8,6 +8,8 @@
 * Added channel video controller for videos on channels.
 * Added collection view to channel view controller (doesn't do anything yet)
 * Added collection view to other channel view controller (doesn't do anything yet)
+* Moved profile divider line down by 5px
+* Added thumbnails to videos on people's channels (not other channels just your own for now)
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

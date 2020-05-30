@@ -19,6 +19,40 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
+        let Id: Int? = videos[indexPath.row].id
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(Id!).json")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.showErrorContactingServer()
+                }
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let imageUrl: String? = parseJSON["thumbnail_url"] as? String
+                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
+                    DispatchQueue.main.async {
+                        Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
+                        }
+                } else {
+                    DispatchQueue.main.async {
+                        self.showErrorContactingServer()
+                    }
+                    print(error ?? "No error")
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.showNoResponseFromServer()
+                }
+                print(error)
+                }
+        }
+        task.resume()
         return cell
     }
     
@@ -40,7 +74,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 260, width: self.view.frame.size.width, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: 265, width: self.view.frame.size.width, height: 1))
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
         } else {
@@ -57,12 +91,14 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
+        channelVideoIds()
         self.avatarImage.contentScaleFactor = 1.5
         // Setup the view so you can integerate it right away with the channel api.
     }
     func viewWillAppear() {
         super.viewWillAppear(true)
         loadMemberChannel()
+        channelVideoIds()
         timer = Timer.scheduledTimer(timeInterval: 40.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
     func viewWillDisappear() {
@@ -81,6 +117,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             self.timer.invalidate()
         } else {
             loadMemberChannel()
+            channelVideoIds()
         }
         print("timer activated")
     }
@@ -132,6 +169,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
                 self.videos = downloadedVideo.videos
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
             } catch {
                 DispatchQueue.main.async {
                     self.showErrorContactingServer() // f

@@ -72,7 +72,10 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         {
             if let vc = segue.destination as? ChannelVideoViewController {
                 if segue.identifier == "showVideo" {
-                    vc.videoString = videoUrlString
+                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+                        let selectedRow = indexPath.row
+                        vc.videoString = videos[selectedRow].id
+                    }
                 }
             } else {
                 self.showErrorContactingServer()

@@ -12,7 +12,7 @@
 * Added thumbnails to videos on your own channel
 * Updated api request for avatar urls.
 * Added thumbnails to videos on others' channels 
-* Video playback controller for channel videos (Can only play 1st video of user.)
+* Video playback controller for channel videos plays videos (still needs some minor imporvements)
 * Fixed other channel's avatars (forgot to update the api)
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)

@@ -12,7 +12,43 @@ import AVFoundation
 import Valet
 
 class ChannelVideoViewController: UIViewController {
-    var videoString = String()
+    var videoString = Int()
+    var videoUrlString = String()
+    func sendRequest() {
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(videoString).json")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.showErrorContactingServer()
+                }
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let videoUrl: String? = parseJSON["video_url"] as? String
+                    print("ah yes")
+                    self.videoUrlString = videoUrl!
+                    DispatchQueue.main.async {
+                        self.babaPlayer()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.showErrorContactingServer()
+                    }
+                    print(error ?? "")
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.showNoResponseFromServer()
+                }
+                print(error)
+                }
+        }
+        task.resume()
+    }
     
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -26,7 +62,7 @@ class ChannelVideoViewController: UIViewController {
     var timer = Timer()
     override func viewDidLoad() {
         super.viewDidLoad()
-        babaPlayer()
+        sendRequest()
         // Do any additional setup after loading the view.
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
@@ -44,12 +80,11 @@ class ChannelVideoViewController: UIViewController {
     fileprivate var playerObserver: Any?
     func viewWillAppear() {
         super.viewWillAppear(true)
-        babaPlayer()
+        sendRequest()
         isDismissed = false
     }
     func viewWillDisappear() {
         super.viewWillDisappear(true)
-        videoString = ""
         avPlayer.pause()
         isDismissed = true
     }
@@ -61,7 +96,7 @@ class ChannelVideoViewController: UIViewController {
         NotificationCenter.default.removeObserver(observer)
     }
     func babaPlayer() {
-        let videoUrl = URL(string: "http://10.0.0.2:3000\(videoString)")!
+        let videoUrl = URL(string: "http://10.0.0.2:3000\(videoUrlString)")!
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
         avPlayerLayer.frame = view.bounds
         avPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -84,5 +119,37 @@ class ChannelVideoViewController: UIViewController {
         }
         avPlayer.play()
     }
-    // Setup function to contact api for each video thumbnail to load it 
+    func showNoResponseFromServer() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    func showUnkownError() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "We don't know what happend wrong here! Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    func showErrorContactingServer() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
 }

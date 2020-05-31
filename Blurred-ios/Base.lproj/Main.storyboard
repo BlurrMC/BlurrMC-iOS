@@ -173,7 +173,7 @@
         <!--Channel Video View Controller-->
         <scene sceneID="jnm-ht-vZm">
             <objects>
-                <viewController storyboardIdentifier="ChannelVideoViewController" id="G5I-TE-yWu" customClass="ChannelVideoViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChannelVideoViewController" modalPresentationStyle="fullScreen" id="G5I-TE-yWu" customClass="ChannelVideoViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pw1-tl-BYp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,13 +220,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X3C-rS-7Ls"/>
                     </view>
+                    <navigationItem key="navigationItem" id="OQK-f8-bX5"/>
                     <connections>
                         <outlet property="videoView" destination="bar-zP-e63" id="EGD-65-8zM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rMc-vP-YHj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3179.7101449275365" y="-2131.4732142857142"/>
+            <point key="canvasLocation" x="4759" y="-674"/>
         </scene>
         <!--Video Playback View Controller-->
         <scene sceneID="023-Q4-sr9">
@@ -636,6 +637,7 @@
                                         <size key="customSize" width="127" height="127"/>
                                         <connections>
                                             <outlet property="thumbnailView" destination="ooo-O0-aeD" id="lGK-h6-vUr"/>
+                                            <segue destination="G5I-TE-yWu" kind="show" identifier="showVideo" id="8ek-7r-oz7"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -846,6 +848,7 @@
                                         </collectionViewCellContentView>
                                         <connections>
                                             <outlet property="thumbnailView" destination="kiO-0T-tMH" id="rFg-fj-jGN"/>
+                                            <segue destination="G5I-TE-yWu" kind="show" identifier="showOtherVideo" id="qUe-BW-JJn"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1665,7 +1668,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="Bvt-h1-M8t"/>
         <segue reference="rna-Y0-bYD"/>
-        <segue reference="cDm-cP-iYp"/>
+        <segue reference="scE-DD-h60"/>
+        <segue reference="8ek-7r-oz7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="16" height="13"/>

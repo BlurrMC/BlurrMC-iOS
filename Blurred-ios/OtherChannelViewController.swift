@@ -211,7 +211,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
                         let username: String? = parseJSON["username"] as? String
                         self.channelUsername = username!
                         let name: String? = parseJSON["name"] as? String
-                        let imageUrl: String? = parseJSON["image_url"] as? String
+                        let imageUrl: String? = parseJSON["avatar_url"] as? String // Forgot to change to the new api here
                         let followerCount: Int? = parseJSON["followers_count"] as? Int
                         let followingCount: Int? = parseJSON["following_count"] as? Int
                         let bio: String? = parseJSON["bio"] as? String

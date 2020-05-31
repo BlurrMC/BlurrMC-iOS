@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D81082D068F71EEEF45F04A /* Pods_Blurred_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAE9BA564235C9D40B2D093 /* Pods_Blurred_ios.framework */; };
+		5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2527AD2484388C0014F6CA /* Assets.xcassets */; };
 		9781C55A5BAEC9220B261C1E /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
 		D839AE13C55FBB2440896A3B /* Pods_Blurred_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */; };
 		E1039FC92460765D00B88E6E /* FollowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1039FC82460765D00B88E6E /* FollowListViewController.swift */; };
@@ -22,8 +23,6 @@
 		E17BF2C524670C8900073B66 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BF2C424670C8900073B66 /* FollowerCell.swift */; };
 		E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */; };
 		E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */; };
-		E1CC95432458E2B500ADDDAA /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F9E244F559100E11BF9 /* assets.xcassets */; };
-		E1CC95442458E2B600ADDDAA /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F9E244F559100E11BF9 /* assets.xcassets */; };
 		E1D8C896246F119000F1EAD1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E1D8C895246F119000F1EAD1 /* Settings.bundle */; };
 		E1D92C9824732D6700EDABAA /* VideoPlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */; };
 		E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F69244F550300E11BF9 /* AppDelegate.swift */; };
@@ -34,7 +33,6 @@
 		E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */; };
 		E1DF6F86244F550600E11BF9 /* Blurred_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F85244F550600E11BF9 /* Blurred_iosTests.swift */; };
 		E1DF6F91244F550700E11BF9 /* Blurred_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F90244F550700E11BF9 /* Blurred_iosUITests.swift */; };
-		E1DF6F9F244F559100E11BF9 /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6F9E244F559100E11BF9 /* assets.xcassets */; };
 		E1DF6FA5244F578700E11BF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1DF6FA4244F578700E11BF9 /* LaunchScreen.storyboard */; };
 		E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6FB8244F5DBD00E11BF9 /* RecordViewController.swift */; };
 		E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */; };
@@ -66,6 +64,7 @@
 /* Begin PBXFileReference section */
 		186FD8E55159C7A92149DA30 /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios_Blurred_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B2527AD2484388C0014F6CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BAC2D359F4EBEC4B7D40276 /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7857A336EF291D3D713578FE /* Pods-Blurred-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		9EAE9BA564235C9D40B2D093 /* Pods_Blurred_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,7 +99,6 @@
 		E1DF6F8C244F550700E11BF9 /* Blurred-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blurred-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DF6F90244F550700E11BF9 /* Blurred_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blurred_iosUITests.swift; sourceTree = "<group>"; };
 		E1DF6F92244F550700E11BF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1DF6F9E244F559100E11BF9 /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = assets.xcassets; path = "/Users/martinvelev/Documents/Blurred-ios/Blurred-ios/assets.xcassets"; sourceTree = "<absolute>"; };
 		E1DF6FA4244F578700E11BF9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1DF6FB8244F5DBD00E11BF9 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
@@ -180,7 +178,7 @@
 			children = (
 				E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */,
 				E1DF6F69244F550300E11BF9 /* AppDelegate.swift */,
-				E1DF6F9E244F559100E11BF9 /* assets.xcassets */,
+				5B2527AD2484388C0014F6CA /* Assets.xcassets */,
 				E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */,
 				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
 				E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */,
@@ -359,8 +357,8 @@
 			files = (
 				E1D8C896246F119000F1EAD1 /* Settings.bundle in Resources */,
 				E1DF6FA5244F578700E11BF9 /* LaunchScreen.storyboard in Resources */,
+				5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */,
 				E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */,
-				E1DF6F9F244F559100E11BF9 /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +366,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1CC95432458E2B500ADDDAA /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +373,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1CC95442458E2B600ADDDAA /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

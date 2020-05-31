@@ -35,8 +35,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let imageUrl: String? = parseJSON["thumbnail_url"] as? String
-                    let videoUrl: String? = parseJSON["video_url"] as? String
-                    self.videoUrlString = videoUrl!
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
@@ -64,7 +62,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let destinationVC = ChannelVideoViewController()
         destinationVC.performSegue(withIdentifier: "showVideo", sender: self)
     }
-    var videoUrlString = String()
     @IBOutlet weak var collectionView: UICollectionView!
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {

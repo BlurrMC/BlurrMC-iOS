@@ -327,6 +327,17 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
                     vc.followingVar = channelUsername
                 }
             }
+        } else if segue.destination is ChannelVideoViewController {
+            if let vc = segue.destination as? ChannelVideoViewController {
+                if segue.identifier == "showOtherVideo" {
+                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+                        let selectedRow = indexPath.row
+                        vc.videoString = videos[selectedRow].id
+                    }
+                }
+            } else {
+                self.showUnkownError()
+            }
         }
     }
     func showErrorContactingServer() {

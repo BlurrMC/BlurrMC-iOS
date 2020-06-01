@@ -12,6 +12,7 @@ import AVFoundation
 import Valet
 
 class ChannelVideoViewController: UIViewController {
+    @IBOutlet weak var backButtonOutlet: UIButton!
     var videoString = Int()
     var videoUrlString = String()
     func sendRequest() {
@@ -63,6 +64,7 @@ class ChannelVideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         sendRequest()
+        backButtonOutlet.layer.zPosition = 1
         // Do any additional setup after loading the view.
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)

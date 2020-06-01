@@ -179,7 +179,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bar-zP-e63">
-                                <rect key="frame" x="-6.5" y="0.0" width="427" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="427" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="896" id="0SD-ZU-ZeC"/>
@@ -215,7 +215,7 @@
                         <constraints>
                             <constraint firstItem="bar-zP-e63" firstAttribute="centerY" secondItem="Pw1-tl-BYp" secondAttribute="centerY" id="6sP-lP-9Ed"/>
                             <constraint firstItem="MSa-xD-dCo" firstAttribute="centerX" secondItem="Pw1-tl-BYp" secondAttribute="centerX" constant="-162" id="KJt-zb-D0C"/>
-                            <constraint firstItem="bar-zP-e63" firstAttribute="centerX" secondItem="Pw1-tl-BYp" secondAttribute="centerX" id="YHm-Os-Ysu"/>
+                            <constraint firstItem="bar-zP-e63" firstAttribute="centerX" secondItem="Pw1-tl-BYp" secondAttribute="centerX" constant="6.5" id="YHm-Os-Ysu"/>
                             <constraint firstItem="MSa-xD-dCo" firstAttribute="centerY" secondItem="Pw1-tl-BYp" secondAttribute="centerY" constant="-379" id="ZBq-7K-0ro"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X3C-rS-7Ls"/>
@@ -464,6 +464,7 @@
                     <connections>
                         <outlet property="videoView" destination="Cgl-bZ-ljl" id="2Q3-oT-J3g"/>
                         <segue destination="i6k-Pp-sSl" kind="show" identifier="showVideo" id="zwu-Vq-I6h"/>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="goToTabBar" id="1CG-s3-DW4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EZA-m4-xe9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1666,9 +1667,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Bvt-h1-M8t"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="scE-DD-h60"/>
+        <segue reference="1CG-s3-DW4"/>
         <segue reference="qUe-BW-JJn"/>
     </inferredMetricsTieBreakers>
     <resources>

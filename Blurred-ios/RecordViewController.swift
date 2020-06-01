@@ -14,8 +14,7 @@ import Alamofire
 
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
     
-    
-
+    var isCameraThere = Bool()
     @IBAction func galleryButtonPress(_ sender: Any) {
         openVideoGallery()
     }
@@ -97,7 +96,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         captureSession.sessionPreset = AVCaptureSession.Preset.high
         
         // Setup Camera
-        let camera = AVCaptureDevice.default(for: AVMediaType.video)!
+        guard let camera = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return true }
         
 
         do {
@@ -191,7 +190,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     func startRecording() {
 
-     if movieOutput.isRecording == false {
+     if movieOutput.isRecording == false && isCameraThere == true{
 
          let connection = movieOutput.connection(with: AVMediaType.video)
 
@@ -244,6 +243,18 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             performSegue(withIdentifier: "showVideo", sender: videoRecorded)
         }
     }
+    func showNoCamera() {
+        let alert = UIAlertController(title: "Error", message: "No camera is connected. What phone are you on?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK?", style: UIAlertAction.Style.default, handler: { action in
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "goToTabBar", sender: self)
+            }
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
 
         if (error != nil) {
@@ -260,13 +271,14 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
     }
     func openVideoGallery() {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .savedPhotosAlbum
-        picker.mediaTypes = [kUTTypeMovie as String]
-        picker.videoMaximumDuration = 7
-        picker.allowsEditing = true
-        present(picker, animated: true, completion: nil)
+        if isCameraThere != false {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .savedPhotosAlbum
+            picker.mediaTypes = [kUTTypeMovie as String]
+            picker.videoMaximumDuration = 7
+            picker.allowsEditing = true
+            present(picker, animated: true, completion: nil)
+        }
     }
-    // Use alamofire to upload video.
 }

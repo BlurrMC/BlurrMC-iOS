@@ -16,7 +16,6 @@
 * Fixed other channel's avatars (forgot to update the api)
 * You can now playback other channels' videos.
 * Removed dismiss from record view controller (possible bug)
-* Added error handling for record view controller (when there is no camera)
 * Some minor design changes (fixed size for all back arrows, change size of lists, set static position for all back arrows and other buttons)
 * Fixed back button
 ## v0.2.5 (PRERELEASE)

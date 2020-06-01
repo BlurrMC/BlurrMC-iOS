@@ -12,6 +12,8 @@ import AVFoundation
 import MobileCoreServices
 import Alamofire
 
+// This doesn't work and I don't know why and I want to die and I hate you.
+
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
     
     var isCameraThere = Bool()
@@ -190,7 +192,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     func startRecording() {
 
-     if movieOutput.isRecording == false && isCameraThere == true{
+     if movieOutput.isRecording == false {
 
          let connection = movieOutput.connection(with: AVMediaType.video)
 
@@ -271,7 +273,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
     }
     func openVideoGallery() {
-        if isCameraThere != false {
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .savedPhotosAlbum
@@ -279,6 +280,5 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             picker.videoMaximumDuration = 7
             picker.allowsEditing = true
             present(picker, animated: true, completion: nil)
-        }
     }
 }

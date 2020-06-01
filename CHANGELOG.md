@@ -15,6 +15,7 @@
 * Video playback controller for channel videos plays videos (still needs some minor imporvements)
 * Fixed other channel's avatars (forgot to update the api)
 * You can now playback other channels' videos.
+* Removed dismiss from record view controller (possible bug)
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

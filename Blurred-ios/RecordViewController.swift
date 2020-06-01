@@ -29,7 +29,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         
     }
     @IBAction func recordBackButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        // self.dismiss(animated: true, completion: nil) This does not work for some reason (bug?)
     }
     @IBOutlet weak var videoView: UIView!
 

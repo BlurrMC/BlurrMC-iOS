@@ -858,7 +858,7 @@
                                 </connections>
                             </collectionView>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="roE-nu-lEF">
-                                <rect key="frame" x="32" y="222" width="141" height="109"/>
+                                <rect key="frame" x="32" y="222" width="140" height="109"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="Kp9-ZF-K0v" kind="embed" id="WFw-oF-rA8"/>
@@ -1677,7 +1677,7 @@
             <objects>
                 <viewController id="Kp9-ZF-K0v" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Ny-Xg-Q3i">
-                        <rect key="frame" x="0.0" y="0.0" width="141" height="109"/>
+                        <rect key="frame" x="0.0" y="0.0" width="140" height="109"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoS-Bd-wHs">
@@ -1704,10 +1704,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="745-eJ-5Gd"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="cDm-cP-iYp"/>
         <segue reference="1CG-s3-DW4"/>
-        <segue reference="8ek-7r-oz7"/>
+        <segue reference="qUe-BW-JJn"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Record-button" width="60" height="60"/>

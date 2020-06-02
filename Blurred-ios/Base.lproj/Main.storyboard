@@ -857,6 +857,13 @@
                                     <outlet property="dataSource" destination="C9p-qA-0Zi" id="8Dn-4K-YYq"/>
                                 </connections>
                             </collectionView>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="roE-nu-lEF">
+                                <rect key="frame" x="32" y="222" width="141" height="109"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="Kp9-ZF-K0v" kind="embed" id="WFw-oF-rA8"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -1664,6 +1671,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fw9-WE-Q0l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3675" y="958"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="eBT-DM-zL7">
+            <objects>
+                <viewController id="Kp9-ZF-K0v" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Ny-Xg-Q3i">
+                        <rect key="frame" x="0.0" y="0.0" width="141" height="109"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoS-Bd-wHs">
+                                <rect key="frame" x="0.0" y="0.0" width="141" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.91622814119999996" green="0.87001770359999997" blue="0.87961075580000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Follow">
+                                    <color key="titleColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="iiC-Xe-kxq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nqC-zu-Lbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3257.2463768115945" y="-286.27232142857139"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

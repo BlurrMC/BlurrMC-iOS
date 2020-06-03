@@ -891,6 +891,7 @@
                         <outlet property="avatarImage" destination="Nvd-xk-rh0" id="IQX-Da-HlC"/>
                         <outlet property="bioLabel" destination="ety-ge-e3T" id="nWe-BM-THS"/>
                         <outlet property="collectionView" destination="Af4-p0-Xxy" id="Kt7-3A-Sas"/>
+                        <outlet property="dropDownMenu" destination="roE-nu-lEF" id="POX-bw-PwX"/>
                         <outlet property="followersLabel" destination="YSr-hM-0xL" id="VOP-Ed-9SU"/>
                         <outlet property="followingLabel" destination="Mta-wt-Viq" id="jQy-yv-TYs"/>
                         <outlet property="nameLabel" destination="fB5-sr-lPI" id="QzD-8C-vUo"/>

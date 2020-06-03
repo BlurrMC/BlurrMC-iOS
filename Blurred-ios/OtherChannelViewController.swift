@@ -17,7 +17,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         return videos.count
     }
     
-    @IBOutlet weak var dropDownMenu: UIView! // Add border with cornerradius.
+    @IBOutlet weak var dropDownMenu: UIView!
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }
@@ -142,6 +142,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         } else {
             lineView.backgroundColor = UIColor.white
         }
+        dropDownMenu.layer.borderWidth = 1
+        dropDownMenu.layer.borderColor = UIColor.systemGray.cgColor
+        dropDownMenu.layer.cornerRadius = 12
+        
         self.view.addSubview(lineView)
         self.followersLabel.isUserInteractionEnabled = true
         self.followingLabel.isUserInteractionEnabled = true

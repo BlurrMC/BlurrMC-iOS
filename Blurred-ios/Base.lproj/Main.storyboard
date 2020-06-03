@@ -891,7 +891,7 @@
                         <outlet property="avatarImage" destination="Nvd-xk-rh0" id="IQX-Da-HlC"/>
                         <outlet property="bioLabel" destination="ety-ge-e3T" id="nWe-BM-THS"/>
                         <outlet property="collectionView" destination="Af4-p0-Xxy" id="Kt7-3A-Sas"/>
-                        <outlet property="dropDownMenu" destination="roE-nu-lEF" id="POX-bw-PwX"/>
+                        <outlet property="dropDownMenu" destination="roE-nu-lEF" id="0c0-bj-aBF"/>
                         <outlet property="followersLabel" destination="YSr-hM-0xL" id="VOP-Ed-9SU"/>
                         <outlet property="followingLabel" destination="Mta-wt-Viq" id="jQy-yv-TYs"/>
                         <outlet property="nameLabel" destination="fB5-sr-lPI" id="QzD-8C-vUo"/>
@@ -1682,11 +1682,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoS-Bd-wHs">
-                                <rect key="frame" x="0.0" y="0.0" width="141" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="141" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.91622814119999996" green="0.87001770359999997" blue="0.87961075580000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Follow">
                                     <color key="titleColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGi-zo-V90">
+                                <rect key="frame" x="-1" y="39" width="141" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.91622814119999996" green="0.87001770359999997" blue="0.87961075580000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Block">
+                                    <color key="titleColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1701,11 +1714,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nqC-zu-Lbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3257.2463768115945" y="-286.27232142857139"/>
+            <point key="canvasLocation" x="3256.521739130435" y="-286.27232142857139"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="745-eJ-5Gd"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="cDm-cP-iYp"/>
         <segue reference="1CG-s3-DW4"/>

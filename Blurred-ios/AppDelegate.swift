@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Valet
+import AVFoundation
 
 @available(iOS 13.0, *) // Again, ios 13?
 @UIApplicationMain
@@ -17,10 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let isUnlocked = UIApplication.shared.isProtectedDataAvailable
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    func applicationDidBecomeActive(_ application: UIApplication) {
 
-
-
-
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        } catch {
+            print("AVAudioSessionCategoryPlayback not work")
+        }
+    }
     // MARK: UISceneSession Lifecycle
 
     @available(iOS 13.0, *)

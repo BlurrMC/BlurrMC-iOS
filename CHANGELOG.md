@@ -18,6 +18,7 @@
 * Removed dismiss from record view controller (possible bug)
 * Some minor design changes (fixed size for all back arrows, change size of lists, set static position for all back arrows and other buttons)
 * Fixed back button
+* Made it so that if your device is silented you can still hear video audio.
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

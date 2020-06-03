@@ -17,6 +17,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         return videos.count
     }
     
+    @IBOutlet weak var dropDownMenu: UIView! // Add border with cornerradius.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }

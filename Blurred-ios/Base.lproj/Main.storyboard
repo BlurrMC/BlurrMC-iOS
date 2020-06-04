@@ -781,7 +781,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nvd-xk-rh0">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nvd-xk-rh0">
                                 <rect key="frame" x="32" y="109" width="105" height="105"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="105" id="NCh-Pk-IFg"/>
@@ -1718,6 +1718,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="745-eJ-5Gd"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="cDm-cP-iYp"/>
         <segue reference="1CG-s3-DW4"/>

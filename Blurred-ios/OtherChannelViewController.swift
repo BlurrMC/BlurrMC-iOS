@@ -145,13 +145,18 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         dropDownMenu.layer.borderWidth = 1
         dropDownMenu.layer.borderColor = UIColor.systemGray.cgColor
         dropDownMenu.layer.cornerRadius = 12
+        dropDownMenu.removeFromSuperview()
         
         self.view.addSubview(lineView)
         self.followersLabel.isUserInteractionEnabled = true
         self.followingLabel.isUserInteractionEnabled = true
+        self.avatarImage.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tapFunction))
         let tapp = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tappFunction))
+        let tappp = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tapppFunction))
+        avatarImage.addGestureRecognizer(tappp)
         followersLabel.addGestureRecognizer(tap)
+        
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
         channelVideoIds()
@@ -168,6 +173,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
     }
     func viewWillDisappear() {
         super.viewWillDisappear(true)
+        dropDownMenu.removeFromSuperview()
         timer.invalidate()
     }
     @objc func timerAction() {
@@ -182,11 +188,15 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         } else {
             loadMemberChannel()
         }
-        print("timer activated")
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
-        print("tap working")
         goToFollowersList()
+            
+    @objc func tapppFunction(sender:UITapGestureRecognizer) {
+        self.view.addSubview(dropDownMenu)
+        // Make it so if the user clicks anywhere else other than the container view then it will close the
+        // dropdown. This will also make it so the user doesn't have to click on the avatar specifically
+        // to close the dropdown menu.
     }
     @objc func tappFunction(sender:UITapGestureRecognizer) {
         goToFollowingList()

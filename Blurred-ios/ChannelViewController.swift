@@ -114,13 +114,13 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         self.avatarImage.contentScaleFactor = 1.5
         // Setup the view so you can integerate it right away with the channel api.
     }
-    func viewWillAppear() {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadMemberChannel()
         channelVideoIds()
         timer = Timer.scheduledTimer(timeInterval: 40.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
-    func viewWillDisappear() {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         timer.invalidate()
     }

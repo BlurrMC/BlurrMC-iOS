@@ -39,14 +39,14 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
 
         }
     }
-    func viewWillAppear() {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        timer.invalidate()
+    }
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         downloadJson()
         timer = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-    }
-    func viewWillDisappear() {
-        super.viewWillDisappear(true)
-        timer.invalidate()
     }
     var followerId = String()
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)

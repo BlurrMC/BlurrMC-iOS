@@ -80,15 +80,15 @@ class ChannelVideoViewController: UIViewController {
     }
     var isDismissed: Bool = false
     fileprivate var playerObserver: Any?
-    func viewWillAppear() {
-        super.viewWillAppear(true)
-        sendRequest()
-        isDismissed = false
-    }
-    func viewWillDisappear() {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         avPlayer.pause()
         isDismissed = true
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        sendRequest()
+        isDismissed = false
     }
     fileprivate var player: AVPlayer? {
         didSet { player?.play() }

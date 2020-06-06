@@ -64,14 +64,14 @@ class VideoPlaybackViewController: UIViewController {
         babaPlayer()
                 // Do any additional setup after loading the view.
     }
-    func viewWillAppear() {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        isDismissed = true
+    }
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         isDismissed = false
         babaPlayer()
-    }
-    func viewWillDisappear() {
-        super.viewWillDisappear(true)
-        isDismissed = true
     }
     func babaPlayer() {
         avPlayerLayer = AVPlayerLayer(player: avPlayer)

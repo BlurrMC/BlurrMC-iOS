@@ -28,7 +28,7 @@ class UploadDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    func viewWillAppear() {
+    override func viewWillAppear(_ animated: Bool) {
         AVAsset(url: videoDetails).generateThumbnail { [weak self] (image) in
             DispatchQueue.main.async {
                 guard let image = image else { return }
@@ -36,7 +36,6 @@ class UploadDetailsViewController: UIViewController {
             }
         }
     }
-    
     func uploadRequest() { // Move this to upload details and pass data using segue.
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         myActivityIndicator.center = view.center

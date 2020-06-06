@@ -165,16 +165,16 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
 
         // Do any additional setup after loading the view.
     }
-    func viewWillAppear() {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        dropDownMenu.removeFromSuperview()
+        timer.invalidate()
+    }
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadMemberChannel()
         channelVideoIds()
         timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-    }
-    func viewWillDisappear() {
-        super.viewWillDisappear(true)
-        dropDownMenu.removeFromSuperview()
-        timer.invalidate()
     }
     @objc func timerAction() {
         if myValet.string(forKey: "Id") == nil {
@@ -191,7 +191,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
-            
+    }
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
         self.view.addSubview(dropDownMenu)
         // Make it so if the user clicks anywhere else other than the container view then it will close the

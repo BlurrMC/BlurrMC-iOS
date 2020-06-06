@@ -22,6 +22,7 @@
 * Added dropdown menu in other channel view (work in progress)
 * Dropdown menu is now hidden on load and can be opened.
 * Fixed view will appear and view will dissapear.
+* Dropdown menu will now disappear when clicked off of it.
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

@@ -146,7 +146,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         dropDownMenu.layer.borderColor = UIColor.systemGray.cgColor
         dropDownMenu.layer.cornerRadius = 12
         dropDownMenu.removeFromSuperview()
-        
         self.view.addSubview(lineView)
         self.followersLabel.isUserInteractionEnabled = true
         self.followingLabel.isUserInteractionEnabled = true
@@ -156,14 +155,15 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         let tappp = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tapppFunction))
         avatarImage.addGestureRecognizer(tappp)
         followersLabel.addGestureRecognizer(tap)
-        
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
         channelVideoIds()
         self.avatarImage.contentScaleFactor = 1.5
-        
-
-        // Do any additional setup after loading the view.
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        if touch?.view != self.dropDownMenu
+        { dropDownMenu.removeFromSuperview() }  /// Here you go bro here is the greek code to remove the view.
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)

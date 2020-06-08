@@ -16,7 +16,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
     }
-    
     @IBOutlet weak var dropDownMenu: UIView!
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
@@ -169,6 +168,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         super.viewWillDisappear(true)
         dropDownMenu.removeFromSuperview()
         timer.invalidate()
+        dropDownMenu.removeFromSuperview()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -192,11 +192,17 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
     }
+    var doubleTap : Bool! = false
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
-        self.view.addSubview(dropDownMenu)
-        // Make it so if the user clicks anywhere else other than the container view then it will close the
-        // dropdown. This will also make it so the user doesn't have to click on the avatar specifically
-        // to close the dropdown menu.
+        if (doubleTap) {
+            //Second Tap
+            doubleTap = false
+            dropDownMenu.removeFromSuperview()
+        } else {
+            //First Tap
+            self.view.addSubview(dropDownMenu)
+            doubleTap = true
+        }
     }
     @objc func tappFunction(sender:UITapGestureRecognizer) {
         goToFollowingList()

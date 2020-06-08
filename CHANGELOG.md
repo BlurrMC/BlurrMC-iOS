@@ -23,6 +23,7 @@
 * Dropdown menu is now hidden on load and can be opened.
 * Fixed view will appear and view will dissapear.
 * Dropdown menu will now disappear when clicked off of it.
+* Dropdown menu fully closes when clicking on avatar.
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

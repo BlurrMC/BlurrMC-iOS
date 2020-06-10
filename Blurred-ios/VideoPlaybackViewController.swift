@@ -67,6 +67,7 @@ class VideoPlaybackViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         isDismissed = true
+        avPlayer.pause()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)

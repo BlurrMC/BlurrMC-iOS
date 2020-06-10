@@ -13,6 +13,7 @@ import Valet
 
 class ChannelVideoViewController: UIViewController {
     @IBOutlet weak var backButtonOutlet: UIButton!
+    // Add peak function to dispaly video when peaking.
     var videoString = Int()
     var videoUrlString = String()
     func sendRequest() {

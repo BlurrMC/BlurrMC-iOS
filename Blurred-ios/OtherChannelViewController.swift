@@ -12,6 +12,7 @@ import Valet
 import Foundation
 
 class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
+    // Add peak function to dispaly video when peaking.
     @IBOutlet weak var collectionView: UICollectionView!
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
@@ -133,6 +134,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let lineView = UIView(frame: CGRect(x: 0, y: 265, width: self.view.frame.size.width, height: 1))
@@ -351,6 +353,11 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         } else if segue.destination is ChannelVideoViewController {
             if let vc = segue.destination as? ChannelVideoViewController {
                 if segue.identifier == "showOtherVideo" {
+                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+                        let selectedRow = indexPath.row
+                        vc.videoString = videos[selectedRow].id
+                    }
+                } else if segue.identifier == "showOtherVideoo" {
                     if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
                         let selectedRow = indexPath.row
                         vc.videoString = videos[selectedRow].id

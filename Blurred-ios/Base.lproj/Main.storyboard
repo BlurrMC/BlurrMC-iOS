@@ -358,7 +358,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="61" id="UT6-h8-UxY"/>
                                     <constraint firstAttribute="width" constant="61" id="tE3-ca-NGE"/>
                                 </constraints>
-                                <state key="normal" image="Record-button"/>
+                                <state key="normal" image="record-button"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="3NZ-E6-A1B"/>
@@ -638,7 +638,10 @@
                                         <size key="customSize" width="113" height="113"/>
                                         <connections>
                                             <outlet property="thumbnailView" destination="ooo-O0-aeD" id="lGK-h6-vUr"/>
-                                            <segue destination="G5I-TE-yWu" kind="show" identifier="showVideo" id="8ek-7r-oz7"/>
+                                            <segue destination="G5I-TE-yWu" kind="show" identifier="showVideo" id="8ek-7r-oz7">
+                                                <segue key="commit" destination="G5I-TE-yWu" kind="showDetail" identifier="showVideo" id="kJy-kc-POk"/>
+                                                <segue key="preview" destination="G5I-TE-yWu" identifier="showVideo" id="EEy-YP-fsF"/>
+                                            </segue>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -849,7 +852,10 @@
                                         </collectionViewCellContentView>
                                         <connections>
                                             <outlet property="thumbnailView" destination="kiO-0T-tMH" id="rFg-fj-jGN"/>
-                                            <segue destination="G5I-TE-yWu" kind="show" identifier="showOtherVideo" id="qUe-BW-JJn"/>
+                                            <segue destination="G5I-TE-yWu" kind="show" identifier="showOtherVideo" id="qUe-BW-JJn">
+                                                <segue key="commit" inheritsFrom="parent" id="b95-Ol-zev"/>
+                                                <segue key="preview" destination="G5I-TE-yWu" identifier="showOtherVideoo" id="x7h-h0-tYj"/>
+                                            </segue>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1721,10 +1727,9 @@
         <segue reference="rna-Y0-bYD"/>
         <segue reference="GH9-4u-Awk"/>
         <segue reference="1CG-s3-DW4"/>
-        <segue reference="8ek-7r-oz7"/>
+        <segue reference="qUe-BW-JJn"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Record-button" width="60" height="60"/>
         <image name="arrow.left" width="16" height="13"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="channel" width="30" height="30"/>
@@ -1734,6 +1739,7 @@
         <image name="home" width="30" height="30"/>
         <image name="notifications" width="30" height="30"/>
         <image name="record" width="35" height="35"/>
+        <image name="record-button" width="60" height="60"/>
         <image name="search" width="30" height="30"/>
     </resources>
 </document>

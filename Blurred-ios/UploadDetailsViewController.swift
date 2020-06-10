@@ -18,7 +18,7 @@ class UploadDetailsViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func doneButton(_ sender: Any) {
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         uploadRequest()
     }
     @IBOutlet weak var thumbnailView: UIImageView!
@@ -53,7 +53,7 @@ class UploadDetailsViewController: UIViewController {
         ]
         AF.upload(
             multipartFormData: { multipartFormData in
-                multipartFormData.append("\(self.descriptionField.text ?? "")".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "video[description]")
+                multipartFormData.append("\(self.descriptionField.text ?? "")".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "video[description]") // Shows as an unknown paramater
                 multipartFormData.append(self.videoDetails, withName: "video[clip]", fileName: "clip.mp4", mimeType: "video/mp4")
                 multipartFormData.append("\(Id!)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "user[Id]")
 

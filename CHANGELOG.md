@@ -25,6 +25,7 @@
 * Dropdown menu will now disappear when clicked off of it.
 * Dropdown menu fully closes when clicking on avatar.
 * Added setting to settings bundle.
+* Adjusted design of app to fit on 4.7inch displays (for development)
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

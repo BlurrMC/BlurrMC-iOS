@@ -24,6 +24,7 @@
 * Fixed view will appear and view will dissapear.
 * Dropdown menu will now disappear when clicked off of it.
 * Dropdown menu fully closes when clicking on avatar.
+* Added setting to settings bundle.
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

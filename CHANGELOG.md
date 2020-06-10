@@ -18,7 +18,7 @@
 * Removed dismiss from record view controller (possible bug)
 * Some minor design changes (fixed size for all back arrows, change size of lists, set static position for all back arrows and other buttons)
 * Fixed back button
-* Made it so that if your device is silented you can still hear video audio.
+* ~~Made it so that if your device is silented you can still hear video audio.~~ (Doesn't work)
 * Added dropdown menu in other channel view (work in progress)
 * Dropdown menu is now hidden on load and can be opened.
 * Fixed view will appear and view will dissapear.

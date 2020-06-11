@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field
 * Moved upload to another controller

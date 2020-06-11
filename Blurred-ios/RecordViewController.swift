@@ -12,10 +12,11 @@ import AVFoundation
 import MobileCoreServices
 import Alamofire
 
+// This doesn't work and I don't know why and I want to die and I hate you.
+
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
     
-    
-
+    var isCameraThere = Bool()
     @IBAction func galleryButtonPress(_ sender: Any) {
         openVideoGallery()
     }
@@ -29,7 +30,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         
     }
     @IBAction func recordBackButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        // self.dismiss(animated: true, completion: nil) This does not work for some reason (bug?)
     }
     @IBOutlet weak var videoView: UIView!
 
@@ -84,7 +85,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         }
 
         videoView.addSubview(cameraButton)
-        // Saves the video to gallery and then uploads that video from gallery. The user doesn't have to pick that they are uploading it from gallery though.
     }
     func setupPreview() {
         // Configure previewLayer
@@ -98,7 +98,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         captureSession.sessionPreset = AVCaptureSession.Preset.high
         
         // Setup Camera
-        let camera = AVCaptureDevice.default(for: AVMediaType.video)!
+        guard let camera = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return true }
         
 
         do {
@@ -187,7 +187,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         return nil
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
         let vc = segue.destination as? VideoPlaybackViewController
         vc?.videoURL = sender as? URL
     }
@@ -238,7 +237,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
 
         if (error != nil) {
-            print("Error recording movie: \(error!.localizedDescription)")
+            print("Error: \(error!.localizedDescription)")
         } else {
 
             let videoRecorded = outputURL! as URL
@@ -246,6 +245,18 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             performSegue(withIdentifier: "showVideo", sender: videoRecorded)
         }
     }
+    func showNoCamera() {
+        let alert = UIAlertController(title: "Error", message: "No camera is connected. What phone are you on?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK?", style: UIAlertAction.Style.default, handler: { action in
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "goToTabBar", sender: self)
+            }
+        }))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
 
         if (error != nil) {
@@ -262,13 +273,12 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
     }
     func openVideoGallery() {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .savedPhotosAlbum
-        picker.mediaTypes = [kUTTypeMovie as String]
-        picker.videoMaximumDuration = 7
-        picker.allowsEditing = true
-        present(picker, animated: true, completion: nil)
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .savedPhotosAlbum
+            picker.mediaTypes = [kUTTypeMovie as String]
+            picker.videoMaximumDuration = 7
+            picker.allowsEditing = true
+            present(picker, animated: true, completion: nil)
     }
-    // Use alamofire to upload video.
 }

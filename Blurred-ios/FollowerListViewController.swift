@@ -30,16 +30,15 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         } else {
             downloadJson()
         }
-        print("timer activated")
     }
-    func viewWillAppear() {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        timer.invalidate()
+    }
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         downloadJson()
         timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-    }
-    func viewWillDisappear() {
-        super.viewWillDisappear(true)
-        timer.invalidate()
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
@@ -50,12 +49,9 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer()
-                }
+                self.showNoResponseFromServer()
                 return
             }
-            print("I got the data")
             do {
                 let decoder = JSONDecoder()
                 let downloadedFollower = try decoder.decode(Followers.self, from: data)
@@ -64,10 +60,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
                     self.tableView.reloadData()
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.showErrorContactingServer() // f
-                }
-                print("You have no followers go die.")
+                self.showErrorContactingServer() // f
             }
         }.resume()
     }
@@ -105,10 +98,12 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowerCell") as? FollowerCell else { return UITableViewCell() }
         cell.followerUsername.text = followers[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
         cell.followerName.text = followers[indexPath.row].name
-        DispatchQueue.main.async {
-            if cell.followerUsername.text == nil {
+        if cell.followerUsername.text == nil {
+            DispatchQueue.main.async {
                 self.nothingHere.text = String("Nothing Here")
-            } else {
+            }
+        } else {
+            DispatchQueue.main.async {
                 self.nothingHere.text = String("")
             }
         }
@@ -118,57 +113,45 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
-                DispatchQueue.main.async {
-                    self.showErrorContactingServer()
-                }
+                self.showErrorContactingServer()
                 return
             }
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
-                    let imageUrl: String? = parseJSON["image_url"] as? String
+                    let imageUrl: String? = parseJSON["avatar_url"] as? String
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl!, into: cell.followerAvatar)
-                        }
-                } else {
-                    DispatchQueue.main.async {
-                        self.showErrorContactingServer()
                     }
-                    print(error ?? "No error")
+                } else {
+                    self.showErrorContactingServer()
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer()
-                }
-                print(error)
+                self.showNoResponseFromServer()
                 }
         }
         task.resume()
         return cell
     }
     func showErrorContactingServer() {
-
-        // create the alert
         let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showNoResponseFromServer() {
-
-        // create the alert
         let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     /*

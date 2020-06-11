@@ -24,8 +24,6 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
-
-
         // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
@@ -35,18 +33,17 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
             self.timer.invalidate()
         } else {
             downloadJson()
-            print("timer activated")
 
         }
     }
-    func viewWillAppear() {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        timer.invalidate()
+    }
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         downloadJson()
         timer = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-    }
-    func viewWillDisappear() {
-        super.viewWillDisappear(true)
-        timer.invalidate()
     }
     var followerId = String()
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
@@ -54,17 +51,13 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
     func downloadJson() { // Still not done we need to add the user's butt image
         let Id = followerVar
         followerId = Id
-        print("\(Id)")
         let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowers/\(followerId).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer()
-                }
+                self.showNoResponseFromServer()
                 return
             }
-            print("I got the ")
             do {
                 let decoder = JSONDecoder()
                 let downloadedFollower = try decoder.decode(Followers.self, from: data)
@@ -73,10 +66,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
                     self.tableView.reloadData()
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.showErrorContactingServer() // f
-                }
-                print("You have no followers go die.")
+                self.showErrorContactingServer()
             }
         }.resume()
     }
@@ -115,43 +105,38 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         cell.followerUsername.text = followers[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
         cell.followerName.text = followers[indexPath.row].name
         print("\(followers[indexPath.row].name)")
-        DispatchQueue.main.async {
             if cell.followerUsername.text == nil {
-                self.nothingHereLabel.text = String("Nothing Here")
+                DispatchQueue.main.async {
+                    self.nothingHereLabel.text = String("Nothing Here")
+                }
             } else {
-                self.nothingHereLabel.text = String("")
+                DispatchQueue.main.async {
+                    self.nothingHereLabel.text = String("")
+                }
             }
-        }
         let Id: Int? = followers[indexPath.row].id
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
-                DispatchQueue.main.async {
-                    self.showErrorContactingServer()
-                }
+                self.showErrorContactingServer()
                 return
             }
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
-                    let imageUrl: String? = parseJSON["image_url"] as? String
+                    let imageUrl: String? = parseJSON["avatar_url"] as? String
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl!, into: cell.followerAvatar)
                         }
                 } else {
-                    DispatchQueue.main.async {
-                        self.showErrorContactingServer()
-                    }
-                    print(error ?? "No error")
+                    self.showErrorContactingServer()
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer()
-                }
+                self.showNoResponseFromServer()
                 print(error)
                 }
         }
@@ -167,8 +152,9 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showNoResponseFromServer() {
         self.timer.invalidate()
@@ -179,19 +165,8 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

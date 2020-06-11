@@ -1,4 +1,34 @@
 # Changelog
+## v0.3 (PRERELEASE)
+* Changed scale factor of avatar image in channel view.
+* Added description field
+* Moved upload to another controller
+* Added thumbnail view of video in upload details controller.
+* Added back button to upload details.
+* Added channel video controller for videos on channels.
+* Added collection view to channel view controller
+* Added collection view to other channel view controller (doesn't play video yet)
+* Moved profile divider line down by 5px
+* Added thumbnails to videos on your own channel
+* Updated api request for avatar urls.
+* Added thumbnails to videos on others' channels 
+* Video playback controller for channel videos plays videos (still needs some minor imporvements)
+* Fixed other channel's avatars (forgot to update the api)
+* You can now playback other channels' videos.
+* Removed dismiss from record view controller (possible bug)
+* Some minor design changes (fixed size for all back arrows, change size of lists, set static position for all back arrows and other buttons)
+* Fixed back button
+* ~~Made it so that if your device is silented you can still hear video audio.~~ (Doesn't work)
+* Added dropdown menu in other channel view (work in progress)
+* Dropdown menu is now hidden on load and can be opened.
+* Fixed view will appear and view will dissapear.
+* Dropdown menu will now disappear when clicked off of it.
+* Dropdown menu fully closes when clicking on avatar.
+* Added setting to settings bundle.
+* Adjusted design of app to fit on 4.7inch displays (for development)
+* Recording playback stops when you exit from the playback view controller.
+* Optimized code to run less on the main thread.
+* Made thumbnail of video 108 x 192 to fit the portrait aspect ratio of most videos.
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

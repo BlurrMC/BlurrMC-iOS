@@ -11,8 +11,81 @@ import Nuke
 import Valet
 import Foundation
 
-class OtherChannelViewController: UIViewController {
-    
+class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
+    // Add peak function to dispaly video when peaking.
+    @IBOutlet weak var collectionView: UICollectionView!
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return videos.count
+    }
+    @IBOutlet weak var dropDownMenu: UIView!
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Need to add something here to make it compile
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }
+        let Id: Int? = videos[indexPath.row].id
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(Id!).json")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                self.showErrorContactingServer()
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let imageUrl: String? = parseJSON["thumbnail_url"] as? String
+                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
+                    DispatchQueue.main.async {
+                        Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
+                    }
+                } else {
+                    self.showErrorContactingServer()
+                    print(error ?? "")
+                }
+            } catch {
+                self.showNoResponseFromServer()
+                print(error)
+                }
+        }
+        task.resume()
+        return cell
+    }
+    class Videos: Codable {
+        let videos: [Video]
+        init(videos: [Video]) {
+            self.videos = videos
+        }
+    }
+    class Video: Codable {
+        let id: Int
+        init(username: String, name: String, id: Int) {
+            self.id = id // Pass id through a seuge to channelvideo
+        }
+    }
+    private var videos = [Video]()
+    func channelVideoIds() { // Still not done we need to add the user's butt image
+        if chanelVar != nil {
+            let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(chanelVar).json")  // 23:40
+            guard let downloadURL = url else { return }
+            URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
+                guard let data = data, error == nil, urlResponse != nil else {
+                    self.showNoResponseFromServer()
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                    self.videos = downloadedVideo.videos
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                } catch {
+                    self.showErrorContactingServer() // f
+                }
+            }.resume()
+        }
+    }
     var chanelVar = String()
     var channelVar = String() // Remove all channelVar methods (it's not in use)
     var timer = Timer()
@@ -27,51 +100,76 @@ class OtherChannelViewController: UIViewController {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 260, width: self.view.frame.size.width, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: 265, width: self.view.frame.size.width, height: 1))
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
         } else {
             lineView.backgroundColor = UIColor.white
         }
+        dropDownMenu.layer.borderWidth = 1
+        dropDownMenu.layer.borderColor = UIColor.systemGray.cgColor
+        dropDownMenu.layer.cornerRadius = 12
+        dropDownMenu.removeFromSuperview()
         self.view.addSubview(lineView)
         self.followersLabel.isUserInteractionEnabled = true
         self.followingLabel.isUserInteractionEnabled = true
+        self.avatarImage.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tapFunction))
         let tapp = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tappFunction))
+        let tappp = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tapppFunction))
+        avatarImage.addGestureRecognizer(tappp)
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
-        
-
-        // Do any additional setup after loading the view.
+        channelVideoIds()
+        self.avatarImage.contentScaleFactor = 1.5
     }
-    func viewWillAppear() {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        if touch?.view != self.dropDownMenu
+        { dropDownMenu.removeFromSuperview() }  /// Here you go bro here is the greek code to remove the view.
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        dropDownMenu.removeFromSuperview()
+        timer.invalidate()
+        dropDownMenu.removeFromSuperview()
+    }
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadMemberChannel()
+        channelVideoIds()
         timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-    }
-    func viewWillDisappear() {
-        super.viewWillDisappear(true)
-        timer.invalidate()
     }
     @objc func timerAction() {
         if myValet.string(forKey: "Id") == nil {
             self.timer.invalidate()
         } else {
             loadMemberChannel()
+            channelVideoIds()
         }
         if chanelVar == nil {
             self.timer.invalidate()
         } else {
             loadMemberChannel()
         }
-        print("timer activated")
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
-        print("tap working")
         goToFollowersList()
+    }
+    var doubleTap : Bool! = false
+    @objc func tapppFunction(sender:UITapGestureRecognizer) {
+        if (doubleTap) {
+            doubleTap = false
+            dropDownMenu.removeFromSuperview()
+        } else {
+            //First Tap
+            self.view.addSubview(dropDownMenu)
+            doubleTap = true
+        }
     }
     @objc func tappFunction(sender:UITapGestureRecognizer) {
         goToFollowingList()
@@ -101,39 +199,52 @@ class OtherChannelViewController: UIViewController {
                         let username: String? = parseJSON["username"] as? String
                         self.channelUsername = username!
                         let name: String? = parseJSON["name"] as? String
-                        let imageUrl: String? = parseJSON["image_url"] as? String
+                        let imageUrl: String? = parseJSON["avatar_url"] as? String // Forgot to change to the new api here
                         let followerCount: Int? = parseJSON["followers_count"] as? Int
                         let followingCount: Int? = parseJSON["following_count"] as? Int
                         let bio: String? = parseJSON["bio"] as? String
                         let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
-                        DispatchQueue.main.async {
                             if bio?.isEmpty != true {
-                                self.bioLabel.text = bio ?? ""
+                                DispatchQueue.main.async {
+                                    self.bioLabel.text = bio ?? ""
+                                }
                             } else {
-                                self.bioLabel.text = String("")
+                                DispatchQueue.main.async {
+                                    self.bioLabel.text = String("")
+                                }
                             }
                             if username?.isEmpty != true && name?.isEmpty != true {
-                                self.usernameLabel.text = username ?? ""
-                                self.nameLabel.text = name ?? ""
+                                DispatchQueue.main.async {
+                                    self.usernameLabel.text = username ?? ""
+                                    self.nameLabel.text = name ?? ""
+                                }
                             } else {
                                 self.showNoResponseFromServer()
                             }
-                            print(followerCount ?? "none")
                             if followerCount != 0 {
-                                self.followersLabel.text = "\(followerCount ?? 0)"
+                                DispatchQueue.main.async {
+                                    self.followersLabel.text = "\(followerCount ?? 0)"
+                                }
                             } else {
-                                self.followersLabel.text = "0"
+                                DispatchQueue.main.async {
+                                    self.followersLabel.text = "0"
+                                }
                             }
                             if followingCount != 0 {
-                                self.followingLabel.text = "\(followingCount ?? 0)"
+                                DispatchQueue.main.async {
+                                    self.followingLabel.text = "\(followingCount ?? 0)"
+                                }
                             } else {
-                                self.followingLabel.text = "0"
+                                DispatchQueue.main.async {
+                                    self.followingLabel.text = "0"
+                                }
                             }
+                        DispatchQueue.main.async {
                             Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
-                            }
+                        }
                     } else {
                         self.showErrorContactingServer()
-                        print(error ?? "No error")
+                        print(error ?? "")
                     }
                 } catch {
                         self.showNoResponseFromServer()
@@ -141,65 +252,8 @@ class OtherChannelViewController: UIViewController {
                     }
             }
             task.resume()
-        } else if channelVar != nil {
-            let Id = channelVar
-            let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
-            var request = URLRequest(url:myUrl!)
-            request.httpMethod = "GET"
-            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                if error != nil {
-                    self.showErrorContactingServer()
-                    return
-                }
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    if let parseJSON = json {
-                        let username: String? = parseJSON["username"] as? String
-                        let name: String? = parseJSON["name"] as? String
-                        let imageUrl: String? = parseJSON["image_url"] as? String
-                        let followerCount: Int? = parseJSON["followers_count"] as? Int
-                        let followingCount: Int? = parseJSON["following_count"] as? Int
-                        let bio: String? = parseJSON["bio"] as? String
-                        let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
-                        DispatchQueue.main.async {
-                            if bio?.isEmpty != true {
-                                self.bioLabel.text = bio!
-                            } else {
-                                self.bioLabel.text = String("")
-                            }
-                            if username?.isEmpty != true && name?.isEmpty != true {
-                                self.usernameLabel.text = username!
-                                self.nameLabel.text = name!
-                            } else {
-                                self.showNoResponseFromServer()
-                            }
-                            print(followerCount ?? "none")
-                            if followerCount != 0 {
-                                self.followersLabel.text = "\(followerCount ?? 0)"
-                            } else {
-                                self.followersLabel.text = "0"
-                            }
-                            if followingCount != 0 {
-                                self.followingLabel.text = "\(followingCount ?? 0)"
-                            } else {
-                                self.followingLabel.text = "0"
-                            }
-                            Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
-                            }
-                    } else {
-                        self.showErrorContactingServer()
-                        print(error ?? "No error")
-                    }
-                } catch {
-                        self.showNoResponseFromServer()
-                        print(error)
-                    }
-            }
-            task.resume()
-
         }
-            } // I will set this up later
+    } // I will set this up later
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.destination is OtherFollowerListViewController
@@ -217,16 +271,31 @@ class OtherChannelViewController: UIViewController {
                     vc.followingVar = channelUsername
                 }
             }
+        } else if segue.destination is ChannelVideoViewController {
+            if let vc = segue.destination as? ChannelVideoViewController {
+                if segue.identifier == "showOtherVideo" {
+                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+                        let selectedRow = indexPath.row
+                        vc.videoString = videos[selectedRow].id
+                    }
+                } else if segue.identifier == "showOtherVideoo" {
+                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+                        let selectedRow = indexPath.row
+                        vc.videoString = videos[selectedRow].id
+                    }
+                }
+            } else {
+                self.showUnkownError()
+            }
         }
     }
     func showErrorContactingServer() {
-        DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-            // show the alert
+        DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -238,8 +307,9 @@ class OtherChannelViewController: UIViewController {
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showUnkownError() {
 
@@ -249,19 +319,8 @@ class OtherChannelViewController: UIViewController {
         // add an action (button)
         alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

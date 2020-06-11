@@ -20,7 +20,24 @@ class VideoPlaybackViewController: UIViewController {
         isDismissed = true
         avPlayer.pause()
     }
-    
+    @IBAction func nextButton(_ sender: Any) {
+        self.performSegue(withIdentifier: "showUploadDetails", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is UploadDetailsViewController
+        {
+            if let vc = segue.destination as? UploadDetailsViewController {
+                if segue.identifier == "showUploadDetails" {
+                    vc.videoDetails = videoURL
+                }
+            } else {
+                self.showErrorContactingServer()
+            }
+        } else {
+            self.showNoVideo()
+        }
+    }
     @objc func timerAction() {
         let token: String? = tokenValet.string(forKey: "Token")
         if token == nil {
@@ -47,14 +64,15 @@ class VideoPlaybackViewController: UIViewController {
         babaPlayer()
                 // Do any additional setup after loading the view.
     }
-    func viewWillAppear() {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        isDismissed = true
+        avPlayer.pause()
+    }
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         isDismissed = false
         babaPlayer()
-    }
-    func viewWillDisappear() {
-        super.viewWillDisappear(true)
-        isDismissed = true
     }
     func babaPlayer() {
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
@@ -81,58 +99,36 @@ class VideoPlaybackViewController: UIViewController {
 
     }
     @IBAction func doneButton(_ sender: Any) {
-        startRequest()
+        performSegue(withIdentifier: "showUploadDetails", sender: self)
     }
-    func startRequest() {
-        let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = true
-        myActivityIndicator.startAnimating()
-        DispatchQueue.main.async {
-            self.view.addSubview(myActivityIndicator)
-        }
-        let userId: String? = myValet.string(forKey: "Id")
-        let token: String? = tokenValet.string(forKey: "Token")
-        let Id = Int(userId!)
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token!)",
-            "Accept": "application/json"
-        ]
-        AF.upload(
-            multipartFormData: { multipartFormData in
-                multipartFormData.append(self.videoURL, withName: "video[clip]" , fileName: "clip.mp4", mimeType: "video/mp4")
-                multipartFormData.append("\(Id!)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"user[Id]")
-
-        },
-            to: "http://10.0.0.2:3000/api/v1/videouploads.json", method: .post, headers: headers)
-            .response { resp in
-                print(resp)
-
-
-        }
-        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-    }
-    // I want to die
     func showErrorContactingServer() {
-        DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)z
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-            // show the alert
+        DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
     //
     func showNoResponseFromServer() {
-        DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-            // show the alert
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func showNoVideo() {
+            let alert = UIAlertController(title: "What?", message: "There's no video! How did this happen????", preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "bruh moment", style: UIAlertAction.Style.default, handler: nil))
+
+        DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -142,16 +138,5 @@ class VideoPlaybackViewController: UIViewController {
             activityIndicator.removeFromSuperview()
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

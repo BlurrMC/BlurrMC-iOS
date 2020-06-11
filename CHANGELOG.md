@@ -27,6 +27,8 @@
 * Added setting to settings bundle.
 * Adjusted design of app to fit on 4.7inch displays (for development)
 * Recording playback stops when you exit from the playback view controller.
+* Optimized code to run less on the main thread.
+* Made thumbnail of video 108 x 192 to fit the portrait aspect ratio of most videos.
 ## v0.2.5 (PRERELEASE)
 * Account settings editing now works (actually contacts the api)
 * Fixed bug where timer would stop forever and load any user info until app restart

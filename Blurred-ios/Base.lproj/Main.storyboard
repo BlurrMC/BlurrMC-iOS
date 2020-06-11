@@ -113,7 +113,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lm5-5z-XSP">
-                                <rect key="frame" x="16" y="83" width="150" height="150"/>
+                                <rect key="frame" x="16" y="83" width="108" height="192"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PNX-eF-9EH">
@@ -140,7 +140,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gIg-0Z-9Ov">
-                                <rect key="frame" x="16" y="252" width="343" height="95"/>
+                                <rect key="frame" x="132" y="151" width="227" height="124"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" returnKeyType="done"/>
@@ -680,14 +680,14 @@
                                 <exclude reference="Uu1-S0-QOC"/>
                                 <exclude reference="De2-Q9-PBS"/>
                                 <exclude reference="Ej8-97-ZiW"/>
-                                <exclude reference="Dwr-7R-CYu"/>
-                                <exclude reference="uE8-Ec-ciI"/>
                                 <exclude reference="4KN-zF-hac"/>
                                 <exclude reference="EXF-4a-ZCj"/>
-                                <exclude reference="DhB-Cg-vKN"/>
-                                <exclude reference="QUR-kY-V9T"/>
+                                <exclude reference="Dwr-7R-CYu"/>
+                                <exclude reference="uE8-Ec-ciI"/>
                                 <exclude reference="2SM-1D-QiW"/>
                                 <exclude reference="qI3-Cv-pUS"/>
+                                <exclude reference="DhB-Cg-vKN"/>
+                                <exclude reference="QUR-kY-V9T"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -701,14 +701,14 @@
                                 <include reference="Uu1-S0-QOC"/>
                                 <include reference="De2-Q9-PBS"/>
                                 <include reference="Ej8-97-ZiW"/>
-                                <include reference="Dwr-7R-CYu"/>
-                                <include reference="uE8-Ec-ciI"/>
                                 <include reference="4KN-zF-hac"/>
                                 <include reference="EXF-4a-ZCj"/>
-                                <include reference="DhB-Cg-vKN"/>
-                                <include reference="QUR-kY-V9T"/>
+                                <include reference="Dwr-7R-CYu"/>
+                                <include reference="uE8-Ec-ciI"/>
                                 <include reference="2SM-1D-QiW"/>
                                 <include reference="qI3-Cv-pUS"/>
+                                <include reference="DhB-Cg-vKN"/>
+                                <include reference="QUR-kY-V9T"/>
                             </mask>
                         </variation>
                     </view>
@@ -1229,7 +1229,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTP-yg-9bj">
-                                <rect key="frame" x="136" y="335" width="104" height="54"/>
+                                <rect key="frame" x="135.5" y="335" width="104" height="54"/>
                                 <color key="backgroundColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="BYs-si-pvI"/>

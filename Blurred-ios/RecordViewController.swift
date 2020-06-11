@@ -237,7 +237,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
 
         if (error != nil) {
-            print("Error recording movie: \(error!.localizedDescription)")
+            print("Error: \(error!.localizedDescription)")
         } else {
 
             let videoRecorded = outputURL! as URL

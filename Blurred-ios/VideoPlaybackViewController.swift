@@ -102,36 +102,33 @@ class VideoPlaybackViewController: UIViewController {
         performSegue(withIdentifier: "showUploadDetails", sender: self)
     }
     func showErrorContactingServer() {
-        DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)z
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-            // show the alert
+        DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
     //
     func showNoResponseFromServer() {
-        DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-            // show the alert
+        DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
     func showNoVideo() {
-        DispatchQueue.main.async {
             let alert = UIAlertController(title: "What?", message: "There's no video! How did this happen????", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)
             alert.addAction(UIAlertAction(title: "bruh moment", style: UIAlertAction.Style.default, handler: nil))
 
-            // show the alert
+        DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }

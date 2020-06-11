@@ -30,7 +30,6 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         } else {
             downloadJson()
         }
-        print("timer activated")
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
@@ -50,23 +49,18 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer()
-                }
-                print("uh oh")
+                self.showNoResponseFromServer()
                 return
             }
-            print("I got the data")
             do {
                 let decoder = JSONDecoder()
                 let downloadedFollowing = try decoder.decode(Followings.self, from: data)
                 self.followings = downloadedFollowing.following
-                print("a1")
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
             } catch {
-                print("You have no followerings go die.")
+                print(error)
             }
         }.resume()
     }
@@ -115,9 +109,7 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
-                DispatchQueue.main.async {
-                    self.showErrorContactingServer()
-                }
+                self.showErrorContactingServer()
                 return
             }
             do {
@@ -129,15 +121,11 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
                         Nuke.loadImage(with: railsUrl!, into: cell.followingAvatar)
                     }
                 } else {
-                    DispatchQueue.main.async {
-                        self.showErrorContactingServer()
-                    }
-                    print(error ?? "No error")
+                    self.showErrorContactingServer()
+                    print(error ?? "")
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer()
-                }
+                self.showNoResponseFromServer()
                 print(error)
                 }
         }
@@ -152,8 +140,9 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+             self.present(alert, animated: true, completion: nil)
+        }
     }
     func showNoResponseFromServer() {
 
@@ -163,19 +152,8 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

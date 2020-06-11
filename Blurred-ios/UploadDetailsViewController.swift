@@ -61,22 +61,18 @@ class UploadDetailsViewController: UIViewController {
             to: "http://10.0.0.2:3000/api/v1/videouploads.json", method: .post, headers: headers)
             .response { resp in
                 print(resp)
-
-
         }
         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
     }
     // I want to die
     func showErrorContactingServer() {
-        DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)z
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-            // show the alert
+        DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
-        }
+        }   
     }
     func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
         DispatchQueue.main.async {

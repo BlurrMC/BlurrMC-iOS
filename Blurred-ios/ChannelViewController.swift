@@ -25,9 +25,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
-                DispatchQueue.main.async {
-                    self.showErrorContactingServer()
-                }
+                self.showErrorContactingServer()
                 return
             }
             
@@ -38,17 +36,12 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
-                        }
-                } else {
-                    DispatchQueue.main.async {
-                        self.showErrorContactingServer()
                     }
-                    print(error ?? "No error")
+                } else {
+                    self.showErrorContactingServer()
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer()
-                }
+                self.showNoResponseFromServer()
                 print(error)
                 }
         }
@@ -127,7 +120,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     @objc func imageTapped(gesture: UIGestureRecognizer) {
         // if the tapped view is a UIImageView then set it to imageview
         if (gesture.view as? UIImageView) != nil {
-            print("Image Tapped")
             pickAvatar()
         }
     }
@@ -138,10 +130,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             loadMemberChannel()
             channelVideoIds()
         }
-        print("timer activated")
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
-        print("tap working")
         goToFollowersList()
     }
     @objc func tappFunction(sender:UITapGestureRecognizer) {
@@ -179,9 +169,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer()
-                }
+                self.showNoResponseFromServer()
                 return
             }
             do {
@@ -192,9 +180,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     self.collectionView.reloadData()
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.showErrorContactingServer() // f
-                }
+                self.showErrorContactingServer() // f
             }
         }.resume()
     }
@@ -220,38 +206,49 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     let followingCount: Int? = parseJSON["following_count"] as? Int
                     let bio: String? = parseJSON["bio"] as? String
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
-                    DispatchQueue.main.async {
-                        if bio?.isEmpty != true {
+                    if bio?.isEmpty != true {
+                        DispatchQueue.main.async {
                             self.bioLabel.text = bio ?? ""
-                        } else {
+                        }
+                    } else {
+                        DispatchQueue.main.async {
                             self.bioLabel.text = String("")
                         }
-                        if username?.isEmpty != true && name?.isEmpty != true {
+                    }
+                    if username?.isEmpty != true && name?.isEmpty != true {
+                        DispatchQueue.main.async {
                             self.usernameLabel.text = username ?? ""
                             self.nameLabel.text = name ?? ""
-                        } else {
-                            self.showNoResponseFromServer()
                         }
-                        print(followerCount ?? "none")
-                        if followerCount != 0 {
+                    } else {
+                        self.showNoResponseFromServer()
+                    }
+                    if followerCount != 0 {
+                        DispatchQueue.main.async {
                             self.followersLabel.text = "\(followerCount ?? 0)"
-                        } else {
+                        }
+                    } else {
+                        DispatchQueue.main.async {
                             self.followersLabel.text = "0"
                         }
-                        if followingCount != 0 {
+                    }
+                    if followingCount != 0 {
+                        DispatchQueue.main.async {
                             self.followingLabel.text = "\(followingCount ?? 0)"
-                        } else {
+                        }
+                    } else {
+                        DispatchQueue.main.async {
                             self.followingLabel.text = "0"
                         }
+                    }
+                    DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
-                        }
+                    }
                 } else {
                     self.showErrorContactingServer()
-                    print(error ?? "No error")
                 }
             } catch {
                     self.showNoResponseFromServer()
-                    print(error)
                 }
         }
         task.resume()
@@ -320,8 +317,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showNoResponseFromServer() {
 
@@ -331,8 +329,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showUnkownError() {
 
@@ -342,11 +341,11 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         // add an action (button)
         alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func pickAvatar() {
-        DispatchQueue.main.async {
             let alert = UIAlertController(title: "Avatar", message: "Change your avatar.", preferredStyle: UIAlertController.Style.actionSheet)
 
             // add an action (button)
@@ -360,7 +359,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
 
-            // show the alert
+        DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }

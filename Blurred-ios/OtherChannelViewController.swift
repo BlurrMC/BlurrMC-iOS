@@ -27,9 +27,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
-                DispatchQueue.main.async {
-                    self.showErrorContactingServer()
-                }
+                self.showErrorContactingServer()
                 return
             }
             
@@ -42,15 +40,11 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
                         Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
                     }
                 } else {
-                    DispatchQueue.main.async {
-                        self.showErrorContactingServer()
-                    }
-                    print(error ?? "No error")
+                    self.showErrorContactingServer()
+                    print(error ?? "")
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.showNoResponseFromServer()
-                }
+                self.showNoResponseFromServer()
                 print(error)
                 }
         }
@@ -76,9 +70,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
             guard let downloadURL = url else { return }
             URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
                 guard let data = data, error == nil, urlResponse != nil else {
-                    DispatchQueue.main.async {
-                        self.showNoResponseFromServer()
-                    }
+                    self.showNoResponseFromServer()
                     return
                 }
                 do {
@@ -89,36 +81,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
                         self.collectionView.reloadData()
                     }
                 } catch {
-                    DispatchQueue.main.async {
-                        self.showErrorContactingServer() // f
-                    }
-                }
-            }.resume()
-        } else if channelVar != nil {
-            let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(channelVar).json")  // 23:40
-            guard let downloadURL = url else { return }
-            URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-                guard let data = data, error == nil, urlResponse != nil else {
-                    DispatchQueue.main.async {
-                        self.showNoResponseFromServer()
-                    }
-                    return
-                }
-                do {
-                    let decoder = JSONDecoder()
-                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                    self.videos = downloadedVideo.videos
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        self.showErrorContactingServer() // f
-                    }
+                    self.showErrorContactingServer() // f
                 }
             }.resume()
         }
-        
     }
     var chanelVar = String()
     var channelVar = String() // Remove all channelVar methods (it's not in use)
@@ -197,7 +163,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
     var doubleTap : Bool! = false
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
         if (doubleTap) {
-            //Second Tap
             doubleTap = false
             dropDownMenu.removeFromSuperview()
         } else {
@@ -239,34 +204,47 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
                         let followingCount: Int? = parseJSON["following_count"] as? Int
                         let bio: String? = parseJSON["bio"] as? String
                         let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
-                        DispatchQueue.main.async {
                             if bio?.isEmpty != true {
-                                self.bioLabel.text = bio ?? ""
+                                DispatchQueue.main.async {
+                                    self.bioLabel.text = bio ?? ""
+                                }
                             } else {
-                                self.bioLabel.text = String("")
+                                DispatchQueue.main.async {
+                                    self.bioLabel.text = String("")
+                                }
                             }
                             if username?.isEmpty != true && name?.isEmpty != true {
-                                self.usernameLabel.text = username ?? ""
-                                self.nameLabel.text = name ?? ""
+                                DispatchQueue.main.async {
+                                    self.usernameLabel.text = username ?? ""
+                                    self.nameLabel.text = name ?? ""
+                                }
                             } else {
                                 self.showNoResponseFromServer()
                             }
-                            print(followerCount ?? "none")
                             if followerCount != 0 {
-                                self.followersLabel.text = "\(followerCount ?? 0)"
+                                DispatchQueue.main.async {
+                                    self.followersLabel.text = "\(followerCount ?? 0)"
+                                }
                             } else {
-                                self.followersLabel.text = "0"
+                                DispatchQueue.main.async {
+                                    self.followersLabel.text = "0"
+                                }
                             }
                             if followingCount != 0 {
-                                self.followingLabel.text = "\(followingCount ?? 0)"
+                                DispatchQueue.main.async {
+                                    self.followingLabel.text = "\(followingCount ?? 0)"
+                                }
                             } else {
-                                self.followingLabel.text = "0"
+                                DispatchQueue.main.async {
+                                    self.followingLabel.text = "0"
+                                }
                             }
+                        DispatchQueue.main.async {
                             Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
-                            }
+                        }
                     } else {
                         self.showErrorContactingServer()
-                        print(error ?? "No error")
+                        print(error ?? "")
                     }
                 } catch {
                         self.showNoResponseFromServer()
@@ -274,65 +252,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
                     }
             }
             task.resume()
-        } else if channelVar != nil {
-            let Id = channelVar
-            let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
-            var request = URLRequest(url:myUrl!)
-            request.httpMethod = "GET"
-            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                if error != nil {
-                    self.showErrorContactingServer()
-                    return
-                }
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    if let parseJSON = json {
-                        let username: String? = parseJSON["username"] as? String
-                        let name: String? = parseJSON["name"] as? String
-                        let imageUrl: String? = parseJSON["avatar_url"] as? String
-                        let followerCount: Int? = parseJSON["followers_count"] as? Int
-                        let followingCount: Int? = parseJSON["following_count"] as? Int
-                        let bio: String? = parseJSON["bio"] as? String
-                        let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
-                        DispatchQueue.main.async {
-                            if bio?.isEmpty != true {
-                                self.bioLabel.text = bio!
-                            } else {
-                                self.bioLabel.text = String("")
-                            }
-                            if username?.isEmpty != true && name?.isEmpty != true {
-                                self.usernameLabel.text = username!
-                                self.nameLabel.text = name!
-                            } else {
-                                self.showNoResponseFromServer()
-                            }
-                            print(followerCount ?? "none")
-                            if followerCount != 0 {
-                                self.followersLabel.text = "\(followerCount ?? 0)"
-                            } else {
-                                self.followersLabel.text = "0"
-                            }
-                            if followingCount != 0 {
-                                self.followingLabel.text = "\(followingCount ?? 0)"
-                            } else {
-                                self.followingLabel.text = "0"
-                            }
-                            Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
-                            }
-                    } else {
-                        self.showErrorContactingServer()
-                        print(error ?? "No error")
-                    }
-                } catch {
-                        self.showNoResponseFromServer()
-                        print(error)
-                    }
-            }
-            task.resume()
-
         }
-            } // I will set this up later
+    } // I will set this up later
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.destination is OtherFollowerListViewController
@@ -369,13 +290,12 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         }
     }
     func showErrorContactingServer() {
-        DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-            // show the alert
+        DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -387,8 +307,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showUnkownError() {
 
@@ -398,7 +319,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
         // add an action (button)
         alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
 
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

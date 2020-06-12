@@ -87,12 +87,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         if isUnlocked {
             print("yes")
         let accessToken: String? = tokenValet.string(forKey: "Token")
-            if accessToken?.isEmpty == nil {
+            if accessToken != nil {
                 print("yeee")
             let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil) // change  "main" to something else IF home is in a new storyboard file
             let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController

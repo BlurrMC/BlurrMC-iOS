@@ -104,7 +104,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         do {
 
             let input = try AVCaptureDeviceInput(device: camera)
-
             if captureSession.canAddInput(input) {
                 captureSession.addInput(input)
                 activeInput = input

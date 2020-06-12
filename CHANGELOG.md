@@ -2,6 +2,7 @@
 ## Unreleased
 * Tap on any part of the video preview to pause or play the video.
 * Tap on any part of video playback preview to pause or play your video.
+* Possibly fixed the keychain.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

@@ -15,6 +15,7 @@ class ChannelVideoViewController: UIViewController {
     @IBOutlet weak var backButtonOutlet: UIButton!
     // Add peak function to dispaly video when peaking.
     
+    @IBOutlet weak var descriptionLabel: UILabel!
     var videoString = Int()
     var videoUrlString = String()
     func sendRequest() {
@@ -32,9 +33,10 @@ class ChannelVideoViewController: UIViewController {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let videoUrl: String? = parseJSON["video_url"] as? String
-                    print("ah yes")
+                    let descriptionString: String? = parseJSON["description"] as? String
                     self.videoUrlString = videoUrl!
                     DispatchQueue.main.async {
+                        self.descriptionLabel.text = descriptionString ?? ""
                         self.babaPlayer()
                     }
                 } else {

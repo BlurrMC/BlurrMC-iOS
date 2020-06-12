@@ -62,6 +62,9 @@ class VideoPlaybackViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         babaPlayer()
+        self.previewView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(VideoPlaybackViewController.tapFunction))
+        previewView.addGestureRecognizer(tap)
                 // Do any additional setup after loading the view.
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -130,6 +133,16 @@ class VideoPlaybackViewController: UIViewController {
 
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
+        }
+    }
+    var doubleTap : Bool! = false
+    @objc func tapFunction(sender:UITapGestureRecognizer) {
+        if (doubleTap) {
+            doubleTap = false
+            avPlayer.play()
+        } else {
+            avPlayer.pause()
+            doubleTap = true
         }
     }
     func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {

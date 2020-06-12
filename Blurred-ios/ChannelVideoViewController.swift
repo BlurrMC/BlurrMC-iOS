@@ -14,6 +14,7 @@ import Valet
 class ChannelVideoViewController: UIViewController {
     @IBOutlet weak var backButtonOutlet: UIButton!
     // Add peak function to dispaly video when peaking.
+    
     var videoString = Int()
     var videoUrlString = String()
     func sendRequest() {
@@ -65,8 +66,21 @@ class ChannelVideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         sendRequest()
+        self.videoView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapFunction))
         backButtonOutlet.layer.zPosition = 1
+        videoView.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
+    }
+    var doubleTap : Bool! = false
+    @objc func tapFunction(sender:UITapGestureRecognizer) {
+        if (doubleTap) {
+            doubleTap = false
+            avPlayer.play()
+        } else {
+            avPlayer.pause()
+            doubleTap = true
+        }
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)

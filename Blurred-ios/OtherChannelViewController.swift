@@ -10,8 +10,9 @@ import UIKit
 import Nuke
 import Valet
 import Foundation
+import Alamofire
 
-class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
+class OtherChannelViewController: UIViewController, UICollectionViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     // Add peak function to dispaly video when peaking.
     @IBOutlet weak var collectionView: UICollectionView!
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -166,9 +167,113 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource {
             doubleTap = false
             dropDownMenu.removeFromSuperview()
         } else {
-            //First Tap
-            self.view.addSubview(dropDownMenu)
-            doubleTap = true
+            let userId: String?  = myValet.string(forKey: "Id")
+            let userIdInt: Int? = Int(userId!)
+            let userIdString: String = String("\(userIdInt)")
+                let Id = chanelVar
+                let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
+                var request = URLRequest(url:myUrl!)
+                request.httpMethod = "GET"
+                let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                    if error != nil {
+                        self.showErrorContactingServer()
+                        return
+                    }
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = json {
+                            let username: Int? = parseJSON["id"] as? Int
+                            let usernameId = String("\(username)")
+                            if userIdString != usernameId {
+                                DispatchQueue.main.async {
+                                    self.view.addSubview(self.dropDownMenu)
+                                }
+                                self.doubleTap = true
+                            } else {
+                                self.pickAvatar()
+                            }
+                        } else {
+                            self.showErrorContactingServer()
+                            print(error ?? "")
+                        }
+                    } catch {
+                            self.showNoResponseFromServer()
+                            print(error)
+                        }
+                }
+                task.resume()
+        }
+    }
+    func importImage() {
+        let image = UIImagePickerController()
+        image.delegate = self
+        image.sourceType = UIImagePickerController.SourceType.photoLibrary
+        image.allowsEditing = true
+        self.present(image, animated: true) {
+            
+        }
+    }
+    func takePicture() {
+        let image = UIImagePickerController()
+        image.delegate = self
+        image.sourceType = UIImagePickerController.SourceType.camera
+        image.allowsEditing = true
+        self.present(image, animated: true) {
+            
+        }
+    }
+    func upload() {
+        let token: String?  = self.tokenValet.string(forKey: "Token")
+        let userId: String?  = self.myValet.string(forKey: "Id")
+        let Id = Int(userId!)
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token!)",
+            "Accept": "application/json"
+        ]
+        let url = String("http://10.0.0.2:3000/api/v1/registrations/\(Id!)")
+        let image = avatarImage.image///haha im small
+        // let image = [UIImagePickerController.InfoKey.editedImage]
+        guard let imgcompressed = image!.jpegData(compressionQuality: 0.5) else { return }
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imgcompressed, withName: "avatar" , fileName: "\(Id!)-avatar.png", mimeType: "image/png")
+        },
+            to: url, method: .patch , headers: headers)
+            .response { resp in
+                print(resp)
+
+
+        }
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            avatarImage.image = image
+            upload()
+        } else {
+            self.showUnkownError()
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    func pickAvatar() {
+            let alert = UIAlertController(title: "Avatar", message: "Change your avatar.", preferredStyle: UIAlertController.Style.actionSheet)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "Pick from gallery", style: UIAlertAction.Style.default, handler: { action in
+                print("Pick from gallery")
+                self.importImage()
+            }))
+            alert.addAction(UIAlertAction(title: "Take photo", style: UIAlertAction.Style.default, handler: { action in
+                print("Take photo")
+                self.takePicture()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
         }
     }
     @objc func tappFunction(sender:UITapGestureRecognizer) {

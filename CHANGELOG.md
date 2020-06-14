@@ -4,6 +4,8 @@
 * Tap on any part of video playback preview to pause or play your video.
 * Possibly fixed the keychain.
 * Added description label.
+* Made it so you can't show the other channel dropdown menu if the uesr if you.
+* Made it so if you are viewing your own channel in other channel view then you can change your profile picture.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

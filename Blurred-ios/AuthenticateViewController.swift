@@ -14,9 +14,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     // CRAP I forgot to declare these until now ^^^
-    var timer = Timer()
     // Has to contact the devise api sending it's credentials to make sure it's good then it sends a token back
-    let delegate = UIApplication.shared.delegate as! AppDelegate
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
@@ -25,23 +24,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         passwordTextField?.delegate = self
         usernameTextField?.tag = 0
         passwordTextField?.tag = 1
-        if delegate.isItLoading != false {
-            timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-        }
     }
-    @objc func timerAction() {
-        let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = true
-        myActivityIndicator.startAnimating()
-        DispatchQueue.main.async {
-            self.view.addSubview(myActivityIndicator)
-        }
-        if delegate.isItLoading == false {
-            removeActivityIndicator(activityIndicator: myActivityIndicator)
-            timer.invalidate()
-        }
-    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameTextField {
             textField.resignFirstResponder()

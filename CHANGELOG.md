@@ -9,6 +9,7 @@
 * If you are already logged in it actually skips the login page (got it to work finally)
 * Videos play sound even if you are on silent (fixed it for reals now.)
 * If you were already logged in before it checks with the api if your token and username are valid.
+* Made it so the app checks if you are valid once you have loaded the home page.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

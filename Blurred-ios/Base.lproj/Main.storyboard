@@ -1689,10 +1689,10 @@
             </objects>
             <point key="canvasLocation" x="3674.4000000000001" y="957.57121439280365"/>
         </scene>
-        <!--View Controller-->
+        <!--Other Channel Dropdown View Controller-->
         <scene sceneID="eBT-DM-zL7">
             <objects>
-                <viewController id="Kp9-ZF-K0v" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OtherChannelDropdownViewController" id="Kp9-ZF-K0v" customClass="OtherChannelDropdownViewController" customModule="Blurred_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Ny-Xg-Q3i">
                         <rect key="frame" x="0.0" y="0.0" width="135" height="112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1727,6 +1727,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="iiC-Xe-kxq"/>
                     </view>
+                    <connections>
+                        <outlet property="blockButton" destination="ayi-bh-1Z2" id="K1O-O7-Sdv"/>
+                        <outlet property="followButton" destination="Ang-3a-9wJ" id="xFv-lg-4mx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nqC-zu-Lbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1734,6 +1738,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Bv2-bB-TQM"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="GH9-4u-Awk"/>
         <segue reference="1CG-s3-DW4"/>

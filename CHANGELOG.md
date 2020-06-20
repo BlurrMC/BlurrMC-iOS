@@ -6,6 +6,7 @@
 * Added description label.
 * Made it so you can't show the other channel dropdown menu if the uesr if you.
 * Made it so if you are viewing your own channel in other channel view then you can change your profile picture.
+* If you are already logged in it actually skips the login page (got it to work finally)
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

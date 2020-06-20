@@ -137,7 +137,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         super.viewWillDisappear(true)
         dropDownMenu.removeFromSuperview()
         timer.invalidate()
-        dropDownMenu.removeFromSuperview()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -186,6 +185,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                             let usernameId = String("\(username)")
                             if userIdString != usernameId {
                                 DispatchQueue.main.async {
+                                    // Check to change follow / unfollow button before adding dropdown to subview
                                     self.view.addSubview(self.dropDownMenu)
                                 }
                                 self.doubleTap = true

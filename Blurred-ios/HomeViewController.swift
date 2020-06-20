@@ -46,11 +46,13 @@ class HomeViewController: UIViewController {  // Ah yes, home
                                    if status == "User is valid! YAY :)" {
                                     return
                                    } else if status == "User is not valid. Oh no!" {
+                                    self.showInvalidSession()
                                        self.myValet.removeObject(forKey: "Id")
                                        self.tokenValet.removeObject(forKey: "Token")
                                        let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
                                        self.present(loginPage, animated:false, completion:nil)
                                    } else {
+                                    self.showErrorContactingServer()
                                        let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
                                        self.present(loginPage, animated:false, completion:nil)
                                    }
@@ -64,6 +66,32 @@ class HomeViewController: UIViewController {  // Ah yes, home
                    task.resume()
                    }
         delegate.isItLoading = false
+    }
+    func showInvalidSession() {
+        self.timer.invalidate()
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "Your session is invalid.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: nil))
+
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func showErrorContactingServer() {
+        self.timer.invalidate()
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Check your internet connection.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
 }

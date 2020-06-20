@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window =  UIWindow(frame: UIScreen.main.bounds)
             let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
             self.window?.rootViewController = homePage  // HOMMMMMMMMME
-            // Something wrong with presenting thids.
+            // Have to make it contact the api to check if this access token are on point.
             self.window?.makeKeyAndVisible()
         }
         

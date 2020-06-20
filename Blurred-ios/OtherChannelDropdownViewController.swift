@@ -14,5 +14,6 @@ class OtherChannelDropdownViewController: UIViewController {
     @IBOutlet weak var followButton: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 }

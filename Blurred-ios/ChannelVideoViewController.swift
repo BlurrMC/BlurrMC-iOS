@@ -67,6 +67,7 @@ class ChannelVideoViewController: UIViewController {
     var timer = Timer()
     override func viewDidLoad() {
         super.viewDidLoad()
+        try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
         sendRequest()
         self.videoView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapFunction))

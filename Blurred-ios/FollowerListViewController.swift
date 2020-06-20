@@ -12,8 +12,9 @@ import Nuke
 
 class FollowerListViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var nothingHere: UILabel!
-    @IBAction func backButtonClicked(_ sender: Any) {
+    @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        print("hell")
     }
     private var followers = [Follower]()
     var timer = Timer()

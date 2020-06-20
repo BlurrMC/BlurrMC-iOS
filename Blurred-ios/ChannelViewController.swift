@@ -139,14 +139,14 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     func goToFollowersList() {
         let followersListPage = self.storyboard?.instantiateViewController(identifier: "FollowerListViewController") as! FollowerListViewController
-        let appDelegate = UIApplication.shared.delegate
-        appDelegate?.window??.rootViewController = followersListPage
+        // let appDelegate = UIApplication.shared.delegate
+        // appDelegate?.window??.rootViewController = followersListPage
         self.present(followersListPage, animated:true, completion:nil)
     }
     func goToFollowingList() {
         let followeringListPage = self.storyboard?.instantiateViewController(identifier: "FollowListViewController") as! FollowListViewController
-        let appDelegate = UIApplication.shared.delegate
-        appDelegate?.window??.rootViewController = followeringListPage
+        // let appDelegate = UIApplication.shared.delegate
+        // appDelegate?.window??.rootViewController = followeringListPage
         self.present(followeringListPage, animated:true, completion:nil)
     }
     class Videos: Codable {

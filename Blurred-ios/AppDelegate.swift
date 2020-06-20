@@ -70,24 +70,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    public var isItLoading: Bool = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let accessToken: String? = tokenValet.string(forKey: "Token")
-        let bigToken = String("\(accessToken)")
-        if bigToken != "" {
-            let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-            self.window =  UIWindow(frame: UIScreen.main.bounds)
-            let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
-            self.window?.rootViewController = homePage  // HOMMMMMMMMME
-            // Have to make it contact the api to check if this access token are on point.
-            self.window?.makeKeyAndVisible()
-        }
-        
-        
-        
+        let userId: String? = myValet.string(forKey: "Id")
+        if accessToken != nil && userId != nil {
+            sleep(2);
+            isItLoading = true
+            let Id = Int(userId!)
+                let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuservalid/\(Id!).json")
+                var request = URLRequest(url:myUrl!)
+                request.httpMethod = "GET"
+                request.addValue("application/json", forHTTPHeaderField: "content-type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                request.setValue("Bearer \(accessToken!)", forHTTPHeaderField: "Authorization")
+                let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                    if error != nil {
+                        print("there is an error")
+                        return
+                    }
+                    
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        if let parseJSON = json {
+                            let status: String? = parseJSON["status"] as? String
+                            if status == "User is valid! YAY :)" {
+                                DispatchQueue.main.async {
+                                    let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                                    self.window =  UIWindow(frame: UIScreen.main.bounds)
+                                    let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+                                    self.window?.rootViewController = homePage
+                                    self.window?.makeKeyAndVisible()
+                                    self.isItLoading = false
+                                }
+                            } else if status == "User is not valid. Oh no!" {
+                                self.myValet.removeObject(forKey: "Id")
+                                self.tokenValet.removeObject(forKey: "Token")
+                                self.isItLoading = false
+                                return
+                            } else {
+                                return
+                            }
+                        } else {
+                            print("else")
+                            return
+                        }
+                    } catch {
+                        print("catch")
+                        return
+                    }
+                }
+            isItLoading = false
+            task.resume()
+            }
         return true
-    }
-
+        }
 }
 

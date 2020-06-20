@@ -8,6 +8,7 @@
 * Made it so if you are viewing your own channel in other channel view then you can change your profile picture.
 * If you are already logged in it actually skips the login page (got it to work finally)
 * Videos play sound even if you are on silent (fixed it for reals now.)
+* If you were already logged in before it checks with the api if your token and username are valid.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

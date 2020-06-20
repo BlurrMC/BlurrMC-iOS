@@ -10,7 +10,7 @@ import UIKit
 import Valet
 
 class HomeViewController: UIViewController {  // Ah yes, home
-    
+    var window: UIWindow?
     // Communicates with the api to check for any new updates
     var timer = Timer()
     let delegate = UIApplication.shared.delegate as! AppDelegate
@@ -25,7 +25,6 @@ class HomeViewController: UIViewController {  // Ah yes, home
     func checkUser() {
         let accessToken: String? = tokenValet.string(forKey: "Token")
         let userId: String? = myValet.string(forKey: "Id")
-        if delegate.isItLoading == true {
                    let Id = Int(userId!)
                        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuservalid/\(Id!).json")
                        var request = URLRequest(url:myUrl!)
@@ -51,10 +50,16 @@ class HomeViewController: UIViewController {  // Ah yes, home
                                        self.tokenValet.removeObject(forKey: "Token")
                                        let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
                                        self.present(loginPage, animated:false, completion:nil)
+                                    self.window =  UIWindow(frame: UIScreen.main.bounds)
+                                    self.window?.rootViewController = loginPage
+                                    self.window?.makeKeyAndVisible()
                                    } else {
                                     self.showErrorContactingServer()
                                        let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
                                        self.present(loginPage, animated:false, completion:nil)
+                                    self.window =  UIWindow(frame: UIScreen.main.bounds)
+                                    self.window?.rootViewController = loginPage
+                                    self.window?.makeKeyAndVisible()
                                    }
                                } else {
                                    return
@@ -64,9 +69,8 @@ class HomeViewController: UIViewController {  // Ah yes, home
                            }
                        }
                    task.resume()
-                   }
-        delegate.isItLoading = false
     }
+    
     func showInvalidSession() {
         self.timer.invalidate()
 

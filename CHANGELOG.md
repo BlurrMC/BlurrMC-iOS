@@ -11,6 +11,7 @@
 * If you were already logged in before it checks with the api if your token and username are valid.
 * Made it so the app checks if you are valid once you have loaded the home page.
 * Added error handling.
+* Made it so app doesn't crash when you try and sign out too quicky.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

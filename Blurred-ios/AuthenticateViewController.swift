@@ -32,7 +32,6 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             passwordTextField.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
-            sendCreds()
         }
         return true
     }

@@ -115,7 +115,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        timer.invalidate()
+        self.timer.invalidate()
     }
     @objc func imageTapped(gesture: UIGestureRecognizer) {
         // if the tapped view is a UIImageView then set it to imageview
@@ -164,94 +164,103 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     private var videos = [Video]()
     func channelVideoIds() { // Still not done we need to add the user's butt image
         let userId: String?  = myValet.string(forKey: "Id")
-        let Id = Int(userId!)
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")  // 23:40
-        guard let downloadURL = url else { return }
-        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-            guard let data = data, error == nil, urlResponse != nil else {
-                self.showNoResponseFromServer()
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                self.videos = downloadedVideo.videos
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+        if userId == nil {
+            self.timer.invalidate()
+        } else {
+            let Id = Int(userId!)
+            let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")  // 23:40
+            guard let downloadURL = url else { return }
+            URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
+                guard let data = data, error == nil, urlResponse != nil else {
+                    self.showNoResponseFromServer()
+                    return
                 }
-            } catch {
-                self.showErrorContactingServer() // f
-            }
-        }.resume()
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                    self.videos = downloadedVideo.videos
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                } catch {
+                    self.showErrorContactingServer() // f
+                }
+            }.resume()
+        }
     }
     func loadMemberChannel() {
         let userId: String?  = myValet.string(forKey: "Id")
-        let Id = Int(userId!)
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
-        var request = URLRequest(url:myUrl!)
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if error != nil {
-                self.showErrorContactingServer()
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                if let parseJSON = json {
-                    let username: String? = parseJSON["username"] as? String
-                    let name: String? = parseJSON["name"] as? String
-                    let imageUrl: String? = parseJSON["avatar_url"] as? String
-                    let followerCount: Int? = parseJSON["followers_count"] as? Int
-                    let followingCount: Int? = parseJSON["following_count"] as? Int
-                    let bio: String? = parseJSON["bio"] as? String
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
-                    if bio?.isEmpty != true {
+        if userId == nil {
+            self.timer.invalidate()
+        } else {
+            let Id = Int(userId!)
+            let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
+            var request = URLRequest(url:myUrl!)
+            request.httpMethod = "GET"
+            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                if error != nil {
+                    self.showErrorContactingServer()
+                    return
+                }
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = json {
+                        let username: String? = parseJSON["username"] as? String
+                        let name: String? = parseJSON["name"] as? String
+                        let imageUrl: String? = parseJSON["avatar_url"] as? String
+                        let followerCount: Int? = parseJSON["followers_count"] as? Int
+                        let followingCount: Int? = parseJSON["following_count"] as? Int
+                        let bio: String? = parseJSON["bio"] as? String
+                        let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
+                        if bio?.isEmpty != true {
+                            DispatchQueue.main.async {
+                                self.bioLabel.text = bio ?? ""
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.bioLabel.text = String("")
+                            }
+                        }
+                        if username?.isEmpty != true && name?.isEmpty != true {
+                            DispatchQueue.main.async {
+                                self.usernameLabel.text = username ?? ""
+                                self.nameLabel.text = name ?? ""
+                            }
+                        } else {
+                            self.showNoResponseFromServer()
+                        }
+                        if followerCount != 0 {
+                            DispatchQueue.main.async {
+                                self.followersLabel.text = "\(followerCount ?? 0)"
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.followersLabel.text = "0"
+                            }
+                        }
+                        if followingCount != 0 {
+                            DispatchQueue.main.async {
+                                self.followingLabel.text = "\(followingCount ?? 0)"
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.followingLabel.text = "0"
+                            }
+                        }
                         DispatchQueue.main.async {
-                            self.bioLabel.text = bio ?? ""
+                            Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
                         }
                     } else {
-                        DispatchQueue.main.async {
-                            self.bioLabel.text = String("")
-                        }
+                        self.showErrorContactingServer()
                     }
-                    if username?.isEmpty != true && name?.isEmpty != true {
-                        DispatchQueue.main.async {
-                            self.usernameLabel.text = username ?? ""
-                            self.nameLabel.text = name ?? ""
-                        }
-                    } else {
+                } catch {
                         self.showNoResponseFromServer()
                     }
-                    if followerCount != 0 {
-                        DispatchQueue.main.async {
-                            self.followersLabel.text = "\(followerCount ?? 0)"
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self.followersLabel.text = "0"
-                        }
-                    }
-                    if followingCount != 0 {
-                        DispatchQueue.main.async {
-                            self.followingLabel.text = "\(followingCount ?? 0)"
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self.followingLabel.text = "0"
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
-                    }
-                } else {
-                    self.showErrorContactingServer()
-                }
-            } catch {
-                    self.showNoResponseFromServer()
-                }
+            }
+            task.resume()
         }
-        task.resume()
+        
     } // I will set this up later
     
     func importImage() {

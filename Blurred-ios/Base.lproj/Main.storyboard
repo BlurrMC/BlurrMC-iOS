@@ -624,7 +624,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WCV-FC-Wii">
-                                <rect key="frame" x="0.0" y="308" width="375" height="310"/>
+                                <rect key="frame" x="0.0" y="254" width="375" height="364"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ghd-Ok-ADR">
@@ -726,6 +726,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Channel" image="channel" id="4rQ-wT-agU"/>
                     <navigationItem key="navigationItem" id="wjm-3M-2dI"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="avatarImage" destination="LQW-7F-FtJ" id="2Yd-bE-Nto"/>
                         <outlet property="bioLabel" destination="NjE-vg-ubZ" id="0FV-5g-Xpk"/>
@@ -839,7 +840,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Af4-p0-Xxy">
-                                <rect key="frame" x="0.0" y="308" width="375" height="359"/>
+                                <rect key="frame" x="0.0" y="308" width="375" height="364"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qcm-xz-fWo">

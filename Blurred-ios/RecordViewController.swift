@@ -29,6 +29,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     func camera() {
         
     }
+    
     @IBAction func recordBackButton(_ sender: Any) {
         // self.dismiss(animated: true, completion: nil) This does not work for some reason (bug?)
     }
@@ -42,43 +43,51 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
     var previewLayer: AVCaptureVideoPreviewLayer!
     var captureDevice: AVCaptureDevice!
-    @IBAction func pinchToZoom(_ sender: UIPinchGestureRecognizer) {
-
-        guard let device = captureDevice else { return }
-
-        if sender.state == .changed {
-
-            let maxZoomFactor = device.activeFormat.videoMaxZoomFactor
-            let pinchVelocityDividerFactor: CGFloat = 5.0
-
-            do {
-
-                try device.lockForConfiguration()
-                defer { device.unlockForConfiguration() }
-
-                let desiredZoomFactor = device.videoZoomFactor + atan2(sender.velocity, pinchVelocityDividerFactor)
-                device.videoZoomFactor = max(1.0, min(desiredZoomFactor, maxZoomFactor))
-
-            } catch {
-                print(error)
-            }
-        }
-    }
-
     var activeInput: AVCaptureDeviceInput!
     let minimumZoom: CGFloat = 1.0
-    let maximumZoom: CGFloat = 3.0
+    let maximumZoom: CGFloat = 10.0
     var lastZoomFactor: CGFloat = 1.0
-    
     
 
     var outputURL: URL!
-    
+    @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
+        // guard let device = captureDevice else { return }
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return }
+        
+
+        // Return zoom value between the minimum and maximum zoom values
+        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+        }
+
+        func update(scale factor: CGFloat) {
+            do {
+                try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
+                device.videoZoomFactor = factor
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        }
+
+        let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+
+        switch pinch.state {
+        case .began: fallthrough
+        case .changed: update(scale: newScaleFactor)
+        case .ended:
+            lastZoomFactor = minMaxZoom(newScaleFactor)
+            update(scale: lastZoomFactor)
+        default: break
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // No tab bar for you!
-        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinchToZoom(_:)))
-        self.videoView.addGestureRecognizer(pinchRecognizer)
+        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
+        videoView.addGestureRecognizer(pinchRecognizer)
+        videoView.isUserInteractionEnabled = true
+        
         if setupSession() {
             setupPreview()
             startSession()

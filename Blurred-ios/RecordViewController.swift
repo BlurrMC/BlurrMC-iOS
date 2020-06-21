@@ -203,6 +203,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
      if movieOutput.isRecording == false {
 
          let connection = movieOutput.connection(with: AVMediaType.video)
+        
+        
 
          if (connection?.isVideoOrientationSupported)! {
              connection?.videoOrientation = currentVideoOrientation()
@@ -241,6 +243,19 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         if movieOutput.isRecording == true {
             movieOutput.stopRecording()
          }
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+            // image = videoMuffinString
+            outputURL = image
+            let videoRecorded = outputURL! as URL
+            dismiss(animated: true) {
+                self.performSegue(withIdentifier: "showVideo", sender: videoRecorded)
+            }
+        } else {
+            self.showUnkownError()
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
 
@@ -288,5 +303,17 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             picker.videoMaximumDuration = 7
             picker.allowsEditing = true
             present(picker, animated: true, completion: nil)
+    }
+    func showUnkownError() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "We don't know what happend wrong here! Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
+
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

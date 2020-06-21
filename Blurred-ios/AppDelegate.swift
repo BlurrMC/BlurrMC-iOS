@@ -83,7 +83,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     self.window?.makeKeyAndVisible()
                                     self.isItLoading = true
         }
+        registerForPushNotifications()
         return true
     }
+    func registerForPushNotifications() {
+      UNUserNotificationCenter.current()
+        .requestAuthorization(options: [.alert, .sound, .badge]) {
+          [weak self] granted, error in
+            
+          print("Permission granted: \(granted)")
+          guard granted else { return }
+          self?.getNotificationSettings()
+      }
+    }
+    func getNotificationSettings() {
+      UNUserNotificationCenter.current().getNotificationSettings { settings in
+        print("Notification settings: \(settings)")
+      }
+    }
+
 }
 

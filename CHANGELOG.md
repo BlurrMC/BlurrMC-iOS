@@ -13,6 +13,7 @@
 * Added error handling.
 * Made it so app doesn't crash when you try and sign out too quicky.
 * Pinch to zoom now works.
+* Uploading from gallery now works.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

@@ -8,17 +8,24 @@
 
 import UIKit
 import Valet
+import UserNotifications
 
 class HomeViewController: UIViewController {  // Ah yes, home
     var window: UIWindow?
     // Communicates with the api to check for any new updates
     var timer = Timer()
     let delegate = UIApplication.shared.delegate as! AppDelegate
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkUser()
+        checkUser() // This should always be the first thing
+        timer = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         // Do any additional setup after loading the view.
+    }
+    @objc func timerAction() {
+        checkUser()
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)

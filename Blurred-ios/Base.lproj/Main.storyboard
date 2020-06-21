@@ -375,7 +375,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="61" id="UT6-h8-UxY"/>
                                     <constraint firstAttribute="width" constant="61" id="tE3-ca-NGE"/>
                                 </constraints>
-                                <state key="normal" image="Record-button"/>
+                                <state key="normal" image="record-button"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="3NZ-E6-A1B"/>
@@ -633,7 +633,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tRT-IE-ITh">
-                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="itemSize" width="113" height="113"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1713,6 +1713,9 @@
                                 <state key="normal" title="Follow">
                                     <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="followButton:" destination="Kp9-ZF-K0v" eventType="touchUpInside" id="lVd-b6-4r3"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OlA-4s-Asq">
                                 <rect key="frame" x="0.0" y="39" width="135" height="34"/>
@@ -1722,6 +1725,9 @@
                                 <state key="normal" title="Block">
                                     <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="blockButton:" destination="Kp9-ZF-K0v" eventType="touchUpInside" id="ONE-Al-Fqn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1744,7 +1750,6 @@
         <segue reference="8ek-7r-oz7"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Record-button" width="60" height="60"/>
         <image name="arrow.left" width="16" height="13"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="channel" width="30" height="30"/>
@@ -1754,6 +1759,7 @@
         <image name="home" width="30" height="30"/>
         <image name="notifications" width="30" height="30"/>
         <image name="record" width="35" height="35"/>
+        <image name="record-button" width="60" height="60"/>
         <image name="search" width="30" height="30"/>
     </resources>
 </document>

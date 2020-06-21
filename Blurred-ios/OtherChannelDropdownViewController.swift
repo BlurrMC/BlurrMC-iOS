@@ -9,11 +9,23 @@
 import UIKit
 
 class OtherChannelDropdownViewController: UIViewController {
+    
+    var Following: Bool = false
 
-    @IBOutlet weak var blockButton: UILabel!
-    @IBOutlet weak var followButton: UILabel!
+    @IBOutlet weak var blockButtton: UIButton!
+    @IBOutlet weak var followbuttton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        blockButtton.layer.cornerRadius = 12
+        followbuttton.layer.cornerRadius = 12
+
+    }
+    
+    func checkFollowing() {
+        if Following == false {
+            followbuttton.setTitle("Folllow", for: .normal)
+        } else if Following == true {
+            followbuttton.setTitle("Unfollow", for: .normal)
+        }
     }
 }

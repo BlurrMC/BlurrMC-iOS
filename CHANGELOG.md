@@ -15,6 +15,9 @@
 * Pinch to zoom now works.
 * Uploading from gallery now works.
 * Minor design changes
+* Optimized channel thumbnail
+* You can now flip the camera.
+* Fixed bug where done button in upload details would take you to the details of the previous video you uploaded.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

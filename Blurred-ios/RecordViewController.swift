@@ -15,7 +15,29 @@ import Alamofire
 // This doesn't work and I don't know why and I want to die and I hate you.
 
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
+    var timer = Timer()
+    var usingFrontCamera = false
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    @IBAction func flipCamera(_ sender: Any) {
+        frontOrBackCamera()
+    }
+    func getFrontCamera() -> AVCaptureDevice?{
+        return AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices.first
+    }
+
+    func getBackCamera() -> AVCaptureDevice?{
+        return AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back).devices.first
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        timer.invalidate()
+    }
+    @objc func timerAction() {
+        stopRecording()
+    }
     var isCameraThere = Bool()
     @IBAction func galleryButtonPress(_ sender: Any) {
         openVideoGallery()
@@ -102,37 +124,60 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         videoView.layer.addSublayer(previewLayer)
     }
+    var isCameraFlipped: Bool = false
+    func frontOrBackCamera() {
+        usingFrontCamera = !usingFrontCamera
+        do{
+            if(usingFrontCamera){
+                captureDevice = getFrontCamera()
+            }else{
+                captureDevice = getBackCamera()
+            }
+            let captureDeviceInput1 = try AVCaptureDeviceInput(device: captureDevice)
+            if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
+                for input in inputs {
+                    captureSession.removeInput(input)
+                    captureSession.removeInput(captureDeviceInput1)
+                }
+            }
+            if captureSession.canAddInput(captureDeviceInput1) {
+                captureSession.addInput(captureDeviceInput1)
+                activeInput = captureDeviceInput1
+            }
+        }catch{
+            print(error.localizedDescription)
+        }
+        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
+        
+            do {
+                let micInput = try AVCaptureDeviceInput(device: microphone)
+                if captureSession.canAddInput(micInput) {
+                    captureSession.addInput(micInput)
+                }
+            } catch {
+                print("Error setting device audio input: \(error)")
+                return 
+            }
+    }
     func setupSession() -> Bool {
 
         captureSession.sessionPreset = AVCaptureSession.Preset.high
         
         // Setup Camera
-        guard let camera = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return true }
+        //guard let camera = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return true }
+        //let front = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices.first
+        //let back = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back).devices.first
         
-
-        do {
-
-            let input = try AVCaptureDeviceInput(device: camera)
-            if captureSession.canAddInput(input) {
-                captureSession.addInput(input)
-                activeInput = input
-            }
-        } catch {
-            print("Error setting device video input: \(error)")
-            return false
-        }
+            
+            //let input = try AVCaptureDeviceInput(device: camera)
+            
+            //if captureSession.canAddInput(input) {
+            //    captureSession.addInput(input)
+            //    activeInput = input
+            //}
+        frontOrBackCamera()
         // Setup Microphone
-        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
-    
-        do {
-            let micInput = try AVCaptureDeviceInput(device: microphone)
-            if captureSession.canAddInput(micInput) {
-                captureSession.addInput(micInput)
-            }
-        } catch {
-            print("Error setting device audio input: \(error)")
-            return false
-        }
+        
 
 
         // Movie output
@@ -227,9 +272,10 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
              }
 
          }
-
+        timer = Timer.scheduledTimer(timeInterval: 7.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
          //EDIT2: And I forgot this
          outputURL = tempURL()
+        
          movieOutput.startRecording(to: outputURL, recordingDelegate: self)
 
          }
@@ -243,6 +289,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         if movieOutput.isRecording == true {
             movieOutput.stopRecording()
          }
+        timer.invalidate()
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.mediaURL] as? URL {

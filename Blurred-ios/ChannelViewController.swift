@@ -20,32 +20,19 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
         let Id: Int? = videos[indexPath.row].id
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(Id!).json")
-        var request = URLRequest(url:myUrl!)
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if error != nil {
-                self.showErrorContactingServer()
-                return
-            }
-            
+        AF.request("http://10.0.0.2:3000/api/v1/videos/\(Id!).json").responseJSON { response in
+            var JSON: [String: Any]?
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                if let parseJSON = json {
-                    let imageUrl: String? = parseJSON["thumbnail_url"] as? String
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
-                    DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
-                    }
-                } else {
-                    self.showErrorContactingServer()
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let imageUrl = JSON!["thumbnail_url"] as? String
+                let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
+                DispatchQueue.main.async {
+                    Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
                 }
             } catch {
-                self.showNoResponseFromServer()
-                print(error)
-                }
+                self.showErrorContactingServer()
+            }
         }
-        task.resume()
         return cell
     }
     func seeVideo() {

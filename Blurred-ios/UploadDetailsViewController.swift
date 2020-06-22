@@ -18,7 +18,7 @@ class UploadDetailsViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func doneButton(_ sender: Any) {
-        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        // self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         uploadRequest()
     }
     @IBOutlet weak var thumbnailView: UIImageView!

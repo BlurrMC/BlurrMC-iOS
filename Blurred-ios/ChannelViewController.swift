@@ -20,19 +20,26 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
         let Id: Int? = videos[indexPath.row].id
+        
+        cell.thumbnailView.image = UIImage(named: "load-image")
+        
         AF.request("http://10.0.0.2:3000/api/v1/videos/\(Id!).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                 let imageUrl = JSON!["thumbnail_url"] as? String
                 let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
+                guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
+                    return
+                }
                 DispatchQueue.main.async {
-                    Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
+                    Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.thumbnailView)
                 }
             } catch {
                 self.showErrorContactingServer()
             }
         }
+        
         return cell
     }
     func seeVideo() {
@@ -305,6 +312,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             
         }
     }
+    
     func showErrorContactingServer() {
 
         // create the alert

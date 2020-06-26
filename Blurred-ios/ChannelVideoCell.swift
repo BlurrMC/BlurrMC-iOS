@@ -11,4 +11,11 @@ import UIKit
 class ChannelVideoCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailView: UIImageView!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        thumbnailView.image = UIImage(named: "load-image")
+        isHidden = false
+        isSelected = false
+        isHighlighted = false
+    }
 }

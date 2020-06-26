@@ -1,12 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "record-dark-140.png",
+      "filename" : "load-image.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "record-dark-120.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

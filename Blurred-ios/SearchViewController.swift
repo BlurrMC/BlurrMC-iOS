@@ -10,6 +10,7 @@ import UIKit
 
 class SearchViewController: UIViewController, UISearchBarDelegate {
     
+    
     // Communicates with the api for search results
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,19 +18,26 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
     }
+    
     @IBOutlet weak var dropDownMenu: UIView!
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }
         let Id: Int? = videos[indexPath.row].id
-         AF.request("http://10.0.0.2:3000/api/v1/videos/\(Id!).json").responseJSON { response in
+        
+        cell.thumbnailView.image = UIImage(named: "load-image")
+        
+        AF.request("http://10.0.0.2:3000/api/v1/videos/\(Id!).json").responseJSON { response in
                    var JSON: [String: Any]?
                    do {
                        JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                        let imageUrl = JSON!["thumbnail_url"] as? String
                        let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
+                    guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
+                        return
+                    }
                        DispatchQueue.main.async {
-                           Nuke.loadImage(with: railsUrl!, into: cell.thumbnailView)
+                           Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.thumbnailView)
                        }
                    } catch {
                        self.showErrorContactingServer()

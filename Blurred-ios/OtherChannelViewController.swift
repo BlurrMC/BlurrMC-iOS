@@ -127,8 +127,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadMemberChannel()
-        guard let childVC = self.storyboard?.instantiateViewController(withIdentifier: "OtherChannelDropdownViewController") as? OtherChannelDropdownViewController else { return }
-        childVC.chanelVar = chanelVar
         channelVideoIds()
         timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }

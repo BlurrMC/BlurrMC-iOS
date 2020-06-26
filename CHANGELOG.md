@@ -18,6 +18,7 @@
 * Optimized channel thumbnail
 * You can now flip the camera.
 * Fixed bug where done button in upload details would take you to the details of the previous video you uploaded.
+* Fixed bug where app would crash if you recorded video, went to playback, and went back to video it would crash the app.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

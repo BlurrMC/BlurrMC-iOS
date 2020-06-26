@@ -51,7 +51,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     func camera() {
         
     }
-    
+    @IBOutlet weak var flipCameraIcon: UIButton!
     @IBAction func recordBackButton(_ sender: Any) {
         // self.dismiss(animated: true, completion: nil) This does not work for some reason (bug?)
     }
@@ -137,7 +137,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
                 for input in inputs {
                     captureSession.removeInput(input)
-                    captureSession.removeInput(captureDeviceInput1)
                 }
             }
             if captureSession.canAddInput(captureDeviceInput1) {
@@ -156,7 +155,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
                 }
             } catch {
                 print("Error setting device audio input: \(error)")
-                return 
+                return
             }
     }
     func setupSession() -> Bool {
@@ -250,11 +249,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
          let connection = movieOutput.connection(with: AVMediaType.video)
         
         
-
          if (connection?.isVideoOrientationSupported)! {
              connection?.videoOrientation = currentVideoOrientation()
          }
-
          if (connection?.isVideoStabilizationSupported)! {
              connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
          }
@@ -285,7 +282,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
     }
     func stopRecording() {
-
         if movieOutput.isRecording == true {
             movieOutput.stopRecording()
          }

@@ -56,7 +56,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="mkw-xo-Qlp">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <rect key="frame" x="0.0" y="10.5" width="375" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="M7O-YD-YUu"/>
                                     <constraint firstAttribute="height" constant="56" id="yuF-jm-isa"/>
@@ -67,7 +67,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="mkw-xo-Qlp" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="f6Y-Ti-3oL"/>
-                            <constraint firstItem="mkw-xo-Qlp" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" constant="-305.5" id="uST-fS-vDX"/>
+                            <constraint firstItem="mkw-xo-Qlp" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" constant="-295" id="uST-fS-vDX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                         <variation key="default">
@@ -488,6 +488,7 @@
                     <navigationItem key="navigationItem" id="f5r-Jn-aNK"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="flipCameraIcon" destination="e7k-H4-A1N" id="A56-we-LA7"/>
                         <outlet property="videoView" destination="Cgl-bZ-ljl" id="2Q3-oT-J3g"/>
                         <segue destination="i6k-Pp-sSl" kind="show" identifier="showVideo" id="zwu-Vq-I6h"/>
                         <segue destination="49e-Tb-3d3" kind="show" identifier="goToTabBar" id="1CG-s3-DW4"/>
@@ -758,7 +759,7 @@
         <!--Other Channel View Controller-->
         <scene sceneID="cpJ-qZ-lcH">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="C9p-qA-0Zi" customClass="OtherChannelViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OtherChannelViewController" modalPresentationStyle="fullScreen" id="C9p-qA-0Zi" customClass="OtherChannelViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YMz-Hh-Adh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1756,7 +1757,7 @@
         <segue reference="rna-Y0-bYD"/>
         <segue reference="scE-DD-h60"/>
         <segue reference="1CG-s3-DW4"/>
-        <segue reference="8ek-7r-oz7"/>
+        <segue reference="x7h-h0-tYj"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="16" height="13"/>

@@ -203,7 +203,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                         let username: String? = parseJSON["username"] as? String
                         let name: String? = parseJSON["name"] as? String
                         let imageUrl: String? = parseJSON["avatar_url"] as? String
-                        let followerCount: Int? = parseJSON["followers_count"] as? Int
+                        let followerCount: Int? = parseJSON["followers_count"] as? Int ///
                         let followingCount: Int? = parseJSON["following_count"] as? Int
                         let bio: String? = parseJSON["bio"] as? String
                         let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
@@ -225,8 +225,29 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                             self.showNoResponseFromServer()
                         }
                         if followerCount != 0 {
-                            DispatchQueue.main.async {
-                                self.followersLabel.text = "\(followerCount ?? 0)"
+                                if followerCount ?? 0 >= 1000 {
+                                    if followerCount ?? 0 >= 100000 {
+                                        if followerCount! >= 1000000 {
+                                            if followerCount! >= 10000000 {
+                                                // Add more if someone's account goes over 50M followers.
+                                                DispatchQueue.main.async {
+                                                    self.followersLabel.text = "\(followerCount!/1000000)M"
+                                                }
+                                            }
+                                            DispatchQueue.main.async {
+                                                self.followersLabel.text = "\(followerCount!/1000000).\((followerCount!/1000)%10)M"
+                                            }
+                                        }
+                                        DispatchQueue.main.async {
+                                            self.followersLabel.text = "\(followerCount!/1000)k"
+                                        }
+                                    }
+                                    DispatchQueue.main.async {
+                                        self.followersLabel.text = "\(followerCount!/1000).\((followerCount!/100)%10)k" }
+                                } else {
+                                    DispatchQueue.main.async {
+                                        self.followersLabel.text = "\(followerCount ?? 0)"
+                                    }
                             }
                         } else {
                             DispatchQueue.main.async {
@@ -234,8 +255,29 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                             }
                         }
                         if followingCount != 0 {
-                            DispatchQueue.main.async {
-                                self.followingLabel.text = "\(followingCount ?? 0)"
+                            if followingCount ?? 0 >= 1000 {
+                                    if followingCount ?? 0 >= 100000 {
+                                        if followingCount! >= 1000000 {
+                                            if followingCount! >= 10000000 {
+                                                // Add more if someone's account goes over 50M followers.
+                                                DispatchQueue.main.async {
+                                                    self.followingLabel.text = "\(followingCount!/1000000)M"
+                                                }
+                                            }
+                                            DispatchQueue.main.async {
+                                                self.followingLabel.text = "\(followingCount!/1000000).\((followingCount!/1000)%10)M"
+                                            }
+                                        }
+                                        DispatchQueue.main.async {
+                                            self.followingLabel.text = "\(followingCount!/1000)k"
+                                        }
+                                    }
+                                    DispatchQueue.main.async {
+                                        self.followingLabel.text = "\(followingCount!/1000).\((followingCount!/100)%10)k" }
+                                } else {
+                                    DispatchQueue.main.async {
+                                        self.followingLabel.text = "\(followingCount ?? 0)"
+                                    }
                             }
                         } else {
                             DispatchQueue.main.async {

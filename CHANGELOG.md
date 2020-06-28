@@ -23,6 +23,9 @@
 * Added groups for better sorting
 * Added collectionview (for results) to the search.
 * Added back the record icon in tab bar.
+* Pressing return on search bar will now make the keyboard disppear
+* Made follower/following count bigger to fit results up to 4 digits
+* Made it so if its over 1000 it turns into 1.0k, then if over 10,000 it will be 10k, and so on. It's limit is about 1 billion. (channel and other channel)
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

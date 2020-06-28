@@ -9,6 +9,11 @@
 import UIKit
 
 class SearchCell: UICollectionViewCell {
+    @IBOutlet weak var searchAvatar: UIImageView!
+    @IBOutlet weak var searchName: UILabel!
+    @IBOutlet weak var searchUsername: UILabel!
+    @IBOutlet weak var searchBio: UILabel!
+    @IBOutlet weak var searchFollowerNumber: UILabel!
     // Put the prepare for reuse here.
 }
 

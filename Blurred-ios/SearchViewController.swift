@@ -8,15 +8,23 @@
 
 import UIKit
 
-class SearchViewController: UIViewController { // , UICollectionViewDataSource, UISearchBarDelegate
+class SearchViewController: UIViewController, UICollectionViewDataSource, UISearchBarDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+    }
     
-    
-    
+    func textFieldShouldReturn(_ textField: UISearchBar) -> Bool {
+        searchBarTextField.resignFirstResponder()
+        return true
+    }
     // Communicates with the api for search results
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.searchBarTextField?.delegate? = self
     }
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBarTextField: UISearchBar!

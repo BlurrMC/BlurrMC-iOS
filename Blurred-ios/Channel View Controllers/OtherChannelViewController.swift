@@ -319,8 +319,29 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                                 self.showNoResponseFromServer()
                             }
                             if followerCount != 0 {
-                                DispatchQueue.main.async {
-                                    self.followersLabel.text = "\(followerCount ?? 0)"
+                                if followerCount ?? 0 >= 1000 {
+                                        if followerCount ?? 0 >= 100000 {
+                                            if followerCount! >= 1000000 {
+                                                if followerCount! >= 10000000 {
+                                                    // Add more if someone's account goes over 50M followers.
+                                                    DispatchQueue.main.async {
+                                                        self.followersLabel.text = "\(followerCount!/1000000)M"
+                                                    }
+                                                }
+                                                DispatchQueue.main.async {
+                                                    self.followersLabel.text = "\(followerCount!/1000000).\((followerCount!/1000)%10)M"
+                                                }
+                                            }
+                                            DispatchQueue.main.async {
+                                                self.followersLabel.text = "\(followerCount!/1000)k"
+                                            }
+                                        }
+                                        DispatchQueue.main.async {
+                                            self.followersLabel.text = "\(followerCount!/1000).\((followerCount!/100)%10)k" }
+                                    } else {
+                                        DispatchQueue.main.async {
+                                            self.followersLabel.text = "\(followerCount ?? 0)"
+                                        }
                                 }
                             } else {
                                 DispatchQueue.main.async {
@@ -328,8 +349,29 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                                 }
                             }
                             if followingCount != 0 {
-                                DispatchQueue.main.async {
-                                    self.followingLabel.text = "\(followingCount ?? 0)"
+                                if followingCount ?? 0 >= 1000 {
+                                        if followingCount ?? 0 >= 100000 {
+                                            if followingCount! >= 1000000 {
+                                                if followingCount! >= 10000000 {
+                                                    // Add more if someone's account goes over 50M followers.
+                                                    DispatchQueue.main.async {
+                                                        self.followingLabel.text = "\(followingCount!/1000000)M"
+                                                    }
+                                                }
+                                                DispatchQueue.main.async {
+                                                    self.followingLabel.text = "\(followingCount!/1000000).\((followingCount!/1000)%10)M"
+                                                }
+                                            }
+                                            DispatchQueue.main.async {
+                                                self.followingLabel.text = "\(followingCount!/1000)k"
+                                            }
+                                        }
+                                        DispatchQueue.main.async {
+                                            self.followingLabel.text = "\(followingCount!/1000).\((followingCount!/100)%10)k" }
+                                    } else {
+                                        DispatchQueue.main.async {
+                                            self.followingLabel.text = "\(followingCount ?? 0)"
+                                        }
                                 }
                             } else {
                                 DispatchQueue.main.async {

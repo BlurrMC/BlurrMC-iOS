@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class OtherChannelVideoCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailView: UIImageView!

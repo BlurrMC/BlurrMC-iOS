@@ -118,20 +118,6 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Following" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsU-Zm-elZ">
-                                                    <rect key="frame" x="231" y="103" width="61" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.40188499480000001" green="0.40188499480000001" blue="0.40188499480000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0f-1g-oO8">
-                                                    <rect key="frame" x="294" y="101" width="39" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                                                    <color key="textColor" red="0.96201020077720212" green="0.74657098742741312" blue="0.91637518453437428" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Je-DQ-iYI">
                                                     <rect key="frame" x="184" y="101" width="39" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -800,14 +786,14 @@
                                 <exclude reference="Uu1-S0-QOC"/>
                                 <exclude reference="De2-Q9-PBS"/>
                                 <exclude reference="Ej8-97-ZiW"/>
-                                <exclude reference="4KN-zF-hac"/>
-                                <exclude reference="EXF-4a-ZCj"/>
                                 <exclude reference="Dwr-7R-CYu"/>
                                 <exclude reference="uE8-Ec-ciI"/>
-                                <exclude reference="2SM-1D-QiW"/>
-                                <exclude reference="qI3-Cv-pUS"/>
+                                <exclude reference="4KN-zF-hac"/>
+                                <exclude reference="EXF-4a-ZCj"/>
                                 <exclude reference="DhB-Cg-vKN"/>
                                 <exclude reference="QUR-kY-V9T"/>
+                                <exclude reference="2SM-1D-QiW"/>
+                                <exclude reference="qI3-Cv-pUS"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -821,14 +807,14 @@
                                 <include reference="Uu1-S0-QOC"/>
                                 <include reference="De2-Q9-PBS"/>
                                 <include reference="Ej8-97-ZiW"/>
-                                <include reference="4KN-zF-hac"/>
-                                <include reference="EXF-4a-ZCj"/>
                                 <include reference="Dwr-7R-CYu"/>
                                 <include reference="uE8-Ec-ciI"/>
-                                <include reference="2SM-1D-QiW"/>
-                                <include reference="qI3-Cv-pUS"/>
+                                <include reference="4KN-zF-hac"/>
+                                <include reference="EXF-4a-ZCj"/>
                                 <include reference="DhB-Cg-vKN"/>
                                 <include reference="QUR-kY-V9T"/>
+                                <include reference="2SM-1D-QiW"/>
+                                <include reference="qI3-Cv-pUS"/>
                             </mask>
                         </variation>
                     </view>

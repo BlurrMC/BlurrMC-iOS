@@ -27,6 +27,9 @@
 * Made follower/following count bigger to fit results up to 4 digits
 * Made it so if its over 1000 it turns into 1.0k, then if over 10,000 it will be 10k, and so on. It's limit is about 1 billion. (channel and other channel)
 * Removed following from search results.
+* Made it so app clears cache on launch (Seriously fixes big app size)
+* Removed memory cache limit because it's not as important as limiting disk cache.
+* Search now works
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

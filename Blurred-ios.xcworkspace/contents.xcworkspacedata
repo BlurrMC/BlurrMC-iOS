@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/martinvelev/Documents/Blurred-ios/Blurred-ios/Cells/SearchCell.swift">
+   </FileRef>
+   <FileRef
       location = "group:Blurred-ios.xcodeproj">
    </FileRef>
    <FileRef

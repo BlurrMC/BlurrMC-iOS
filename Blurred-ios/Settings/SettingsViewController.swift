@@ -16,6 +16,8 @@ class SettingsViewController: UIViewController {
         let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
         myValet.removeObject(forKey: "Id")
         tokenValet.removeObject(forKey: "Token")
+        myValet.removeAllObjects()
+        tokenValet.removeAllObjects()
         if #available(iOS 13.0, *) {
             let signInPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
             let appDelegate = UIApplication.shared.delegate

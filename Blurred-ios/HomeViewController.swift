@@ -55,6 +55,8 @@ class HomeViewController: UIViewController {  // Ah yes, home
                                     self.showInvalidSession()
                                        self.myValet.removeObject(forKey: "Id")
                                        self.tokenValet.removeObject(forKey: "Token")
+                                    self.myValet.removeAllObjects()
+                                    self.tokenValet.removeAllObjects()
                                        let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
                                        self.present(loginPage, animated:false, completion:nil)
                                     self.window =  UIWindow(frame: UIScreen.main.bounds)
@@ -63,10 +65,14 @@ class HomeViewController: UIViewController {  // Ah yes, home
                                    } else {
                                     self.showErrorContactingServer()
                                        let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
-                                       self.present(loginPage, animated:false, completion:nil)
+                                    DispatchQueue.main.async {
+                                        self.present(loginPage, animated:false, completion:nil)
+                                    }
                                     self.window =  UIWindow(frame: UIScreen.main.bounds)
                                     self.window?.rootViewController = loginPage
-                                    self.window?.makeKeyAndVisible()
+                                    DispatchQueue.main.async {
+                                        self.window?.makeKeyAndVisible()
+                                    }
                                    }
                                } else {
                                    return

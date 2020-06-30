@@ -72,7 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     public var isItLoading: Bool = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         let accessToken: String? = tokenValet.string(forKey: "Token")
         let userId: String? = myValet.string(forKey: "Id")
         if accessToken != nil && userId != nil {
@@ -84,6 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     self.isItLoading = true
         }
         registerForPushNotifications()
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
         return true
     }
     func registerForPushNotifications() {

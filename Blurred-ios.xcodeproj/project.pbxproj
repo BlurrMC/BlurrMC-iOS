@@ -21,9 +21,9 @@
 		E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */; };
 		E146ACF7247441DE00D3ED10 /* OtherFollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF6247441DE00D3ED10 /* OtherFollowerCell.swift */; };
 		E146ACF9247441F100D3ED10 /* OtherFollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF8247441F100D3ED10 /* OtherFollowingCell.swift */; };
+		E16B667924AB8A24005C3A78 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16B667824AB8A23005C3A78 /* SearchCell.swift */; };
 		E17BF2C524670C8900073B66 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BF2C424670C8900073B66 /* FollowerCell.swift */; };
 		E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */; };
-		E196F5F724A8DB80001BE742 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E196F5F624A8DB80001BE742 /* SearchCell.swift */; };
 		E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */; };
 		E1D8C896246F119000F1EAD1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E1D8C895246F119000F1EAD1 /* Settings.bundle */; };
 		E1D92C9824732D6700EDABAA /* VideoPlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */; };
@@ -82,9 +82,9 @@
 		E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowListViewController.swift; sourceTree = "<group>"; };
 		E146ACF6247441DE00D3ED10 /* OtherFollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowerCell.swift; sourceTree = "<group>"; };
 		E146ACF8247441F100D3ED10 /* OtherFollowingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowingCell.swift; sourceTree = "<group>"; };
+		E16B667824AB8A23005C3A78 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchCell.swift; path = "/Users/martinvelev/Documents/Blurred-ios/Blurred-ios/Cells/SearchCell.swift"; sourceTree = "<absolute>"; };
 		E17BF2C424670C8900073B66 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoViewController.swift; sourceTree = "<group>"; };
-		E196F5F624A8DB80001BE742 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelVideoCell.swift; sourceTree = "<group>"; };
 		E1D8C895246F119000F1EAD1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackViewController.swift; sourceTree = "<group>"; };
@@ -157,11 +157,11 @@
 			children = (
 				E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */,
 				E17BF2C424670C8900073B66 /* FollowerCell.swift */,
+				E16B667824AB8A23005C3A78 /* SearchCell.swift */,
 				E10BD27324685A4F004E9243 /* FollowingCell.swift */,
 				E146ACF6247441DE00D3ED10 /* OtherFollowerCell.swift */,
 				E146ACF8247441F100D3ED10 /* OtherFollowingCell.swift */,
 				E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */,
-				E196F5F624A8DB80001BE742 /* SearchCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -534,7 +534,7 @@
 				E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
-				E196F5F724A8DB80001BE742 /* SearchCell.swift in Sources */,
+				E16B667924AB8A24005C3A78 /* SearchCell.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */,

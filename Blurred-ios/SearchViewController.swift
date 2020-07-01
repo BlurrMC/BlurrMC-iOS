@@ -59,6 +59,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchBar.resignFirstResponder()
         search()
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is OtherChannelViewController
+        {
+            if let vc = segue.destination as? OtherChannelViewController {
+                if segue.identifier == "showSearchChannel" {
+                    if let indexPath = tableView.indexPathForSelectedRow{
+                        let selectedRow = indexPath.row
+                        vc.chanelVar = users[selectedRow].username
+                    }
+                }
+            } else {
+                self.showUnkownError()
+            }
+        }
+    }
     func search() {
         // Contact api to search the query
         let url = URL(string: "http://10.0.0.2:3000/api/v1/search/?search=\(searchBarTextField.text!)")  // 23:40
@@ -107,6 +123,17 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBarTextField: UISearchBar!
-    
+    func showUnkownError() {
+
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "We don't know what happend wrong here! Try again later.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
+
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 
 }

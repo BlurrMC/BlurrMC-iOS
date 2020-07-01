@@ -66,12 +66,12 @@
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="4Hf-hB-cgM"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="128" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tz5-Wv-VBc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="128" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tz5-Wv-VBc">
                                 <rect key="frame" x="0.0" y="67" width="375" height="552"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="ki1-dt-Kwh" customClass="SearchCell" customModule="Blurred" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="ki1-dt-Kwh" customClass="SearchCell" customModule="Blurred" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="128"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ki1-dt-Kwh" id="Cjc-z5-kK0">
@@ -130,6 +130,7 @@
                                             <outlet property="searchFollowerCount" destination="Qiw-3f-uy9" id="uiZ-55-HRl"/>
                                             <outlet property="searchName" destination="6Ba-lz-vkx" id="QAl-d5-BGD"/>
                                             <outlet property="searchUsername" destination="UkM-De-b1l" id="ibp-cA-3Gs"/>
+                                            <segue destination="C9p-qA-0Zi" kind="show" identifier="showSearchChannel" id="QXk-9R-dne"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1836,7 +1837,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="rna-Y0-bYD"/>
-        <segue reference="scE-DD-h60"/>
+        <segue reference="QXk-9R-dne"/>
         <segue reference="Bvt-h1-M8t"/>
         <segue reference="kJy-kc-POk"/>
     </inferredMetricsTieBreakers>

@@ -14,6 +14,7 @@ class OtherFollowerCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    // Yes I know it is stupid to have four view controllers for having the same two lists.
 
     @IBOutlet weak var followerUsername: UILabel!
     @IBOutlet weak var followerName: UILabel!
@@ -22,6 +23,13 @@ class OtherFollowerCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        followerAvatar.image = nil
+        isHidden = false
+        isSelected = false
+        isHighlighted = false
     }
 
 }

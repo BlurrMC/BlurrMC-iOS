@@ -23,5 +23,12 @@ class FollowerCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        followerAvatar.image = nil
+        isHidden = false
+        isSelected = false
+        isHighlighted = false
+    }
 
 }

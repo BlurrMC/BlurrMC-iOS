@@ -24,5 +24,12 @@ class SearchCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    override func prepareForReuse() {
+           super.prepareForReuse()
+        searchAvatar.image = nil
+           isHidden = false
+           isSelected = false
+           isHighlighted = false
+       }
 
 }

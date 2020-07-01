@@ -30,6 +30,8 @@
 * Made it so app clears cache on launch (Seriously fixes big app size)
 * Removed memory cache limit because it's not as important as limiting disk cache.
 * Search now works
+* Added cells to be reused in follower, search, following, otherfollower, and otherfollowing cells.
+* When you see a user in the search you can now click on it to bring you to their channel.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

@@ -14,6 +14,7 @@
 		E1039FC92460765D00B88E6E /* FollowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1039FC82460765D00B88E6E /* FollowListViewController.swift */; };
 		E10BD27424685A4F004E9243 /* FollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BD27324685A4F004E9243 /* FollowingCell.swift */; };
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
+		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
 		E12EB78E2496BF6B006C5708 /* OtherChannelDropdownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EB78D2496BF6B006C5708 /* OtherChannelDropdownViewController.swift */; };
 		E146ACF12474188700D3ED10 /* OtherChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */; };
@@ -75,6 +76,7 @@
 		E1039FC82460765D00B88E6E /* FollowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowListViewController.swift; sourceTree = "<group>"; };
 		E10BD27324685A4F004E9243 /* FollowingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingCell.swift; sourceTree = "<group>"; };
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
+		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E12EB78D2496BF6B006C5708 /* OtherChannelDropdownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelDropdownViewController.swift; sourceTree = "<group>"; };
 		E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				E146ACF6247441DE00D3ED10 /* OtherFollowerCell.swift */,
 				E146ACF8247441F100D3ED10 /* OtherFollowingCell.swift */,
 				E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */,
+				E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
+				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,
 				E16B667924AB8A24005C3A78 /* SearchCell.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
@@ -717,6 +721,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -730,8 +735,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.5p3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.Blurred;
+				MARKETING_VERSION = 0.3.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -746,6 +751,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -753,8 +759,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.5p3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.Blurred;
+				MARKETING_VERSION = 0.3.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

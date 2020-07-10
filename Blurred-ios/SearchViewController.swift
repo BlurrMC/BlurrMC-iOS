@@ -14,8 +14,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //if indexPath.row == 0 {
+        //
+        //}
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell") as? SearchCell else { return UITableViewCell() }
         let username: String? = users[indexPath.row].username
         
@@ -43,11 +45,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 return
             }
         }
-        
         return cell
     }
     
-    
+    private var videos = [Video]()
     private var users = [User]()
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
@@ -85,8 +86,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 }
                 do {
                     let decoder = JSONDecoder()
-                    let downloadedVideo = try decoder.decode(Users.self, from: data)
-                    self.users = downloadedVideo.searchresults
+                    let downloadedResults = try decoder.decode(Users.self, from: data)
+                    self.videos = downloadedResults.videosearchresults
+                    self.users = downloadedResults.searchresults
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
@@ -104,8 +106,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     class Users: Codable {
         let searchresults: [User]
-        init(searchresults: [User]) {
+        let videosearchresults: [Video]
+        init(searchresults: [User], videosearchresults: [Video]) {
             self.searchresults = searchresults
+            self.videosearchresults = videosearchresults
+        }
+    }
+    class Video: Codable {
+        let id: Int
+        init(id: Int) {
+            self.id = id
         }
     }
     class User: Codable {

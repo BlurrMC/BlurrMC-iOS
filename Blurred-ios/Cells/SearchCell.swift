@@ -5,13 +5,14 @@
 //  Created by Martin Velev on 6/30/20.
 //
 
+// Warning
+// Cell currently not in use
 import UIKit
 
 class SearchCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     @IBOutlet weak var searchFollowerCount: UILabel!
     @IBOutlet weak var searchBio: UILabel!
@@ -21,8 +22,6 @@ class SearchCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     override func prepareForReuse() {
            super.prepareForReuse()

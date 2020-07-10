@@ -12,7 +12,6 @@ class OtherFollowerCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     // Yes I know it is stupid to have four view controllers for having the same two lists.
 
@@ -21,8 +20,6 @@ class OtherFollowerCell: UITableViewCell {
     @IBOutlet weak var followerAvatar: UIImageView!
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     override func prepareForReuse() {
         super.prepareForReuse()

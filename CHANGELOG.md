@@ -1,5 +1,6 @@
 # Changelog
 ## Unreleased
+* Fixed bug where mic would not work when recording if you flipped the camera.
 * Tap on any part of the video preview to pause or play the video.
 * Tap on any part of video playback preview to pause or play your video.
 * Possibly fixed the keychain.

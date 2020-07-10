@@ -35,7 +35,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-    @available(iOS 13.0, *)
+    @IBOutlet weak var loginButton: UIButton!
     @IBAction func SubmitCreds(_ sender: UIButton) {
         sendCreds()
     }

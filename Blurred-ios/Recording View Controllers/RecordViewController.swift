@@ -143,20 +143,21 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
                 captureSession.addInput(captureDeviceInput1)
                 activeInput = captureDeviceInput1
             }
+            let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
+            
+                do {
+                    let micInput = try AVCaptureDeviceInput(device: microphone)
+                    if captureSession.canAddInput(micInput) {
+                        captureSession.addInput(micInput)
+                    }
+                } catch {
+                    print("Error setting device audio input: \(error)")
+                    return
+                }
         }catch{
             print(error.localizedDescription)
         }
-        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
         
-            do {
-                let micInput = try AVCaptureDeviceInput(device: microphone)
-                if captureSession.canAddInput(micInput) {
-                    captureSession.addInput(micInput)
-                }
-            } catch {
-                print("Error setting device audio input: \(error)")
-                return
-            }
     }
     func setupSession() -> Bool {
 
@@ -174,9 +175,20 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             //    captureSession.addInput(input)
             //    activeInput = input
             //}
+        
         frontOrBackCamera()
         // Setup Microphone
+        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
         
+            do {
+                let micInput = try AVCaptureDeviceInput(device: microphone)
+                if captureSession.canAddInput(micInput) {
+                    captureSession.addInput(micInput)
+                }
+            } catch {
+                print("Error setting device audio input: \(error)")
+                return true
+            }
 
 
         // Movie output

@@ -80,7 +80,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 250, width: self.view.frame.size.width, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: 240, width: self.view.frame.size.width, height: 1))
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
         } else {

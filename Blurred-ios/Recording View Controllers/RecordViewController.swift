@@ -16,10 +16,16 @@ import Alamofire
 
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
     var timer = Timer()
-    var usingFrontCamera = false
+    var usingFrontCamera = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        if usingFrontCamera == true {
+            usingFrontCamera = false
+        } else if usingFrontCamera == false {
+            usingFrontCamera = true
+        }
+        frontOrBackCamera()
     }
     @IBAction func flipCamera(_ sender: Any) {
         frontOrBackCamera()
@@ -143,26 +149,30 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
                 captureSession.addInput(captureDeviceInput1)
                 activeInput = captureDeviceInput1
             }
-            let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
-            
-                do {
-                    let micInput = try AVCaptureDeviceInput(device: microphone)
-                    if captureSession.canAddInput(micInput) {
-                        captureSession.addInput(micInput)
-                    }
-                } catch {
-                    print("Error setting device audio input: \(error)")
-                    return
-                }
+            setupMicrophone()
         }catch{
             print(error.localizedDescription)
         }
         
     }
+    func setupMicrophone() {
+        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
+        
+            do {
+                let micInput = try AVCaptureDeviceInput(device: microphone)
+                if captureSession.canAddInput(micInput) {
+                    captureSession.addInput(micInput)
+                }
+            } catch {
+                print("Error setting device audio input: \(error)")
+                return
+            }
+    }
     func setupSession() -> Bool {
 
-        captureSession.sessionPreset = AVCaptureSession.Preset.high
+        // captureSession.sessionPreset = AVCaptureSession.Preset.high
         
+        captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
         // Setup Camera
         //guard let camera = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return true }
         //let front = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices.first

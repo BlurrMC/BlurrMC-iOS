@@ -18,8 +18,6 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.isHidden = true
-        // Do any additional setup after loading the view.
         usernameTextField?.delegate = self
         passwordTextField?.delegate = self
         usernameTextField?.tag = 0

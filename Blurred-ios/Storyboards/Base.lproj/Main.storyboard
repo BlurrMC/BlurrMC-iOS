@@ -302,6 +302,20 @@
                                     <action selector="backButton:" destination="G5I-TE-yWu" eventType="touchUpInside" id="DB3-Nt-aaj"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqt-wf-rJW">
+                                <rect key="frame" x="329" y="284" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZoJ-Mf-yvj">
+                                <rect key="frame" x="329" y="344" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.56574133670691285" green="0.56574133670691285" blue="0.56574133670691285" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="X3C-rS-7Ls"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -315,14 +329,28 @@
                     <navigationItem key="navigationItem" id="OQK-f8-bX5"/>
                     <connections>
                         <outlet property="backButtonOutlet" destination="MSa-xD-dCo" id="SkF-Fn-r38"/>
+                        <outlet property="commentImage" destination="ZoJ-Mf-yvj" id="sB3-lF-8Nt"/>
                         <outlet property="descriptionLabel" destination="1op-bf-dbW" id="zv8-iz-QJQ"/>
+                        <outlet property="videoUserAvatar" destination="uqt-wf-rJW" id="T0v-rK-dzx"/>
                         <outlet property="videoView" destination="bar-zP-e63" id="EGD-65-8zM"/>
+                        <segue destination="C9p-qA-0Zi" kind="show" identifier="showVideoUserChannel" id="THP-Sd-u0q"/>
+                        <segue destination="jB3-j9-emY" kind="show" identifier="showComments" id="ZQw-bI-U6Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rMc-vP-YHj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="Zdk-Vw-ynS"/>
             </objects>
             <point key="canvasLocation" x="4757.6000000000004" y="-674.21289355322347"/>
+        </scene>
+        <!--CommentBoard-->
+        <scene sceneID="p4p-Qj-riQ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="CommentBoard" id="jB3-j9-emY" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Dze-Zv-m5C"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tpi-H5-uF3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5767" y="-635"/>
         </scene>
         <!--Video Playback View Controller-->
         <scene sceneID="023-Q4-sr9">
@@ -718,7 +746,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WCV-FC-Wii">
-                                <rect key="frame" x="0.0" y="254" width="375" height="364"/>
+                                <rect key="frame" x="0.0" y="240" width="375" height="378"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tRT-IE-ITh">
@@ -925,7 +953,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Af4-p0-Xxy">
-                                <rect key="frame" x="0.0" y="308" width="375" height="364"/>
+                                <rect key="frame" x="0.0" y="240" width="375" height="427"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qcm-xz-fWo">
@@ -1841,7 +1869,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="rna-Y0-bYD"/>
-        <segue reference="scE-DD-h60"/>
+        <segue reference="THP-Sd-u0q"/>
         <segue reference="Bvt-h1-M8t"/>
         <segue reference="qUe-BW-JJn"/>
     </inferredMetricsTieBreakers>
@@ -1854,6 +1882,7 @@
         <image name="grid" width="40" height="40"/>
         <image name="header5" width="1920" height="1080"/>
         <image name="home" width="30" height="30"/>
+        <image name="message" catalog="system" width="128" height="113"/>
         <image name="notifications" width="30" height="30"/>
         <image name="record" width="35" height="35"/>
         <image name="rrecord-button" width="60" height="60"/>

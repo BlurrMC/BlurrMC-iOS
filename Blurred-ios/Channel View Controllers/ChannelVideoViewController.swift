@@ -10,11 +10,14 @@ import UIKit
 import AVKit
 import AVFoundation
 import Valet
+import Alamofire
+import Nuke
 
-class ChannelVideoViewController: UIViewController {
+class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
     @IBOutlet weak var backButtonOutlet: UIButton!
     // Add peak function to dispaly video when peaking.
-    
+    var videoUsername = String()
+    @IBOutlet weak var videoUserAvatar: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     var videoString = Int()
     var videoUrlString = String()
@@ -32,9 +35,27 @@ class ChannelVideoViewController: UIViewController {
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
-                    let videoUrl: String? = parseJSON["video_url"] as? String
+                    guard let videoUrl: String = parseJSON["video_url"] as? String else { return }
                     let descriptionString: String? = parseJSON["description"] as? String
-                    self.videoUrlString = videoUrl!
+                    guard let username: String = parseJSON["username"] as? String else { return }
+                    self.videoUsername = username
+                    AF.request("http://10.0.0.2:3000/api/v1/channels/\(username).json").responseJSON { response in
+                               var JSON: [String: Any]?
+                               do {
+                                   JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                                   let avatarUrl = JSON!["avatar_url"] as? String
+                                   let railsUrl = URL(string: "http://10.0.0.2:3000\(avatarUrl!)")
+                                guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
+                                    return
+                                }
+                                   DispatchQueue.main.async {
+                                    Nuke.loadImage(with: railsUrl ?? imageURL, into: self.videoUserAvatar)
+                                   }
+                               } catch {
+                                   return
+                               }
+                    }
+                    self.videoUrlString = videoUrl
                     DispatchQueue.main.async {
                         self.descriptionLabel.text = descriptionString ?? ""
                         self.babaPlayer()
@@ -61,17 +82,34 @@ class ChannelVideoViewController: UIViewController {
         isDismissed = true
         avPlayer.pause()
     }
+    func play() {
+        avPlayer.play()
+        isDismissed = false
+    }
+    func presentationControllerWillDismiss(_: UIPresentationController) {
+        // viewWillAppear(true)
+        isDismissed = false
+        avPlayer.play()
+    }
     @IBOutlet weak var videoView: UIView!
+    @IBOutlet weak var commentImage: UIImageView!
     let avPlayer = AVPlayer()
     var avPlayerLayer: AVPlayerLayer!
     var timer = Timer()
     override func viewDidLoad() {
         super.viewDidLoad()
+        let vc = CommentingViewController()
+        vc.presentationController?.delegate = self
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
         sendRequest()
         self.videoView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapFunction))
+        let tapp = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tappFunction))
+        let tappp = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapppFunction))
         backButtonOutlet.layer.zPosition = 1
+        videoUserAvatar.layer.zPosition = 2
+        commentImage.addGestureRecognizer(tappp)
+        videoUserAvatar.addGestureRecognizer(tapp)
         videoView.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
     }
@@ -84,6 +122,34 @@ class ChannelVideoViewController: UIViewController {
             avPlayer.pause()
             doubleTap = true
         }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is OtherChannelViewController
+        {
+            if let vc = segue.destination as? OtherChannelViewController {
+                if segue.identifier == "showVideoUserChannel" {
+                    vc.chanelVar = videoUsername
+                }
+            } else {
+                self.showErrorContactingServer()
+            }
+        } else if let vc = segue.destination as? CommentingViewController {
+            if segue.identifier == "showComments" {
+                vc.presentationController?.delegate = self
+                vc.videoId = videoString
+            }
+        }
+    }
+    @objc func tappFunction(sender:UITapGestureRecognizer) {
+        self.performSegue(withIdentifier: "showVideoUserChannel", sender: self)
+    }
+    @objc func tapppFunction(sender:UITapGestureRecognizer) {
+        avPlayer.pause()
+        isDismissed = true
+        self.performSegue(withIdentifier: "showComments", sender: self)
+        //let vc = CommentingViewController()
+        //self.present(vc, animated: true, completion: nil)
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)

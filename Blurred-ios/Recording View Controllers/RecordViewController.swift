@@ -16,7 +16,7 @@ import Alamofire
 
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
     var timer = Timer()
-    var usingFrontCamera = true
+    var usingFrontCamera = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -26,6 +26,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             usingFrontCamera = true
         }
         frontOrBackCamera()
+        prepareRecording()
     }
     @IBAction func flipCamera(_ sender: Any) {
         frontOrBackCamera()
@@ -170,9 +171,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     func setupSession() -> Bool {
 
-        // captureSession.sessionPreset = AVCaptureSession.Preset.high
+        captureSession.sessionPreset = AVCaptureSession.Preset.high
         
-        captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
+        //captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
         // Setup Camera
         //guard let camera = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return true }
         //let front = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices.first
@@ -188,18 +189,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         
         frontOrBackCamera()
         // Setup Microphone
-        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
-        
-            do {
-                let micInput = try AVCaptureDeviceInput(device: microphone)
-                if captureSession.canAddInput(micInput) {
-                    captureSession.addInput(micInput)
-                }
-            } catch {
-                print("Error setting device audio input: \(error)")
-                return true
-            }
-
 
         // Movie output
         if captureSession.canAddOutput(movieOutput) {
@@ -264,38 +253,40 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         let vc = segue.destination as? VideoPlaybackViewController
         vc?.videoURL = sender as? URL
     }
-    func startRecording() {
+    func prepareRecording() {
+        let connection = movieOutput.connection(with: AVMediaType.video)
+       
+       
+       if ((connection?.isVideoOrientationSupported) != nil) {
+            connection?.videoOrientation = currentVideoOrientation()
+        }
+       if ((connection?.isVideoStabilizationSupported) != nil) {
+            connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
+        }
 
+        let device = activeInput.device
+
+        if (device.isSmoothAutoFocusSupported) {
+
+            do {
+                try device.lockForConfiguration()
+                device.isSmoothAutoFocusEnabled = false
+                device.unlockForConfiguration()
+            } catch {
+               print("Error setting configuration: \(error)")
+            }
+
+        }
+    }
+    func startRecording() {
      if movieOutput.isRecording == false {
 
-         let connection = movieOutput.connection(with: AVMediaType.video)
-        
-        
-         if (connection?.isVideoOrientationSupported)! {
-             connection?.videoOrientation = currentVideoOrientation()
-         }
-         if (connection?.isVideoStabilizationSupported)! {
-             connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
-         }
-
-         let device = activeInput.device
-
-         if (device.isSmoothAutoFocusSupported) {
-
-             do {
-                 try device.lockForConfiguration()
-                 device.isSmoothAutoFocusEnabled = false
-                 device.unlockForConfiguration()
-             } catch {
-                print("Error setting configuration: \(error)")
-             }
-
-         }
-        timer = Timer.scheduledTimer(timeInterval: 7.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
+         
+        timer = Timer.scheduledTimer(timeInterval: 7.1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
          //EDIT2: And I forgot this
-         outputURL = tempURL()
-        
-         movieOutput.startRecording(to: outputURL, recordingDelegate: self)
+         outputURL = tempURL()  
+        self.movieOutput.startRecording(to: self.outputURL, recordingDelegate: self)
+         
 
          }
          else {

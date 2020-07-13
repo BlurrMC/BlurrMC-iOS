@@ -1,5 +1,8 @@
 # Changelog
 ## Unreleased
+* Fixed bug where first frame of video would be black making thumbnails completly black.
+* Changed default camera to front camera
+* Fixed bug where if you tried going to the front camera and record the app would crash
 * Added comments to videos
 * Fixed bug where mic would not work when recording if you flipped the camera.
 * Tap on any part of the video preview to pause or play the video.

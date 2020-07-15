@@ -1,5 +1,6 @@
 # Changelog
 ## Unreleased
+* Going to camera will return it to the last position you left it at.
 * Added liking to videos (+ like count)
 * Fixed bug where first frame of video would be black making thumbnails completly black.
 * Changed default camera to front camera

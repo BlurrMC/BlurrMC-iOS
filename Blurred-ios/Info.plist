@@ -32,7 +32,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Use microphone to record audio.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow gallery to upload pictures and videos.</string>
+	<string>Allow gallery to upload pictures, videos, and to download videos.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

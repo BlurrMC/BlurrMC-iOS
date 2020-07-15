@@ -11,12 +11,13 @@ import Foundation
 import AVFoundation
 import MobileCoreServices
 import Alamofire
+import Valet
 
 // This doesn't work and I don't know why and I want to die and I hate you.
 
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
     var timer = Timer()
-    var usingFrontCamera = false
+    var usingFrontCamera = Bool()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -28,8 +29,11 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         frontOrBackCamera()
         prepareRecording()
     }
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "frontCamera")!, accessibility: .whenUnlocked)
     @IBAction func flipCamera(_ sender: Any) {
+        self.myValet.set(string: "\(usingFrontCamera)", forKey: "frontCamera")
         frontOrBackCamera()
+        
     }
     func getFrontCamera() -> AVCaptureDevice?{
         return AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices.first
@@ -116,13 +120,23 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
         videoView.addGestureRecognizer(pinchRecognizer)
         videoView.isUserInteractionEnabled = true
-        
+        originalFlip()
         if setupSession() {
             setupPreview()
             startSession()
         }
 
         videoView.addSubview(cameraButton)
+    }
+    func originalFlip() {
+        let frontOrBack: String?  = myValet.string(forKey: "frontCamera")
+        if frontOrBack == nil {
+            usingFrontCamera = false
+        } else if frontOrBack == "true" {
+            usingFrontCamera = true
+        } else if frontOrBack == "false" {
+            usingFrontCamera = false
+        }
     }
     func setupPreview() {
         // Configure previewLayer

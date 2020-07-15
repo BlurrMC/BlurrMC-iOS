@@ -14,13 +14,163 @@ import Alamofire
 import Nuke
 
 class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+    @IBOutlet weak var likeCount: UILabel!
     @IBOutlet weak var backButtonOutlet: UIButton!
     // Add peak function to dispaly video when peaking.
     var videoUsername = String()
     @IBOutlet weak var videoUserAvatar: UIImageView!
+    @IBOutlet weak var videoLike: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     var videoString = Int()
     var videoUrlString = String()
+    var likeId = Int()
+    var isVideoLiked = Bool()
+    var likenumber = Int()
+    func checkLikeCount() {
+        AF.request("http://10.0.0.2:3000/api/v1/videos/\(videoString).json").responseJSON { response in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                guard let likecount = JSON!["likecount"] as? Int else { return }
+                DispatchQueue.main.async {
+                    if likecount != 0 {
+                        if likecount > 1000 {
+                            if likecount >= 100000 {
+                                if likecount >= 1000000 {
+                                    if likecount >= 10000000 {
+                                            // Add more if someone's account goes over 50M followers.
+                                            DispatchQueue.main.async {
+                                                self.likeCount.text = "\(likecount/1000000)M"
+                                            }
+                                        }
+                                        DispatchQueue.main.async {
+                                            self.likeCount.text = "\(likecount/1000000).\((likecount/1000)%10)M"
+                                        }
+                                    }
+                                    DispatchQueue.main.async {
+                                        self.likeCount.text = "\(likecount/1000)k"
+                                    }
+                                }
+                                DispatchQueue.main.async {
+                                    self.likeCount.text = "\(likecount/1000).\((likecount/100)%10)k"
+                                }
+                            } else {
+                                DispatchQueue.main.async {
+                                    self.likeCount.text = "\(likecount )"
+                                }
+                                self.likenumber = likecount
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.likeCount.text = "0"
+                        }
+                    }
+                }
+            } catch {
+                self.showErrorContactingServer()
+            }
+        }
+    }
+    func sendCheckLikeRequest() {
+        let token: String? = tokenValet.string(forKey: "Token")
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token!)",
+            "Accept": "application/json"
+        ]
+        let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoString)/didyoulikeit/")
+        AF.request(URL.init(string: url)!, method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let status = JSON!["status"] as? String
+                if status == "This video is liked." {
+                    DispatchQueue.main.async {
+                        self.videoLike.image = UIImage(systemName: "heart.fill")
+                        self.videoLike.tintColor = UIColor.systemRed
+                    }
+                    guard let likeid = JSON!["likeid"] as? Dictionary<String, Any> else { return }
+                    guard let id = likeid["id"] as? Int else { return }
+                    self.likeId = id
+                    self.isVideoLiked = true
+                } else if status == "Video has not been liked" {
+                    DispatchQueue.main.async {
+                        self.videoLike.image = UIImage(systemName: "heart")
+                        self.videoLike.tintColor = UIColor.lightGray
+                    }
+                    self.isVideoLiked = false
+                } else {
+                    print("error code: 1039574612")
+                    return
+                }
+            } catch {
+                print("error code: 1039574638")
+                return
+            }
+            }
+    }
+    func sendDeleteLikeRequest() {
+        let token: String? = tokenValet.string(forKey: "Token")
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token!)",
+            "Accept": "application/json"
+        ]
+        let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoString)/apilikes/\(likeId)")
+        AF.request(URL.init(string: url)!, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let status = JSON!["status"] as? String
+                if status != "Video has been unliked." && status == "You have not liked this!" {
+                    self.sendLikeRequest()
+                } else if status == "Video has been unliked." {
+                    DispatchQueue.main.async {
+                        self.videoLike.image = UIImage(systemName: "heart")
+                        self.videoLike.tintColor = UIColor.lightGray
+                    }
+                }
+                self.checkLikeCount()
+                self.sendCheckLikeRequest()
+            } catch {
+                print("error code: 1972026583")
+                return
+            }
+            }
+    }
+    func sendLikeRequest() {
+        let token: String? = tokenValet.string(forKey: "Token")
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token!)",
+            "Accept": "application/json"
+        ]
+        let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoString)/apilikes/")
+        AF.request(URL.init(string: url)!, method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let status = JSON!["status"] as? String
+                if status != "Video has been liked" && status == "You have already liked it!" {
+                    self.sendDeleteLikeRequest()
+                } else if status == "Video has been unliked." {
+                    DispatchQueue.main.async {
+                        self.videoLike.image = UIImage(systemName: "heart")
+                        self.videoLike.tintColor = UIColor.lightGray
+                    }
+                } else if status == "Video has been liked" {
+                    DispatchQueue.main.async {
+                        DispatchQueue.main.async {
+                            self.videoLike.image = UIImage(systemName: "heart.fill")
+                            self.videoLike.tintColor = UIColor.systemRed
+                        }
+                    }
+                }
+                self.checkLikeCount()
+                self.sendCheckLikeRequest()
+            } catch {
+                print("error code: 1972026583")
+                return
+            }
+            }
+    }
     func sendRequest() {
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(videoString).json")
         var request = URLRequest(url:myUrl!)
@@ -106,10 +256,12 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         let tap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapFunction))
         let tapp = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tappFunction))
         let tappp = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapppFunction))
+        let liketap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.liketapFunction))
         backButtonOutlet.layer.zPosition = 1
         videoUserAvatar.layer.zPosition = 2
         commentImage.addGestureRecognizer(tappp)
         videoUserAvatar.addGestureRecognizer(tapp)
+        videoLike.addGestureRecognizer(liketap)
         videoView.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
     }
@@ -121,6 +273,37 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         } else {
             avPlayer.pause()
             doubleTap = true
+        }
+    }
+    @objc func liketapFunction(sender:UITapGestureRecognizer) {
+        if isVideoLiked == true {
+            DispatchQueue.main.async {
+                self.videoLike.image = UIImage(systemName: "heart")
+                self.videoLike.tintColor = UIColor.lightGray
+            }
+            if likenumber != 0 {
+                let subtot = likenumber - 1
+                let subby = String("\(subtot)")
+                DispatchQueue.main.async {
+                    self.likeCount.text = subby
+                }
+            }
+            sendDeleteLikeRequest()
+            isVideoLiked = false
+        } else if isVideoLiked == false {
+            DispatchQueue.main.async {
+                self.videoLike.image = UIImage(systemName: "heart.fill")
+                self.videoLike.tintColor = UIColor.systemRed
+            }
+            if likenumber != 0 {
+                let subtot = likenumber + 1
+                let subby = String("\(subtot)")
+                DispatchQueue.main.async {
+                    self.likeCount.text = subby
+                }
+            }
+            sendLikeRequest()
+            isVideoLiked = true
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -172,6 +355,8 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         sendRequest()
+        sendCheckLikeRequest()
+        checkLikeCount()
         isDismissed = false
     }
     fileprivate var player: AVPlayer? {

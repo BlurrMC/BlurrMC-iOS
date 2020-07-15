@@ -279,6 +279,11 @@
                                     <outletCollection property="gestureRecognizers" destination="Zdk-Vw-ynS" appends="YES" id="vKM-6h-g7G"/>
                                 </connections>
                             </view>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Qhv-j3-qED">
+                                <rect key="frame" x="329" y="404" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="TopLeft" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSa-xD-dCo">
                                 <rect key="frame" x="20" y="20" width="50" height="50"/>
                                 <constraints>
@@ -314,8 +319,15 @@
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZoJ-Mf-yvj">
                                 <rect key="frame" x="329" y="344" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.56574133670691285" green="0.56574133670691285" blue="0.56574133670691285" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uhj-y3-DJQ">
+                                <rect key="frame" x="329" y="443" width="43" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="X3C-rS-7Ls"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -331,6 +343,8 @@
                         <outlet property="backButtonOutlet" destination="MSa-xD-dCo" id="SkF-Fn-r38"/>
                         <outlet property="commentImage" destination="ZoJ-Mf-yvj" id="sB3-lF-8Nt"/>
                         <outlet property="descriptionLabel" destination="1op-bf-dbW" id="zv8-iz-QJQ"/>
+                        <outlet property="likeCount" destination="Uhj-y3-DJQ" id="S2l-3m-Swh"/>
+                        <outlet property="videoLike" destination="Qhv-j3-qED" id="g0w-Zw-RbO"/>
                         <outlet property="videoUserAvatar" destination="uqt-wf-rJW" id="T0v-rK-dzx"/>
                         <outlet property="videoView" destination="bar-zP-e63" id="EGD-65-8zM"/>
                         <segue destination="C9p-qA-0Zi" kind="show" identifier="showVideoUserChannel" id="THP-Sd-u0q"/>
@@ -1881,6 +1895,7 @@
         <image name="gear" width="15" height="15"/>
         <image name="grid" width="40" height="40"/>
         <image name="header5" width="1920" height="1080"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="home" width="30" height="30"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="notifications" width="30" height="30"/>

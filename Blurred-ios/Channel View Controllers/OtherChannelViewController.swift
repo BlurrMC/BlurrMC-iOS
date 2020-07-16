@@ -59,7 +59,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     private var videos = [Video]()
     func channelVideoIds() { // Still not done we need to add the user's butt image
-        if chanelVar != nil {
             let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(chanelVar).json")  // 23:40
             guard let downloadURL = url else { return }
             URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
@@ -78,7 +77,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                     self.showErrorContactingServer() // f
                 }
             }.resume()
-        }
     }
     var chanelVar = String()
     var channelVar = String() // Remove all channelVar methods (it's not in use)
@@ -320,28 +318,28 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                             }
                             if followerCount != 0 {
                                 if followerCount ?? 0 >= 1000 {
-                                        if followerCount ?? 0 >= 100000 {
-                                            if followerCount! >= 1000000 {
-                                                if followerCount! >= 10000000 {
-                                                    // Add more if someone's account goes over 50M followers.
-                                                    DispatchQueue.main.async {
-                                                        self.followersLabel.text = "\(followerCount!/1000000)M"
-                                                    }
-                                                }
-                                                DispatchQueue.main.async {
-                                                    self.followersLabel.text = "\(followerCount!/1000000).\((followerCount!/1000)%10)M"
-                                                }
-                                            }
-                                            DispatchQueue.main.async {
-                                                self.followersLabel.text = "\(followerCount!/1000)k"
-                                            }
-                                        }
                                         DispatchQueue.main.async {
                                             self.followersLabel.text = "\(followerCount!/1000).\((followerCount!/100)%10)k" }
-                                    } else {
+                                    } else  if followerCount ?? 0 <= 999 {
                                         DispatchQueue.main.async {
                                             self.followersLabel.text = "\(followerCount ?? 0)"
                                         }
+                                }
+                                if followerCount ?? 0 >= 100000 {
+                                    DispatchQueue.main.async {
+                                        self.followersLabel.text = "\(followerCount!/1000)k"
+                                    }
+                                }
+                                if followerCount! >= 1000000 {
+                                    DispatchQueue.main.async {
+                                        self.followersLabel.text = "\(followerCount!/1000000).\((followerCount!/1000)%10)M"
+                                    }
+                                }
+                                if followerCount! >= 10000000 {
+                                    // Add more if someone's account goes over 50M followers.
+                                    DispatchQueue.main.async {
+                                        self.followersLabel.text = "\(followerCount!/1000000)M"
+                                    }
                                 }
                             } else {
                                 DispatchQueue.main.async {

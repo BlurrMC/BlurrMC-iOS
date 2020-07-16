@@ -9,6 +9,8 @@
     * Videos play sound even if you are on silent (fixed it for reals now.)
     * You can share videos and download them (a couple bugs still work in progress.)
     * Fixed the url api so loading the video thumbnails doens't count as a view.
+    * Added view count
+    * Added publish date.
 * Channel Views
     * Made it so if its over 1000 it turns into 1.0k, then if over 10,000 it will be 10k, and so on. It's limit is about 1 billion. (following + followers)
     * Optimized channel thumbnail
@@ -16,6 +18,7 @@
     * Made it so if you are viewing your own channel in other channel view then you can change your profile picture.
     * Made follower/following count bigger to fit results up to 4 digits
     * Made video thumbnails show gray box if loading
+    * Fixed bug where anything over 1000 followers or following would show up with the .0k tag. (ex. 1032.2k)
 * Camera Views
     * Going to camera will return it to the last position you left it at.
     * Fixed bug where first frame of video would be black making thumbnails completly black.

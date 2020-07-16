@@ -28,11 +28,12 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var likeId = Int()
     var isVideoLiked = Bool()
     var likenumber = Int()
+    var videoDescription = String()
+    var publishdate = String()
+    var views = Int()
+    var isItSwitched: Bool = false
     func shareWindow() {
         avPlayer.pause()
-        
-        // guard let url = URL(string: "http://10.0.0.2:3000\(videoUrlString)") else { return }
-        
         CacheManager.shared.getFileWith(stringUrl: "http://10.0.0.2:3000\(videoUrlString)") { result in
                 switch result {
                 case .success(let url):
@@ -65,25 +66,8 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                 guard let likecount = JSON!["likecount"] as? Int else { return }
-                DispatchQueue.main.async {
                     if likecount != 0 {
                         if likecount > 1000 {
-                            if likecount >= 100000 {
-                                if likecount >= 1000000 {
-                                    if likecount >= 10000000 {
-                                            // Add more if someone's account goes over 50M followers.
-                                            DispatchQueue.main.async {
-                                                self.likeCount.text = "\(likecount/1000000)M"
-                                            }
-                                        }
-                                        DispatchQueue.main.async {
-                                            self.likeCount.text = "\(likecount/1000000).\((likecount/1000)%10)M"
-                                        }
-                                    }
-                                    DispatchQueue.main.async {
-                                        self.likeCount.text = "\(likecount/1000)k"
-                                    }
-                                }
                                 DispatchQueue.main.async {
                                     self.likeCount.text = "\(likecount/1000).\((likecount/100)%10)k"
                                 }
@@ -93,12 +77,27 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                                 }
                                 self.likenumber = likecount
                         }
+                        if likecount >= 100000 {
+                                DispatchQueue.main.async {
+                                    self.likeCount.text = "\(likecount/1000)k"
+                                }
+                            }
+                        if likecount >= 1000000 {
+                                DispatchQueue.main.async {
+                                    self.likeCount.text = "\(likecount/1000000).\((likecount/1000)%10)M"
+                                }
+                            }
+                        if likecount >= 10000000 {
+                                // Add more if someone's account goes over 999M followers.
+                                DispatchQueue.main.async {
+                                    self.likeCount.text = "\(likecount/1000000)M"
+                                }
+                        }
                     } else {
                         DispatchQueue.main.async {
                             self.likeCount.text = "0"
                         }
                     }
-                }
             } catch {
                 self.showErrorContactingServer()
             }
@@ -218,11 +217,16 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
+                    let publishDate: String? = parseJSON["publishdate"] as? String
+                    guard let viewCount: Int = parseJSON["viewcount"] as? Int else { return }
                     guard let videoUrl: String = parseJSON["video_url"] as? String else { return }
                     let descriptionString: String? = parseJSON["description"] as? String
                     guard let username: String = parseJSON["username"] as? String else { return }
                     self.videoUsername = username
-                    AF.request("http://10.0.0.2:3000/api/v1/channels/\(username).json").responseJSON { response in
+                    self.views = viewCount
+                    self.publishdate = publishDate ?? "February 3rd 2007"
+                    self.videoDescription = descriptionString ?? ""
+                    AF.request("http://10.0.0.2:3000/api/v1/channels/\(String(describing: username)).json").responseJSON {   response in
                                var JSON: [String: Any]?
                                do {
                                    JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
@@ -240,7 +244,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                     }
                     self.videoUrlString = videoUrl
                     DispatchQueue.main.async {
-                        self.descriptionLabel.text = descriptionString ?? ""
+                        self.descriptionLabel.text = descriptionString
                         self.babaPlayer()
                     }
                 } else {
@@ -270,7 +274,6 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         isDismissed = false
     }
     func presentationControllerWillDismiss(_: UIPresentationController) {
-        // viewWillAppear(true)
         isDismissed = false
         avPlayer.play()
     }
@@ -291,6 +294,8 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         let tappp = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapppFunction))
         let liketap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.liketapFunction))
         let sharetap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.sharetapFunction))
+        let descriptiontap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.descriptiontapFunction))
+        descriptionLabel.addGestureRecognizer(descriptiontap)
         backButtonOutlet.layer.zPosition = 1
         videoUserAvatar.layer.zPosition = 2
         share.addGestureRecognizer(sharetap)
@@ -308,6 +313,37 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         } else {
             avPlayer.pause()
             doubleTap = true
+        }
+    }
+    @objc func descriptiontapFunction(sender:UITapGestureRecognizer) {
+        if isItSwitched == false {
+            var viewCount = String()
+            if views != 0 {
+                if views >= 1000 {
+                        viewCount = "\(views/1000).\((views/100)%10)k"
+                } else if views <= 999 {
+                    viewCount = "\(views)"
+                }
+                if views >= 100000 {
+                        viewCount = "\(views/1000)k"
+                }
+                if views >= 1000000 {
+                    viewCount = "\(views/1000000).\((views/1000)%10)M"
+                }
+                if views >= 10000000 {
+                        viewCount = "\(views/1000000)M"
+                }
+            }
+            DispatchQueue.main.async {
+                let newDescription: String = "\(self.publishdate) \n\(viewCount)"
+                self.descriptionLabel.text = newDescription
+            }
+            isItSwitched = true
+        } else if isItSwitched == true {
+            DispatchQueue.main.async {
+                self.descriptionLabel.text = self.videoDescription
+            }
+            isItSwitched = false
         }
     }
     @objc func sharetapFunction(sender:UITapGestureRecognizer) {

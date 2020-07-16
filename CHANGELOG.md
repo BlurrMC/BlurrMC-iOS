@@ -8,6 +8,7 @@
     * Added description label.
     * Videos play sound even if you are on silent (fixed it for reals now.)
     * You can share videos and download them (a couple bugs still work in progress.)
+    * Fixed the url api so loading the video thumbnails doens't count as a view.
 * Channel Views
     * Made it so if its over 1000 it turns into 1.0k, then if over 10,000 it will be 10k, and so on. It's limit is about 1 billion. (following + followers)
     * Optimized channel thumbnail

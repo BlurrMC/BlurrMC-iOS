@@ -23,12 +23,12 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         
         cell.thumbnailView.image = UIImage(named: "load-image")
         
-        AF.request("http://10.0.0.2:3000/api/v1/videos/\(Id!).json").responseJSON { response in
+        AF.request("http://10.0.0.2:3000/api/v1/videothumbnail/\(Id!).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                 let imageUrl = JSON!["thumbnail_url"] as? String
-                let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
+                let railsUrl = URL(string: "\(imageUrl!)")
                 guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
                     return
                 }

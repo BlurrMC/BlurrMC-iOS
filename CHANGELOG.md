@@ -1,5 +1,6 @@
 # Changelog
 ## Unreleased
+* Fixed bug where liking video would first go +2 and then correct itself half of a second later.
 * Going to camera will return it to the last position you left it at.
 * Added liking to videos (+ like count)
 * Fixed bug where first frame of video would be black making thumbnails completly black.

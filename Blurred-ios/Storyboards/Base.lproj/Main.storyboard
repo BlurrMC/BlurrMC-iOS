@@ -279,6 +279,11 @@
                                     <outletCollection property="gestureRecognizers" destination="Zdk-Vw-ynS" appends="YES" id="vKM-6h-g7G"/>
                                 </connections>
                             </view>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="square.and.arrow.up" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pyu-F8-hqq">
+                                <rect key="frame" x="329" y="485.5" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Qhv-j3-qED">
                                 <rect key="frame" x="329" y="404" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -322,7 +327,7 @@
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uhj-y3-DJQ">
-                                <rect key="frame" x="329" y="443" width="43" height="40"/>
+                                <rect key="frame" x="329" y="444" width="40" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -344,6 +349,7 @@
                         <outlet property="commentImage" destination="ZoJ-Mf-yvj" id="sB3-lF-8Nt"/>
                         <outlet property="descriptionLabel" destination="1op-bf-dbW" id="zv8-iz-QJQ"/>
                         <outlet property="likeCount" destination="Uhj-y3-DJQ" id="S2l-3m-Swh"/>
+                        <outlet property="share" destination="pyu-F8-hqq" id="uhi-NX-vs6"/>
                         <outlet property="videoLike" destination="Qhv-j3-qED" id="g0w-Zw-RbO"/>
                         <outlet property="videoUserAvatar" destination="uqt-wf-rJW" id="T0v-rK-dzx"/>
                         <outlet property="videoView" destination="bar-zP-e63" id="EGD-65-8zM"/>
@@ -1902,6 +1908,7 @@
         <image name="record" width="35" height="35"/>
         <image name="rrecord-button" width="60" height="60"/>
         <image name="search" width="30" height="30"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

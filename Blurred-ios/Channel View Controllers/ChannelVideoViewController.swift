@@ -12,11 +12,13 @@ import AVFoundation
 import Valet
 import Alamofire
 import Nuke
+import Photos
 
 class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
     @IBOutlet weak var likeCount: UILabel!
     @IBOutlet weak var backButtonOutlet: UIButton!
     // Add peak function to dispaly video when peaking.
+    @IBOutlet weak var share: UIImageView!
     var videoUsername = String()
     @IBOutlet weak var videoUserAvatar: UIImageView!
     @IBOutlet weak var videoLike: UIImageView!
@@ -26,6 +28,37 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var likeId = Int()
     var isVideoLiked = Bool()
     var likenumber = Int()
+    func shareWindow() {
+        avPlayer.pause()
+        
+        // guard let url = URL(string: "http://10.0.0.2:3000\(videoUrlString)") else { return }
+        
+        CacheManager.shared.getFileWith(stringUrl: "http://10.0.0.2:3000\(videoUrlString)") { result in
+                switch result {
+                case .success(let url):
+                    let videoToShare = [ url ]
+                    let activityViewController = UIActivityViewController(activityItems: videoToShare as [Any], applicationActivities: nil)
+                    activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                    activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToFlickr,
+                        UIActivity.ActivityType.postToTwitter, UIActivity.ActivityType.postToTencentWeibo
+                    ]
+                    DispatchQueue.main.async {
+                        self.present(activityViewController, animated: true, completion: nil)
+                    }
+                    activityViewController.completionWithItemsHandler = { activity, completed, items, error in
+                            if !completed {
+                                self.avPlayer.play()
+                                CacheManager.shared.clearContents(url)
+                                return
+                            }
+                        self.avPlayer.play()
+                        CacheManager.shared.clearContents(url)
+                        }
+                case .failure( _): break
+                }
+        }
+        
+    }
     func checkLikeCount() {
         AF.request("http://10.0.0.2:3000/api/v1/videos/\(videoString).json").responseJSON { response in
             var JSON: [String: Any]?
@@ -257,8 +290,10 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         let tapp = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tappFunction))
         let tappp = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapppFunction))
         let liketap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.liketapFunction))
+        let sharetap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.sharetapFunction))
         backButtonOutlet.layer.zPosition = 1
         videoUserAvatar.layer.zPosition = 2
+        share.addGestureRecognizer(sharetap)
         commentImage.addGestureRecognizer(tappp)
         videoUserAvatar.addGestureRecognizer(tapp)
         videoLike.addGestureRecognizer(liketap)
@@ -275,6 +310,9 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             doubleTap = true
         }
     }
+    @objc func sharetapFunction(sender:UITapGestureRecognizer) {
+        shareWindow()
+    }
     @objc func liketapFunction(sender:UITapGestureRecognizer) {
         if isVideoLiked == true {
             DispatchQueue.main.async {
@@ -283,6 +321,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             }
             if likenumber != 0 {
                 let subtot = likenumber - 1
+                
                 let subby = String("\(subtot)")
                 DispatchQueue.main.async {
                     self.likeCount.text = subby
@@ -296,6 +335,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                 self.videoLike.tintColor = UIColor.systemRed
             }
             if likenumber != 0 {
+                likenumber = likenumber - 1 
                 let subtot = likenumber + 1
                 let subby = String("\(subtot)")
                 DispatchQueue.main.async {
@@ -422,5 +462,69 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
 
         // show the alert
         self.present(alert, animated: true, completion: nil)
+    }
+}
+public enum Result<T> {
+    case success(T)
+    case failure(NSError)
+}
+
+class CacheManager {
+
+    static let shared = CacheManager()
+
+    private let fileManager = FileManager.default
+
+    private lazy var mainDirectoryUrl: URL = {
+
+        let documentsUrl = self.fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        return documentsUrl
+    }()
+    func clearContents(_ url:URL) {
+
+        do {
+            let contents = try FileManager.default.contentsOfDirectory(atPath: url.path)
+            let urls = contents.map { URL(string:"\(url.appendingPathComponent("\($0)"))")! }
+            urls.forEach {  try? FileManager.default.removeItem(at: $0) }
+        }
+        catch {
+
+            print(error)
+
+        }
+
+     }
+    func getFileWith(stringUrl: String, completionHandler: @escaping (Result<URL>) -> Void ) {
+
+
+        let file = directoryFor(stringUrl: stringUrl)
+
+        //return file path if already exists in cache directory
+        guard !fileManager.fileExists(atPath: file.path)  else {
+            completionHandler(Result.success(file))
+            return
+        }
+
+        DispatchQueue.global().async {
+
+            if let videoData = NSData(contentsOf: URL(string: stringUrl)!) {
+                videoData.write(to: file, atomically: true)
+
+                DispatchQueue.main.async {
+                    completionHandler(Result.success(file))
+                }
+            } else {
+                print("error code: 1957329172")
+            }
+        }
+    }
+
+    private func directoryFor(stringUrl: String) -> URL {
+
+        let fileURL = URL(string: stringUrl)!.lastPathComponent
+
+        let file = self.mainDirectoryUrl.appendingPathComponent(fileURL)
+
+        return file
     }
 }

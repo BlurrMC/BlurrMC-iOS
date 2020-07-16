@@ -320,18 +320,21 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             var viewCount = String()
             if views != 0 {
                 if views >= 1000 {
-                        viewCount = "\(views/1000).\((views/100)%10)k"
-                } else if views <= 999 {
-                    viewCount = "\(views)"
+                        viewCount = "\(views/1000).\((views/100)%10)k Views"
+                } else if views <= 999 && views >= 2 {
+                    viewCount = "\(views) Views"
                 }
                 if views >= 100000 {
-                        viewCount = "\(views/1000)k"
+                        viewCount = "\(views/1000)k Views "
                 }
                 if views >= 1000000 {
-                    viewCount = "\(views/1000000).\((views/1000)%10)M"
+                    viewCount = "\(views/1000000).\((views/1000)%10)M Views"
                 }
                 if views >= 10000000 {
-                        viewCount = "\(views/1000000)M"
+                        viewCount = "\(views/1000000)M Views"
+                }
+                if views == 1 {
+                    viewCount = "\(views) View"
                 }
             }
             DispatchQueue.main.async {

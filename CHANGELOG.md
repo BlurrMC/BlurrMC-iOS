@@ -11,6 +11,7 @@
     * Fixed the url api so loading the video thumbnails doens't count as a view.
     * Added view count
     * Added publish date.
+    * Made it so that after the view count it says Views (or view if it only has one view)
 * Channel Views
     * Made it so if its over 1000 it turns into 1.0k, then if over 10,000 it will be 10k, and so on. It's limit is about 1 billion. (following + followers)
     * Optimized channel thumbnail

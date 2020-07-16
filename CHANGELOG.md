@@ -1,45 +1,48 @@
 # Changelog
 ## Unreleased
-* Fixed bug where liking video would first go +2 and then correct itself half of a second later.
-* Going to camera will return it to the last position you left it at.
-* Added liking to videos (+ like count)
-* Fixed bug where first frame of video would be black making thumbnails completly black.
-* Changed default camera to front camera
-* Fixed bug where if you tried going to the front camera and record the app would crash
-* Added comments to videos
-* Fixed bug where mic would not work when recording if you flipped the camera.
-* Tap on any part of the video preview to pause or play the video.
-* Tap on any part of video playback preview to pause or play your video.
-* Possibly fixed the keychain.
-* Added description label.
-* Made it so you can't show the other channel dropdown menu if the uesr if you.
-* Made it so if you are viewing your own channel in other channel view then you can change your profile picture.
-* If you are already logged in it actually skips the login page (got it to work finally)
-* Videos play sound even if you are on silent (fixed it for reals now.)
-* If you were already logged in before it checks with the api if your token and username are valid.
-* Made it so the app checks if you are valid once you have loaded the home page.
-* Added error handling.
-* Made it so app doesn't crash when you try and sign out too quicky.
-* Pinch to zoom now works.
-* Uploading from gallery now works.
-* Minor design changes
-* Optimized channel thumbnail
-* You can now flip the camera.
-* Fixed bug where done button in upload details would take you to the details of the previous video you uploaded.
-* Fixed bug where app would crash if you recorded video, went to playback, and went back to video it would crash the app.
-* Fixed bug with cells not being reused in channel video thumbnails.
-* Added groups for better sorting
-* Added collectionview (for results) to the search.
-* Added back the record icon in tab bar.
-* Pressing return on search bar will now make the keyboard disppear
-* Made follower/following count bigger to fit results up to 4 digits
-* Made it so if its over 1000 it turns into 1.0k, then if over 10,000 it will be 10k, and so on. It's limit is about 1 billion. (channel and other channel)
-* Removed following from search results.
-* Made it so app clears cache on launch (Seriously fixes big app size)
-* Removed memory cache limit because it's not as important as limiting disk cache.
-* Search now works
-* Added cells to be reused in follower, search, following, otherfollower, and otherfollowing cells.
-* When you see a user in the search you can now click on it to bring you to their channel.
+* ChannelVideoView
+    * Fixed bug where liking video would first go +2 and then correct itself half of a second later.
+    * Added liking to videos (+ like count)
+    * Added comments to videos
+    * Tap on any part of the video preview to pause or play the video.
+    * Added description label.
+    * Videos play sound even if you are on silent (fixed it for reals now.)
+    * You can share videos and download them (a couple bugs still work in progress.)
+* Channel Views
+    * Made it so if its over 1000 it turns into 1.0k, then if over 10,000 it will be 10k, and so on. It's limit is about 1 billion. (following + followers)
+    * Optimized channel thumbnail
+    * Made it so you can't show the other channel dropdown menu if the uesr if you.
+    * Made it so if you are viewing your own channel in other channel view then you can change your profile picture.
+    * Made follower/following count bigger to fit results up to 4 digits
+    * Made video thumbnails show gray box if loading
+* Camera Views
+    * Going to camera will return it to the last position you left it at.
+    * Fixed bug where first frame of video would be black making thumbnails completly black.
+    * Changed default camera to rear camera
+    * Fixed bug where if you tried going to the front camera and record the app would crash
+    * Fixed bug where mic would not work when recording if you flipped the camera.
+    * Pinch to zoom now works.
+    * Uploading from gallery now works.
+    * You can now flip the camera.
+    * Fixed bug where done button in upload details would take you to the details of the previous video you uploaded.
+    * Fixed bug where app would crash if you recorded video, went to playback, and went back to video it would crash the app.
+* Authentication
+    * If you are already logged in it actually skips the login page (got it to work finally)
+    * If you were already logged in before it checks with the api if your token and username are valid.
+    * Made it so the app checks if you are valid once you have loaded the home page.
+    * Made it so app doesn't crash when you try and sign out too quicky.
+* Design
+    * Added back the record icon in tab bar.
+    * Minor design changes
+* Search
+    * Pressing return on search bar will now make the keyboard disppear
+    * Removed following from search results.
+    * When you see a user in the search you can now click on it to bring you to their channel.
+    * User searching works as intented
+* Other
+    * Added more error handling.
+    * Added groups for better sorting
+    * Organized changelog
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

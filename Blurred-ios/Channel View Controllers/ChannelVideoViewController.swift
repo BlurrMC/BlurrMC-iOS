@@ -318,23 +318,30 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     @objc func descriptiontapFunction(sender:UITapGestureRecognizer) {
         if isItSwitched == false {
             var viewCount = String()
-            if views != 0 {
-                if views >= 1000 {
-                        viewCount = "\(views/1000).\((views/100)%10)k Views"
-                } else if views <= 999 && views >= 2 {
-                    viewCount = "\(views) Views"
+            switch views {
+            case _ where views > 1000 && views < 100000:
+                DispatchQueue.main.async {
+                    viewCount = "\(self.views/1000).\((self.views/100)%10)k Views"
                 }
-                if views >= 100000 {
-                        viewCount = "\(views/1000)k Views "
+            case _ where views > 100000 && views < 1000000:
+                DispatchQueue.main.async {
+                    viewCount = "\(self.views/1000)k Views "
                 }
-                if views >= 1000000 {
-                    viewCount = "\(views/1000000).\((views/1000)%10)M Views"
+            case _ where views > 1000000 && views < 100000000:
+                DispatchQueue.main.async {
+                    viewCount = "\(self.views/1000000).\((self.views/1000)%10)M Views"
                 }
-                if views >= 10000000 {
-                        viewCount = "\(views/1000000)M Views"
+            case _ where views > 100000000:
+                DispatchQueue.main.async {
+                    viewCount = "\(self.views/1000000)M Views"
                 }
-                if views == 1 {
-                    viewCount = "\(views) View"
+            case _ where views == 1:
+                DispatchQueue.main.async {
+                    viewCount = "\(self.views) View"
+                }
+            default:
+                DispatchQueue.main.async {
+                    viewCount = "\(self.views) Views"
                 }
             }
             DispatchQueue.main.async {

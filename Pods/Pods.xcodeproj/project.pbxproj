@@ -158,12 +158,12 @@
 		1233BB66793507BE2F7FFD468121A29E /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
 		16BC5F763F093AC42ED57C4D6491A62C /* SecureEnclaveValet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecureEnclaveValet.swift; path = Sources/Valet/SecureEnclaveValet.swift; sourceTree = "<group>"; };
 		191E8033475DB6F601B8ADC445FDF94B /* Valet-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Valet-umbrella.h"; sourceTree = "<group>"; };
-		1B09A54A0328875F4D104E8F636CECE4 /* Pods_Blurred_ios_Blurred_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Blurred_ios_Blurred_iosUITests.framework; path = "Pods-Blurred-ios-Blurred-iosUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B09A54A0328875F4D104E8F636CECE4 /* Pods_Blurred_ios_Blurred_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios_Blurred_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		235B79E6E937B2DF1100B37B3A790ED1 /* ImageTask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageTask.swift; path = Sources/ImageTask.swift; sourceTree = "<group>"; };
 		259581515266CA61EB1DED36499D78A6 /* Pods-Blurred-iosTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Blurred-iosTests.modulemap"; sourceTree = "<group>"; };
 		26B979C47D31D71BB6D53D10241170AA /* Pods-Blurred-ios-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Blurred-ios-acknowledgements.plist"; sourceTree = "<group>"; };
 		2B357D29A5814F49423E3E9A5C14B5D3 /* Pods-Blurred-ios-Blurred-iosUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Blurred-ios-Blurred-iosUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Nuke.framework; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DAD7D76FC007F48AE48F2FD15BF01BB /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3376B5D227B1FF234A61906E9B4ED38D /* HTTPHeaders.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HTTPHeaders.swift; path = Source/HTTPHeaders.swift; sourceTree = "<group>"; };
 		3EC0DB88E6DBA7A4CD1542EB5C827041 /* DataCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataCache.swift; path = Sources/DataCache.swift; sourceTree = "<group>"; };
 		3F95DF89F763C47613B04BEA61EF069D /* Pods-Blurred-iosTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Blurred-iosTests-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 		4AF3F458400D7142DA791B11C42A7B4F /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		4B0BCCDE939325AE4B9CCE3C3A1E8D2D /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4DDB9D03A4DAFD0316E825A113CD0760 /* ParameterEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoder.swift; path = Source/ParameterEncoder.swift; sourceTree = "<group>"; };
-		502E2643B851C032541E53BFD202E3BE /* Pods_Blurred_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Blurred_ios.framework; path = "Pods-Blurred-ios.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		502E2643B851C032541E53BFD202E3BE /* Pods_Blurred_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51504E276AD512A1262AE072F281B8F8 /* ImagePreheater.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePreheater.swift; path = Sources/ImagePreheater.swift; sourceTree = "<group>"; };
 		51870C1336EC5ED953A1D979FA3D161F /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
 		5258D58DD955E9AE2F3F4FC4646A8D40 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 		59EFEB6D2135B632771C37E2BF33BF57 /* Pods-Blurred-ios-Blurred-iosUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Blurred-ios-Blurred-iosUITests-Info.plist"; sourceTree = "<group>"; };
 		5A051D86D32278CA722C6CCFD9BC3190 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
 		5AA264EC4E75E512C36A72059F09592F /* Keychain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = Sources/Valet/Internal/Keychain.swift; sourceTree = "<group>"; };
-		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60622B47BE7D7FE3A6EED24306335DC3 /* EventMonitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EventMonitor.swift; path = Source/EventMonitor.swift; sourceTree = "<group>"; };
 		61AECD2765B71BD2EB91C96DB511BFC9 /* MigrationResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MigrationResult.swift; path = Sources/Valet/MigrationResult.swift; sourceTree = "<group>"; };
 		69AABAC09F4621345C6898FA087A0662 /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 		9B3E003356D8A4FA37FA0FA65DEF9981 /* Identifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Identifier.swift; path = Sources/Valet/Identifier.swift; sourceTree = "<group>"; };
 		9C29256972FC3E044F33687C112D5506 /* Pods-Blurred-iosTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Blurred-iosTests-umbrella.h"; sourceTree = "<group>"; };
 		9CA4FE29A6A039DCF3EF4539678EAC41 /* RequestTaskMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RequestTaskMap.swift; path = Source/RequestTaskMap.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A12534CBFAE6355AB3B3A04CB3960FAF /* SwiftCompatibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftCompatibility.swift; path = Sources/Valet/SwiftCompatibility.swift; sourceTree = "<group>"; };
 		A51BAB77B40A25AB70B242E3962ABE15 /* Nuke.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nuke.debug.xcconfig; sourceTree = "<group>"; };
 		A58F939B0C6EC2B3B4FE1D65CBB3289D /* Pods-Blurred-ios-Blurred-iosUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Blurred-ios-Blurred-iosUITests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 		AB0395D37DF46B93E6625F036D5079E1 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Alamofire.modulemap; sourceTree = "<group>"; };
 		AD5541D20FDBFBB341A62F74EA6DDE7E /* Pods-Blurred-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Blurred-ios.release.xcconfig"; sourceTree = "<group>"; };
 		B2DEB3F62E47AAEB2BC3EE88877AD462 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
-		B3081E0CFC54E0C89C7B6D481B03DC95 /* Valet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Valet.framework; path = Valet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3081E0CFC54E0C89C7B6D481B03DC95 /* Valet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Valet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B655093DDCC0176DEAC903ABA8E76527 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		B8B81AD1733A8D3C8CE9C4E2F5FD76F5 /* ImageProcessing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageProcessing.swift; path = Sources/ImageProcessing.swift; sourceTree = "<group>"; };
 		B977200417A33551F55EE19CA4ECB77D /* URLEncodedFormEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URLEncodedFormEncoder.swift; path = Source/URLEncodedFormEncoder.swift; sourceTree = "<group>"; };
@@ -261,7 +261,7 @@
 		E907BD564BD6F40C1EE12B4291BA725E /* ImagePipelineConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePipelineConfiguration.swift; path = Sources/ImagePipelineConfiguration.swift; sourceTree = "<group>"; };
 		EA83C4ADA0D4C8333CB61408398DB325 /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EE5D0E9C1587EE755E04F3AF1CF39D58 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
-		F1A27C838E86990F5F20974F44C5FE31 /* Pods_Blurred_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Blurred_iosTests.framework; path = "Pods-Blurred-iosTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1A27C838E86990F5F20974F44C5FE31 /* Pods_Blurred_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F34E5662BC359E85FF79B3C47586762D /* Pods-Blurred-iosTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Blurred-iosTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		F375FF8D0FC3F65409B6BBDAA2CD0921 /* Nuke.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Nuke.modulemap; sourceTree = "<group>"; };
 		F4A9266ABBD424373D3258CB77A29033 /* AlamofireExtended.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlamofireExtended.swift; path = Source/AlamofireExtended.swift; sourceTree = "<group>"; };
@@ -416,7 +416,6 @@
 				E2EF9342CADCE64960DB219302686409 /* Valet.swift */,
 				CE3349526E8A771963F3AD8E8C7064E4 /* Support Files */,
 			);
-			name = Valet;
 			path = Valet;
 			sourceTree = "<group>";
 		};
@@ -440,7 +439,6 @@
 				41FCC98195D3A50C3BEBD5DEEF9955D6 /* Task.swift */,
 				453D135FD3C7B47F47EC9E7EED5150FE /* Support Files */,
 			);
-			name = Nuke;
 			path = Nuke;
 			sourceTree = "<group>";
 		};
@@ -543,7 +541,6 @@
 				75916ADEEE8B9CEB1A06BAA2E501D977 /* Validation.swift */,
 				CFE2830279EE01970676DCEE5AE31072 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -751,7 +748,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1200;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 11.4";
@@ -999,7 +996,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Alamofire/Alamofire-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1045,6 +1042,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1173,7 +1171,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Nuke/Nuke-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Nuke/Nuke-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1247,7 +1245,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Valet/Valet-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Valet/Valet-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1283,7 +1281,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Nuke/Nuke-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Nuke/Nuke-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1320,7 +1318,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Alamofire/Alamofire-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1441,6 +1439,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1534,7 +1533,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Valet/Valet-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Valet/Valet-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

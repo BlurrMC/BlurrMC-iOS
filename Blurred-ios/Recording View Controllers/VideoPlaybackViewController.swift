@@ -39,7 +39,7 @@ class VideoPlaybackViewController: UIViewController {
         }
     }
     @objc func timerAction() {
-        let token: String? = tokenValet.string(forKey: "Token")
+        let token: String? = try? tokenValet.string(forKey: "Token")
         if token == nil {
             self.timer.invalidate()
         } else {

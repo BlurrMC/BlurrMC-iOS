@@ -44,8 +44,8 @@ class UploadDetailsViewController: UIViewController {
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        let userId: String? = myValet.string(forKey: "Id")
-        let token: String? = tokenValet.string(forKey: "Token")
+        let userId: String? = try? myValet.string(forKey: "Id")
+        let token: String? = try? tokenValet.string(forKey: "Token")
         let Id = Int(userId!)
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",

@@ -26,11 +26,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
         tableView.tableFooterView = UIView()
     }
     @objc func timerAction() {
-        if myValet.string(forKey: "Id") == nil {
-            self.timer.invalidate()
-        } else {
-            downloadJson()
-        }
+        downloadJson()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
@@ -44,7 +40,7 @@ class FollowerListViewController: UIViewController, UITableViewDataSource {
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func downloadJson() { // Still not done we need to add the user's butt image
-        let userId: String?  = myValet.string(forKey: "Id")
+        let userId: String?  = try? myValet.string(forKey: "Id")
         let Id = Int(userId ?? "0")
         let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowers/\(Id!).json")  // 23:40
         guard let downloadURL = url else { return }

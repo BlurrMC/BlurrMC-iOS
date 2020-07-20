@@ -27,14 +27,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
-        if myValet.string(forKey: "Id") == nil {
-            self.timer.invalidate()
-        } else if followerVar == nil {
-            self.timer.invalidate()
-        } else {
-            downloadJson()
-
-        }
+        downloadJson()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)

@@ -105,8 +105,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                             self.showIncorrectCreds()
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         } else {
-                            self.tokenValet.set(string: accessToken!, forKey: "Token")
-                            self.myValet.set(string: userId, forKey: "Id")
+                            try? self.tokenValet.setString(accessToken!, forKey: "Token")
+                            try? self.myValet.setString(userId, forKey: "Id")
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                             DispatchQueue.main.async {
                                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

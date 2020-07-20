@@ -8,16 +8,34 @@
 
 import UIKit
 import Valet
+import Nuke
 
 class SettingsViewController: UIViewController {
 
+    @IBAction func clearCache(_ sender: Any) {
+        removeNetworkDictionaryCache()
+        ImageCache.shared.removeAll()
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    func removeNetworkDictionaryCache() {
+        let caches = (NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0])
+        let appId = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
+        let path = String(format:"%@/%@/Cache.db-wal",caches, appId)
+        do {
+            try FileManager.default.removeItem(atPath: path)
+        } catch {
+            print("ERROR DESCRIPTION: \(error)")
+        }
+    }
     @IBAction func signOutButtonPressed(_ sender: Any) {
         let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
         let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
-        myValet.removeObject(forKey: "Id")
-        tokenValet.removeObject(forKey: "Token")
-        myValet.removeAllObjects()
-        tokenValet.removeAllObjects()
+        try? myValet.removeObject(forKey: "Id")
+        try? tokenValet.removeObject(forKey: "Token")
+        try? myValet.removeAllObjects()
+        try? tokenValet.removeAllObjects()
         if #available(iOS 13.0, *) {
             let signInPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
             let appDelegate = UIApplication.shared.delegate

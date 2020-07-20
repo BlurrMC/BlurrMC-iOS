@@ -695,8 +695,8 @@
             filePath = "Blurred-ios/Channel View Controllers/ChannelVideoViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
+            startingLineNumber = "454"
+            endingLineNumber = "454"
             landmarkName = "babaPlayer()"
             landmarkType = "7">
          </BreakpointContent>

@@ -118,12 +118,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     @objc func timerAction() {
-        if myValet.string(forKey: "Id") == nil {
-            self.timer.invalidate()
-        } else {
-            loadMemberChannel()
-            channelVideoIds()
-        }
+        loadMemberChannel()
+        channelVideoIds()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
@@ -157,7 +153,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     private var videos = [Video]()
     func channelVideoIds() { // Still not done we need to add the user's butt image
-        let userId: String?  = myValet.string(forKey: "Id")
+        let userId: String?  = try? myValet.string(forKey: "Id")
         if userId == nil {
             self.timer.invalidate()
         } else {
@@ -183,7 +179,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     func loadMemberChannel() {
-        let userId: String?  = myValet.string(forKey: "Id")
+        let userId: String?  = try? myValet.string(forKey: "Id")
         if userId == nil {
             self.timer.invalidate()
         } else {
@@ -299,8 +295,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     func upload() {
-        let token: String?  = self.tokenValet.string(forKey: "Token")
-        let userId: String?  = self.myValet.string(forKey: "Id")
+        let token: String?  = try? self.tokenValet.string(forKey: "Token")
+        let userId: String?  = try? self.myValet.string(forKey: "Id")
         let Id = Int(userId!)
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",

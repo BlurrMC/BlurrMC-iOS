@@ -49,11 +49,10 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                     activityViewController.completionWithItemsHandler = { activity, completed, items, error in
                             if !completed {
                                 self.avPlayer.play()
-                                CacheManager.shared.clearContents(url)
+                                CacheManager.shared.clearContents(url) // Clearing the cache still doesn't work!
                                 return
                             }
                         self.avPlayer.play()
-                        CacheManager.shared.clearContents(url)
                         }
                 case .failure( _): break
                 }
@@ -104,7 +103,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         }
     }
     func sendCheckLikeRequest() {
-        let token: String? = tokenValet.string(forKey: "Token")
+        let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
@@ -141,7 +140,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             }
     }
     func sendDeleteLikeRequest() {
-        let token: String? = tokenValet.string(forKey: "Token")
+        let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
@@ -169,7 +168,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             }
     }
     func sendLikeRequest() {
-        let token: String? = tokenValet.string(forKey: "Token")
+        let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
@@ -423,7 +422,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     @objc func timerAction() {
-        let token: String? = tokenValet.string(forKey: "Token")
+        let token: String? = try? tokenValet.string(forKey: "Token")
         if token == nil {
             self.timer.invalidate()
         } else {

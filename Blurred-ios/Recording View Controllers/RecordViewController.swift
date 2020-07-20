@@ -31,7 +31,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "frontCamera")!, accessibility: .whenUnlocked)
     @IBAction func flipCamera(_ sender: Any) {
-        self.myValet.set(string: "\(usingFrontCamera)", forKey: "frontCamera")
+        try? self.myValet.setString("\(usingFrontCamera)", forKey: "frontCamera")
         frontOrBackCamera()
         
     }
@@ -129,7 +129,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         videoView.addSubview(cameraButton)
     }
     func originalFlip() {
-        let frontOrBack: String?  = myValet.string(forKey: "frontCamera")
+        let frontOrBack: String?  = try? myValet.string(forKey: "frontCamera")
         if frontOrBack == nil {
             usingFrontCamera = false
         } else if frontOrBack == "true" {

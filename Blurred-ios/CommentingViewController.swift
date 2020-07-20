@@ -23,7 +23,7 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     func getAvatar() {
-        let userId: String?  = myValet.string(forKey: "Id")
+        let userId: String?  = try? myValet.string(forKey: "Id")
         AF.request("http://10.0.0.2:3000/api/v1/channels/\(userId!).json").responseJSON { response in
                    var JSON: [String: Any]?
                    do {
@@ -56,7 +56,7 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        let token: String? = tokenValet.string(forKey: "Token")
+        let token: String? = try? tokenValet.string(forKey: "Token")
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/comments/\(videoId).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"

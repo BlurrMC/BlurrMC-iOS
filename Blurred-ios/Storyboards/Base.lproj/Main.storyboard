@@ -580,7 +580,7 @@
                                 <rect key="frame" x="55" y="600" width="46" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="camera.rotate" catalog="system"/>
+                                <state key="normal" image="arrow.triangle.2.circlepath.camera" catalog="system"/>
                                 <connections>
                                     <action selector="flipCamera:" destination="bMe-qO-UEv" eventType="touchUpInside" id="l3M-DP-222"/>
                                 </connections>
@@ -1281,7 +1281,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Sign Out">
-                                    <color key="titleColor" systemColor="systemPurpleColor"/>
+                                    <color key="titleColor" systemColor="systemRedColor"/>
                                 </state>
                                 <connections>
                                     <action selector="signOutButtonPressed:" destination="MJx-gh-FGt" eventType="touchUpInside" id="3tE-gJ-lIB"/>
@@ -1306,6 +1306,17 @@
                                 <state key="normal" title="Account Settings"/>
                                 <connections>
                                     <segue destination="3CI-Sa-bhX" kind="show" id="t7p-JM-yzq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i89-Hg-g7h">
+                                <rect key="frame" x="136" y="569" width="108" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Clear Cache">
+                                    <color key="titleColor" systemColor="systemPurpleColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearCache:" destination="MJx-gh-FGt" eventType="touchUpInside" id="gvD-cf-TRF"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1903,7 +1914,7 @@
     <resources>
         <image name="arrow.left" width="12" height="10"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
-        <image name="camera.rotate" catalog="system" width="128" height="94"/>
+        <image name="arrow.triangle.2.circlepath.camera" catalog="system" width="128" height="94"/>
         <image name="channel" width="30" height="30"/>
         <image name="gear" width="15" height="15"/>
         <image name="grid" width="40" height="40"/>

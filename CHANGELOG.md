@@ -50,6 +50,14 @@
     * Added more error handling.
     * Added groups for better sorting
     * Organized changelog
+    * Migrated to new version of Nuke, Alamofire, and Valet
+    * Removed some old code that was causing warnings
+    * Changed minimum ios version to ios 14.
+* Main Storyboard
+    * Changed the flip icon to the none deprecated one.
+* Settings
+    * Change sign out button color to red
+    * Added clear cache button.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

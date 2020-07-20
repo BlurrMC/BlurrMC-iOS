@@ -136,17 +136,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
     @objc func timerAction() {
-        if myValet.string(forKey: "Id") == nil {
-            self.timer.invalidate()
-        } else {
-            loadMemberChannel()
-            channelVideoIds()
-        }
-        if chanelVar == nil {
-            self.timer.invalidate()
-        } else {
-            loadMemberChannel()
-        }
+        loadMemberChannel()
+        channelVideoIds()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
@@ -157,7 +148,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             doubleTap = false
             dropDownMenu.removeFromSuperview()
         } else {
-            let userId: String?  = myValet.string(forKey: "Id")
+            let userId: String?  = try? myValet.string(forKey: "Id")
             let userIdInt: Int? = Int(userId!)
             let userIdString: String = String("\(userIdInt)")
                 let Id = chanelVar
@@ -213,8 +204,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         }
     }
     func upload() {
-        let token: String?  = self.tokenValet.string(forKey: "Token")
-        let userId: String?  = self.myValet.string(forKey: "Id")
+        let token: String?  = try? self.tokenValet.string(forKey: "Token")
+        let userId: String?  = try? self.myValet.string(forKey: "Id")
         let Id = Int(userId!)
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",

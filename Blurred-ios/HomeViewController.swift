@@ -30,8 +30,8 @@ class HomeViewController: UIViewController {  // Ah yes, home
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func checkUser() {
-        let accessToken: String? = tokenValet.string(forKey: "Token")
-        let userId: String? = myValet.string(forKey: "Id")
+        let accessToken: String? = try? tokenValet.string(forKey: "Token")
+        let userId: String? = try? myValet.string(forKey: "Id")
                    let Id = Int(userId!)
                        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuservalid/\(Id!).json")
                        var request = URLRequest(url:myUrl!)
@@ -53,10 +53,10 @@ class HomeViewController: UIViewController {  // Ah yes, home
                                     return
                                    } else if status == "User is not valid. Oh no!" {
                                     self.showInvalidSession()
-                                       self.myValet.removeObject(forKey: "Id")
-                                       self.tokenValet.removeObject(forKey: "Token")
-                                    self.myValet.removeAllObjects()
-                                    self.tokenValet.removeAllObjects()
+                                    try self.myValet.removeObject(forKey: "Id")
+                                    try self.tokenValet.removeObject(forKey: "Token")
+                                    try self.myValet.removeAllObjects()
+                                    try self.tokenValet.removeAllObjects()
                                        let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
                                        self.present(loginPage, animated:false, completion:nil)
                                     self.window =  UIWindow(frame: UIScreen.main.bounds)

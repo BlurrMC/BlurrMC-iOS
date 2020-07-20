@@ -35,7 +35,7 @@ class OtherChannelDropdownViewController: UIViewController {
         checkFollowing()
     }
     func checkIfUserIsFollowing() {
-        let accessToken: String? = tokenValet.string(forKey: "Token")
+        let accessToken: String? = try? tokenValet.string(forKey: "Token")
                        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuserfollowing/\(chanelVar).json")
                        var request = URLRequest(url:myUrl!)
                        request.httpMethod = "GET"
@@ -51,7 +51,7 @@ class OtherChannelDropdownViewController: UIViewController {
                                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                                if let parseJSON = json {
                                    let status: String? = parseJSON["status"] as? String
-                                print(status)
+                                print("\(String(describing: status))")
                                 DispatchQueue.main.async {
                                     if status == "User is not following." {
                                         self.Following = false

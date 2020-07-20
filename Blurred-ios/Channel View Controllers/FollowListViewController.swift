@@ -25,11 +25,7 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
-        if myValet.string(forKey: "Id") == nil {
-            self.timer.invalidate()
-        } else {
-            downloadJson()
-        }
+        downloadJson()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
@@ -43,7 +39,7 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     func downloadJson() { // Still not done we need to add the user's butt image
-        let userId: String?  = myValet.string(forKey: "Id")
+        let userId: String?  = try? myValet.string(forKey: "Id")
         let Id = Int(userId ?? "0")
         let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowing/\(Id!).json")  // 23:40
         guard let downloadURL = url else { return }
@@ -56,6 +52,11 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
                 let decoder = JSONDecoder()
                 let downloadedFollowing = try decoder.decode(Followings.self, from: data)
                 self.followings = downloadedFollowing.following
+                if self.followings == nil { // Yes. I know that this is a dumb way of doing this.
+                    self.nothingHere.text = String("Nothing Here")
+                } else {
+                    self.nothingHere.text = String("")
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -98,11 +99,6 @@ class FollowListViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FollowingCell") as? FollowingCell else { return UITableViewCell() }
         cell.followingUsername.text = followings[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
         cell.followingName.text = followings[indexPath.row].name
-        if followings == nil {
-            nothingHere.text = String("Nothing Here")
-        } else {
-            nothingHere.text = String("")
-        }
         let Id: Int? = followings[indexPath.row].id
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
         var request = URLRequest(url:myUrl!)

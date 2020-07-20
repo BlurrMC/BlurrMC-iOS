@@ -72,8 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     public var isItLoading: Bool = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let accessToken: String? = tokenValet.string(forKey: "Token")
-        let userId: String? = myValet.string(forKey: "Id")
+        let accessToken: String? = try? tokenValet.string(forKey: "Token")
+        let userId: String? = try? myValet.string(forKey: "Id")
         if accessToken != nil && userId != nil {
                                     let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                                     self.window =  UIWindow(frame: UIScreen.main.bounds)
@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         registerForPushNotifications()
         URLCache.shared.removeAllCachedResponses()
-        URLCache.shared.diskCapacity = 0
+        URLCache.shared.diskCapacity = 50
         return true
     }
     func registerForPushNotifications() {

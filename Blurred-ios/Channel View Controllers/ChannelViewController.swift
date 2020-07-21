@@ -15,7 +15,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
     }
-    
+    private let refreshControl = UIRefreshControl()
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
@@ -52,6 +52,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var collectionView: UICollectionView!
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
+        guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
         if segue.destination is ChannelVideoViewController
         {
             if let vc = segue.destination as? ChannelVideoViewController {
@@ -61,8 +62,19 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                         vc.videoString = videos[selectedRow].id
                     }
                 }
-            } else {
-                self.showErrorContactingServer()
+            }
+        } else if segue.destination is OtherFollowerListViewController
+        {
+            if let vc = segue.destination as? OtherFollowerListViewController {
+                if segue.identifier == "showChannelFollowerList" {
+                    vc.followerVar = userId
+                }
+            }
+        } else if segue.destination is OtherFollowListViewController {
+            if let vc = segue.destination as? OtherFollowListViewController {
+                if segue.identifier == "showFollowList" {
+                    vc.followingVar = userId
+                }
             }
         }
     }
@@ -72,7 +84,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var bioLabel: UILabel!
-    var timer = Timer()
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
@@ -86,6 +97,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         } else {
             lineView.backgroundColor = UIColor.white
         }
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshVideos(_:)), for: .valueChanged)
         self.view.addSubview(lineView)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
         avatarImage.isUserInteractionEnabled = true
@@ -105,21 +118,19 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         super.viewWillAppear(true)
         loadMemberChannel()
         channelVideoIds()
-        timer = Timer.scheduledTimer(timeInterval: 40.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
+    @objc private func refreshVideos(_ sender: Any) {
+        channelVideoIds()
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        self.timer.invalidate()
     }
     @objc func imageTapped(gesture: UIGestureRecognizer) {
         // if the tapped view is a UIImageView then set it to imageview
         if (gesture.view as? UIImageView) != nil {
             pickAvatar()
         }
-    }
-    @objc func timerAction() {
-        loadMemberChannel()
-        channelVideoIds()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
@@ -128,16 +139,10 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         goToFollowingList()
     }
     func goToFollowersList() {
-        let followersListPage = self.storyboard?.instantiateViewController(identifier: "FollowerListViewController") as! FollowerListViewController
-        // let appDelegate = UIApplication.shared.delegate
-        // appDelegate?.window??.rootViewController = followersListPage
-        self.present(followersListPage, animated:true, completion:nil)
+        self.performSegue(withIdentifier: "showChannelFollowerList", sender: self)
     }
     func goToFollowingList() {
-        let followeringListPage = self.storyboard?.instantiateViewController(identifier: "FollowListViewController") as! FollowListViewController
-        // let appDelegate = UIApplication.shared.delegate
-        // appDelegate?.window??.rootViewController = followeringListPage
-        self.present(followeringListPage, animated:true, completion:nil)
+        self.performSegue(withIdentifier: "showFollowList", sender: self)
     }
     class Videos: Codable {
         let videos: [Video]
@@ -151,12 +156,15 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             self.id = id // Pass id through a seuge to channelvideo
         }
     }
+    override func didReceiveMemoryWarning() {
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
+    }
     private var videos = [Video]()
+    // MARK: Load the channel's videos
     func channelVideoIds() { // Still not done we need to add the user's butt image
         let userId: String?  = try? myValet.string(forKey: "Id")
-        if userId == nil {
-            self.timer.invalidate()
-        } else {
             let Id = Int(userId!)
             let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")  // 23:40
             guard let downloadURL = url else { return }
@@ -171,18 +179,16 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     self.videos = downloadedVideo.videos
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        self.refreshControl.endRefreshing()
                     }
                 } catch {
                     self.showErrorContactingServer() // f
                 }
             }.resume()
-        }
     }
+    // MARK: Load the channel's info
     func loadMemberChannel() {
         let userId: String?  = try? myValet.string(forKey: "Id")
-        if userId == nil {
-            self.timer.invalidate()
-        } else {
             let Id = Int(userId!)
             let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
             var request = URLRequest(url:myUrl!)
@@ -281,10 +287,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     }
             }
             task.resume()
-        }
-        
     } // I will set this up later
-    
+    // MARK: Import image for avatar
     func importImage() {
         let image = UIImagePickerController()
         image.delegate = self
@@ -294,6 +298,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             
         }
     }
+    // MARK: Upload avatar image
     func upload() {
         let token: String?  = try? self.tokenValet.string(forKey: "Token")
         let userId: String?  = try? self.myValet.string(forKey: "Id")
@@ -330,7 +335,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
-
+    // MARK: Take picture for avatar
     func takePicture() {
         let image = UIImagePickerController()
         image.delegate = self

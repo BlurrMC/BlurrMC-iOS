@@ -18,29 +18,35 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
     var followerVar = String()
     @IBOutlet weak var tableView: UITableView!
     private var followers = [Follower]()
-    var timer = Timer()
-
+    private let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadJson()
         tableView.tableFooterView = UIView()
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshFollowers(_:)), for: .valueChanged)
         // Do any additional setup after loading the view.
     }
-    @objc func timerAction() {
-        downloadJson()
+    override func didReceiveMemoryWarning() {
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
     }
+    @objc private func refreshFollowers(_ sender: Any) {
+        downloadJson() 
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        timer.invalidate()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         downloadJson()
-        timer = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
     var followerId = String()
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    // MARK: Download the user's followers
     func downloadJson() { // Still not done we need to add the user's butt image
         let Id = followerVar
         followerId = Id
@@ -57,6 +63,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
                 self.followers = downloadedFollower.followers
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
             } catch {
                 self.showErrorContactingServer()
@@ -137,7 +144,6 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     func showErrorContactingServer() {
-        self.timer.invalidate()
 
         // create the alert
         let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
@@ -150,7 +156,6 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         }
     }
     func showNoResponseFromServer() {
-        self.timer.invalidate()
 
         // create the alert
         let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)

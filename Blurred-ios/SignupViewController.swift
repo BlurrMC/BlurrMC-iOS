@@ -19,6 +19,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBAction func BackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    // MARK: Send the new user's information
     func sendSignupCreds() {
         // Setup the api over here.
         if (nameTextField.text?.isEmpty)! ||
@@ -110,7 +111,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
     }
-    // self.view.endEditing(true)
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == nameTextField {
             textField.resignFirstResponder()

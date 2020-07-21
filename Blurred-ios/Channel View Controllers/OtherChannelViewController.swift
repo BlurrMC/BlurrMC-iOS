@@ -18,7 +18,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
     }
-    
+    private let refreshControl = UIRefreshControl()
     @IBOutlet weak var dropDownMenu: UIView!
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
@@ -58,6 +58,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         }
     }
     private var videos = [Video]()
+    // MARK: Load the channel's videos
     func channelVideoIds() { // Still not done we need to add the user's butt image
             let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(chanelVar).json")  // 23:40
             guard let downloadURL = url else { return }
@@ -72,6 +73,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                     self.videos = downloadedVideo.videos
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        self.refreshControl.endRefreshing()
                     }
                 } catch {
                     self.showErrorContactingServer() // f
@@ -80,7 +82,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     var chanelVar = String()
     var channelVar = String() // Remove all channelVar methods (it's not in use)
-    var timer = Timer()
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     @IBAction func backButton(_ sender: Any) {
@@ -92,7 +93,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let lineView = UIView(frame: CGRect(x: 0, y: 240, width: self.view.frame.size.width, height: 1))
@@ -101,6 +101,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         } else {
             lineView.backgroundColor = UIColor.white
         }
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshVideos(_:)), for: .valueChanged)
         dropDownMenu.layer.borderWidth = 1
         dropDownMenu.layer.borderColor = UIColor.systemGray.cgColor
         dropDownMenu.layer.cornerRadius = 12
@@ -124,25 +126,29 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         if touch?.view != self.dropDownMenu
         { dropDownMenu.removeFromSuperview() }  /// Here you go bro here is the greek code to remove the view.
     }
+    @objc private func refreshVideos(_ sender: Any) {
+        channelVideoIds()
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         dropDownMenu.removeFromSuperview()
-        timer.invalidate()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        loadMemberChannel()
-        channelVideoIds()
-        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-    }
-    @objc func timerAction() {
         loadMemberChannel()
         channelVideoIds()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
     }
+    override func didReceiveMemoryWarning() {
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
+    }
     var doubleTap : Bool! = false
+    // MARK: Dropdown menu tap function
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
         if (doubleTap) {
             doubleTap = false
@@ -185,6 +191,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 task.resume()
         }
     }
+    // MARK: Import images for changing avatar
     func importImage() {
         let image = UIImagePickerController()
         image.delegate = self
@@ -194,6 +201,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             
         }
     }
+    // MARK: Take picture for changing avatar
     func takePicture() {
         let image = UIImagePickerController()
         image.delegate = self
@@ -203,6 +211,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             
         }
     }
+    // MARK: Upload changed avatar
     func upload() {
         let token: String?  = try? self.tokenValet.string(forKey: "Token")
         let userId: String?  = try? self.myValet.string(forKey: "Id")
@@ -267,6 +276,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         self.performSegue(withIdentifier: "showOtherFollowing", sender: self)
     }
     var channelUsername = String()
+    // MARK: Load the channel's information
     func loadMemberChannel() {
             let Id = chanelVar
             let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")

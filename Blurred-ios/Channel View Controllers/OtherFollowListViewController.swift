@@ -13,35 +13,40 @@ import Nuke
 class OtherFollowListViewController: UIViewController, UITableViewDataSource {
     var followingVar = String()
     private var followings = [Following]()
-    var timer = Timer()
     @IBOutlet weak var nothingHere: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func backButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-
-    
+    private let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadJson()
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshFollowing(_:)), for: .valueChanged)
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
-    @objc func timerAction() {
+    @objc private func refreshFollowing(_ sender: Any) {
         downloadJson()
+    }
+
+    override func didReceiveMemoryWarning() {
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        timer.invalidate()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         downloadJson()
-        timer = Timer.scheduledTimer(timeInterval: 360.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
-    func downloadJson() { // Still not done we need to add the user's butt image
+    // MARK: Get the user's followings
+    func downloadJson() { 
         let Id = followingVar
         let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowing/\(Id).json")  // 23:40
         guard let downloadURL = url else { return }
@@ -56,6 +61,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
                 self.followings = downloadedFollowing.following
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
             } catch {
                 print(error)
@@ -135,27 +141,15 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     func showErrorContactingServer() {
-        self.timer.invalidate()
-
-        // create the alert
         let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
     func showNoResponseFromServer() {
-        self.timer.invalidate()
-
-        // create the alert
         let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }

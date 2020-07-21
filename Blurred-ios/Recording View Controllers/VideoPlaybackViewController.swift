@@ -14,7 +14,6 @@ class VideoPlaybackViewController: UIViewController {
     @IBOutlet weak var previewView: UIView!
     let avPlayer = AVPlayer()
     var avPlayerLayer: AVPlayerLayer!
-    var timer = Timer()
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
         isDismissed = true
@@ -38,14 +37,8 @@ class VideoPlaybackViewController: UIViewController {
             self.showNoVideo()
         }
     }
-    @objc func timerAction() {
-        let token: String? = try? tokenValet.string(forKey: "Token")
-        if token == nil {
-            self.timer.invalidate()
-        } else {
-            isDismissed = false
-            avPlayer.pause()
-        }
+    override func didReceiveMemoryWarning() {
+        avPlayerLayer = nil
     }
     var isDismissed: Bool = false
     fileprivate var player: AVPlayer? {
@@ -72,12 +65,14 @@ class VideoPlaybackViewController: UIViewController {
         super.viewWillDisappear(true)
         isDismissed = true
         avPlayer.pause()
+        avPlayerLayer = nil
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         isDismissed = false
         babaPlayer()
     }
+    // MARK: Play the reecorded video
     func babaPlayer() {
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
         avPlayerLayer.frame = view.bounds

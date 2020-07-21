@@ -25,7 +25,6 @@ class AccountSettingsViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
@@ -39,6 +38,7 @@ class AccountSettingsViewController: UIViewController {
     func updateAccount() {
         startRequest()
     }
+    // MARK: Upload the changed information
     func startRequest() {
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         myActivityIndicator.center = view.center

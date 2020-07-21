@@ -18,7 +18,6 @@ class UploadDetailsViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func doneButton(_ sender: Any) {
-        // self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         uploadRequest()
     }
     @IBOutlet weak var thumbnailView: UIImageView!
@@ -36,6 +35,12 @@ class UploadDetailsViewController: UIViewController {
             }
         }
     }
+    override func didReceiveMemoryWarning() {
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
+    }
+    // MARK: Upload the video
     func uploadRequest() { // Move this to upload details and pass data using segue.
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         myActivityIndicator.center = view.center
@@ -64,7 +69,6 @@ class UploadDetailsViewController: UIViewController {
         }
         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
     }
-    // I want to die
     func showErrorContactingServer() {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
@@ -83,7 +87,7 @@ class UploadDetailsViewController: UIViewController {
 
 }
 extension AVAsset {
-
+    // MARK: Generate thumbnail (for user viewing)
     func generateThumbnail(completion: @escaping (UIImage?) -> Void) {
         DispatchQueue.global().async {
             let imageGenerator = AVAssetImageGenerator(asset: self)

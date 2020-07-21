@@ -11,7 +11,6 @@
 		5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2527AD2484388C0014F6CA /* Assets.xcassets */; };
 		9781C55A5BAEC9220B261C1E /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
 		D839AE13C55FBB2440896A3B /* Pods_Blurred_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */; };
-		E1039FC92460765D00B88E6E /* FollowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1039FC82460765D00B88E6E /* FollowListViewController.swift */; };
 		E10BD27424685A4F004E9243 /* FollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BD27324685A4F004E9243 /* FollowingCell.swift */; };
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
@@ -46,7 +45,6 @@
 		E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */; };
 		E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */; };
 		E1F28474247C19CE009F8B0B /* UploadDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */; };
-		E1FF22322467061F0094DDD2 /* FollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FF22312467061F0094DDD2 /* FollowerListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +74,6 @@
 		AB8CAF96EC774798F51E537E /* Pods-Blurred-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF0CF050DAFC11EFD08A2A31 /* Pods-Blurred-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.release.xcconfig"; sourceTree = "<group>"; };
 		CF9ECF27FDD727A974459E4E /* Pods-Blurred-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.release.xcconfig"; sourceTree = "<group>"; };
-		E1039FC82460765D00B88E6E /* FollowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowListViewController.swift; sourceTree = "<group>"; };
 		E10BD27324685A4F004E9243 /* FollowingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingCell.swift; sourceTree = "<group>"; };
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
@@ -118,7 +115,6 @@
 		E1EBD0BC2453A1CE00FE901F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 		E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoCell.swift; sourceTree = "<group>"; };
 		E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDetailsViewController.swift; sourceTree = "<group>"; };
-		E1FF22312467061F0094DDD2 /* FollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListViewController.swift; sourceTree = "<group>"; };
 		ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -197,8 +193,6 @@
 				E12EB78D2496BF6B006C5708 /* OtherChannelDropdownViewController.swift */,
 				E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */,
 				E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */,
-				E1FF22312467061F0094DDD2 /* FollowerListViewController.swift */,
-				E1039FC82460765D00B88E6E /* FollowListViewController.swift */,
 				E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */,
 				E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */,
 				E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */,
@@ -571,13 +565,11 @@
 				E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */,
 				E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */,
 				E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */,
-				E1039FC92460765D00B88E6E /* FollowListViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
 				E12EB78E2496BF6B006C5708 /* OtherChannelDropdownViewController.swift in Sources */,
 				E146ACF7247441DE00D3ED10 /* OtherFollowerCell.swift in Sources */,
 				E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */,
 				E1DF6FBD244F5DE300E11BF9 /* ChannelViewController.swift in Sources */,
-				E1FF22322467061F0094DDD2 /* FollowerListViewController.swift in Sources */,
 				E10BD27424685A4F004E9243 /* FollowingCell.swift in Sources */,
 				E15D6FC224BA5DCD00CC1E0E /* CommentingViewController.swift in Sources */,
 			);

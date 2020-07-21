@@ -14,6 +14,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
+    private let refreshControl = UIRefreshControl()
+    override func didReceiveMemoryWarning() {
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //if indexPath.row == 0 {
         //
@@ -76,6 +82,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             }
         }
     }
+    // MARK: Submit the user's search query + loads the results
     func search() {
         // Contact api to search the query
         let url = URL(string: "http://10.0.0.2:3000/api/v1/search/?search=\(searchBarTextField.text!)")  // 23:40
@@ -91,6 +98,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     self.users = downloadedResults.searchresults
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
+                        self.refreshControl.endRefreshing()
                     }
                 } catch {
                     return
@@ -129,8 +137,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBarTextField?.delegate? = self
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshSearch(_:)), for: .valueChanged)
     }
-    
+    @objc private func refreshSearch(_ sender: Any) {
+        search()
+    }
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBarTextField: UISearchBar!
     func showUnkownError() {

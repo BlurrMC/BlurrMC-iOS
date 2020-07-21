@@ -17,7 +17,6 @@ import Photos
 class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
     @IBOutlet weak var likeCount: UILabel!
     @IBOutlet weak var backButtonOutlet: UIButton!
-    // Add peak function to dispaly video when peaking.
     @IBOutlet weak var share: UIImageView!
     var videoUsername = String()
     @IBOutlet weak var videoUserAvatar: UIImageView!
@@ -32,6 +31,13 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var publishdate = String()
     var views = Int()
     var isItSwitched: Bool = false
+    override func didReceiveMemoryWarning() {
+        avPlayerLayer = nil
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
+    }
+    // MARK: Setup window for sharing functionality
     func shareWindow() {
         avPlayer.pause()
         CacheManager.shared.getFileWith(stringUrl: "http://10.0.0.2:3000\(videoUrlString)") { result in
@@ -59,6 +65,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         }
         
     }
+    // MARK: Check the like count of video and set it
     func checkLikeCount() {
         AF.request("http://10.0.0.2:3000/api/v1/videos/\(videoString).json").responseJSON { response in
             var JSON: [String: Any]?
@@ -102,6 +109,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             }
         }
     }
+    // MARK: Checks if user liked video
     func sendCheckLikeRequest() {
         let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
@@ -139,6 +147,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             }
             }
     }
+    // MARK: Delete's the like
     func sendDeleteLikeRequest() {
         let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
@@ -167,6 +176,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             }
             }
     }
+    // MARK: Sends request to like the video
     func sendLikeRequest() {
         let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
@@ -202,6 +212,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             }
             }
     }
+    // MARK: Send request for video info
     func sendRequest() {
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(videoString).json")
         var request = URLRequest(url:myUrl!)
@@ -261,10 +272,8 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         }
         task.resume()
     }
-    
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-        self.timer.invalidate()
         isDismissed = true
         avPlayer.pause()
     }
@@ -280,7 +289,6 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     @IBOutlet weak var commentImage: UIImageView!
     let avPlayer = AVPlayer()
     var avPlayerLayer: AVPlayerLayer!
-    var timer = Timer()
     override func viewDidLoad() {
         super.viewDidLoad()
         let vc = CommentingViewController()
@@ -288,6 +296,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
         sendRequest()
         self.videoView.isUserInteractionEnabled = true
+        // MARK: Tap recognizers
         let tap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapFunction))
         let tapp = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tappFunction))
         let tappp = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.tapppFunction))
@@ -295,16 +304,16 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         let sharetap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.sharetapFunction))
         let descriptiontap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.descriptiontapFunction))
         descriptionLabel.addGestureRecognizer(descriptiontap)
-        backButtonOutlet.layer.zPosition = 1
-        videoUserAvatar.layer.zPosition = 2
         share.addGestureRecognizer(sharetap)
         commentImage.addGestureRecognizer(tappp)
         videoUserAvatar.addGestureRecognizer(tapp)
         videoLike.addGestureRecognizer(liketap)
         videoView.addGestureRecognizer(tap)
-        // Do any additional setup after loading the view.
+        backButtonOutlet.layer.zPosition = 1
+        videoUserAvatar.layer.zPosition = 2
     }
     var doubleTap : Bool! = false
+    // MARK: Pauses/Plays the video
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         if (doubleTap) {
             doubleTap = false
@@ -314,6 +323,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             doubleTap = true
         }
     }
+    // MARK: Video views + publish date
     @objc func descriptiontapFunction(sender:UITapGestureRecognizer) {
         if isItSwitched == false {
             var viewCount = String()
@@ -358,6 +368,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     @objc func sharetapFunction(sender:UITapGestureRecognizer) {
         shareWindow()
     }
+    // MARK: Like button tapped
     @objc func liketapFunction(sender:UITapGestureRecognizer) {
         if isVideoLiked == true {
             DispatchQueue.main.async {
@@ -421,21 +432,13 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
-    @objc func timerAction() {
-        let token: String? = try? tokenValet.string(forKey: "Token")
-        if token == nil {
-            self.timer.invalidate()
-        } else {
-            isDismissed = true
-            avPlayer.pause()
-        }
-    }
     var isDismissed: Bool = false
     fileprivate var playerObserver: Any?
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         avPlayer.pause()
         isDismissed = true
+        avPlayerLayer = nil
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -451,6 +454,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         guard let observer = playerObserver else { return }
         NotificationCenter.default.removeObserver(observer)
     }
+    // MARK: Plays the video
     func babaPlayer() {
         let videoUrl = URL(string: "http://10.0.0.2:3000\(videoUrlString)")!
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
@@ -513,7 +517,7 @@ public enum Result<T> {
     case success(T)
     case failure(NSError)
 }
-
+// MARK: Cache manager (For the sharing window)
 class CacheManager {
 
     static let shared = CacheManager()
@@ -525,6 +529,7 @@ class CacheManager {
         let documentsUrl = self.fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         return documentsUrl
     }()
+    // MARK: Try and clear the contents of the cache.
     func clearContents(_ url:URL) {
 
         do {

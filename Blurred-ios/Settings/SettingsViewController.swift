@@ -13,12 +13,24 @@ import Nuke
 class SettingsViewController: UIViewController {
 
     @IBAction func clearCache(_ sender: Any) {
-        removeNetworkDictionaryCache()
-        ImageCache.shared.removeAll()
+        clearAllCache()
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    // MARK: Clear the cache
+    func clearAllCache() {
+        removeNetworkDictionaryCache()
+        ImageCache.shared.removeAll()
+        clearUrlCache()
+    }
+    // MARK: Clear the url shared cache
+    func clearUrlCache() {
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
+    }
+    // MARK: Remove the network cache
     func removeNetworkDictionaryCache() {
         let caches = (NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0])
         let appId = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
@@ -29,6 +41,7 @@ class SettingsViewController: UIViewController {
             print("ERROR DESCRIPTION: \(error)")
         }
     }
+    // MARK: Signout the user
     @IBAction func signOutButtonPressed(_ sender: Any) {
         let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
         let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
@@ -46,27 +59,12 @@ class SettingsViewController: UIViewController {
         }
         
     }
-      
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // Again with the tab barss.
-
-        // Do any additional setup after loading the view.
         // I did not hit her!
     }
     @IBAction func settingsBackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

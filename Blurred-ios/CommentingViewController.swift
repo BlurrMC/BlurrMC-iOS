@@ -22,6 +22,7 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
         comments.count
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    // MARK: Get the user's avatar
     func getAvatar() {
         let userId: String?  = try? myValet.string(forKey: "Id")
         AF.request("http://10.0.0.2:3000/api/v1/channels/\(userId!).json").responseJSON { response in
@@ -47,6 +48,12 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
         }
         return true
     }
+    override func didReceiveMemoryWarning() {
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
+    }
+    // MARK: Submit the user's comment
     func submitComment() {
         // Add edit function so you can edit it if is your (and remove it) and if it isn't yours then you can report the comment.
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
@@ -132,6 +139,7 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
             self.comments = comments
         }
     }
+    // MARK: Download the comments
     func downloadJson() { // Still not done we need to add the user's butt image
         let url = URL(string: "http://10.0.0.2:3000/api/v1/comments/\(videoId).json")  // 23:40
         guard let downloadURL = url else { return }

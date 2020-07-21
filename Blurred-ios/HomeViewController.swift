@@ -22,13 +22,13 @@ class HomeViewController: UIViewController {  // Ah yes, home
         super.viewDidLoad()
         checkUser() // This should always be the first thing
         timer = Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-        // Do any additional setup after loading the view.
     }
     @objc func timerAction() {
         checkUser()
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    // MARK: Check user's account to make sure it's valid
     func checkUser() {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
         let userId: String? = try? myValet.string(forKey: "Id")

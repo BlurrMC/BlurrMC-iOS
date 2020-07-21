@@ -13,6 +13,7 @@
     * Added publish date.
     * Made it so that after the view count it says Views (or view if it only has one view)
     * Added better optimization (instead of `if, if else, if else, if else` instead it now uses switch and case)
+    * Removed timer from refreshing video (what?)
 * Channel Views
     * Made it so if its over 1000 it turns into 1.0k, then if over 10,000 it will be 10k, and so on. It's limit is about 1 billion. (following + followers)
     * Optimized channel thumbnail
@@ -22,6 +23,13 @@
     * Made video thumbnails show gray box if loading
     * Fixed bug where anything over 1000 followers or following would show up with the .0k tag. (ex. 1032.2k)
     * Added better optimization (instead of `if, if else, if else, if else` instead it now uses switch and case)
+    * Removed timer from refreshing the channel.
+    * Added pull to refresh.
+* Channel Followers + following
+    * Fixed warning in following whereit would be comparing nil would always return false
+    * Removed timer for refreshing the list.
+    * Added pull to refresh
+    * Removed follower + follow list (to leave other follow and follower list) for better optimization.
 * Camera Views
     * Going to camera will return it to the last position you left it at.
     * Fixed bug where first frame of video would be black making thumbnails completly black.
@@ -46,6 +54,7 @@
     * Removed following from search results.
     * When you see a user in the search you can now click on it to bring you to their channel.
     * User searching works as intented
+    * Added pull to fetch new search results
 * Other
     * Added more error handling.
     * Added groups for better sorting
@@ -53,6 +62,7 @@
     * Migrated to new version of Nuke, Alamofire, and Valet
     * Removed some old code that was causing warnings
     * Changed minimum ios version to ios 14.
+    * Added more and better mark comments.
 * Main Storyboard
     * Changed the flip icon to the none deprecated one.
 * Settings

@@ -9,6 +9,7 @@
 import UIKit
 import Valet
 
+// MARK: This controller is not noted as it will probably be deleted
 class OtherChannelDropdownViewController: UIViewController {
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     @IBAction func followButton(_ sender: Any) {

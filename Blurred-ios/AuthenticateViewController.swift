@@ -39,6 +39,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     }
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    // MARK: Send credentials to login
     func sendCreds() {
         let username = usernameTextField.text
         let password = passwordTextField.text

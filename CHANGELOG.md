@@ -25,6 +25,7 @@
     * Added better optimization (instead of `if, if else, if else, if else` instead it now uses switch and case)
     * Removed timer from refreshing the channel.
     * Added pull to refresh.
+    * Updated url for video thumbnails to match api.
 * Channel Followers + following
     * Fixed warning in following whereit would be comparing nil would always return false
     * Removed timer for refreshing the list.
@@ -55,6 +56,7 @@
     * When you see a user in the search you can now click on it to bring you to their channel.
     * User searching works as intented
     * Added pull to fetch new search results
+    * Added video search
 * Other
     * Added more error handling.
     * Added groups for better sorting

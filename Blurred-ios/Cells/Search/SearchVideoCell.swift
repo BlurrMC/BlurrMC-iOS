@@ -20,11 +20,13 @@ class SearchVideoCell: UITableViewCell {
         isSelected = false
         isHighlighted = false
     }
-    @IBOutlet weak var searchByUsername: UILabel!
-    @IBOutlet weak var searchTitle: UILabel!
-    @IBOutlet weak var searchThumbnail: UIImageView!
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    @IBOutlet weak var searchDate: UILabel!
+    @IBOutlet weak var searchViewCount: UILabel!
+    @IBOutlet weak var searchUsername: UILabel!
+    @IBOutlet weak var searchDescription: UILabel!
+    @IBOutlet weak var searchThumbnail: UIImageView!
 
 }

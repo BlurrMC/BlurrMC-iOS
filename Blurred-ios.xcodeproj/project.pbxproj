@@ -89,7 +89,7 @@
 		E16B667824AB8A23005C3A78 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchCell.swift; path = "/Users/martinvelev/Documents/Blurred-ios/Blurred-ios/Cells/SearchCell.swift"; sourceTree = "<absolute>"; };
 		E17BF2C424670C8900073B66 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoViewController.swift; sourceTree = "<group>"; };
-		E1C3D95124BB94CB00323427 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = "Blurred-ios/Cells/CommentCell.swift"; sourceTree = SOURCE_ROOT; };
+		E1C3D95124BB94CB00323427 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = "Blurred-ios/Cells/Channel/CommentCell.swift"; sourceTree = SOURCE_ROOT; };
 		E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelVideoCell.swift; sourceTree = "<group>"; };
 		E1D8C895246F119000F1EAD1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +156,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E13848CF24C87E1C00232C7B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				E16B667824AB8A23005C3A78 /* SearchCell.swift */,
+				E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		E15D6FC524BA5E4C00CC1E0E /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,10 +178,8 @@
 		E196F5F224A8D589001BE742 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				E1C3D95124BB94CB00323427 /* CommentCell.swift */,
 				E1C3D95524BB977600323427 /* Channel */,
-				E16B667824AB8A23005C3A78 /* SearchCell.swift */,
-				E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */,
+				E13848CF24C87E1C00232C7B /* Search */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -212,6 +219,7 @@
 		E1C3D95524BB977600323427 /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				E1C3D95124BB94CB00323427 /* CommentCell.swift */,
 				E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */,
 				E17BF2C424670C8900073B66 /* FollowerCell.swift */,
 				E10BD27324685A4F004E9243 /* FollowingCell.swift */,
@@ -743,7 +751,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -773,7 +781,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

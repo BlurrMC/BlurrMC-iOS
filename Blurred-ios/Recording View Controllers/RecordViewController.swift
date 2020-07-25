@@ -78,34 +78,59 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     var lastZoomFactor: CGFloat = 1.0
     var outputURL: URL!
     @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
-        // guard let device = captureDevice else { return }
-        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return }
-        
-
-        // Return zoom value between the minimum and maximum zoom values
-        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
-            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
-        }
-
-        func update(scale factor: CGFloat) {
-            do {
-                try device.lockForConfiguration()
-                defer { device.unlockForConfiguration() }
-                device.videoZoomFactor = factor
-            } catch {
-                print("\(error.localizedDescription)")
+        // MARK: Zooming on front camera or back camera
+        if usingFrontCamera == true {
+            guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front) else { return }
+            func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+                return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
             }
-        }
 
-        let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+            func update(scale factor: CGFloat) {
+                do {
+                    try device.lockForConfiguration()
+                    defer { device.unlockForConfiguration() }
+                    device.videoZoomFactor = factor
+                } catch {
+                    print("\(error.localizedDescription)")
+                }
+            }
 
-        switch pinch.state {
-        case .began: fallthrough
-        case .changed: update(scale: newScaleFactor)
-        case .ended:
-            lastZoomFactor = minMaxZoom(newScaleFactor)
-            update(scale: lastZoomFactor)
-        default: break
+            let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+
+            switch pinch.state {
+            case .began: fallthrough
+            case .changed: update(scale: newScaleFactor)
+            case .ended:
+                lastZoomFactor = minMaxZoom(newScaleFactor)
+                update(scale: lastZoomFactor)
+            default: break
+            }
+        } else {
+            guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return }
+            func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+                return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+            }
+
+            func update(scale factor: CGFloat) {
+                do {
+                    try device.lockForConfiguration()
+                    defer { device.unlockForConfiguration() }
+                    device.videoZoomFactor = factor
+                } catch {
+                    print("\(error.localizedDescription)")
+                }
+            }
+
+            let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+
+            switch pinch.state {
+            case .began: fallthrough
+            case .changed: update(scale: newScaleFactor)
+            case .ended:
+                lastZoomFactor = minMaxZoom(newScaleFactor)
+                update(scale: lastZoomFactor)
+            default: break
+            }
         }
     }
     override func viewDidLoad() {

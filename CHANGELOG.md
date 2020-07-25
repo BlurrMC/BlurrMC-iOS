@@ -47,6 +47,7 @@
     * If you were already logged in before it checks with the api if your token and username are valid.
     * Made it so the app checks if you are valid once you have loaded the home page.
     * Made it so app doesn't crash when you try and sign out too quicky.
+    * Fixed bug where app would crash when you would sign out
 * Design
     * Added back the record icon in tab bar.
     * Minor design changes
@@ -57,6 +58,8 @@
     * User searching works as intented
     * Added pull to fetch new search results
     * Added video search
+* Recording
+    * Added zooming on front camera
 * Other
     * Added more error handling.
     * Added groups for better sorting
@@ -162,7 +165,7 @@
 * Labeled each tab bar page (for development purposes)
 * Added some more buttons and icons
 
-##  v0.1 (PRERELEASE)
+##  v0.1 (PRERELEASE) 
 * Added icons
 * remade the project in storyboard.
 * Added the initial pages

@@ -164,9 +164,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     private var videos = [Video]()
     // MARK: Load the channel's videos
     func channelVideoIds() { // Still not done we need to add the user's butt image
-        let userId: String?  = try? myValet.string(forKey: "Id")
-            let Id = Int(userId!)
-            let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")  // 23:40
+        guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
+        guard let Id = Int(userId) else { return }
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")  // 23:40
             guard let downloadURL = url else { return }
             URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
                 guard let data = data, error == nil, urlResponse != nil else {
@@ -188,9 +188,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     // MARK: Load the channel's info
     func loadMemberChannel() {
-        let userId: String?  = try? myValet.string(forKey: "Id")
-            let Id = Int(userId!)
-            let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
+        guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
+        guard let Id = Int(userId) else { return }
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
             var request = URLRequest(url:myUrl!)
             request.httpMethod = "GET"
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in

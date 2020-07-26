@@ -14,6 +14,8 @@
     * Made it so that after the view count it says Views (or view if it only has one view)
     * Added better optimization (instead of `if, if else, if else, if else` instead it now uses switch and case)
     * Removed timer from refreshing video (what?)
+* Channel Dropdown View Controller 
+    * Removed. All the functions have been move to the other channel view controller.
 * Channel Views
     * Made it so if its over 1000 it turns into 1.0k, then if over 10,000 it will be 10k, and so on. It's limit is about 1 billion. (following + followers)
     * Optimized channel thumbnail
@@ -26,6 +28,9 @@
     * Removed timer from refreshing the channel.
     * Added pull to refresh.
     * Updated url for video thumbnails to match api.
+    * Added dropdown menu
+    * Follow people with the dropdown menu
+    * Unfollow people with the dropdown menu.
 * Channel Followers + following
     * Fixed warning in following whereit would be comparing nil would always return false
     * Removed timer for refreshing the list.
@@ -48,6 +53,11 @@
     * Made it so the app checks if you are valid once you have loaded the home page.
     * Made it so app doesn't crash when you try and sign out too quicky.
     * Fixed bug where app would crash when you would sign out
+* Storyboards
+    * Changed the flip icon to the none deprecated one in the record view.
+* Settings
+    * Change sign out button color to red
+    * Added clear cache button.
 * Design
     * Added back the record icon in tab bar.
     * Minor design changes
@@ -58,6 +68,7 @@
     * User searching works as intented
     * Added pull to fetch new search results
     * Added video search
+    * Made tableview hidden with "isHidden" instead of removing it and adding it to the super view.
 * Recording
     * Added zooming on front camera
 * Other
@@ -68,11 +79,7 @@
     * Removed some old code that was causing warnings
     * Changed minimum ios version to ios 14.
     * Added more and better mark comments.
-* Main Storyboard
-    * Changed the flip icon to the none deprecated one.
-* Settings
-    * Change sign out button color to red
-    * Added clear cache button.
+    * Changed name of some groups.
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

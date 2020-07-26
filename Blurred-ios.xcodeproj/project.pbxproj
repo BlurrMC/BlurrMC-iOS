@@ -15,7 +15,6 @@
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
-		E12EB78E2496BF6B006C5708 /* OtherChannelDropdownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EB78D2496BF6B006C5708 /* OtherChannelDropdownViewController.swift */; };
 		E146ACF12474188700D3ED10 /* OtherChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */; };
 		E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */; };
 		E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */; };
@@ -78,7 +77,6 @@
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
-		E12EB78D2496BF6B006C5708 /* OtherChannelDropdownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelDropdownViewController.swift; sourceTree = "<group>"; };
 		E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelViewController.swift; sourceTree = "<group>"; };
 		E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowerListViewController.swift; sourceTree = "<group>"; };
 		E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowListViewController.swift; sourceTree = "<group>"; };
@@ -184,27 +182,26 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		E196F5F324A8D5AE001BE742 /* Recording View Controllers */ = {
+		E196F5F324A8D5AE001BE742 /* Recording Related Views */ = {
 			isa = PBXGroup;
 			children = (
 				E1DF6FB8244F5DBD00E11BF9 /* RecordViewController.swift */,
 				E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */,
 				E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */,
 			);
-			path = "Recording View Controllers";
+			path = "Recording Related Views";
 			sourceTree = "<group>";
 		};
-		E196F5F424A8D5E4001BE742 /* Channel View Controllers */ = {
+		E196F5F424A8D5E4001BE742 /* Channel Related Views */ = {
 			isa = PBXGroup;
 			children = (
-				E12EB78D2496BF6B006C5708 /* OtherChannelDropdownViewController.swift */,
 				E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */,
 				E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */,
 				E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */,
 				E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */,
 				E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */,
 			);
-			path = "Channel View Controllers";
+			path = "Channel Related Views";
 			sourceTree = "<group>";
 		};
 		E196F5F524A8D626001BE742 /* Settings */ = {
@@ -256,9 +253,9 @@
 		E1DF6F68244F550300E11BF9 /* Blurred-ios */ = {
 			isa = PBXGroup;
 			children = (
-				E196F5F424A8D5E4001BE742 /* Channel View Controllers */,
+				E196F5F424A8D5E4001BE742 /* Channel Related Views */,
 				E196F5F224A8D589001BE742 /* Cells */,
-				E196F5F324A8D5AE001BE742 /* Recording View Controllers */,
+				E196F5F324A8D5AE001BE742 /* Recording Related Views */,
 				E196F5F524A8D626001BE742 /* Settings */,
 				E1DF6F69244F550300E11BF9 /* AppDelegate.swift */,
 				E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */,
@@ -574,7 +571,6 @@
 				E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */,
 				E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
-				E12EB78E2496BF6B006C5708 /* OtherChannelDropdownViewController.swift in Sources */,
 				E146ACF7247441DE00D3ED10 /* OtherFollowerCell.swift in Sources */,
 				E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */,
 				E1DF6FBD244F5DE300E11BF9 /* ChannelViewController.swift in Sources */,

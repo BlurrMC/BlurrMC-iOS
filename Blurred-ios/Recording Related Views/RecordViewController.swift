@@ -190,7 +190,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         }catch{
             print(error.localizedDescription)
         }
-        
     }
     // MARK: Setup the microphone
     func setupMicrophone() {

@@ -207,8 +207,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 searchString = search
                 isItUserSearch = true
                 DispatchQueue.main.async {
-                    self.view.addSubview(self.tableView)
-                    self.videoTableView.removeFromSuperview()
+                    self.videoTableView.isHidden = true
+                    self.tableView.isHidden = false
                 }
                 self.search()
                 // Display only user channels and only query for channels
@@ -218,8 +218,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             searchString = search
             isItUserSearch = false
             DispatchQueue.main.async {
-                self.view.addSubview(self.videoTableView)
-                self.tableView.removeFromSuperview()
+                self.tableView.isHidden = true
+                self.videoTableView.isHidden = false
             }
             self.search()
         }

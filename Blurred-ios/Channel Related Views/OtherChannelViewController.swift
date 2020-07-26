@@ -14,9 +14,31 @@ import Alamofire
 
 class OtherChannelViewController: UIViewController, UICollectionViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     // Add peak function to dispaly video when peaking.
+    @IBOutlet var dropDownButtons: [UIButton]!
+    @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var blockButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
+    }
+    @IBAction func followButtonTap(_ sender: Any) {
+        following = !following
+        switch following {
+        case true:
+            DispatchQueue.main.async {
+                self.followButton.setTitle("Unfollow", for: .normal)
+            }
+            // Follow the targeted user
+            followUser()
+        case false:
+            DispatchQueue.main.async {
+                self.followButton.setTitle("Follow", for: .normal)
+            }
+            // Unfollow the targeted user
+            unfollowUser()
+        }
+    }
+    @IBAction func blockButtonTap(_ sender: Any) {
     }
     private let refreshControl = UIRefreshControl()
     @IBOutlet weak var dropDownMenu: UIView!
@@ -26,7 +48,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         let Id: Int? = videos[indexPath.row].id
         
         cell.thumbnailView.image = UIImage(named: "load-image")
-        
         AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(Id!).json").responseJSON { response in
                    var JSON: [String: Any]?
                    do {
@@ -103,11 +124,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         }
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshVideos(_:)), for: .valueChanged)
-        dropDownMenu.layer.borderWidth = 1
-        dropDownMenu.layer.borderColor = UIColor.systemGray.cgColor
-        dropDownMenu.layer.cornerRadius = 12
-        dropDownMenu.removeFromSuperview()
-        self.view.addSubview(lineView)
         self.followersLabel.isUserInteractionEnabled = true
         self.followingLabel.isUserInteractionEnabled = true
         self.avatarImage.isUserInteractionEnabled = true
@@ -121,23 +137,22 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         channelVideoIds()
         self.avatarImage.contentScaleFactor = 1.5
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        if touch?.view != self.dropDownMenu
-        { dropDownMenu.removeFromSuperview() }  /// Here you go bro here is the greek code to remove the view.
-    }
     @objc private func refreshVideos(_ sender: Any) {
         channelVideoIds()
     }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        dropDownMenu.removeFromSuperview()
+        dropDownButtons.forEach { (button) in
+            if button.isHidden == false {
+                button.isHidden = true
+            }
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadMemberChannel()
         channelVideoIds()
+        checkForFollowing()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
@@ -147,49 +162,134 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
     }
-    var doubleTap : Bool! = false
     // MARK: Dropdown menu tap function
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
-        if (doubleTap) {
-            doubleTap = false
-            dropDownMenu.removeFromSuperview()
-        } else {
-            let userId: String?  = try? myValet.string(forKey: "Id")
-            let userIdInt: Int? = Int(userId!)
-            let userIdString: String = String("\(userIdInt)")
-                let Id = chanelVar
-                let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
-                var request = URLRequest(url:myUrl!)
-                request.httpMethod = "GET"
-                let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                    if error != nil {
-                        self.showErrorContactingServer()
-                        return
-                    }
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                        if let parseJSON = json {
-                            let username: Int? = parseJSON["id"] as? Int
-                            let usernameId = String("\(username)")
-                            if userIdString != usernameId {
-                                DispatchQueue.main.async {
-                                    self.view.addSubview(self.dropDownMenu)
-                                }
-                                self.doubleTap = true
-                            } else {
-                                self.pickAvatar()
-                            }
-                        } else {
-                            self.showErrorContactingServer()
-                            print(error ?? "")
-                        }
-                    } catch {
-                            self.showNoResponseFromServer()
-                            print(error)
-                        }
+        // Check if user is following before showing the follow/block button.
+        switch following {
+            case true:
+                DispatchQueue.main.async {
+                    self.followButton.setTitle("Unfollow", for: .normal)
                 }
-                task.resume()
+            case false:
+                DispatchQueue.main.async {
+                    self.followButton.setTitle("Follow", for: .normal)
+                }
+            }
+            dropDownButtons.forEach { (button) in
+                UIView.animate(withDuration: 0.15, animations: {
+                    button.isHidden = !button.isHidden
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+                
+            }
+    }
+    var following = Bool()
+    var relationshipId = Int()
+    // MARK: Unfollow the user
+    func unfollowUser() {
+        let token: String? = try? tokenValet.string(forKey: "Token")
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token!)",
+            "Accept": "application/json"
+        ]
+        let params = [
+            "username": "\(chanelVar)"
+        ] as [String: String]
+        let url = String("http://10.0.0.2:3000/api/v1/apirelationships/\(relationshipId)")
+        AF.request(URL.init(string: url)!, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let status = JSON!["status"] as? String
+                if status == "User unfollowed" {
+                    self.following = false
+                } else {
+                    return
+                }
+            } catch {
+                print("error code: 1039574638")
+                return
+            }
+            }
+    }
+    // MARK: Follow the user
+    func followUser() {
+        let accessToken: String? = try? tokenValet.string(forKey: "Token")
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/apirelationships/")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("Bearer \(accessToken!)", forHTTPHeaderField: "Authorization")
+        let params = ["id": "\(chanelVar)"] as [String: String]
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+        } catch {
+            print("error code: 1adnf94k392b")
+            return
         }
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                print("error code: 12fue971j")
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let status: String? = parseJSON["status"] as? String
+                    let relationshipId: Int? = parseJSON["relationship_id"] as? Int
+                    if status == "User Followed" {
+                        self.following = true
+                        self.relationshipId = relationshipId!
+                    } else {
+                        self.following = false
+                    }
+                } else {
+                    return
+                }
+            } catch {
+                return
+            }
+        }
+        task.resume()
+    }
+    // MARK: Check if user is following/blocking (for dropdown)
+    func checkForFollowing() {
+        let accessToken: String? = try? tokenValet.string(forKey: "Token")
+                       let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuserfollowing/\(chanelVar).json")
+                       var request = URLRequest(url:myUrl!)
+                       request.httpMethod = "GET"
+                       request.addValue("application/json", forHTTPHeaderField: "content-type")
+                       request.addValue("application/json", forHTTPHeaderField: "Accept")
+                       request.setValue("Bearer \(accessToken!)", forHTTPHeaderField: "Authorization")
+                       let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                           if error != nil {
+                               print("there is an error")
+                               return
+                           }
+                           do {
+                               let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                               if let parseJSON = json {
+                                   let status: String? = parseJSON["status"] as? String
+                                let relationshipId: Int? = parseJSON["relationship_id"] as? Int
+                                DispatchQueue.main.async {
+                                    if status == "User is not following." {
+                                        self.following = false
+                                    } else if status == "User is following." {
+                                        self.following = true
+                                        self.relationshipId = relationshipId!
+                                    } else {
+                                        self.showErrorContactingServer()
+                                    }
+                                }
+                               } else {
+                                   return
+                               }
+                           } catch {
+                               return
+                           }
+                       }
+                   task.resume()
     }
     // MARK: Import images for changing avatar
     func importImage() {

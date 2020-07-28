@@ -31,6 +31,7 @@
     * Added dropdown menu
     * Follow people with the dropdown menu
     * Unfollow people with the dropdown menu.
+    * Fixed bug where user's would get dropdown menu even if the profile was theirs.
 * Channel Followers + following
     * Fixed warning in following whereit would be comparing nil would always return false
     * Removed timer for refreshing the list.

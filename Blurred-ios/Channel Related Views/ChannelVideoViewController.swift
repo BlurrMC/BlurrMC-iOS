@@ -19,6 +19,10 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     @IBOutlet weak var backButtonOutlet: UIButton!
     @IBOutlet weak var share: UIImageView!
     var videoUsername = String()
+    var nextVideoId = Int()
+    var previousvideoId = Int()
+    var lastVideo = Bool()
+    var firstVideo = Bool()
     @IBOutlet weak var videoUserAvatar: UIImageView!
     @IBOutlet weak var videoLike: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -232,6 +236,10 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                     guard let videoUrl: String = parseJSON["video_url"] as? String else { return }
                     let descriptionString: String? = parseJSON["description"] as? String
                     guard let username: String = parseJSON["username"] as? String else { return }
+                    let nextVideo = parseJSON["nextvideoid"] as? Int
+                    let previousVideo = parseJSON["previousvideoid"] as? Int
+                    self.previousvideoId = previousVideo ?? 0
+                    self.nextVideoId = nextVideo ?? 0
                     self.videoUsername = username
                     self.views = viewCount
                     self.publishdate = publishDate ?? "February 3rd 2007"
@@ -303,6 +311,12 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         let liketap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.liketapFunction))
         let sharetap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.sharetapFunction))
         let descriptiontap = UITapGestureRecognizer(target: self, action: #selector(ChannelVideoViewController.descriptiontapFunction))
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(videoSwipe))
+        swipeDown.direction = .down
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(videoSwipe))
+        swipeUp.direction = .up
+        videoView.addGestureRecognizer(swipeUp)
+        videoView.addGestureRecognizer(swipeDown)
         descriptionLabel.addGestureRecognizer(descriptiontap)
         share.addGestureRecognizer(sharetap)
         commentImage.addGestureRecognizer(tappp)
@@ -311,6 +325,22 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         videoView.addGestureRecognizer(tap)
         backButtonOutlet.layer.zPosition = 1
         videoUserAvatar.layer.zPosition = 2
+    }
+    @objc func videoSwipe(gesture: UIGestureRecognizer) {
+
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+
+            switch swipeGesture.direction {
+            case .down:
+                // Go to previous video
+                print("swiped down")
+            case .up:
+                // Go to next video.
+                print("swiped up")
+            default:
+                break
+            }
+        }
     }
     var doubleTap : Bool! = false
     // MARK: Pauses/Plays the video
@@ -410,8 +440,6 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                 if segue.identifier == "showVideoUserChannel" {
                     vc.chanelVar = videoUsername
                 }
-            } else {
-                self.showErrorContactingServer()
             }
         } else if let vc = segue.destination as? CommentingViewController {
             if segue.identifier == "showComments" {
@@ -437,6 +465,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         avPlayer.pause()
+        avPlayer.replaceCurrentItem(with: nil)
         isDismissed = true
         avPlayerLayer = nil
     }

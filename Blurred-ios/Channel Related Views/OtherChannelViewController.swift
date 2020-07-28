@@ -21,6 +21,45 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
     }
+    var isItThemselves = Bool()
+    // MARK: Checks the user if they are viewing themselves (dropdown menu).
+    func checkIfOtherUserIsCurrentUser() {
+        let userId: String?  = try? myValet.string(forKey: "Id")
+                    let userIdInt: Int? = Int(userId!)
+                    let userIdString: String = String("\(userIdInt)")
+                        let Id = chanelVar
+                        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
+                        var request = URLRequest(url:myUrl!)
+                        request.httpMethod = "GET"
+                        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                            if error != nil {
+                                print(error as Any)
+                                return
+                            }
+                                                do {
+                                                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                                    if let parseJSON = json {
+                                                        let username: Int? = parseJSON["id"] as? Int
+                                                        let usernameId = String("\(username)")
+                                                        if userIdString != usernameId {
+                                                                self.isItThemselves = false
+                                                        } else {
+                                                            self.isItThemselves = true
+                                                        }
+                                                    } else {
+                                                        print(error ?? "")
+                                                        return
+                                                    }
+                                                } catch {
+                                                    print(error)
+                                                        return
+                                                }
+                                    
+                        }
+        task.resume()
+    }
+    
+
     @IBAction func followButtonTap(_ sender: Any) {
         following = !following
         switch following {
@@ -61,7 +100,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                            Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.thumbnailView)
                        }
                    } catch {
-                       self.showErrorContactingServer()
+                       return
                    }
         }
         return cell
@@ -116,12 +155,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     @IBOutlet weak var followingLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 240, width: self.view.frame.size.width, height: 1))
-        if traitCollection.userInterfaceStyle == .light {
-            lineView.backgroundColor = UIColor.black
-        } else {
-            lineView.backgroundColor = UIColor.white
-        }
+        ImageCache.shared.ttl = 120
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshVideos(_:)), for: .valueChanged)
         self.followersLabel.isUserInteractionEnabled = true
@@ -135,6 +169,12 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
         channelVideoIds()
+        let lineView = UIView(frame: CGRect(x: 0, y: 240, width: self.view.frame.size.width, height: 1  ))
+        if traitCollection.userInterfaceStyle == .light {
+            lineView.backgroundColor = UIColor.black
+        } else {
+            lineView.backgroundColor = UIColor.white
+        }
         self.avatarImage.contentScaleFactor = 1.5
     }
     @objc private func refreshVideos(_ sender: Any) {
@@ -153,6 +193,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         loadMemberChannel()
         channelVideoIds()
         checkForFollowing()
+        checkIfOtherUserIsCurrentUser()
     }
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
@@ -164,24 +205,29 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     // MARK: Dropdown menu tap function
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
-        // Check if user is following before showing the follow/block button.
-        switch following {
-            case true:
-                DispatchQueue.main.async {
-                    self.followButton.setTitle("Unfollow", for: .normal)
+        if isItThemselves == false {
+            // Check if user is following before showing the follow/block button.
+            switch following {
+                case true:
+                    DispatchQueue.main.async {
+                        self.followButton.setTitle("Unfollow", for: .normal)
+                    }
+                case false:
+                    DispatchQueue.main.async {
+                        self.followButton.setTitle("Follow", for: .normal)
+                    }
                 }
-            case false:
-                DispatchQueue.main.async {
-                    self.followButton.setTitle("Follow", for: .normal)
+                dropDownButtons.forEach { (button) in
+                    UIView.animate(withDuration: 0.15, animations: {
+                        button.isHidden = !button.isHidden
+                        self.view.layoutIfNeeded()
+                    }, completion: nil)
+                    
                 }
-            }
-            dropDownButtons.forEach { (button) in
-                UIView.animate(withDuration: 0.15, animations: {
-                    button.isHidden = !button.isHidden
-                    self.view.layoutIfNeeded()
-                }, completion: nil)
-                
-            }
+        } else {
+            self.pickAvatar()
+        }
+        
     }
     var following = Bool()
     var relationshipId = Int()
@@ -279,7 +325,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                                         self.following = true
                                         self.relationshipId = relationshipId!
                                     } else {
-                                        self.showErrorContactingServer()
+                                        print("error code: afnadf8y3")
+                                        return
                                     }
                                 }
                                } else {
@@ -470,8 +517,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                             Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
                         }
                     } else {
-                        self.showErrorContactingServer()
                         print(error ?? "")
+                        return
                     }
                 } catch {
                         self.showNoResponseFromServer()
@@ -488,8 +535,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 if segue.identifier == "showOtherFollower" {
                     vc.followerVar = channelUsername
                 }
-            } else {
-                self.showErrorContactingServer()
             }
         } else if segue.destination is OtherFollowListViewController {
             if let vc = segue.destination as? OtherFollowListViewController {
@@ -510,8 +555,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                         vc.videoString = videos[selectedRow].id
                     }
                 }
-            } else {
-                self.showUnkownError()
             }
         }
     }

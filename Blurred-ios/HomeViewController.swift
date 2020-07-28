@@ -59,15 +59,6 @@ class HomeViewController: UIViewController {  // Ah yes, home
                                     self.window?.makeKeyAndVisible()
                                    } else {
                                     self.showErrorContactingServer()
-                                       let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
-                                    DispatchQueue.main.async {
-                                        self.present(loginPage, animated:false, completion:nil)
-                                    }
-                                    self.window =  UIWindow(frame: UIScreen.main.bounds)
-                                    self.window?.rootViewController = loginPage
-                                    DispatchQueue.main.async {
-                                        self.window?.makeKeyAndVisible()
-                                    }
                                    }
                                } else {
                                    return

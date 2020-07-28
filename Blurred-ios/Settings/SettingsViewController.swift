@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController {
     func clearAllCache() {
         removeNetworkDictionaryCache()
         ImageCache.shared.removeAll()
+        DataLoader.sharedUrlCache.removeAllCachedResponses()
         clearUrlCache()
     }
     // MARK: Clear the url shared cache

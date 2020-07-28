@@ -102,6 +102,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         self.view.addSubview(lineView)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
         avatarImage.isUserInteractionEnabled = true
+        ImageCache.shared.ttl = 120
         avatarImage.addGestureRecognizer(tapGesture)
         self.followersLabel.isUserInteractionEnabled = true
         self.followingLabel.isUserInteractionEnabled = true

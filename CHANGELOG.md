@@ -14,6 +14,15 @@
     * Made it so that after the view count it says Views (or view if it only has one view)
     * Added better optimization (instead of `if, if else, if else, if else` instead it now uses switch and case)
     * Removed timer from refreshing video (what?)
+    * Fixed bug where if you watched enough videos the app would crash due to memory leak.
+    * Changed video aspect resize from resizeaspectfill to resizeaspect.
+    * Added video scrolling (with texture tableview + cell node)
+    * Moved all overlays to seperate view controller
+    * Temporarily removed the share functionality.
+    * ChannelVideoOverlay WORKS but the implementation of it is terrible (literal dumpster fire)
+* Channel Video Overlay View
+    * Made  `else if` statements into switches.
+    * Sharing + Channel + Comment button don't do anything as of right now
 * Channel Dropdown View Controller 
     * Removed. All the functions have been move to the other channel view controller.
 * Channel Views
@@ -54,8 +63,15 @@
     * Made it so the app checks if you are valid once you have loaded the home page.
     * Made it so app doesn't crash when you try and sign out too quicky.
     * Fixed bug where app would crash when you would sign out
+* Home View Controller 
+    * Changed if else statements to switch
+    * Removed showInvalidSession (as it wasn't working anyway)
+    * App actually kicks you into the login screen if your user token is invalid
+    * Added status code check (to check 401 if user is unauthorized)
 * Storyboards
     * Changed the flip icon to the none deprecated one in the record view.
+    * Added second storyboard
+    * Removed view from video view controller (it is no longer needed)
 * Settings
     * Change sign out button color to red
     * Added clear cache button.
@@ -81,6 +97,8 @@
     * Changed minimum ios version to ios 14.
     * Added more and better mark comments.
     * Changed name of some groups.
+    * Added video group
+    * Added bridging header (to support gradient node objective c files)
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

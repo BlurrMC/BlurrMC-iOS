@@ -214,8 +214,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 // Display only user channels and only query for channels
             }
         } else {
-            let search = String("\(searchBarTextField.text)")
-            searchString = search
+            searchString = searchBarTextField.text ?? ""
             isItUserSearch = false
             DispatchQueue.main.async {
                 self.tableView.isHidden = true

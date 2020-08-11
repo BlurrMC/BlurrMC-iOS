@@ -1,24 +1,77 @@
 PODS:
   - Alamofire (5.2.2)
   - Nuke (9.1.1)
+  - PINCache (3.0.1-beta.8):
+    - PINCache/Arc-exception-safe (= 3.0.1-beta.8)
+    - PINCache/Core (= 3.0.1-beta.8)
+  - PINCache/Arc-exception-safe (3.0.1-beta.8):
+    - PINCache/Core
+  - PINCache/Core (3.0.1-beta.8):
+    - PINOperation (~> 1.1.1)
+  - PINOperation (1.1.2)
+  - PINRemoteImage/Core (3.0.0):
+    - PINOperation
+  - PINRemoteImage/iOS (3.0.0):
+    - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.0):
+    - PINCache (= 3.0.1-beta.8)
+    - PINRemoteImage/Core
+  - Texture (3.0.0):
+    - Texture/AssetsLibrary (= 3.0.0)
+    - Texture/Core (= 3.0.0)
+    - Texture/MapKit (= 3.0.0)
+    - Texture/Photos (= 3.0.0)
+    - Texture/PINRemoteImage (= 3.0.0)
+    - Texture/Video (= 3.0.0)
+  - Texture/AssetsLibrary (3.0.0):
+    - Texture/Core
+  - Texture/Core (3.0.0)
+  - Texture/MapKit (3.0.0):
+    - Texture/Core
+  - Texture/Photos (3.0.0):
+    - Texture/Core
+  - Texture/PINRemoteImage (3.0.0):
+    - PINRemoteImage/iOS (~> 3.0.0)
+    - PINRemoteImage/PINCache
+    - Texture/Core
+  - Texture/Video (3.0.0):
+    - Texture/Core
   - Valet (4.1.1)
 
 DEPENDENCIES:
   - Alamofire
   - Nuke
+  - PINCache (from `https://github.com/pinterest/PINCache`)
+  - Texture
   - Valet
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Nuke
+    - PINOperation
+    - PINRemoteImage
+    - Texture
     - Valet
+
+EXTERNAL SOURCES:
+  PINCache:
+    :git: https://github.com/pinterest/PINCache
+
+CHECKOUT OPTIONS:
+  PINCache:
+    :commit: aca69b9e7c8903f28b89658a3b4e485e69e0c539
+    :git: https://github.com/pinterest/PINCache
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Nuke: af4301b154d3afd8a3b045a5194a9a773a00b7a8
+  PINCache: 534fd41d358d828dfdf227a0d327f3673a65e20b
+  PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
+  PINRemoteImage: e2b89e19fb6e77ffc099f9d9f3b3fe1745e3f9f9
+  Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   Valet: 11ab0e318b7284888a81392e36136563b4af5deb
 
-PODFILE CHECKSUM: e4e9218d3b10d628472dd1a80fa83526afb326cf
+PODFILE CHECKSUM: 520e3278ec93160dc36774fbe1ee017395b469a7
 
 COCOAPODS: 1.9.3

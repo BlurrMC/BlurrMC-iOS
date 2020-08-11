@@ -526,7 +526,28 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                     }
             }
             task.resume()
-    } // I will set this up later
+    }
+    var timer2 = Timer()
+    func touchesEnded(touches: NSSet, withEvent event: UIEvent)
+    {
+        super.touchesEnded(touches as! Set<UITouch>, with: event)
+        dismissView()
+    }
+    func dismissView() {
+        if followButton.isHidden == false && blockButton.isHidden == false {
+            if isItThemselves == false {
+                    dropDownButtons.forEach { (button) in
+                        UIView.animate(withDuration: 0.15, animations: {
+                            button.isHidden = !button.isHidden
+                            self.view.layoutIfNeeded()
+                        }, completion: nil)
+                        
+                    }
+            }
+            
+        }
+        self.view.gestureRecognizers?.forEach(view.removeGestureRecognizer)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.destination is OtherFollowerListViewController

@@ -44,10 +44,10 @@ class HomeViewController: UIViewController {  // Ah yes, home
                                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                                if let parseJSON = json {
                                    let status: String? = parseJSON["status"] as? String
-                                   if status == "User is valid! YAY :)" {
+                                switch status {
+                                case "User is valid! YAY :)":
                                     return
-                                   } else if status == "User is not valid. Oh no!" {
-                                    self.showInvalidSession()
+                                case "User is not valid. Oh no!":
                                     try self.myValet.removeObject(forKey: "Id")
                                     try self.tokenValet.removeObject(forKey: "Token")
                                     try self.myValet.removeAllObjects()
@@ -57,9 +57,27 @@ class HomeViewController: UIViewController {  // Ah yes, home
                                     self.window =  UIWindow(frame: UIScreen.main.bounds)
                                     self.window?.rootViewController = loginPage
                                     self.window?.makeKeyAndVisible()
-                                   } else {
-                                    self.showErrorContactingServer()
-                                   }
+                                case .none:
+                                    if let httpResponse = response as? HTTPURLResponse {
+                                        if httpResponse.statusCode == 401 {
+                                            try self.myValet.removeObject(forKey: "Id")
+                                            try self.tokenValet.removeObject(forKey: "Token")
+                                            try self.myValet.removeAllObjects()
+                                            try self.tokenValet.removeAllObjects()
+                                               let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
+                                               self.present(loginPage, animated:false, completion:nil)
+                                            self.window =  UIWindow(frame: UIScreen.main.bounds)
+                                            DispatchQueue.main.async {
+                                                self.window?.rootViewController = loginPage
+                                                self.window?.makeKeyAndVisible()
+                                            }
+                                        } else {
+                                            self.showErrorContactingServer()
+                                        }
+                                    }
+                                case .some(_):
+                                    break
+                                }
                                } else {
                                    return
                                }
@@ -68,18 +86,6 @@ class HomeViewController: UIViewController {  // Ah yes, home
                            }
                        }
                    task.resume()
-    }
-    
-    func showInvalidSession() {
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "Your session is invalid.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "Login", style: UIAlertAction.Style.default, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
     }
     func showErrorContactingServer() {
         // create the alert

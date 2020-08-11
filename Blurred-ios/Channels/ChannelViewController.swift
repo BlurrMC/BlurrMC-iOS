@@ -15,6 +15,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
     }
+    var coder = NSCoder()
     private let refreshControl = UIRefreshControl()
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
@@ -46,12 +47,12 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         self.performSegue(withIdentifier: "showVideo", sender: self)
     }
     func collectionView(CollectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
-        let destinationVC = ChannelVideoViewController()
-        destinationVC.performSegue(withIdentifier: "showVideo", sender: self)
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
+        let destinationVC = ChannelVideoViewController(coder: coder)
+        destinationVC?.performSegue(withIdentifier: "showVideo", sender: self)
     }
     @IBOutlet weak var collectionView: UICollectionView!
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
         if segue.destination is ChannelVideoViewController
         {
@@ -60,6 +61,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
                         let selectedRow = indexPath.row
                         vc.videoString = videos[selectedRow].id
+                        let user = Int(userId)
+                        vc.channelId = user!
+                        vc.rowNumber = indexPath.item
                     }
                 }
             }

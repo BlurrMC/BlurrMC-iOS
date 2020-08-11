@@ -9,6 +9,8 @@ target 'Blurred-ios' do
   pod 'Valet'
   pod 'Alamofire'
   pod 'Nuke'
+  pod 'Texture'
+  pod 'PINCache', :git => "https://github.com/pinterest/PINCache"
   # Pods end
 
   target 'Blurred-iosTests' do

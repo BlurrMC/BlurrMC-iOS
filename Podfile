@@ -10,7 +10,7 @@ target 'Blurred-ios' do
   pod 'Alamofire'
   pod 'Nuke'
   pod 'Texture'
-  pod 'PINCache', :git => "https://github.com/pinterest/PINCache"
+  pod 'PINCache', :git => "https://github.com/pinterest/PINCache", :branch => 'master'
   # Pods end
 
   target 'Blurred-iosTests' do

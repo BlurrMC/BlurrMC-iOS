@@ -28,7 +28,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         // See note below
     }
     
-    // MARK: Setup window for sharing functionality (disabled cause it doesn't work)
+    // MARK: Setup window for sharing functionality (disabled temporarily)
     /*func shareWindow() {
         CacheManager.shared.getFileWith(stringUrl: "\(videoUrl)") { result in
                 switch result {
@@ -262,16 +262,17 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         // show the alert
         self.present(alert, animated: true, completion: nil)
     }
-    // MARK: Tap function for channel
-    @objc func tappFunction(sender:UITapGestureRecognizer) {
+    
+    // MARK: Function for user channel
+    func showUserChannel() {
         self.performSegue(withIdentifier: "showVideoUserChannel", sender: self)
     }
     
-    // MARK: Tap function for comments
-    @objc func tapppFunction(sender:UITapGestureRecognizer) {
-        isDismissed = true
+    // MARK: Function for video comments
+    func showVideoComments() {
         self.performSegue(withIdentifier: "showComments", sender: self)
     }
+    
     var channelId = Int()
     func channelVideoIds() { // Still not done we need to add the user's butt image
         let url = URL(string: "http://10.0.0.2:3000/api/v1/channelvideos/\(channelId).json")

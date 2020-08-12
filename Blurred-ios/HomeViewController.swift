@@ -64,10 +64,10 @@ class HomeViewController: UIViewController {  // Ah yes, home
                                             try self.tokenValet.removeObject(forKey: "Token")
                                             try self.myValet.removeAllObjects()
                                             try self.tokenValet.removeAllObjects()
-                                               let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
-                                               self.present(loginPage, animated:false, completion:nil)
                                             self.window =  UIWindow(frame: UIScreen.main.bounds)
                                             DispatchQueue.main.async {
+                                                let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
+                                                self.present(loginPage, animated:false, completion:nil)
                                                 self.window?.rootViewController = loginPage
                                                 self.window?.makeKeyAndVisible()
                                             }

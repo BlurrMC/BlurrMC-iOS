@@ -3,7 +3,7 @@
 * ChannelVideoView
     * Fixed bug where liking video would first go +2 and then correct itself half of a second later.
     * Added liking to videos (+ like count)
-    * Added comments to videos
+    * Ad 4ded comments to videos
     * Tap on any part of the video preview to pause or play the video.
     * Added description label.
     * Videos play sound even if you are on silent (fixed it for reals now.)
@@ -68,6 +68,7 @@
     * Removed showInvalidSession (as it wasn't working anyway)
     * App actually kicks you into the login screen if your user token is invalid
     * Added status code check (to check 401 if user is unauthorized)
+    * Fixed bug where app would crash if your user was invalid
 * Storyboards
     * Changed the flip icon to the none deprecated one in the record view.
     * Added second storyboard

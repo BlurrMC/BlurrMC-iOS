@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0D81082D068F71EEEF45F04A /* Pods_Blurred_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAE9BA564235C9D40B2D093 /* Pods_Blurred_ios.framework */; };
+		593DCEFC24E36E53004821B7 /* ChannelVideoOverlayTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593DCEFB24E36E53004821B7 /* ChannelVideoOverlayTouch.swift */; };
+		594B8BD024E41793002D620D /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594B8BCF24E41793002D620D /* SearchCell.swift */; };
 		5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2527AD2484388C0014F6CA /* Assets.xcassets */; };
 		9781C55A5BAEC9220B261C1E /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
 		D839AE13C55FBB2440896A3B /* Pods_Blurred_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */; };
@@ -23,7 +25,6 @@
 		E146ACF9247441F100D3ED10 /* OtherFollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF8247441F100D3ED10 /* OtherFollowingCell.swift */; };
 		E15D6FC224BA5DCD00CC1E0E /* CommentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */; };
 		E15D6FC424BA5E3F00CC1E0E /* CommentBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */; };
-		E16B667924AB8A24005C3A78 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16B667824AB8A23005C3A78 /* SearchCell.swift */; };
 		E17BF2C524670C8900073B66 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BF2C424670C8900073B66 /* FollowerCell.swift */; };
 		E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */; };
 		E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA897024E0427A0015C546 /* CacheManager.swift */; };
@@ -71,6 +72,8 @@
 /* Begin PBXFileReference section */
 		186FD8E55159C7A92149DA30 /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios_Blurred_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		593DCEFB24E36E53004821B7 /* ChannelVideoOverlayTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoOverlayTouch.swift; sourceTree = "<group>"; };
+		594B8BCF24E41793002D620D /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		5B2527AD2484388C0014F6CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BAC2D359F4EBEC4B7D40276 /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7857A336EF291D3D713578FE /* Pods-Blurred-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.debug.xcconfig"; sourceTree = "<group>"; };
@@ -90,7 +93,6 @@
 		E146ACF8247441F100D3ED10 /* OtherFollowingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowingCell.swift; sourceTree = "<group>"; };
 		E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentingViewController.swift; sourceTree = "<group>"; };
 		E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentBoard.storyboard; sourceTree = "<group>"; };
-		E16B667824AB8A23005C3A78 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchCell.swift; path = "/Users/martinvelev/Documents/Blurred-ios/Blurred-ios/Cells/SearchCell.swift"; sourceTree = "<absolute>"; };
 		E17BF2C424670C8900073B66 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoViewController.swift; sourceTree = "<group>"; };
 		E19286EB24D72F1B00382D98 /* Blurred-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blurred-ios-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -169,7 +171,7 @@
 		E13848CF24C87E1C00232C7B /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				E16B667824AB8A23005C3A78 /* SearchCell.swift */,
+				594B8BCF24E41793002D620D /* SearchCell.swift */,
 				E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */,
 			);
 			path = Search;
@@ -241,6 +243,7 @@
 			children = (
 				E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */,
 				E1BA897624E18CDC0015C546 /* ChannelVideoOverlayView.swift */,
+				593DCEFB24E36E53004821B7 /* ChannelVideoOverlayTouch.swift */,
 			);
 			path = Overlay;
 			sourceTree = "<group>";
@@ -306,10 +309,10 @@
 				E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */,
 				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
 				E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */,
-				E1DF6F7C244F550600E11BF9 /* Info.plist */,
 				E15D6FC524BA5E4C00CC1E0E /* Storyboards */,
 				E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */,
 				E1DF6F6F244F550300E11BF9 /* SearchViewController.swift */,
+				E1DF6F7C244F550600E11BF9 /* Info.plist */,
 				E1D8C895246F119000F1EAD1 /* Settings.bundle */,
 				E12808CC245659D6001BF3F3 /* SignupViewController.swift */,
 			);
@@ -595,6 +598,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1DF6F70244F550300E11BF9 /* SearchViewController.swift in Sources */,
+				594B8BD024E41793002D620D /* SearchCell.swift in Sources */,
 				E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */,
 				E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */,
 				E1F28474247C19CE009F8B0B /* UploadDetailsViewController.swift in Sources */,
@@ -608,10 +612,10 @@
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
 				E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */,
 				E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */,
+				593DCEFC24E36E53004821B7 /* ChannelVideoOverlayTouch.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
 				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,
-				E16B667924AB8A24005C3A78 /* SearchCell.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */,
@@ -798,7 +802,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -812,7 +816,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.5;
+				MARKETING_VERSION = 0.3.5p;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -833,7 +837,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -841,7 +845,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.5;
+				MARKETING_VERSION = 0.3.5p;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";

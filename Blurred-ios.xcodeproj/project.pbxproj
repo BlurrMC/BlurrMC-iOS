@@ -243,7 +243,6 @@
 			children = (
 				E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */,
 				E1BA897624E18CDC0015C546 /* ChannelVideoOverlayView.swift */,
-				593DCEFB24E36E53004821B7 /* ChannelVideoOverlayTouch.swift */,
 			);
 			path = Overlay;
 			sourceTree = "<group>";
@@ -612,7 +611,6 @@
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
 				E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */,
 				E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */,
-				593DCEFC24E36E53004821B7 /* ChannelVideoOverlayTouch.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
 				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,

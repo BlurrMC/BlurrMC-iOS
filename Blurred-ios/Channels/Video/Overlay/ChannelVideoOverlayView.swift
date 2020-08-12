@@ -59,7 +59,6 @@ class ChannelVideoOverlayView: UIView {
         }
     }
     
-    
     @IBOutlet var contentView: UIView!
     
     override init(frame: CGRect) {

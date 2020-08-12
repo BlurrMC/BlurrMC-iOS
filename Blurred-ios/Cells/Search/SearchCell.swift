@@ -1,12 +1,11 @@
 //
 //  SearchCell.swift
-//
+//  Blurred-ios
 //
 //  Created by Martin Velev on 6/30/20.
+//  Copyright © 2020 BlurrMC. All rights reserved.
 //
 
-// Warning
-// Cell currently not in use
 import UIKit
 
 class SearchCell: UITableViewCell {

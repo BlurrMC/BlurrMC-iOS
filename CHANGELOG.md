@@ -19,10 +19,11 @@
     * Added video scrolling (with texture tableview + cell node)
     * Moved all overlays to seperate view controller
     * Temporarily removed the share functionality.
-    * ChannelVideoOverlay WORKS but the implementation of it is terrible (literal dumpster fire)
 * Channel Video Overlay View
     * Made  `else if` statements into switches.
     * Sharing + Channel + Comment button don't do anything as of right now
+    * Channel icon, like count, and description update (tap recognizers don't work)
+    * Added Channel Video Overlay Touch UI Delgate protcol for communication between view and touch class.
 * Channel Dropdown View Controller 
     * Removed. All the functions have been move to the other channel view controller.
 * Channel Views

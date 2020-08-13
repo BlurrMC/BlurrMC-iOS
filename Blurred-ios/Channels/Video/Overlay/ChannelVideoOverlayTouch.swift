@@ -14,7 +14,15 @@ import Alamofire
 
 class ChannelVideoOverlayTouch {
     
+    // MARK: Like Tap
+    @objc func liketapFunction(sender:UITapGestureRecognizer) {
+        likeTapFunction()
+    }
     
+    // MARK: Description Tap
+    @objc func descriptiontapFunction(sender:UITapGestureRecognizer) {
+        descriptionTap()
+    }
     
     // MARK: Check the like count of video and set it
     func checkLikeCount() {
@@ -24,9 +32,7 @@ class ChannelVideoOverlayTouch {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                 guard let likecount = JSON!["likecount"] as? Int else { return }
                 DispatchQueue.main.async {
-                    let overlay = ChannelVideoOverlayView()
-                    overlay.likeNumber = likecount
-                    overlay.changeLikeCount()
+                    self.delegate?.didChangeLikeNumber(self, likeNumber: likecount)
                 }
             } catch {
                 return
@@ -34,11 +40,15 @@ class ChannelVideoOverlayTouch {
         }
     }
     
+    init(videoId:Int) {
+        self.videoId = videoId
+    }
+    
     // MARK: Checks if user liked video
     func sendCheckLikeRequest() {
-        let token: String? = try? tokenValet.string(forKey: "Token")
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token!)",
+            "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
         let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/didyoulikeit/")
@@ -49,9 +59,7 @@ class ChannelVideoOverlayTouch {
                 let status = JSON!["status"] as? String
                 if status == "This video is liked." {
                     DispatchQueue.main.async {
-                        let overlay = ChannelVideoOverlayView()
-                        overlay.isVideoLiked = true
-                        overlay.changeHeartIcon()
+                        self.delegate?.didChangeHeartIcon(self, videoLiked: true)
                     }
                     guard let likeid = JSON!["likeid"] as? Dictionary<String, Any> else { return }
                     guard let id = likeid["id"] as? Int else { return }
@@ -59,9 +67,7 @@ class ChannelVideoOverlayTouch {
                     self.isVideoLiked = true
                 } else if status == "Video has not been liked" {
                     DispatchQueue.main.async {
-                        let overlay = ChannelVideoOverlayView()
-                        overlay.isVideoLiked = false
-                        overlay.changeHeartIcon()
+                        self.delegate?.didChangeHeartIcon(self, videoLiked: false)
                     }
                     self.isVideoLiked = false
                 } else {
@@ -93,15 +99,11 @@ class ChannelVideoOverlayTouch {
                     self.sendDeleteLikeRequest()
                 case "Video has been liked":
                     DispatchQueue.main.async {
-                        let overlay = ChannelVideoOverlayView()
-                        overlay.isVideoLiked = true
-                        overlay.changeHeartIcon()
+                        self.delegate?.didChangeHeartIcon(self, videoLiked: true)
                     }
                 case "Video has been unliked.":
                     DispatchQueue.main.async {
-                        let overlay = ChannelVideoOverlayView()
-                        overlay.isVideoLiked = false
-                        overlay.changeHeartIcon()
+                        self.delegate?.didChangeHeartIcon(self, videoLiked: false)
                     }
                 case .none:
                     break
@@ -111,6 +113,7 @@ class ChannelVideoOverlayTouch {
                 self.checkLikeCount()
                 self.sendCheckLikeRequest()
             } catch {
+                print(error)
                 print("error code: 1972026583")
                 return
             }
@@ -121,34 +124,26 @@ class ChannelVideoOverlayTouch {
     func likeTapFunction() {
         if isVideoLiked == true {
             DispatchQueue.main.async {
-                let overlay = ChannelVideoOverlayView()
-                overlay.isVideoLiked = false
-                overlay.changeHeartIcon()
+                self.delegate?.didChangeHeartIcon(self, videoLiked: false)
             }
             if likenumber != 0 {
                 let subtot = likenumber - 1
                 DispatchQueue.main.async {
-                    let overlay = ChannelVideoOverlayView()
-                    overlay.likeNumber = subtot
-                    overlay.changeLikeCount()
+                    self.delegate?.didChangeLikeNumber(self, likeNumber: subtot)
                 }
             }
             sendDeleteLikeRequest()
             isVideoLiked = false
         } else if isVideoLiked == false {
             DispatchQueue.main.async {
-                let overlay = ChannelVideoOverlayView()
-                overlay.isVideoLiked = true
-                overlay.changeHeartIcon()
+                self.delegate?.didChangeHeartIcon(self, videoLiked: true)
             }
             if likenumber != 0 {
                 likenumber = likenumber - 1
                 let subtot = likenumber + 1
                 
                 DispatchQueue.main.async {
-                    let overlay = ChannelVideoOverlayView()
-                    overlay.likeNumber = subtot
-                    overlay.changeLikeCount()
+                    self.delegate?.didChangeLikeNumber(self, likeNumber: subtot)
                 }
             }
             sendLikeRequest()
@@ -185,18 +180,14 @@ class ChannelVideoOverlayTouch {
                                    let railsUrl = String("http://10.0.0.2:3000\(avatarUrl!)")
                                 
                                    DispatchQueue.main.async {
-                                        let overlay = ChannelVideoOverlayView()
-                                        overlay.avatarUrl = railsUrl
-                                        overlay.changeChannelAvatar()
+                                    self.delegate?.didChangeAvatarUrl(self, avatarUrl: railsUrl)
                                    }
                                } catch {
                                    return
                                }
                     }
                     DispatchQueue.main.async {
-                        let overlay = ChannelVideoOverlayView()
-                        overlay.DefinedDescription = descriptionString
-                        overlay.updateDescription()
+                        self.delegate?.didChangeDescription(self, definedDescription: descriptionString)
                     }
                 } else {
                     print("error: \(String(describing: error)) Error code: 1jfnt04l2-2")
@@ -214,7 +205,8 @@ class ChannelVideoOverlayTouch {
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     
     // MARK: Variables
-    var videoId = Int()
+    var delegate: ChannelVideoOverlayTouchUIDelegate?
+    var videoId: Int
     var videoUrl = String() // MARK: Not currently in use.
     var isDismissed = Bool()
     var isVideoLiked = Bool()
@@ -243,9 +235,7 @@ class ChannelVideoOverlayTouch {
                     self.sendLikeRequest()
                 } else if status == "Video has been unliked." {
                     DispatchQueue.main.async {
-                        let overlay = ChannelVideoOverlayView()
-                        overlay.isVideoLiked = false
-                        overlay.changeHeartIcon()
+                        self.delegate?.didChangeHeartIcon(self, videoLiked: false)
                     }
                 }
                 self.checkLikeCount()
@@ -288,15 +278,12 @@ class ChannelVideoOverlayTouch {
             }
             let newDescription: String = "\(self.publishdate) \n\(viewCount)"
             DispatchQueue.main.async {
-                let overlay = ChannelVideoOverlayView()
-                overlay.DefinedDescription = newDescription
-                overlay.updateDescription()
+                self.delegate?.didChangeDescription(self, definedDescription: newDescription)
             }
             isItSwitched = true
         } else {
             DispatchQueue.main.async {
-                let overlay = ChannelVideoOverlayView()
-                overlay.videoDescription.text = self.videoDesc
+                self.delegate?.didChangeDescription(self, definedDescription: self.videoDesc)
             }
             isItSwitched = false
         }

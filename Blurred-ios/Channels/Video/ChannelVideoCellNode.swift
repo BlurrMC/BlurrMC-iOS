@@ -33,14 +33,11 @@ class ChannelVideoCellNode: ASCellNode {
         self.addSubnode(self.gradientNode)
         DispatchQueue.main.async() {
             let overlay = ChannelVideoOverlayView()
+            overlay.videoId = videoId
             overlay.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
             self.view.addSubview(overlay)
         }
-        let touches = ChannelVideoOverlayTouch()
-        touches.videoId = videoId
-        touches.sendRequest()
-        touches.sendCheckLikeRequest()
-        touches.checkLikeCount()
+        
   }
   override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
     let ratio = UIScreen.main.bounds.height / UIScreen.main.bounds.width

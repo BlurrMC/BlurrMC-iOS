@@ -41,7 +41,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Nuke
-  - PINCache (from `https://github.com/pinterest/PINCache`)
+  - PINCache (from `https://github.com/pinterest/PINCache`, branch `master`)
   - Texture
   - Valet
 
@@ -56,11 +56,12 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   PINCache:
+    :branch: master
     :git: https://github.com/pinterest/PINCache
 
 CHECKOUT OPTIONS:
   PINCache:
-    :commit: aca69b9e7c8903f28b89658a3b4e485e69e0c539
+    :commit: 83ed1a03538a4e09f580732fa1d7032bbddbb21e
     :git: https://github.com/pinterest/PINCache
 
 SPEC CHECKSUMS:
@@ -72,6 +73,6 @@ SPEC CHECKSUMS:
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   Valet: 11ab0e318b7284888a81392e36136563b4af5deb
 
-PODFILE CHECKSUM: 520e3278ec93160dc36774fbe1ee017395b469a7
+PODFILE CHECKSUM: 7fc18753b6f2fd449b61260f8840975831f9643e
 
 COCOAPODS: 1.9.3

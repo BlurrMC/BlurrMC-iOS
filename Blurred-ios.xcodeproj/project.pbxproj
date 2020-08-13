@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0D81082D068F71EEEF45F04A /* Pods_Blurred_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAE9BA564235C9D40B2D093 /* Pods_Blurred_ios.framework */; };
-		593DCEFC24E36E53004821B7 /* ChannelVideoOverlayTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593DCEFB24E36E53004821B7 /* ChannelVideoOverlayTouch.swift */; };
 		594B8BD024E41793002D620D /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594B8BCF24E41793002D620D /* SearchCell.swift */; };
 		5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2527AD2484388C0014F6CA /* Assets.xcassets */; };
 		9781C55A5BAEC9220B261C1E /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
@@ -18,6 +17,8 @@
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
 		E139685424D34F4700F01FDE /* ChannelVideoCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */; };
+		E1407A2424E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1407A2324E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift */; };
+		E14591E824E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14591E724E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift */; };
 		E146ACF12474188700D3ED10 /* OtherChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */; };
 		E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */; };
 		E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */; };
@@ -72,7 +73,6 @@
 /* Begin PBXFileReference section */
 		186FD8E55159C7A92149DA30 /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios_Blurred_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		593DCEFB24E36E53004821B7 /* ChannelVideoOverlayTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoOverlayTouch.swift; sourceTree = "<group>"; };
 		594B8BCF24E41793002D620D /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		5B2527AD2484388C0014F6CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BAC2D359F4EBEC4B7D40276 /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +86,8 @@
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoCellNode.swift; sourceTree = "<group>"; };
+		E1407A2324E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelVideoOverlayTouch.swift; sourceTree = "<group>"; };
+		E14591E724E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoOverlayTouchUIDelegate.swift; sourceTree = "<group>"; };
 		E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelViewController.swift; sourceTree = "<group>"; };
 		E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowerListViewController.swift; sourceTree = "<group>"; };
 		E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowListViewController.swift; sourceTree = "<group>"; };
@@ -243,6 +245,8 @@
 			children = (
 				E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */,
 				E1BA897624E18CDC0015C546 /* ChannelVideoOverlayView.swift */,
+				E1407A2324E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift */,
+				E14591E724E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift */,
 			);
 			path = Overlay;
 			sourceTree = "<group>";
@@ -610,6 +614,7 @@
 				E1BA897824E18CDC0015C546 /* ChannelVideoOverlayView.swift in Sources */,
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
 				E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */,
+				E1407A2424E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift in Sources */,
 				E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
@@ -618,6 +623,7 @@
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */,
 				E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */,
+				E14591E824E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift in Sources */,
 				E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
 				E146ACF7247441DE00D3ED10 /* OtherFollowerCell.swift in Sources */,

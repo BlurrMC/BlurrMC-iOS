@@ -11,13 +11,35 @@ import Valet
 import Nuke
 import Alamofire
 
-class ChannelVideoOverlayView: UIView {
+class ChannelVideoOverlayView: UIView, ChannelVideoOverlayTouchUIDelegate {
+    func didChangeHeartIcon(_ sender: ChannelVideoOverlayTouch, videoLiked: Bool) {
+        isVideoLiked = videoLiked
+        changeHeartIcon()
+    }
+    
+    func didChangeAvatarUrl(_ sender: ChannelVideoOverlayTouch, avatarUrl: String) {
+        newAvatarUrl = avatarUrl
+        changeChannelAvatar()
+    }
+    
+    func didChangeLikeNumber(_ sender: ChannelVideoOverlayTouch, likeNumber: Int) {
+        newLikeNumber = likeNumber
+        changeLikeCount()
+    }
+    
+    func didChangeDescription(_ sender: ChannelVideoOverlayTouch, definedDescription: String) {
+        DefinedDescription = definedDescription
+        updateDescription()
+    }
+    
     
     // MARK: Variables
     var DefinedDescription = String()
     var isVideoLiked = Bool()
-    var avatarUrl = String()
-    var likeNumber = Int()
+    var newAvatarUrl = String()
+    var newLikeNumber = Int()
+    var videoId = Int()
+    
     
     let kCONTENT_XIB_NAME = "ChannelVideoOverlay"
     
@@ -39,23 +61,23 @@ class ChannelVideoOverlayView: UIView {
         guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
             return
         }
-        let avatarUrl = URL(string: "\(self.avatarUrl)")
+        let avatarUrl = URL(string: "\(self.newAvatarUrl)")
         Nuke.loadImage(with: avatarUrl ?? imageURL, into: videoChannel)
     }
     func changeLikeCount() {
-        switch likeNumber {
-        case _ where likeNumber > 1000 && likeNumber < 100000:
-            self.videoLikeCount.text = "\(self.likeNumber/1000).\((self.likeNumber/100)%10)k"
-        case _ where likeNumber > 100000 && likeNumber < 1000000:
-            self.videoLikeCount.text = "\(self.likeNumber/1000)k"
-        case _ where likeNumber > 1000000 && likeNumber < 100000000:
-            self.videoLikeCount.text = "\(self.likeNumber/1000000).\((self.likeNumber/1000)%10)M"
-        case _ where likeNumber > 100000000:
-            self.videoLikeCount.text = "\(self.likeNumber/1000000)M"
-        case _ where likeNumber == 1:
-            self.videoLikeCount.text = "\(self.likeNumber)"
+        switch newLikeNumber {
+        case _ where newLikeNumber > 1000 && newLikeNumber < 100000:
+            self.videoLikeCount.text = "\(self.newLikeNumber/1000).\((self.newLikeNumber/100)%10)k"
+        case _ where newLikeNumber > 100000 && newLikeNumber < 1000000:
+            self.videoLikeCount.text = "\(self.newLikeNumber/1000)k"
+        case _ where newLikeNumber > 1000000 && newLikeNumber < 100000000:
+            self.videoLikeCount.text = "\(self.newLikeNumber/1000000).\((self.newLikeNumber/1000)%10)M"
+        case _ where newLikeNumber > 100000000:
+            self.videoLikeCount.text = "\(self.newLikeNumber/1000000)M"
+        case _ where newLikeNumber == 1:
+            self.videoLikeCount.text = "\(self.newLikeNumber)"
         default:
-            self.videoLikeCount.text = "\(self.likeNumber)"
+            self.videoLikeCount.text = "\(self.newLikeNumber)"
         }
     }
     
@@ -74,6 +96,24 @@ class ChannelVideoOverlayView: UIView {
     func commonInit() {
         Bundle.main.loadNibNamed(kCONTENT_XIB_NAME, owner: self, options: nil)
         contentView.fixInView(self)
+        DispatchQueue.global(qos: .background).async {
+            let touches = ChannelVideoOverlayTouch(videoId: self.videoId)
+            touches.delegate = self
+            touches.sendRequest()
+            touches.sendCheckLikeRequest()
+            touches.checkLikeCount()
+            
+            let tapp = UITapGestureRecognizer(target: self, action: #selector(self.tappFunction))
+            let tappp = UITapGestureRecognizer(target: self, action: #selector(self.tapppFunction))
+            let liketap = UITapGestureRecognizer(target: self, action: #selector(touches.liketapFunction))
+            let descriptiontap = UITapGestureRecognizer(target: self, action: #selector(touches.descriptiontapFunction))
+            DispatchQueue.main.async {
+                self.videoDescription.addGestureRecognizer(descriptiontap)
+                self.videoComment.addGestureRecognizer(tappp)
+                self.videoChannel.addGestureRecognizer(tapp)
+                self.videoLike.addGestureRecognizer(liketap)
+            }
+        }
     }
     
     // MARK: Show user channel tap
@@ -92,26 +132,6 @@ class ChannelVideoOverlayView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let tapp = UITapGestureRecognizer(target: self, action: #selector(self.tappFunction))
-        let tappp = UITapGestureRecognizer(target: self, action: #selector(self.tapppFunction))
-        let liketap = UITapGestureRecognizer(target: self, action: #selector(self.liketapFunction))
-        let descriptiontap = UITapGestureRecognizer(target: self, action: #selector(self.descriptiontapFunction))
-        videoDescription.addGestureRecognizer(descriptiontap)
-        videoComment.addGestureRecognizer(tappp)
-        videoChannel.addGestureRecognizer(tapp)
-        videoLike.addGestureRecognizer(liketap)
-    }
-    
-    // MARK: Description Tap
-    @objc func descriptiontapFunction(sender:UITapGestureRecognizer) {
-        let classs = ChannelVideoOverlayTouch()
-        classs.descriptionTap()
-    }
-    
-    // MARK: Like Tap
-    @objc func liketapFunction(sender:UITapGestureRecognizer) {
-        let classs = ChannelVideoOverlayTouch()
-        classs.likeTapFunction()
     }
     
     // MARK: Outlets

@@ -14,7 +14,17 @@ import Nuke
 import Photos
 import AsyncDisplayKit
 
-class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate {
+class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoCellShowDelegate {
+    func didTapChannel(_ sender: ChannelVideoOverlayView) {
+        showUserChannel()
+    }
+    
+    func didTapComments(_ sender: ChannelVideoOverlayView) {
+        showVideoComments()
+    }
+    
+    
+    
     var tableNode: ASTableNode!
     var lastNode: ChannelVideoCellNode?
     var amIDone = Bool()
@@ -144,7 +154,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     let avPlayer = AVPlayer()
     var avPlayerLayer: AVPlayerLayer!
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad() 
         let vc = CommentingViewController()
         vc.presentationController?.delegate = self
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
@@ -275,12 +285,12 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         self.present(alert, animated: true, completion: nil)
     }
     
-    // MARK: Function for user channel
+    // MARK: Function for showing user channel
     func showUserChannel() {
         self.performSegue(withIdentifier: "showVideoUserChannel", sender: self)
     }
     
-    // MARK: Function for video comments
+    // MARK: Function for showing video comments
     func showVideoComments() {
         self.performSegue(withIdentifier: "showComments", sender: self)
     }
@@ -380,6 +390,7 @@ extension ChannelVideoViewController: ASTableDelegate {
         }
         
     }
+    
 }
 extension ChannelVideoViewController {
     func retrieveNextPageWithCompletion( block: @escaping ([Video]) -> Void) {

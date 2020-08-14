@@ -12,6 +12,7 @@ import AsyncDisplayKit
 // MARK: This should probably get moved to cells -> channel -> video, but I can't get it to compile if I do that :(
 class ChannelVideoCellNode: ASCellNode {
     
+    
     var videoNode = ASVideoNode()
     var gradientNode: GradientNode
 
@@ -26,7 +27,7 @@ class ChannelVideoCellNode: ASCellNode {
         self.videoNode.shouldAutorepeat = true
         self.videoNode.muted = false
         self.videoNode.gravity = AVLayerVideoGravity.resizeAspect.rawValue
-        DispatchQueue.main.async() {
+        DispatchQueue.main.async {
             self.videoNode.asset = AVAsset(url: videoUrl)
         }
         self.addSubnode(self.videoNode)

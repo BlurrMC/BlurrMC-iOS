@@ -875,7 +875,7 @@
         <!--Other Channel View Controller-->
         <scene sceneID="cpJ-qZ-lcH">
             <objects>
-                <viewController storyboardIdentifier="OtherChannelViewController" modalPresentationStyle="fullScreen" id="C9p-qA-0Zi" customClass="OtherChannelViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OtherChannelViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C9p-qA-0Zi" customClass="OtherChannelViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YMz-Hh-Adh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

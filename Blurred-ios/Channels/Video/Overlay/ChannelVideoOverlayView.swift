@@ -26,6 +26,7 @@ class ChannelVideoOverlayView: UIView {
     var videoUsername = String()
     var definedDescription = String()
     var viewCount = String()
+    weak var delegate: ChannelVideoOverlayViewDelegate?
     
     // MARK: Valet
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
@@ -110,16 +111,12 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Show user channel tap
     @objc func tappFunction(sender:UITapGestureRecognizer) {
-        let coder = NSCoder()
-        let controller = ChannelVideoViewController(coder: coder)
-        controller?.showUserChannel()
+        delegate?.didTapChannel(self)
     }
     
     // MARK: Show Video Comments Tap
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
-        let coder = NSCoder()
-        let controller = ChannelVideoViewController(coder: coder)
-        controller?.showVideoComments()
+        delegate?.didTapComments(self)
     }
     
     override func awakeFromNib() {

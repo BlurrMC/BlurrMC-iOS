@@ -61,9 +61,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
                         let selectedRow = indexPath.row
                         vc.videoString = videos[selectedRow].id
-                        let user = Int(userId)
-                        vc.channelId = user!
+                        vc.channelId = userId
                         vc.rowNumber = indexPath.item
+                        vc.isItFromSearch = false
                     }
                 }
             }

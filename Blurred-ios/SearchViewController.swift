@@ -192,6 +192,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 if let indexPath = videoTableView.indexPathForSelectedRow {
                     let selectedRow = indexPath.row
                     vc.videoString = videos[selectedRow].id
+                    vc.rowNumber = indexPath.item
+                    vc.isItFromSearch = true
                 }
             }
         }

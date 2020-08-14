@@ -17,13 +17,13 @@
     * Fixed bug where if you watched enough videos the app would crash due to memory leak.
     * Changed video aspect resize from resizeaspectfill to resizeaspect.
     * Added video scrolling (with texture tableview + cell node)
-    * Moved all overlays to seperate view controller
+    * Moved all overlays to seperate class
     * Temporarily removed the share functionality.
 * Channel Video Overlay View
     * Made  `else if` statements into switches.
     * Sharing + Channel + Comment button don't do anything as of right now
-    * Channel icon, like count, and description update (tap recognizers don't work)
-    * Added Channel Video Overlay Touch UI Delgate protcol for communication between view and touch class.
+    * Channel icon tap recognizer doesn't work.
+    * Comment icon tap recognizer doesn't work.
 * Channel Dropdown View Controller 
     * Removed. All the functions have been move to the other channel view controller.
 * Channel Views
@@ -42,6 +42,7 @@
     * Follow people with the dropdown menu
     * Unfollow people with the dropdown menu.
     * Fixed bug where user's would get dropdown menu even if the profile was theirs.
+    * Added new video scrolling functionality to other channel view controller.
 * Channel Followers + following
     * Fixed warning in following whereit would be comparing nil would always return false
     * Removed timer for refreshing the list.
@@ -88,6 +89,7 @@
     * Added pull to fetch new search results
     * Added video search
     * Made tableview hidden with "isHidden" instead of removing it and adding it to the super view.
+    * Updated search to work with the new video playback.
 * Recording
     * Added zooming on front camera
 * Other

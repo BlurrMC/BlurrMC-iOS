@@ -17,8 +17,6 @@
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
 		E139685424D34F4700F01FDE /* ChannelVideoCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */; };
-		E1407A2424E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1407A2324E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift */; };
-		E14591E824E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14591E724E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift */; };
 		E146ACF12474188700D3ED10 /* OtherChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */; };
 		E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */; };
 		E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */; };
@@ -86,8 +84,6 @@
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoCellNode.swift; sourceTree = "<group>"; };
-		E1407A2324E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelVideoOverlayTouch.swift; sourceTree = "<group>"; };
-		E14591E724E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoOverlayTouchUIDelegate.swift; sourceTree = "<group>"; };
 		E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelViewController.swift; sourceTree = "<group>"; };
 		E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowerListViewController.swift; sourceTree = "<group>"; };
 		E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowListViewController.swift; sourceTree = "<group>"; };
@@ -245,8 +241,6 @@
 			children = (
 				E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */,
 				E1BA897624E18CDC0015C546 /* ChannelVideoOverlayView.swift */,
-				E1407A2324E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift */,
-				E14591E724E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift */,
 			);
 			path = Overlay;
 			sourceTree = "<group>";
@@ -614,7 +608,6 @@
 				E1BA897824E18CDC0015C546 /* ChannelVideoOverlayView.swift in Sources */,
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
 				E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */,
-				E1407A2424E4AEE500D177D9 /* ChannelVideoOverlayTouch.swift in Sources */,
 				E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
@@ -623,7 +616,6 @@
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */,
 				E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */,
-				E14591E824E5C64200D676E6 /* ChannelVideoOverlayTouchUIDelegate.swift in Sources */,
 				E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
 				E146ACF7247441DE00D3ED10 /* OtherFollowerCell.swift in Sources */,

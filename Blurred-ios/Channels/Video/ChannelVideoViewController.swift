@@ -25,7 +25,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     }
     // MARK: Tap function for share window
     @objc func sharetapFunction(sender:UITapGestureRecognizer) {
-        // See note below
+        // See note for shareWindow()
     }
     
     // MARK: Setup window for sharing functionality (disabled temporarily)
@@ -74,6 +74,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var publishdate = String()
     var views = Int()
     var isItSwitched: Bool = false
+    var isItFromSearch = Bool()
     
     override func didReceiveMemoryWarning() {
         avPlayerLayer = nil
@@ -105,6 +106,38 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     func wireDelegates() {
             self.tableNode.delegate = self
             self.tableNode.dataSource = self
+    }
+    func sendRequest() {
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(videoString).json")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    guard let videoUrl: String = parseJSON["video_url"] as? String else { return }
+                    self.videoUrlString = videoUrl
+                    let array: [String : [[String : Any]]] = ["videos": [["videourl": "\(videoUrl)", "videoid": self.videoString]]]
+                    let jsonData = try JSONSerialization.data(withJSONObject: array, options: .init(rawValue: 0)) as Data
+                    let decoder = JSONDecoder()
+                    let downloadedVideo = try decoder.decode(Videos.self, from: jsonData)
+                    self.videos = downloadedVideo.videos
+                    DispatchQueue.main.async {
+                        self.tableNode.reloadData()
+                    }
+                } else {
+                    print(error ?? "")
+                    return
+                }
+            } catch {
+                print(error)
+                return
+            }
+        }
+        task.resume()
     }
     @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var commentImage: UIImageView!
@@ -194,7 +227,11 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        channelVideoIds()
+        if isItFromSearch != true {
+            channelVideoIds()
+        } else {
+            sendRequest()
+        }
         isDismissed = false
     }
     fileprivate var player: AVPlayer? {
@@ -203,31 +240,6 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     deinit {
         guard let observer = playerObserver else { return }
         NotificationCenter.default.removeObserver(observer)
-    }
-    // MARK: Plays the video
-    func babaPlayer() {
-        let videoUrl = URL(string: "http://10.0.0.2:3000\(videoUrlString)")!
-        avPlayerLayer = AVPlayerLayer(player: avPlayer)
-        avPlayerLayer.frame = view.bounds
-        avPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspect // Was aspect fill
-        videoView.layer.insertSublayer(avPlayerLayer, at: 0)
-
-        view.layoutIfNeeded()
-
-        let playerItem = AVPlayerItem(url: videoUrl as URL)
-        avPlayer.replaceCurrentItem(with: playerItem)
-        if isDismissed != true {
-            let resetPlayer = {
-                self.avPlayer.seek(to: CMTime.zero)
-                self.avPlayer.play()
-            }
-            playerObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: avPlayer.currentItem, queue: nil) { notification in
-                resetPlayer()
-            }
-        } else {
-            avPlayer.pause()
-        }
-        avPlayer.play()
     }
     func showNoResponseFromServer() {
 
@@ -273,10 +285,9 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         self.performSegue(withIdentifier: "showComments", sender: self)
     }
     
-    var channelId = Int()
+    var channelId = String()
     func channelVideoIds() { // Still not done we need to add the user's butt image
         let url = URL(string: "http://10.0.0.2:3000/api/v1/channelvideos/\(channelId).json")
-        print("\(channelId)")
             guard let downloadURL = url else { return }
             URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
                 guard let data = data, error == nil, urlResponse != nil else {
@@ -325,14 +336,23 @@ extension ChannelVideoViewController: ASTableDataSource {
         return self.videos.count
     }
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        
-        let videourll = self.videos[indexPath.row].videourl
-        let videoId = self.videos[indexPath.row].videoid
-        let videoUrl = URL(string: "http://10.0.0.2:3000\(videourll)")
-        return {
-            let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId)
-            node.debugName = "\(self.videos[indexPath.row].videoid)"
-            return node
+        if isItFromSearch != true {
+            let videourll = self.videos[indexPath.row].videourl
+            let videoId = self.videos[indexPath.row].videoid
+            let videoUrl = URL(string: "http://10.0.0.2:3000\(videourll)")
+            return {
+                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId)
+                node.debugName = "\(self.videos[indexPath.row].videoid)"
+                return node
+            }
+        } else {
+            let url = URL(string: "http://10.0.0.2:3000\(videoUrlString)")!
+            return {
+                let node = ChannelVideoCellNode(with: url, videoId: self.videoString)
+                node.debugName = "\(self.videoString)"
+                return node
+            }
+            
         }
     }
 }
@@ -358,17 +378,30 @@ extension ChannelVideoViewController: ASTableDelegate {
             self.insertNewRowsInTableNode(newVideos: newVideos)
             context.completeBatchFetching(true)
         }
+        
     }
 }
 extension ChannelVideoViewController {
     func retrieveNextPageWithCompletion( block: @escaping ([Video]) -> Void) {
-        var oldVideoCount = Int()
-        oldVideoCount = videos.count
-        channelVideoIds()
-        if videos.count > oldVideoCount {
-            DispatchQueue.main.async {
-                block(self.videos)
+        if isItFromSearch != true {
+            var oldVideoCount = Int()
+            oldVideoCount = videos.count
+            channelVideoIds()
+            if videos.count > oldVideoCount {
+                DispatchQueue.main.async {
+                    block(self.videos)
+                }
+            }
+        } else {
+            var oldVideoCount = Int()
+            oldVideoCount = videos.count
+            sendRequest()
+            if videos.count > oldVideoCount {
+                DispatchQueue.main.async {
+                    block(self.videos)
+                }
             }
         }
+        
     }
 }

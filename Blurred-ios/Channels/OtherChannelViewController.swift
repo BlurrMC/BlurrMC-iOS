@@ -13,6 +13,8 @@ import Foundation
 import Alamofire
 
 class OtherChannelViewController: UIViewController, UICollectionViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    var coder = NSCoder()
+    
     // Add peak function to dispaly video when peaking.
     @IBOutlet var dropDownButtons: [UIButton]!
     @IBOutlet weak var followButton: UIButton!
@@ -59,6 +61,11 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         task.resume()
     }
     
+    func collectionView(CollectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
+        let destinationVC = ChannelVideoViewController(coder: coder)
+        destinationVC?.performSegue(withIdentifier: "showVideo", sender: self)
+    }
 
     @IBAction func followButtonTap(_ sender: Any) {
         following = !following
@@ -141,7 +148,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             }.resume()
     }
     var chanelVar = String()
-    var channelVar = String() // Remove all channelVar methods (it's not in use)
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     @IBAction func backButton(_ sender: Any) {
@@ -569,6 +575,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                     if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
                         let selectedRow = indexPath.row
                         vc.videoString = videos[selectedRow].id
+                        vc.channelId = chanelVar
+                        vc.rowNumber = indexPath.item
+                        vc.isItFromSearch = false
                     }
                 } else if segue.identifier == "showOtherVideoo" {
                     if let indexPath = collectionView?.indexPathsForSelectedItems?.first {

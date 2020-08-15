@@ -37,8 +37,12 @@ class ChannelVideoCellNode: ASCellNode {
             let overlay = ChannelVideoOverlayView()
             overlay.videoId = videoId
             overlay.delegate = self.delegate
-            overlay.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+            overlay.frame = CGRect(x: 329, y: 284, width: 40, height: 239)
             self.view.addSubview(overlay)
+            let overlay2 = DescriptionOverlayView()
+            overlay.delegate2 = overlay2
+            overlay2.frame = CGRect(x: 40, y: 614, width: 287, height: 45)
+            self.view.addSubview(overlay2)
         }
         
   }

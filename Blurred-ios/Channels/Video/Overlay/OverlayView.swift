@@ -18,14 +18,10 @@ class ChannelVideoOverlayView: UIView {
     var videoId = Int()
     var isVideoLiked = Bool()
     var likenumber = Int()
-    var isItSwitched = Bool()
-    var publishdate = String()
-    var views = Int()
-    var videoDesc = String()
     var likeId = Int()
     var videoUsername = String()
-    var definedDescription = String()
-    var viewCount = String()
+    
+    weak var delegate2: ChannelVideoDescriptionDelegate?
     weak var delegate: ChannelVideoOverlayViewDelegate?
     
     // MARK: Valet
@@ -36,14 +32,6 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Update Outlets
     // Must be called by main thread
-    func updateDescription() {
-        if isItSwitched == true {
-            videoDescription.text = String("\(publishdate) \n\(viewCount)")
-        } else {
-            videoDescription.text = definedDescription
-        }
-        
-    }
     func changeHeartIcon() {
         if isVideoLiked == true {
             videoLike.image = UIImage(systemName: "heart.fill")
@@ -63,17 +51,29 @@ class ChannelVideoOverlayView: UIView {
     func changeLikeCount() {
         switch likenumber {
         case _ where likenumber > 1000 && likenumber < 100000:
-            self.videoLikeCount.text = "\(self.likenumber/1000).\((self.likenumber/100)%10)k"
+            DispatchQueue.main.async {
+                self.videoLikeCount.text = "\(self.likenumber/1000).\((self.likenumber/100)%10)k"
+            }
         case _ where likenumber > 100000 && likenumber < 1000000:
-            self.videoLikeCount.text = "\(self.likenumber/1000)k"
+            DispatchQueue.main.async {
+                self.videoLikeCount.text = "\(self.likenumber/1000)k"
+            }
         case _ where likenumber > 1000000 && likenumber < 100000000:
-            self.videoLikeCount.text = "\(self.likenumber/1000000).\((self.likenumber/1000)%10)M"
+            DispatchQueue.main.async {
+                self.videoLikeCount.text = "\(self.likenumber/1000000).\((self.likenumber/1000)%10)M"
+            }
         case _ where likenumber > 100000000:
-            self.videoLikeCount.text = "\(self.likenumber/1000000)M"
+            DispatchQueue.main.async {
+                self.videoLikeCount.text = "\(self.likenumber/1000000)M"
+            }
         case _ where likenumber == 1:
-            self.videoLikeCount.text = "\(self.likenumber)"
+            DispatchQueue.main.async {
+                self.videoLikeCount.text = "\(self.likenumber)"
+            }
         default:
-            self.videoLikeCount.text = "\(self.likenumber)"
+            DispatchQueue.main.async {
+                self.videoLikeCount.text = "\(self.likenumber)"
+            }
         }
     }
     
@@ -99,9 +99,7 @@ class ChannelVideoOverlayView: UIView {
             let tapp = UITapGestureRecognizer(target: self, action: #selector(self.tappFunction))
             let tappp = UITapGestureRecognizer(target: self, action: #selector(self.tapppFunction))
             let liketap = UITapGestureRecognizer(target: self, action: #selector(self.liketapFunction(_:)))
-            let descriptiontap = UITapGestureRecognizer(target: self, action: #selector(self.descriptiontapFunction(_:)))
             DispatchQueue.main.async {
-                self.videoDescription.addGestureRecognizer(descriptiontap)
                 self.videoComment.addGestureRecognizer(tappp)
                 self.videoChannel.addGestureRecognizer(tapp)
                 self.videoLike.addGestureRecognizer(liketap)
@@ -124,7 +122,6 @@ class ChannelVideoOverlayView: UIView {
     }
     
     // MARK: Outlets
-    @IBOutlet weak var videoDescription: UILabel!
     @IBOutlet weak var videoShare: UIImageView!
     @IBOutlet weak var videoLikeCount: UILabel!
     @IBOutlet weak var videoLike: UIImageView!
@@ -134,11 +131,6 @@ class ChannelVideoOverlayView: UIView {
     // MARK: Like Tap
     @objc func liketapFunction(_ sender:UITapGestureRecognizer) {
         likeTapFunction()
-    }
-    
-    // MARK: Description Tap
-    @objc func descriptiontapFunction(_ sender:UITapGestureRecognizer) {
-        descriptionTap()
     }
     
     // MARK: Check the like count of video and set it
@@ -238,35 +230,31 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Tap function for like
     func likeTapFunction() {
+        let throttler = Throttler(minimumDelay: 5)
         if isVideoLiked == true {
             isVideoLiked = false
             DispatchQueue.main.async {
                 self.changeHeartIcon()
             }
-            if likenumber != 0 {
-                let subtot = likenumber - 1
-                likenumber = subtot
-                DispatchQueue.main.async {
-                    self.changeLikeCount()
-                }
+            if self.likenumber != 0 {
+                let subtot = self.likenumber - 1
+                self.likenumber = subtot
+                self.changeLikeCount()
             }
-            sendDeleteLikeRequest()
-            isVideoLiked = false
+            throttler.throttle {
+                self.sendDeleteLikeRequest()
+            }
         } else if isVideoLiked == false {
             isVideoLiked = true
             DispatchQueue.main.async {
                 self.changeHeartIcon()
             }
-            if likenumber != 0 {
-                likenumber = likenumber - 1
-                let subtot = likenumber + 1
-                likenumber = subtot
-                DispatchQueue.main.async {
-                    self.changeLikeCount()
-                }
+            let subtot = likenumber + 1
+            likenumber = subtot
+            self.changeLikeCount()
+            throttler.throttle {
+                self.sendLikeRequest()
             }
-            sendLikeRequest()
-            isVideoLiked = true
         }
     }
     
@@ -288,9 +276,6 @@ class ChannelVideoOverlayView: UIView {
                     guard let descriptionString: String = parseJSON["description"] as? String else { return }
                     guard let username: String = parseJSON["username"] as? String else { return }
                     self.videoUsername = username
-                    self.views = viewCount
-                    self.publishdate = publishDate
-                    self.videoDesc = descriptionString
                     AF.request("http://10.0.0.2:3000/api/v1/channels/\(String(describing: username)).json").responseJSON {   response in
                                var JSON: [String: Any]?
                                do {
@@ -305,10 +290,7 @@ class ChannelVideoOverlayView: UIView {
                                    return
                                }
                     }
-                    self.definedDescription = descriptionString
-                    DispatchQueue.main.async {
-                        self.updateDescription()
-                    }
+                    self.delegate2?.didReceiveInfo(self, views: viewCount, description: descriptionString, publishdate: publishDate)
                 } else {
                     print("error: \(String(describing: error)) Error code: 1jfnt04l2-2")
                     return
@@ -347,35 +329,6 @@ class ChannelVideoOverlayView: UIView {
             } catch {
                 print("error code: 1972026583")
                 return
-            }
-        }
-    }
-    // MARK: Video views + publish date
-    func descriptionTap() {
-        if isItSwitched == false {
-            switch views {
-            case _ where views > 1000 && views < 100000:
-                self.viewCount = "\(self.views/1000).\((self.views/100)%10)k Views"
-            case _ where views > 100000 && views < 1000000:
-                self.viewCount = "\(self.views/1000)k Views "
-            case _ where views > 1000000 && views < 100000000:
-                self.viewCount = "\(self.views/1000000).\((self.views/1000)%10)M Views"
-            case _ where views > 100000000:
-                self.viewCount = "\(self.views/1000000)M Views"
-            case _ where views == 1:
-                self.viewCount = "\(self.views) View"
-            default:
-                self.viewCount = "\(self.views) Views"
-            }
-            isItSwitched = true
-            DispatchQueue.main.async {
-                self.updateDescription()
-            }
-        } else {
-            definedDescription = videoDesc
-            isItSwitched = false
-            DispatchQueue.main.async {
-                self.updateDescription()
             }
         }
     }

@@ -23,6 +23,10 @@
     * Made  `else if` statements into switches.
     * Channel icon and comment button now function as intended
     * Added channel video overlay view delegate to tell parent view controller to present other view controllers.
+    * Added throttling to liking/unliking a video (so sever doesn't get spammed + better ui)
+*  Description Overlay View
+    * This view shows the description
+    * Added delegate to fetch the description, views, and publish date from ChannelVideoOverlayview
 * Channel Dropdown View Controller 
     * Removed. All the functions have been move to the other channel view controller.
 * Channel Views

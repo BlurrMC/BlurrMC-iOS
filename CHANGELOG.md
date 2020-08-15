@@ -21,9 +21,8 @@
     * Temporarily removed the share functionality.
 * Channel Video Overlay View
     * Made  `else if` statements into switches.
-    * Sharing + Channel + Comment button don't do anything as of right now
-    * Channel icon tap recognizer doesn't work.
-    * Comment icon tap recognizer doesn't work.
+    * Channel icon and comment button now function as intended
+    * Added channel video overlay view delegate to tell parent view controller to present other view controllers.
 * Channel Dropdown View Controller 
     * Removed. All the functions have been move to the other channel view controller.
 * Channel Views

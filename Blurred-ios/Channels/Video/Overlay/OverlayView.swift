@@ -111,12 +111,12 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Show user channel tap
     @objc func tappFunction(sender:UITapGestureRecognizer) {
-        delegate?.didTapChannel(self)
+        delegate?.didTapChannel(self, videousername: videoUsername)
     }
     
     // MARK: Show Video Comments Tap
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
-        delegate?.didTapComments(self)
+        delegate?.didTapComments(self, videoid: videoId)
     }
     
     override func awakeFromNib() {

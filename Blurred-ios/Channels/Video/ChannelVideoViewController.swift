@@ -14,15 +14,15 @@ import Nuke
 import Photos
 import AsyncDisplayKit
 
-class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoCellShowDelegate {
-    func didTapChannel(_ sender: ChannelVideoOverlayView) {
-        showUserChannel()
+class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
+    
+    func didTapChannel(_ view: ChannelVideoOverlayView, videousername: String) {
+        showUserChannel(videoUsername: videousername)
     }
     
-    func didTapComments(_ sender: ChannelVideoOverlayView) {
-        showVideoComments()
+    func didTapComments(_ view: ChannelVideoOverlayView, videoid: Int) {
+        showVideoComments(videoId: videoid)
     }
-    
     
     
     var tableNode: ASTableNode!
@@ -194,17 +194,14 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.destination is OtherChannelViewController
-        {
-            if let vc = segue.destination as? OtherChannelViewController {
-                if segue.identifier == "showVideoUserChannel" {
-                    vc.chanelVar = videoUsername
-                }
-            }
-        } else if let vc = segue.destination as? CommentingViewController {
+        if let vc = segue.destination as? CommentingViewController {
             if segue.identifier == "showComments" {
                 vc.presentationController?.delegate = self
-                vc.videoId = videoString
+                vc.videoId = videoId
+            }
+        } else if let vc = segue.destination as? OtherChannelViewController {
+            if segue.identifier == "showVideoUserChannel" {
+                vc.chanelVar = videoUsername
             }
         }
     }
@@ -286,13 +283,18 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     }
     
     // MARK: Function for showing user channel
-    func showUserChannel() {
+    func showUserChannel(videoUsername: String) { 
+        self.videoUsername = videoUsername
         self.performSegue(withIdentifier: "showVideoUserChannel", sender: self)
     }
     
+    var videoId = Int()
+    
     // MARK: Function for showing video comments
-    func showVideoComments() {
+    func showVideoComments(videoId: Int) {
+        self.videoId = videoId
         self.performSegue(withIdentifier: "showComments", sender: self)
+        
     }
     
     var channelId = String()
@@ -346,12 +348,14 @@ extension ChannelVideoViewController: ASTableDataSource {
         return self.videos.count
     }
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        // May need to set isUserInteractionEnabled to false for the table
         if isItFromSearch != true {
             let videourll = self.videos[indexPath.row].videourl
             let videoId = self.videos[indexPath.row].videoid
             let videoUrl = URL(string: "http://10.0.0.2:3000\(videourll)")
             return {
                 let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId)
+                node.delegate = self
                 node.debugName = "\(self.videos[indexPath.row].videoid)"
                 return node
             }
@@ -359,6 +363,7 @@ extension ChannelVideoViewController: ASTableDataSource {
             let url = URL(string: "http://10.0.0.2:3000\(videoUrlString)")!
             return {
                 let node = ChannelVideoCellNode(with: url, videoId: self.videoString)
+                node.delegate = self
                 node.debugName = "\(self.videoString)"
                 return node
             }

@@ -12,6 +12,7 @@ import AsyncDisplayKit
 // MARK: This should probably get moved to cells -> channel -> video, but I can't get it to compile if I do that :(
 class ChannelVideoCellNode: ASCellNode {
     
+    weak var delegate: ChannelVideoOverlayViewDelegate?
     
     var videoNode = ASVideoNode()
     var gradientNode: GradientNode
@@ -35,6 +36,7 @@ class ChannelVideoCellNode: ASCellNode {
         DispatchQueue.main.async() {
             let overlay = ChannelVideoOverlayView()
             overlay.videoId = videoId
+            overlay.delegate = self.delegate
             overlay.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
             self.view.addSubview(overlay)
         }

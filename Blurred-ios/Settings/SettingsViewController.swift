@@ -12,12 +12,16 @@ import Nuke
 
 class SettingsViewController: UIViewController {
 
+    
+    // MARK: Clear Cache
     @IBAction func clearCache(_ sender: Any) {
         clearAllCache()
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    
     // MARK: Clear the cache
     func clearAllCache() {
         removeNetworkDictionaryCache()
@@ -25,12 +29,16 @@ class SettingsViewController: UIViewController {
         DataLoader.sharedUrlCache.removeAllCachedResponses()
         clearUrlCache()
     }
+    
+    
     // MARK: Clear the url shared cache
     func clearUrlCache() {
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
     }
+    
+    
     // MARK: Remove the network cache
     func removeNetworkDictionaryCache() {
         let caches = (NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0])
@@ -42,6 +50,8 @@ class SettingsViewController: UIViewController {
             print("ERROR DESCRIPTION: \(error)")
         }
     }
+    
+    
     // MARK: Signout the user
     @IBAction func signOutButtonPressed(_ sender: Any) {
         let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
@@ -60,11 +70,16 @@ class SettingsViewController: UIViewController {
         }
         
     }
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.isHidden = true // Again with the tab barss.
-        // I did not hit her!
+        self.tabBarController?.tabBar.isHidden = true 
     }
+    
+    
+    // MARK: Settings Back Button
     @IBAction func settingsBackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }

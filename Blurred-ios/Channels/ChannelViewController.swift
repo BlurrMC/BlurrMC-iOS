@@ -11,12 +11,35 @@ import Valet
 import Nuke
 import Alamofire
 
-class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource { // Look at youself. Look at what you have done.
+class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource {
+    
+    // MARK: Lets
+    private let refreshControl = UIRefreshControl()
+    
+    
+    // MARK: Variables
+    var coder = NSCoder()
+    private var videos = [Video]()
+    
+    // MARK: Collectionview
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
     }
-    var coder = NSCoder()
-    private let refreshControl = UIRefreshControl()
+    
+    // MARK: Outlets
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var followersLabel: UILabel!
+    @IBOutlet weak var followingLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var bioLabel: UILabel!
+    
+    
+    // MARK: Valet
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
@@ -37,62 +60,60 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                     Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.thumbnailView)
                 }
             } catch {
-                self.showErrorContactingServer()
+                return
             }
         }
         
         return cell
-    }
-    func seeVideo() {
-        self.performSegue(withIdentifier: "showVideo", sender: self)
     }
     func collectionView(CollectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
         let destinationVC = ChannelVideoViewController(coder: coder)
         destinationVC?.performSegue(withIdentifier: "showVideo", sender: self)
     }
-    @IBOutlet weak var collectionView: UICollectionView!
+    
+    
+    // MARK: Perform segue to video
+    func seeVideo() {
+        self.performSegue(withIdentifier: "showVideo", sender: self)
+    }
+    
+    
+    // MARK: Pass data through segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
-        if segue.destination is ChannelVideoViewController
-        {
-            if let vc = segue.destination as? ChannelVideoViewController {
-                if segue.identifier == "showVideo" {
-                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
-                        let selectedRow = indexPath.row
-                        vc.videoString = videos[selectedRow].id
-                        vc.channelId = userId
-                        vc.rowNumber = indexPath.item
-                        vc.isItFromSearch = false
-                    }
+        switch segue.destination {
+        case is ChannelVideoViewController:
+            let vc = ChannelVideoViewController(coder: coder)
+            if segue.identifier == "showVideo" {
+                if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+                    let selectedRow = indexPath.row
+                    vc?.videoString = videos[selectedRow].id
+                    vc?.channelId = userId
+                    vc?.rowNumber = indexPath.item
+                    vc?.isItFromSearch = false
                 }
             }
-        } else if segue.destination is OtherFollowerListViewController
-        {
-            if let vc = segue.destination as? OtherFollowerListViewController {
-                if segue.identifier == "showChannelFollowerList" {
-                    vc.followerVar = userId
-                }
+        case is OtherFollowerListViewController:
+            let vc = OtherFollowerListViewController()
+            if segue.identifier == "showChannelFollowerList" {
+                vc.followerVar = userId
             }
-        } else if segue.destination is OtherFollowListViewController {
-            if let vc = segue.destination as? OtherFollowListViewController {
-                if segue.identifier == "showFollowList" {
-                    vc.followingVar = userId
-                }
-            }
+        case is OtherFollowListViewController:
+            let vc = OtherFollowListViewController()
+            vc.followingVar = userId
+        default:
+            break
         }
     }
-    @IBOutlet weak var followersLabel: UILabel!
-    @IBOutlet weak var followingLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var bioLabel: UILabel!
-    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
-    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
+    
+    // MARK: Settings Button Action
     @IBAction func settingsButtonTap(_ sender: Any) {
     }
+
+    
+    // MARK: View did load
     override func viewDidLoad() {
         super.viewDidLoad()
         let lineView = UIView(frame: CGRect(x: 0, y: 240, width: self.view.frame.size.width, height: 1))
@@ -119,54 +140,79 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         self.avatarImage.contentScaleFactor = 1.5
         // Setup the view so you can integerate it right away with the channel api.
     }
+    
+    
+    // MARK: View will appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadMemberChannel()
         channelVideoIds()
     }
+    
+    
+    // MARK: Refresh the videos
     @objc private func refreshVideos(_ sender: Any) {
         channelVideoIds()
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-    }
+    
+    
+    // MARK: Avatar tapped
     @objc func imageTapped(gesture: UIGestureRecognizer) {
         // if the tapped view is a UIImageView then set it to imageview
         if (gesture.view as? UIImageView) != nil {
             pickAvatar()
         }
     }
+    
+    
+    // MARK: Follower Number Tap
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
     }
+    
+    
+    // MARK: Following Number Tap
     @objc func tappFunction(sender:UITapGestureRecognizer) {
         goToFollowingList()
     }
+    
+    
+    // MARK: Follower List Segue
     func goToFollowersList() {
         self.performSegue(withIdentifier: "showChannelFollowerList", sender: self)
     }
+    
+    
+    // MARK: Following List Segue
     func goToFollowingList() {
         self.performSegue(withIdentifier: "showFollowList", sender: self)
     }
+    
+    
+    // MARK: Channel Videos
     class Videos: Codable {
         let videos: [Video]
         init(videos: [Video]) {
             self.videos = videos
         }
     }
+    
     class Video: Codable {
         let id: Int
         init(username: String, name: String, id: Int) {
-            self.id = id // Pass id through a seuge to channelvideo
+            self.id = id
         }
     }
+    
+
+    // MARK: Memory Warning
     override func didReceiveMemoryWarning() {
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
     }
-    private var videos = [Video]()
+    
+    
     // MARK: Load the channel's videos
     func channelVideoIds() { // Still not done we need to add the user's butt image
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
@@ -175,7 +221,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             guard let downloadURL = url else { return }
             URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
                 guard let data = data, error == nil, urlResponse != nil else {
-                    self.showNoResponseFromServer()
                     return
                 }
                 do {
@@ -187,10 +232,12 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                         self.refreshControl.endRefreshing()
                     }
                 } catch {
-                    self.showErrorContactingServer() // f
+                    return
                 }
             }.resume()
     }
+    
+    
     // MARK: Load the channel's info
     func loadMemberChannel() {
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
@@ -229,7 +276,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                                 self.nameLabel.text = name ?? ""
                             }
                         } else {
-                            self.showNoResponseFromServer()
+                            return
                         }
                         switch followerCount {
                         case _ where followerCount < 1000:
@@ -285,24 +332,26 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                             Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
                         }
                     } else {
-                        self.showErrorContactingServer()
+                        return
                     }
                 } catch {
-                        self.showNoResponseFromServer()
-                    }
+                        return
+                }
             }
             task.resume()
-    } // I will set this up later
+    }
+    
+    
     // MARK: Import image for avatar
     func importImage() {
         let image = UIImagePickerController()
         image.delegate = self
         image.sourceType = UIImagePickerController.SourceType.photoLibrary
         image.allowsEditing = true
-        self.present(image, animated: true) {
-            
-        }
+        self.present(image, animated: true)
     }
+    
+    
     // MARK: Upload avatar image
     func upload() {
         let token: String?  = try? self.tokenValet.string(forKey: "Token")
@@ -327,6 +376,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
 
         }
     }
+    
+    
+    // MARK: Image Picker Controler
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             avatarImage.image = image
@@ -336,10 +388,15 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         }
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
+    // MARK: Get Document Directory
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
+    
+    
     // MARK: Take picture for avatar
     func takePicture() {
         let image = UIImagePickerController()
@@ -351,6 +408,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         }
     }
     
+    
+    // MARK: Error Contacting Server Alert
     func showErrorContactingServer() {
 
         // create the alert
@@ -363,18 +422,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             self.present(alert, animated: true, completion: nil)
         }
     }
-    func showNoResponseFromServer() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
+    
+    
+    // MARK: Unkown Error Alert
     func showUnkownError() {
 
         // create the alert
@@ -387,6 +437,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    
+    // MARK: Pick Avatar Alert
     func pickAvatar() {
             let alert = UIAlertController(title: "Avatar", message: "Change your avatar.", preferredStyle: UIAlertController.Style.actionSheet)
 

@@ -11,14 +11,33 @@ import Valet
 import Nuke
 
 class OtherFollowListViewController: UIViewController, UITableViewDataSource {
+    
+    // MARK: Variables
     var followingVar = String()
     private var followings = [Following]()
+    
+    
+    // MARK: Valet
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    
+    // MARK: Outlets
     @IBOutlet weak var nothingHere: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    // MARK: Lets
+    private let refreshControl = UIRefreshControl()
+    
+    
+    // MARK: Back Button Tap
     @IBAction func backButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    private let refreshControl = UIRefreshControl()
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadJson()
@@ -27,24 +46,35 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
+    
+    
+    // MARK: Refresh Following
     @objc private func refreshFollowing(_ sender: Any) {
         downloadJson()
     }
-
+    
+    
+    // MARK: Did Receive Memory Warning
     override func didReceiveMemoryWarning() {
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
     }
+    
+    
+    // MARK: View Will Disappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
     }
+    
+    
+    // MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         downloadJson()
     }
-    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
-    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    
     // MARK: Get the user's followings
     func downloadJson() { 
         let Id = followingVar
@@ -68,6 +98,9 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
             }
         }.resume()
     }
+    
+    
+    // MARK: Following Info From JSON
     class Followings: Codable {
         let following: [Following]
         init(following: [Following]) {
@@ -84,20 +117,22 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
             self.id = id
         }
     }
+    
+    
+    // MARK: # Of Rows In Section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return followings.count
     }
+    
+    
+    // MARK: Did Select Row At
     func tableView(tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let destinationVC = OtherChannelViewController()
         destinationVC.performSegue(withIdentifier: "showChannel", sender: self)
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView.indexPathForSelectedRow{
-            let selectedRow = indexPath.row
-            let detailVC = segue.destination as! OtherChannelViewController
-            detailVC.chanelVar = followings[selectedRow].username
-        }
-    }
+    
+    
+    // MARK: Cell For Row At
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFollowingCell") as? OtherFollowingCell else { return UITableViewCell() }
         cell.followingUsername.text = followings[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
@@ -117,7 +152,6 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
-                self.showErrorContactingServer()
                 return
             }
             do {
@@ -129,24 +163,29 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
                         Nuke.loadImage(with: railsUrl!, into: cell.followingAvatar)
                     }
                 } else {
-                    self.showErrorContactingServer()
                     print(error ?? "")
                 }
             } catch {
-                self.showNoResponseFromServer()
                 print(error)
-                }
+                return
+            }
         }
         task.resume()
         return cell
     }
-    func showErrorContactingServer() {
-        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
+    
+    
+    // MARK: Pass Info Through Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = tableView.indexPathForSelectedRow{
+            let selectedRow = indexPath.row
+            let detailVC = segue.destination as! OtherChannelViewController
+            detailVC.chanelVar = followings[selectedRow].username
         }
     }
+    
+    
+    // MARK: No Response From Servber Alert
     func showNoResponseFromServer() {
         let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))

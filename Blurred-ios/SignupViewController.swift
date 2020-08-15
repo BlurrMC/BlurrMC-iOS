@@ -10,15 +10,22 @@ import UIKit
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
     
+    
+    // MARK: Outlets
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var SignUpButton: UIButton!
+    
+    
+    // MARK: Back Button Tapped
     @IBAction func BackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
     // MARK: Send the new user's information
     func sendSignupCreds() {
         // Setup the api over here.
@@ -84,16 +91,24 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         }
         task.resume()
     }
+    
+    
+    // MARK: Remove Activity Indicator
     func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
         DispatchQueue.main.async {
             activityIndicator.stopAnimating()
             activityIndicator.removeFromSuperview()
         }
     }
+    
+    
+    // MARK: Sign Up Button Tapped
     @IBAction func signUpButtonTapped(_ sender: Any) {
         sendSignupCreds()
     }
-    // Setup the Devise api to accept sign ups through the api. Shouldn't be hard, right?????!
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // You gotta hide it
@@ -107,10 +122,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         emailTextField?.tag = 2
         passwordTextField?.tag = 3
         confirmPasswordTextField?.tag = 4
-        
-
-        // Do any additional setup after loading the view.
     }
+    
+    
+    // MARK: Text Field Should Return
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == nameTextField {
             textField.resignFirstResponder()
@@ -129,49 +144,61 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+    
+    
+    // MARK: Empty Fields Alert
     func showEmptyFields() {
+        let alert = UIAlertController(title: "Alert", message: "You must fill out all the fields.", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Alert", message: "You must fill out all the fields.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-            // show the alert
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    
+    // MARK: Confirm Password Does Not Match Alert
     func showConfirmPasswordDoesNotMatch() {
+        
+        // create the alert
+        let alert = UIAlertController(title: "Alert", message: "Your confirmation password does not enter the one you have entered.", preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
         DispatchQueue.main.async {
-            // create the alert
-            let alert = UIAlertController(title: "Alert", message: "Your confirmation password does not enter the one you have entered.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
             // show the alert
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    
+    // MARK: Error Contacting Server Alert
     func showErrorContactingServer() {
+        
+        // create the alert
+        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
         DispatchQueue.main.async {
-            // create the alert
-            let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
             // show the alert
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    
+    // MARK: Register Complete Alert
     func showRegisterComplete() {
+        
+        // create the alert
+        let alert = UIAlertController(title: "Success", message: "Your new account has been registered. Go to your email to confirm it.", preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
         DispatchQueue.main.async {
-            // create the alert
-            let alert = UIAlertController(title: "Success", message: "Your new account has been registered. Go to your email to confirm it.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
             // show the alert
             self.present(alert, animated: true, completion: nil)
         }

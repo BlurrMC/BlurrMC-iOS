@@ -13,12 +13,37 @@ import MobileCoreServices
 import Alamofire
 import Valet
 
-// This doesn't work and I don't know why and I want to die and I hate you.
 
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
+    
+    // MARK: Variables
     var timer = Timer()
     var usingFrontCamera = Bool()
+    var isCameraThere = Bool()
+    var previewLayer: AVCaptureVideoPreviewLayer!
+    var captureDevice: AVCaptureDevice!
+    var activeInput: AVCaptureDeviceInput!
+    var lastZoomFactor: CGFloat = 1.0
+    var outputURL: URL!
+    var isCameraFlipped: Bool = false
     
+    // MARK: Lets
+    let minimumZoom: CGFloat = 1.0
+    let maximumZoom: CGFloat = 10.0
+    let cameraButton = UIView()
+    let captureSession = AVCaptureSession()
+    let movieOutput = AVCaptureMovieFileOutput()
+
+    
+    // MARK: Outlets
+    @IBOutlet weak var flipCameraIcon: UIButton!
+    @IBOutlet weak var videoView: UIView!
+    
+    // MARK: Valet
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "frontCamera")!, accessibility: .whenUnlocked)
+    
+    
+    // MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if usingFrontCamera == true {
@@ -29,54 +54,62 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         frontOrBackCamera()
         prepareRecording()
     }
-    let myValet = Valet.valet(with: Identifier(nonEmpty: "frontCamera")!, accessibility: .whenUnlocked)
+    
+    
+    // MARK: Flip Camera Button Press
     @IBAction func flipCamera(_ sender: Any) {
         try? self.myValet.setString("\(usingFrontCamera)", forKey: "frontCamera")
         frontOrBackCamera()
-        
     }
+    
+    
+    // MARK: Get Front Camera
     func getFrontCamera() -> AVCaptureDevice?{
         return AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices.first
     }
 
+    // MARK: Get Back Camera
     func getBackCamera() -> AVCaptureDevice?{
         return AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back).devices.first
     }
+    
+    
+    // MARK: View Will Disappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         timer.invalidate()
     }
+    
+    
+    // MARK: Timer Action
     @objc func timerAction() {
         stopRecording()
     }
-    var isCameraThere = Bool()
+    
+    
+    // MARK: Gallery Button Press
     @IBAction func galleryButtonPress(_ sender: Any) {
         openVideoGallery()
     }
+    
+    
+    // MARK: Record Button Pressed Up
     @IBAction func recordButtonReleased(_ sender: Any) {
         stopRecording()
     }
+    
+    // MARK: Record Button Pressed Down
     @IBAction func recordButtonPress(_ sender: Any) {
         startCapture()
     }
-    @IBOutlet weak var flipCameraIcon: UIButton!
+    
+    
+    // MARK: Back Button Press
     @IBAction func recordBackButton(_ sender: Any) {
     }
-    @IBOutlet weak var videoView: UIView!
-
-    let cameraButton = UIView()
-
-    let captureSession = AVCaptureSession()
-
-    let movieOutput = AVCaptureMovieFileOutput()
-
-    var previewLayer: AVCaptureVideoPreviewLayer!
-    var captureDevice: AVCaptureDevice!
-    var activeInput: AVCaptureDeviceInput!
-    let minimumZoom: CGFloat = 1.0
-    let maximumZoom: CGFloat = 10.0
-    var lastZoomFactor: CGFloat = 1.0
-    var outputURL: URL!
+    
+    
+    // MARK: Pinch Gesture
     @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
         // MARK: Zooming on front camera or back camera
         if usingFrontCamera == true {
@@ -133,6 +166,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             }
         }
     }
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // No tab bar for you!
@@ -147,6 +183,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
         videoView.addSubview(cameraButton)
     }
+    
+    
     // MARK: Get the original position of camera
     func originalFlip() {
         let frontOrBack: String?  = try? myValet.string(forKey: "frontCamera")
@@ -158,6 +196,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             usingFrontCamera = false
         }
     }
+    
+    
     // MARK: Setup the video preview
     func setupPreview() {
         // Configure previewLayer
@@ -166,7 +206,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         videoView.layer.addSublayer(previewLayer)
     }
-    var isCameraFlipped: Bool = false
+    
+    
     // MARK: Flip the camera
     func frontOrBackCamera() {
         usingFrontCamera = !usingFrontCamera
@@ -191,6 +232,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             print(error.localizedDescription)
         }
     }
+    
+    
     // MARK: Setup the microphone
     func setupMicrophone() {
         let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
@@ -205,6 +248,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
                 return
             }
     }
+    
+    
     // MARK: Setup session (for recording)
     func setupSession() -> Bool {
         captureSession.sessionPreset = AVCaptureSession.Preset.high
@@ -217,8 +262,12 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         return true
     }
 
+    
+    // MARK: Setup Capture Mode
     func setupCaptureMode(_ mode: Int) {
     }
+    
+    
     // MARK: Start the session (for recording)
     func startSession() {
 
@@ -228,6 +277,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             }
         }
     }
+    
+    
     // MARK: Stop the session (for recording)
     func stopSession() {
         if captureSession.isRunning {
@@ -236,9 +287,14 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             }
         }
     }
+    
+    
+    // MARK: The Video Queue
     func videoQueue() -> DispatchQueue {
         return DispatchQueue.main
     }
+    
+    
     // MARK: Check the orientation
     func currentVideoOrientation() -> AVCaptureVideoOrientation {
        var orientation: AVCaptureVideoOrientation
@@ -254,9 +310,15 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
         return orientation
     }
+    
+    
+    // MARK: Start Capturing
     @objc func startCapture() {
         startRecording()
     }
+    
+    
+    // MARK: Temp URL For Video
     func tempURL() -> URL? {
         let directory = NSTemporaryDirectory() as NSString
 
@@ -267,10 +329,15 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
         return nil
     }
+    
+    
+    // MARK: Pass Info Through Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as? VideoPlaybackViewController
         vc?.videoURL = sender as? URL
     }
+    
+    
     // MARK: Prepare for recording
     func prepareRecording() {
         let connection = movieOutput.connection(with: AVMediaType.video)
@@ -297,6 +364,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
         }
     }
+    
+    
     // MARK: Start the recording
     func startRecording() {
      if movieOutput.isRecording == false {
@@ -313,6 +382,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
              stopRecording()
          }
     }
+    
+    
     // MARK: Stop the recording
     func stopRecording() {
         if movieOutput.isRecording == true {
@@ -320,6 +391,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
          }
         timer.invalidate()
     }
+    
+    
+    // MARK: Image Picker Controller
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
             // image = videoMuffinString
@@ -329,10 +403,13 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
                 self.performSegue(withIdentifier: "showVideo", sender: videoRecorded)
             }
         } else {
-            self.showUnkownError()
+            return
         }
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
+    // MARK: Output Video
     func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
 
         if (error != nil) {
@@ -344,6 +421,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             performSegue(withIdentifier: "showVideo", sender: videoRecorded)
         }
     }
+    
+    
+    // MARK: No Camera Alert
     func showNoCamera() {
         let alert = UIAlertController(title: "Error", message: "No camera is connected. What phone are you on?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK?", style: UIAlertAction.Style.default, handler: { action in
@@ -356,6 +436,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         }
     }
 
+    
+    // MARK: File Output (For video)
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
 
         if (error != nil) {
@@ -371,6 +453,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         }
 
     }
+    
+    
     // MARK: Open gallery for uploading from gallery
     func openVideoGallery() {
             let picker = UIImagePickerController()
@@ -380,17 +464,5 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             picker.videoMaximumDuration = 7
             picker.allowsEditing = true
             present(picker, animated: true, completion: nil)
-    }
-    func showUnkownError() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "We don't know what happend wrong here! Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
     }
 }

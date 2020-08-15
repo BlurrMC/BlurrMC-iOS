@@ -11,17 +11,51 @@ import Valet
 import Alamofire
 
 class VideoPlaybackViewController: UIViewController {
+    
+    // MARK: Outlets
     @IBOutlet weak var previewView: UIView!
+    
+    
+    // MARK: Lets
     let avPlayer = AVPlayer()
+    
+    
+    // MARK: Variables
     var avPlayerLayer: AVPlayerLayer!
+    var isDismissed: Bool = false
+    fileprivate var player: AVPlayer? {
+        didSet { player?.play() }
+    }
+    fileprivate var playerObserver: Any?
+    var videoURL: URL!
+    var doubleTap : Bool! = false
+    
+    // MARK: Valet
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    
+    // MARK: Deinit
+    deinit {
+        guard let observer = playerObserver else { return }
+        NotificationCenter.default.removeObserver(observer)
+    }
+    
+    // MARK: Back Button Tap
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
         isDismissed = true
         avPlayer.pause()
     }
+    
+    
+    // MARK: Next button Tap
     @IBAction func nextButton(_ sender: Any) {
         self.performSegue(withIdentifier: "showUploadDetails", sender: self)
     }
+    
+    
+    // MARK: Pass info through segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.destination is UploadDetailsViewController
@@ -31,27 +65,21 @@ class VideoPlaybackViewController: UIViewController {
                     vc.videoDetails = videoURL
                 }
             } else {
-                self.showErrorContactingServer()
+                return
             }
         } else {
             self.showNoVideo()
         }
     }
+    
+    
+    // MARK: Did Receive Memory Warning
     override func didReceiveMemoryWarning() {
         avPlayerLayer = nil
     }
-    var isDismissed: Bool = false
-    fileprivate var player: AVPlayer? {
-        didSet { player?.play() }
-    }
-    deinit {
-        guard let observer = playerObserver else { return }
-        NotificationCenter.default.removeObserver(observer)
-    }
-    fileprivate var playerObserver: Any?
-    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
-    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
-    var videoURL: URL!
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
@@ -59,19 +87,26 @@ class VideoPlaybackViewController: UIViewController {
         self.previewView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(VideoPlaybackViewController.tapFunction))
         previewView.addGestureRecognizer(tap)
-                // Do any additional setup after loading the view.
     }
+    
+    
+    // MARK: View Will Disappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         isDismissed = true
         avPlayer.pause()
         avPlayerLayer = nil
     }
+    
+    
+    // MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         isDismissed = false
         babaPlayer()
     }
+    
+    
     // MARK: Play the reecorded video
     func babaPlayer() {
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
@@ -97,41 +132,28 @@ class VideoPlaybackViewController: UIViewController {
         avPlayer.play()
 
     }
+    
+    
+    // MARK: Done Button
     @IBAction func doneButton(_ sender: Any) {
         performSegue(withIdentifier: "showUploadDetails", sender: self)
     }
-    func showErrorContactingServer() {
-            let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)z
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    //
-    func showNoResponseFromServer() {
-            let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
+    
+    
+    // MARK: No Video Alert
     func showNoVideo() {
             let alert = UIAlertController(title: "What?", message: "There's no video! How did this happen????", preferredStyle: UIAlertController.Style.alert)
 
             // add an action (button)
-            alert.addAction(UIAlertAction(title: "bruh moment", style: UIAlertAction.Style.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    var doubleTap : Bool! = false
+    
+    
+    // MARK: Tap Function Gesture
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         if (doubleTap) {
             doubleTap = false
@@ -141,6 +163,9 @@ class VideoPlaybackViewController: UIViewController {
             doubleTap = true
         }
     }
+    
+    
+    // MARK: Remove Activity Indicator
     func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
         DispatchQueue.main.async {
             activityIndicator.stopAnimating()

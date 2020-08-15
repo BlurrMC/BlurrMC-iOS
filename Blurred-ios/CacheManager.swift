@@ -10,15 +10,18 @@ import Foundation
 
 class CacheManager {
 
+    
+    // MARK: Lets
     static let shared = CacheManager()
-
     private let fileManager = FileManager.default
 
+    // MARK: Variables
     private lazy var mainDirectoryUrl: URL = {
-
         let documentsUrl = self.fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         return documentsUrl
     }()
+    
+    
     // MARK: Try and clear the contents of the cache.
     func clearContents(_ url:URL) {
 
@@ -34,6 +37,9 @@ class CacheManager {
         }
 
      }
+    
+    
+    // MARK: Get File With URL
     func getFileWith(stringUrl: String, completionHandler: @escaping (Result<URL>) -> Void ) {
 
 
@@ -59,6 +65,8 @@ class CacheManager {
         }
     }
 
+    
+    // MARK: Get Directory For URl
     private func directoryFor(stringUrl: String) -> URL {
 
         let fileURL = URL(string: stringUrl)!.lastPathComponent

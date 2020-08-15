@@ -11,6 +11,9 @@ import Alamofire
 import Nuke
 
 class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    // MARK: Number Of Rows In Section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case self.tableView:
@@ -21,13 +24,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             return videos.count
         }
     }
+    
+    
+    // MARK: Lets
     private let refreshControl = UIRefreshControl()
     private let videoRefreshControl = UIRefreshControl()
+    
+    
+    // MARK: Received Memory Warning
     override func didReceiveMemoryWarning() {
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
     }
+    
+    // MARK: Cell For ROw At
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
         case self.tableView:
@@ -162,19 +173,38 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             return cell
         }
     }
+    
+    // MARK: Outlets
     @IBOutlet weak var videoTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBarTextField: UISearchBar!
+    
+    // MARK: Variables
     private var videos = [Video]()
     private var users = [User]()
+    var searchString = String()
+    var isItUserSearch = Bool()
+
+    // MARK: Search Bar Did End Editing
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+    
+    
+    // MARK: Cancel Button Tapped
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+    
+    
+    // MARK: Search Button Tapped
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         userOrVideoSearch()
     }
+    
+    
+    // MARK: Pass info through segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.destination is OtherChannelViewController
@@ -198,8 +228,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             }
         }
     }
-    var searchString = String()
-    var isItUserSearch = Bool()
+    
+    
     // MARK: See if the search is for videos or users
     func userOrVideoSearch() {
         if searchBarTextField.text?.prefix(1) == "@" {
@@ -225,6 +255,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             self.search()
         }
     }
+    
+    
     // MARK: Submit the user's search query + loads the results
     func search() {
         // Contact api to search the query
@@ -255,13 +287,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 }
             }.resume()
     }
+    
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // put recommended search heree
     }
+    
+    
     func textFieldShouldReturn(_ textField: UISearchBar) -> Bool {
         textField.resignFirstResponder()
         return true
     }
+    
+    // MARK: User Info From JSON
     class Users: Codable {
         let searchresults: [User]
         let videosearchresults: [Video]
@@ -270,12 +308,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             self.videosearchresults = videosearchresults
         }
     }
-    class Video: Codable {
-        let id: Int
-        init(id: Int) {
-            self.id = id
-        }
-    }
+    
     class User: Codable {
         let username: String
         init(username: String) {
@@ -283,7 +316,17 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
     }
     
-    // Communicates with the api for search results
+    
+    // MARK: Video Info From JSON
+    class Video: Codable {
+        let id: Int
+        init(id: Int) {
+            self.id = id
+        }
+    }
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBarTextField?.delegate? = self
@@ -292,24 +335,17 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         refreshControl.addTarget(self, action: #selector(refreshSearch(_:)), for: .valueChanged)
         refreshControl.addTarget(self, action: #selector(refreshVideoSearch(_:)), for: .valueChanged)
     }
+    
+    
+    // MARK: Refresh Video Search Results
     @objc private func refreshVideoSearch(_ sender: Any) {
         search()
     }
+    
+    
+    // MARK: Refresh User Search Results
     @objc private func refreshSearch(_ sender: Any) {
         search()
-    }
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBarTextField: UISearchBar!
-    func showUnkownError() {
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "We don't know what happend wrong here! Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
     }
 
 }

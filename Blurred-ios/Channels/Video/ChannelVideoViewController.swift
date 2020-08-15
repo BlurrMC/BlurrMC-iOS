@@ -7,27 +7,36 @@
 //
 
 import UIKit
-import AVFoundation
 import Valet
 import Alamofire
-import Nuke
 import Photos
 import AsyncDisplayKit
 
 class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
+    // MARK: Tap for channel from overlay
     func didTapChannel(_ view: ChannelVideoOverlayView, videousername: String) {
         showUserChannel(videoUsername: videousername)
     }
     
+    // MARK: Tap for comments from overlay
     func didTapComments(_ view: ChannelVideoOverlayView, videoid: Int) {
         showVideoComments(videoId: videoid)
     }
     
-    
+    // MARK: Variables
     var tableNode: ASTableNode!
     var lastNode: ChannelVideoCellNode?
-    var amIDone = Bool()
+    private var videos = [Video]()
+    var videoUsername = String()
+    var rowNumber = Int()
+    var videoString = Int()
+    var videoUrlString = String()
+    var isItFromSearch = Bool()
+    var videoId = Int()
+    var channelId = String()
+    
+    // MARK: Initalizing
     required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
             self.tableNode = ASTableNode(style: .plain)
@@ -62,61 +71,39 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                 }
         }
         
-    }*/
+    }*/    
     
-    private var videos = [Video]()
-    @IBOutlet weak var likeCount: UILabel!
-    @IBOutlet weak var backButtonOutlet: UIButton!
-    @IBOutlet weak var share: UIImageView!
-    var videoUsername = String()
-    var rowNumber = Int()
-    var lastVideo = Bool()
-    var firstVideo = Bool()
-    @IBOutlet weak var videoUserAvatar: UIImageView!
-    @IBOutlet weak var videoLike: UIImageView!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    var videoString = Int()
-    var videoUrlString = String()
-    var likeId = Int()
-    var isVideoLiked = Bool()
-    var likenumber = Int()
-    var videoDescription = String()
-    var publishdate = String()
-    var views = Int()
-    var isItSwitched: Bool = false
-    var isItFromSearch = Bool()
-    
+    // MARK: Remove URL Cache
     override func didReceiveMemoryWarning() {
-        avPlayerLayer = nil
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
     }
     
+    // MARK: Back Button Press
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-        isDismissed = true
     }
-    func play() {
-        avPlayer.play()
-        isDismissed = false
-    }
-    func presentationControllerWillDismiss(_: UIPresentationController) {
-        isDismissed = false
-        avPlayer.play()
-    }
+    
+    // MARK: Table node frame
     override func viewWillLayoutSubviews() {
             super.viewWillLayoutSubviews()
             self.tableNode.frame = self.view.bounds;
     }
+    
+    // MARK: Styling for table node
     func applyStyle() {
         self.tableNode.view.separatorStyle = .none
         self.tableNode.view.isPagingEnabled = true
     }
+    
+    // MARK: Delegates for table node
     func wireDelegates() {
             self.tableNode.delegate = self
             self.tableNode.dataSource = self
     }
+    
+    // MARK: Request for channel's videos
     func sendRequest() {
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(videoString).json")
         var request = URLRequest(url:myUrl!)
@@ -149,49 +136,18 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         }
         task.resume()
     }
-    @IBOutlet weak var videoView: UIView!
-    @IBOutlet weak var commentImage: UIImageView!
-    let avPlayer = AVPlayer()
-    var avPlayerLayer: AVPlayerLayer!
+
     override func viewDidLoad() {
         super.viewDidLoad() 
         let vc = CommentingViewController()
         vc.presentationController?.delegate = self
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
-        // sendRequest(videoid: videoString)
         self.view.insertSubview(tableNode.view, at: 0)
         self.applyStyle()
         self.tableNode.leadingScreensForBatching = 1.0
     }
-    @objc func videoSwipe(gesture: UIGestureRecognizer) {
-
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-
-            switch swipeGesture.direction {
-            case .down:
-                // Go to previous video
-                print("swiped down")
-            case .up:
-                // Go to next video.
-                print("swiped up")
-            default:
-                break
-            }
-        }
-    }
-    var doubleTap : Bool! = false
-    // MARK: Pauses/Plays the video
-    @objc func tapFunction(sender:UITapGestureRecognizer) {
-        if (doubleTap) {
-            doubleTap = false
-            avPlayer.play()
-        } else {
-            avPlayer.pause()
-            doubleTap = true
-        }
-    }
    
-       
+    // MARK: Segue Data
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if let vc = segue.destination as? CommentingViewController {
@@ -206,13 +162,14 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         }
     }
     
-    
+    // MARK: Videos downloaded
     class Videos: Codable {
         let videos: [Video]
         init(videos: [Video]) {
             self.videos = videos
         }
     }
+    
     class Video: Codable {
         let videourl: String
         let videoid: Int
@@ -221,17 +178,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             self.videoid = videoid
         }
     }
-    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
-    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
-    var isDismissed: Bool = false
-    fileprivate var playerObserver: Any?
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        avPlayer.pause()
-        avPlayer.replaceCurrentItem(with: nil)
-        isDismissed = true
-        avPlayerLayer = nil
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if isItFromSearch != true {
@@ -239,47 +186,6 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         } else {
             sendRequest()
         }
-        isDismissed = false
-    }
-    fileprivate var player: AVPlayer? {
-        didSet { player?.play() }
-    }
-    deinit {
-        guard let observer = playerObserver else { return }
-        NotificationCenter.default.removeObserver(observer)
-    }
-    func showNoResponseFromServer() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
-    }
-    func showUnkownError() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "We don't know what happend wrong here! Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
-    }
-    func showErrorContactingServer() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: Function for showing user channel
@@ -288,8 +194,6 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         self.performSegue(withIdentifier: "showVideoUserChannel", sender: self)
     }
     
-    var videoId = Int()
-    
     // MARK: Function for showing video comments
     func showVideoComments(videoId: Int) {
         self.videoId = videoId
@@ -297,7 +201,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         
     }
     
-    var channelId = String()
+    // MARK: Download array of videos for channels
     func channelVideoIds() { // Still not done we need to add the user's butt image
         let url = URL(string: "http://10.0.0.2:3000/api/v1/channelvideos/\(channelId).json")
             guard let downloadURL = url else { return }
@@ -321,6 +225,8 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                 }
             }.resume()
     }
+    
+    // MARK: New rows for table node
     func insertNewRowsInTableNode(newVideos: [Video]) {
         guard newVideos.count > 0 else {
             return
@@ -335,7 +241,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         self.videos.append(contentsOf: newVideos)
         self.tableNode.insertRows(at: indexPaths, with: .none)
     }
-    var shouldWeContinue = Bool()
+    
 }
 public enum Result<T> {
     case success(T)
@@ -372,6 +278,7 @@ extension ChannelVideoViewController: ASTableDataSource {
     }
 }
 extension ChannelVideoViewController: ASTableDelegate {
+    // MARK: Size of each cell
     func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
         let width = UIScreen.main.bounds.size.width
         let min = CGSize(width: width, height: (UIScreen.main.bounds.size.height/3) * 2)
@@ -379,16 +286,13 @@ extension ChannelVideoViewController: ASTableDelegate {
         return ASSizeRangeMake(min, max)
     }
     
+    // MARK: Batch fetch bool
     func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
         return true
     }
     
+    // MARK: Batch fetch function
     func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
-        /*channelVideoIds()
-        DispatchQueue.main.async {
-            self.insertNewRowsInTableNode(newVideos: self.videos)
-        }
-        context.completeBatchFetching(true)*/
         self.retrieveNextPageWithCompletion { (newVideos) in
             self.insertNewRowsInTableNode(newVideos: newVideos)
             context.completeBatchFetching(true)
@@ -398,8 +302,10 @@ extension ChannelVideoViewController: ASTableDelegate {
     
 }
 extension ChannelVideoViewController {
+    // MARK: More batch fetching function
     func retrieveNextPageWithCompletion( block: @escaping ([Video]) -> Void) {
-        if isItFromSearch != true {
+        switch isItFromSearch {
+        case false:
             var oldVideoCount = Int()
             oldVideoCount = videos.count
             channelVideoIds()
@@ -408,7 +314,7 @@ extension ChannelVideoViewController {
                     block(self.videos)
                 }
             }
-        } else {
+        case true:
             var oldVideoCount = Int()
             oldVideoCount = videos.count
             sendRequest()
@@ -418,6 +324,5 @@ extension ChannelVideoViewController {
                 }
             }
         }
-        
     }
 }

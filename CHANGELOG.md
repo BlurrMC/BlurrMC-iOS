@@ -106,6 +106,7 @@
     * Changed name of some groups.
     * Added video group
     * Added bridging header (to support gradient node objective c files)
+    * Cleaned up code
 ## v0.3 (PRERELEASE)
 * Changed scale factor of avatar image in channel view.
 * Added description field

@@ -9,6 +9,8 @@
 import UIKit
 
 class DescriptionOverlayView: UIView, ChannelVideoDescriptionDelegate {
+    
+    // MARK: Info for overlay view
     func didReceiveInfo(_ sender: ChannelVideoOverlayView, views: Int, description: String, publishdate: String) {
         videoDesc = description
         definedDescription = description
@@ -17,8 +19,10 @@ class DescriptionOverlayView: UIView, ChannelVideoDescriptionDelegate {
         updateDescription()
     }
     
+    // MARK: XIB Name
     let kCONTENT_XIB_NAME = "DescriptionOverlay"
     
+    // MARK: Variables
     var isItSwitched = Bool()
     var views = Int()
     var videoDesc = String()
@@ -26,6 +30,7 @@ class DescriptionOverlayView: UIView, ChannelVideoDescriptionDelegate {
     var viewCount = String()
     var publishdate = String()
     
+    // MARK: Outlets
     @IBOutlet weak var videoDescription: UILabel!
     @IBOutlet var contentView: UIView!
     
@@ -43,6 +48,7 @@ class DescriptionOverlayView: UIView, ChannelVideoDescriptionDelegate {
         }
     }
     
+    // MARK: Initialize
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()

@@ -9,11 +9,12 @@
 import UIKit
 import AsyncDisplayKit
 
-// MARK: This should probably get moved to cells -> channel -> video, but I can't get it to compile if I do that :(
 class ChannelVideoCellNode: ASCellNode {
     
+    // MARK: Delegates
     weak var delegate: ChannelVideoOverlayViewDelegate?
     
+    // MARK: Variables
     var videoNode = ASVideoNode()
     var gradientNode: GradientNode
 
@@ -44,14 +45,15 @@ class ChannelVideoCellNode: ASCellNode {
             overlay2.frame = CGRect(x: 40, y: 614, width: 287, height: 45)
             self.view.addSubview(overlay2)
         }
-        
-  }
-  override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    let ratio = UIScreen.main.bounds.height / UIScreen.main.bounds.width
-    let ratioSpec = ASRatioLayoutSpec(ratio:ratio, child:self.videoNode)
-    let gradientOverlaySpec = ASOverlayLayoutSpec(child:ratioSpec, overlay:self.gradientNode)
-    return gradientOverlaySpec   
-  }
+    }
+    
+    // MARK: Layout spec
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        let ratio = UIScreen.main.bounds.height / UIScreen.main.bounds.width
+        let ratioSpec = ASRatioLayoutSpec(ratio:ratio, child:self.videoNode)
+        let gradientOverlaySpec = ASOverlayLayoutSpec(child:ratioSpec, overlay:self.gradientNode)
+        return gradientOverlaySpec
+    }
     
   
 }

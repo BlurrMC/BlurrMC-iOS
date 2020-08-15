@@ -21,24 +21,29 @@ class ChannelVideoOverlayView: UIView {
     var likeId = Int()
     var videoUsername = String()
     
+    // MARK: Delegates
     weak var delegate2: ChannelVideoDescriptionDelegate?
     weak var delegate: ChannelVideoOverlayViewDelegate?
     
     // MARK: Valet
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     
-    // MARK: Lets
+    // MARK: XIB Name
     let kCONTENT_XIB_NAME = "ChannelVideoOverlay"
     
     // MARK: Update Outlets
-    // Must be called by main thread
     func changeHeartIcon() {
-        if isVideoLiked == true {
-            videoLike.image = UIImage(systemName: "heart.fill")
-            videoLike.tintColor = UIColor.systemRed
-        } else {
-            videoLike.image = UIImage(systemName: "heart")
-            videoLike.tintColor = UIColor.lightGray
+        switch isVideoLiked {
+        case true:
+            DispatchQueue.main.async {
+                self.videoLike.image = UIImage(systemName: "heart.fill")
+                self.videoLike.tintColor = UIColor.systemRed
+            }
+        case false:
+            DispatchQueue.main.async {
+                self.videoLike.image = UIImage(systemName: "heart")
+                self.videoLike.tintColor = UIColor.lightGray
+            }
         }
     }
     func changeChannelAvatar() {
@@ -46,7 +51,9 @@ class ChannelVideoOverlayView: UIView {
             return
         }
         let avatarUrl = URL(string: "\(self.newAvatarUrl)")
-        Nuke.loadImage(with: avatarUrl ?? imageURL, into: videoChannel)
+        DispatchQueue.main.async {
+            Nuke.loadImage(with: avatarUrl ?? imageURL, into: self.videoChannel)
+        }
     }
     func changeLikeCount() {
         switch likenumber {
@@ -77,8 +84,7 @@ class ChannelVideoOverlayView: UIView {
         }
     }
     
-    @IBOutlet var contentView: UIView!
-    
+    // MARK: Initalizing
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -117,11 +123,8 @@ class ChannelVideoOverlayView: UIView {
         delegate?.didTapComments(self, videoid: videoId)
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     // MARK: Outlets
+    @IBOutlet var contentView: UIView!
     @IBOutlet weak var videoShare: UIImageView!
     @IBOutlet weak var videoLikeCount: UILabel!
     @IBOutlet weak var videoLike: UIImageView!
@@ -165,17 +168,13 @@ class ChannelVideoOverlayView: UIView {
                 let status = JSON!["status"] as? String
                 if status == "This video is liked." {
                     self.isVideoLiked = true
-                    DispatchQueue.main.async {
-                        self.changeHeartIcon()
-                    }
+                    self.changeHeartIcon()
                     guard let likeid = JSON!["likeid"] as? Dictionary<String, Any> else { return }
                     guard let id = likeid["id"] as? Int else { return }
                     self.likeId = id
                 } else if status == "Video has not been liked" {
                     self.isVideoLiked = false
-                    DispatchQueue.main.async {
-                        self.changeHeartIcon()
-                    }
+                    self.changeHeartIcon()
                 } else {
                     print("error code: 1039574612")
                     return
@@ -205,14 +204,10 @@ class ChannelVideoOverlayView: UIView {
                     self.sendDeleteLikeRequest()
                 case "Video has been liked":
                     self.isVideoLiked = true
-                    DispatchQueue.main.async {
-                        self.changeHeartIcon()
-                    }
+                    self.changeHeartIcon()
                 case "Video has been unliked.":
                     self.isVideoLiked = false
-                    DispatchQueue.main.async {
-                        self.changeHeartIcon()
-                    }
+                    self.changeHeartIcon()
                 case .none:
                     break
                 case .some(_):
@@ -233,9 +228,7 @@ class ChannelVideoOverlayView: UIView {
         let throttler = Throttler(minimumDelay: 5)
         if isVideoLiked == true {
             isVideoLiked = false
-            DispatchQueue.main.async {
-                self.changeHeartIcon()
-            }
+            self.changeHeartIcon()
             if self.likenumber != 0 {
                 let subtot = self.likenumber - 1
                 self.likenumber = subtot
@@ -246,9 +239,7 @@ class ChannelVideoOverlayView: UIView {
             }
         } else if isVideoLiked == false {
             isVideoLiked = true
-            DispatchQueue.main.async {
-                self.changeHeartIcon()
-            }
+            self.changeHeartIcon()
             let subtot = likenumber + 1
             likenumber = subtot
             self.changeLikeCount()
@@ -283,9 +274,7 @@ class ChannelVideoOverlayView: UIView {
                                    let avatarUrl = JSON!["avatar_url"] as? String
                                    let railsUrl = String("http://10.0.0.2:3000\(avatarUrl!)")
                                 self.newAvatarUrl = railsUrl
-                                   DispatchQueue.main.async {
-                                    self.changeChannelAvatar()
-                                   }
+                                self.changeChannelAvatar()
                                } catch {
                                    return
                                }
@@ -320,9 +309,7 @@ class ChannelVideoOverlayView: UIView {
                     self.sendLikeRequest()
                 } else if status == "Video has been unliked." {
                     self.isVideoLiked = false
-                    DispatchQueue.main.async {
-                        self.changeHeartIcon()
-                    }
+                    self.changeHeartIcon()
                 }
                 self.checkLikeCount()
                 self.sendCheckLikeRequest()

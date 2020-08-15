@@ -11,11 +11,19 @@ import Valet
 
 class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     
+    
+    // MARK: Outlets
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    // CRAP I forgot to declare these until now ^^^
-    // Has to contact the devise api sending it's credentials to make sure it's good then it sends a token back
-
+    @IBOutlet weak var loginButton: UIButton!
+    
+    
+    // MARK: Valet
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameTextField?.delegate = self
@@ -24,6 +32,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         passwordTextField?.tag = 1
     }
     
+    
+    // MARK: Text Field Should Return
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameTextField {
             textField.resignFirstResponder()
@@ -33,12 +43,14 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-    @IBOutlet weak var loginButton: UIButton!
+    
+    
+    // MARK: Submit Creds Button Tapped
     @IBAction func SubmitCreds(_ sender: UIButton) {
         sendCreds()
     }
-    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
-    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    
     // MARK: Send credentials to login
     func sendCreds() {
         let username = usernameTextField.text
@@ -78,7 +90,6 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         }
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in // error. Error? ERRORRRR???!!??!?!
             if error != nil {
-                self.showNoResponseFromServer()
                 self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                 print("error=\(String(describing: error))")
                 return
@@ -116,9 +127,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                             }
                         }
                     }
-                } else {  // else what?
+                } else {
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                    self.showNoResponseFromServer()
                     print(error ?? "No error")
                 }
                 
@@ -130,12 +140,18 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         }
         task.resume()
     }
+    
+    
+    // MARK: Remove Activity Indicator
     func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
         DispatchQueue.main.async {
             activityIndicator.stopAnimating()
             activityIndicator.removeFromSuperview()
         }
     }
+    
+    
+    // MARK: Empty Alert
     func showEmptyAlert() {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Alert", message: "The username or password is missing.", preferredStyle: UIAlertController.Style.alert)
@@ -147,6 +163,9 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    
+    // MARK: Error Contacting Server Alert
     func showErrorContactingServer() {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
@@ -158,17 +177,9 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    func showNoResponseFromServer() {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
+    
+    
+    // MARK: Incorrect Creds Alert
     func showIncorrectCreds() {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Alert", message: "Wrong username or password.", preferredStyle: UIAlertController.Style.alert)

@@ -13,60 +13,92 @@ import Foundation
 import Alamofire
 
 class OtherChannelViewController: UIViewController, UICollectionViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    var coder = NSCoder()
     
-    // Add peak function to dispaly video when peaking.
+    // MARK: Variables
+    var coder = NSCoder()
+    var isItThemselves = Bool()
+    private var videos = [Video]()
+    var chanelVar = String()
+    var following = Bool()
+    var relationshipId = Int()
+    var channelUsername = String()
+    var timer2 = Timer()
+    
+    
+    // MARK: Valet
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    
+    // MARK: Outlets
     @IBOutlet var dropDownButtons: [UIButton]!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var blockButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var bioLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var followersLabel: UILabel!
+    @IBOutlet weak var followingLabel: UILabel!
+    
+    
+    // MARK: Lets
+    private let refreshControl = UIRefreshControl()
+    
+    
+    // MARK: Number Of Items In Section
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
     }
-    var isItThemselves = Bool()
+    
+    
     // MARK: Checks the user if they are viewing themselves (dropdown menu).
     func checkIfOtherUserIsCurrentUser() {
         let userId: String?  = try? myValet.string(forKey: "Id")
-                    let userIdInt: Int? = Int(userId!)
-                    let userIdString: String = String("\(userIdInt)")
-                        let Id = chanelVar
-                        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
-                        var request = URLRequest(url:myUrl!)
-                        request.httpMethod = "GET"
-                        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                            if error != nil {
-                                print(error as Any)
-                                return
-                            }
-                                                do {
-                                                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                                                    if let parseJSON = json {
-                                                        let username: Int? = parseJSON["id"] as? Int
-                                                        let usernameId = String("\(username)")
-                                                        if userIdString != usernameId {
-                                                                self.isItThemselves = false
-                                                        } else {
-                                                            self.isItThemselves = true
-                                                        }
-                                                    } else {
-                                                        print(error ?? "")
-                                                        return
-                                                    }
-                                                } catch {
-                                                    print(error)
-                                                        return
-                                                }
-                                    
-                        }
-        task.resume()
+        let userIdInt: Int? = Int(userId!)
+        let userIdString: String = String("\(userIdInt)")
+        let Id = chanelVar
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let username: Int? = parseJSON["id"] as? Int
+                    let usernameId = String("\(username)")
+                    if userIdString != usernameId {
+                        self.isItThemselves = false
+                    } else {
+                        self.isItThemselves = true
+                    }
+                } else {
+                    print(error ?? "")
+                    return
+                }
+            } catch {
+                print(error)
+                return
+            }
+        }
+    task.resume()
     }
     
+    
+    // MARK: Did Select Row
     func collectionView(CollectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
         let destinationVC = ChannelVideoViewController(coder: coder)
         destinationVC?.performSegue(withIdentifier: "showVideo", sender: self)
     }
 
+    
+    // MARK: Follow Button Tap
     @IBAction func followButtonTap(_ sender: Any) {
         following = !following
         switch following {
@@ -84,10 +116,14 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             unfollowUser()
         }
     }
+    
+    
+    // MARK: Block Button Tap
     @IBAction func blockButtonTap(_ sender: Any) {
     }
-    private let refreshControl = UIRefreshControl()
-    @IBOutlet weak var dropDownMenu: UIView!
+    
+
+    // MARK: Cell For Item At
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }
@@ -95,43 +131,47 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         
         cell.thumbnailView.image = UIImage(named: "load-image")
         AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(Id!).json").responseJSON { response in
-                   var JSON: [String: Any]?
-                   do {
-                       JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                       let imageUrl = JSON!["thumbnail_url"] as? String
-                       let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
-                    guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
-                        return
-                    }
-                       DispatchQueue.main.async {
-                           Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.thumbnailView)
-                       }
-                   } catch {
-                       return
-                   }
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let imageUrl = JSON!["thumbnail_url"] as? String
+                let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
+                guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.thumbnailView)
+                }
+            } catch {
+                return
+            }
         }
         return cell
     }
+    
+    
+    // MARK: Videos info downloaded
     class Videos: Codable {
         let videos: [Video]
         init(videos: [Video]) {
             self.videos = videos
         }
     }
+    
     class Video: Codable {
         let id: Int
         init(username: String, name: String, id: Int) {
-            self.id = id // Pass id through a seuge to channelvideo
+            self.id = id
         }
     }
-    private var videos = [Video]()
+    
+    
     // MARK: Load the channel's videos
     func channelVideoIds() { // Still not done we need to add the user's butt image
             let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(chanelVar).json")  // 23:40
             guard let downloadURL = url else { return }
             URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
                 guard let data = data, error == nil, urlResponse != nil else {
-                    self.showNoResponseFromServer()
                     return
                 }
                 do {
@@ -143,30 +183,24 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                         self.refreshControl.endRefreshing()
                     }
                 } catch {
-                    self.showErrorContactingServer() // f
+                    return
                 }
             }.resume()
     }
-    var chanelVar = String()
-    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
-    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    
+    // MARK: Back Button Function
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true)
     }
-    @IBOutlet weak var bioLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var followersLabel: UILabel!
-    @IBOutlet weak var followingLabel: UILabel!
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         ImageCache.shared.ttl = 120
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshVideos(_:)), for: .valueChanged)
-        self.followersLabel.isUserInteractionEnabled = true
-        self.followingLabel.isUserInteractionEnabled = true
-        self.avatarImage.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tapFunction))
         let tapp = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tappFunction))
         let tappp = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tapppFunction))
@@ -183,9 +217,15 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         }
         self.avatarImage.contentScaleFactor = 1.5
     }
+    
+    
+    // MARK: Refresh Videos Refresh
     @objc private func refreshVideos(_ sender: Any) {
         channelVideoIds()
     }
+    
+    
+    // MARK: View Will Disappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         dropDownButtons.forEach { (button) in
@@ -194,6 +234,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             }
         }
     }
+    
+    
+    // MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadMemberChannel()
@@ -201,14 +244,22 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         checkForFollowing()
         checkIfOtherUserIsCurrentUser()
     }
+    
+    
+    // MARK: Follower Tap Function
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
     }
+    
+    
+    // MARK: Memory Warning
     override func didReceiveMemoryWarning() {
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
     }
+    
+    
     // MARK: Dropdown menu tap function
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
         if isItThemselves == false {
@@ -235,8 +286,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         }
         
     }
-    var following = Bool()
-    var relationshipId = Int()
+    
+    
     // MARK: Unfollow the user
     func unfollowUser() {
         let token: String? = try? tokenValet.string(forKey: "Token")
@@ -264,6 +315,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             }
             }
     }
+    
+    
     // MARK: Follow the user
     func followUser() {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
@@ -305,6 +358,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         }
         task.resume()
     }
+    
+    
     // MARK: Check if user is following/blocking (for dropdown)
     func checkForFollowing() {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
@@ -344,6 +399,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                        }
                    task.resume()
     }
+    
+    
     // MARK: Import images for changing avatar
     func importImage() {
         let image = UIImagePickerController()
@@ -354,6 +411,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             
         }
     }
+    
+    
     // MARK: Take picture for changing avatar
     func takePicture() {
         let image = UIImagePickerController()
@@ -364,6 +423,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             
         }
     }
+    
+    
     // MARK: Upload changed avatar
     func upload() {
         let token: String?  = try? self.tokenValet.string(forKey: "Token")
@@ -388,19 +449,28 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
 
         }
     }
+    
+    
+    // MARK: Image Picker Controller
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             avatarImage.image = image
             upload()
         } else {
-            self.showUnkownError()
+            return
         }
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
+    // MARK: Documents Directory (For Images)
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
+    
+    
+    // MARK: Pick Avatar
     func pickAvatar() {
             let alert = UIAlertController(title: "Avatar", message: "Change your avatar.", preferredStyle: UIAlertController.Style.actionSheet)
 
@@ -419,16 +489,26 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    
+    // MARK: Following Tap Function
     @objc func tappFunction(sender:UITapGestureRecognizer) {
         goToFollowingList()
     }
+    
+    
+    // MARK: Follower List Segue
     func goToFollowersList() {
         self.performSegue(withIdentifier: "showOtherFollower", sender: self)
     }
+    
+    
+    // MARK: Following List Segue
     func goToFollowingList() {
         self.performSegue(withIdentifier: "showOtherFollowing", sender: self)
     }
-    var channelUsername = String()
+    
+
     // MARK: Load the channel's information
     func loadMemberChannel() {
             let Id = chanelVar
@@ -467,7 +547,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                                     self.nameLabel.text = name ?? ""
                                 }
                             } else {
-                                self.showNoResponseFromServer()
+                                return
                             }
                         switch followerCount {
                         case _ where followerCount < 1000:
@@ -527,18 +607,23 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                         return
                     }
                 } catch {
-                        self.showNoResponseFromServer()
                         print(error)
-                    }
+                    return
+                }
             }
-            task.resume()
+        task.resume()
     }
-    var timer2 = Timer()
+    
+    
+    // MARK: Touch End For Dropdown
     func touchesEnded(touches: NSSet, withEvent event: UIEvent)
     {
         super.touchesEnded(touches as! Set<UITouch>, with: event)
         dismissView()
     }
+    
+    
+    // MARK: Dismiss The Dropdown
     func dismissView() {
         if followButton.isHidden == false && blockButton.isHidden == false {
             if isItThemselves == false {
@@ -554,6 +639,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         }
         self.view.gestureRecognizers?.forEach(view.removeGestureRecognizer)
     }
+    
+    
+    // MARK: Segue Info
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.destination is OtherFollowerListViewController
@@ -588,6 +676,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             }
         }
     }
+    
+    
+    // MARK: Error Contacting Server Alert
     func showErrorContactingServer() {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
 
@@ -598,28 +689,5 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             self.present(alert, animated: true, completion: nil)
         }
     }
-    func showNoResponseFromServer() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    func showUnkownError() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "We don't know what happend wrong here! Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
+    
 }

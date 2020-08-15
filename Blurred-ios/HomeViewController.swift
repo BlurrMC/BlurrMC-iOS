@@ -10,19 +10,27 @@ import UIKit
 import Valet
 import UserNotifications
 
-class HomeViewController: UIViewController {  // Ah yes, home
+class HomeViewController: UIViewController {
+    
+    // MARK: Variables
     var window: UIWindow?
-    // Communicates with the api to check for any new updates
+    
+    
+    // MARK: Valet
+    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    // MARK: Delegates
     let delegate = UIApplication.shared.delegate as! AppDelegate
     
     
-
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         checkUser() // This should always be the first thing
     }
-    let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
-    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    
     // MARK: Check user's account to make sure it's valid
     func checkUser() {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
@@ -87,13 +95,12 @@ class HomeViewController: UIViewController {  // Ah yes, home
                        }
                    task.resume()
     }
+    
+    
+    // Error Contacting Server Alert
     func showErrorContactingServer() {
-        // create the alert
         let alert = UIAlertController(title: "Error", message: "Error contacting the server. Check your internet connection.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }

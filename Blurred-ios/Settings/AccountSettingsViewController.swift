@@ -11,21 +11,33 @@ import Foundation
 import Valet
 
 class AccountSettingsViewController: UIViewController {
-    // Make the text fill in with what your username/name,etc. is and then when typing begins clear it.
+    
+    
+    // MARK: Edit Button Tapped
     @IBAction func editButtonTapped(_ sender: Any) {
         updateAccount()
         self.dismiss(animated: true, completion: nil)
     }
+    
+    // MARK: Outlets
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var bioField: UITextField!
+    
+    // MARK: Back Button Tapped
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    
+    // MARK: Valet
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     // Check to see if any of the text fields have changed and if they have then 
@@ -35,9 +47,14 @@ class AccountSettingsViewController: UIViewController {
             activityIndicator.removeFromSuperview()
         }
     }
+    
+    
+    // MARK: Update Account
     func updateAccount() {
         startRequest()
     }
+    
+    
     // MARK: Upload the changed information
     func startRequest() {
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
@@ -63,7 +80,6 @@ class AccountSettingsViewController: UIViewController {
                 request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
             } catch let error {
                 print(error.localizedDescription)
-                self.showErrorContactingServer()
                 return
             }
         }
@@ -74,7 +90,6 @@ class AccountSettingsViewController: UIViewController {
                 request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
             } catch let error {
                 print(error.localizedDescription)
-                self.showErrorContactingServer()
                 return
             }
         }
@@ -85,7 +100,6 @@ class AccountSettingsViewController: UIViewController {
                 request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
             } catch let error {
                 print(error.localizedDescription)
-                self.showErrorContactingServer()
                 return
             }
         }
@@ -96,14 +110,12 @@ class AccountSettingsViewController: UIViewController {
                 request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
             } catch let error {
                 print(error.localizedDescription)
-                self.showErrorContactingServer()
                 return
             }
         }
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
                 self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                self.showNoResponseFromServer()
                 print("error=\(String(describing: error))")
                 return
             }
@@ -113,42 +125,19 @@ class AccountSettingsViewController: UIViewController {
                 if let parseJSON = json {
                     let returnCode = parseJSON["status"] as? String
                     if returnCode != String("User confirmed successfully") {
-                        self.showErrorContactingServer()
+                        return
                     }
                 } else {
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                    self.showNoResponseFromServer()
                     print(error ?? "No error")
                 }
             } catch {
                 self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                self.showErrorContactingServer()
                 print(error)
             }
         }
         task.resume()
         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
     }
-    func showErrorContactingServer() {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    func showNoResponseFromServer() {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
+    
 }

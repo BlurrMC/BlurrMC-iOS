@@ -70,23 +70,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
     public var isItLoading: Bool = false
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
         let userId: String? = try? myValet.string(forKey: "Id")
         if accessToken != nil && userId != nil {
-                                    let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                                    self.window =  UIWindow(frame: UIScreen.main.bounds)
-                                    let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
-                                    self.window?.rootViewController = homePage
-                                    self.window?.makeKeyAndVisible()
-                                    self.isItLoading = true
+            let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            self.window =  UIWindow(frame: UIScreen.main.bounds)
+            let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+            self.window?.rootViewController = homePage
+            self.window?.makeKeyAndVisible()
+            self.isItLoading = true
         }
         registerForPushNotifications()
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 50
         return true
     }
+    
+    // MARK: Register For Notifications
     func registerForPushNotifications() {
       UNUserNotificationCenter.current()
         .requestAuthorization(options: [.alert, .sound, .badge]) {
@@ -97,6 +101,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           self?.getNotificationSettings()
       }
     }
+    
+    
+    // MARK: Get Notification Settings
     func getNotificationSettings() {
       UNUserNotificationCenter.current().getNotificationSettings { settings in
         print("Notification settings: \(settings)")

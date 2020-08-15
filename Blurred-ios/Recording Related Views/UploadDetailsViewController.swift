@@ -13,20 +13,38 @@ import AVKit
 
 class UploadDetailsViewController: UIViewController {
     
+    // MARK: Variables
     var videoDetails: URL!
+    
+    
+    // MARK: Outlets
+    @IBOutlet weak var thumbnailView: UIImageView!
+    @IBOutlet weak var descriptionField: UITextField!
+    
+    // MARK: Back Button Tapped
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
+    // MARK: Done Button Tap
     @IBAction func doneButton(_ sender: Any) {
         uploadRequest()
     }
-    @IBOutlet weak var thumbnailView: UIImageView!
+    
+    
+    // MARK: Valet
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
-    @IBOutlet weak var descriptionField: UITextField!
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    
+    // MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         AVAsset(url: videoDetails).generateThumbnail { [weak self] (image) in
             DispatchQueue.main.async {
@@ -35,11 +53,16 @@ class UploadDetailsViewController: UIViewController {
             }
         }
     }
+    
+    
+    // MARK: Did Receive Memory Warning
     override func didReceiveMemoryWarning() {
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
     }
+    
+    
     // MARK: Upload the video
     func uploadRequest() { // Move this to upload details and pass data using segue.
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
@@ -69,15 +92,19 @@ class UploadDetailsViewController: UIViewController {
         }
         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
     }
+    
+    
+    // MARK: Error Contacting Server Alert
     func showErrorContactingServer() {
             let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)z
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }   
     }
+    
+    
+    // MARK: Remove Activity Indicator
     func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
         DispatchQueue.main.async {
             activityIndicator.stopAnimating()

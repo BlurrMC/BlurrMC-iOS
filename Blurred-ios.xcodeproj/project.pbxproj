@@ -172,6 +172,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		590D20AB24EDAEA300109359 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				590D20AC24EDAEA800109359 /* Channel */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		590D20AC24EDAEA800109359 /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				590D20AD24EDAEB300109359 /* Video */,
+			);
+			path = Channel;
+			sourceTree = "<group>";
+		};
+		590D20AD24EDAEB300109359 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */,
+				E1D452F924DF14C800302F75 /* GradientNode.h */,
+				E1D452F824DF14C800302F75 /* GradientNode.m */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		596AEE4424E89114002531C0 /* Follower + Following */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				596AEE4624E89174002531C0 /* CommentCell.swift */,
-				E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */,
 			);
 			path = "Channel Video";
 			sourceTree = "<group>";
@@ -283,8 +308,6 @@
 		E1BA897524E18C740015C546 /* Gradient */ = {
 			isa = PBXGroup;
 			children = (
-				E1D452F924DF14C800302F75 /* GradientNode.h */,
-				E1D452F824DF14C800302F75 /* GradientNode.m */,
 			);
 			path = Gradient;
 			sourceTree = "<group>";
@@ -326,6 +349,7 @@
 		E1DF6F68244F550300E11BF9 /* Blurred-ios */ = {
 			isa = PBXGroup;
 			children = (
+				590D20AB24EDAEA300109359 /* Nodes */,
 				E196F5F224A8D589001BE742 /* Cells */,
 				E196F5F424A8D5E4001BE742 /* Channels */,
 				E196F5F324A8D5AE001BE742 /* Recording Related Views */,

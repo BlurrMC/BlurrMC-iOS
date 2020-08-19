@@ -24,4 +24,6 @@
 
 @interface GradientNode : ASDisplayNode
 
+@property (nonatomic) BOOL doesItHaveTabBar;
+
 @end

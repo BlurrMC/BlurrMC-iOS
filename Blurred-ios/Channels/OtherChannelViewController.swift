@@ -15,7 +15,6 @@ import Alamofire
 class OtherChannelViewController: UIViewController, UICollectionViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     // MARK: Variables
-    var coder = NSCoder()
     var isItThemselves = Bool()
     private var videos = [Video]()
     var chanelVar = String()
@@ -93,8 +92,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Did Select Row
     func collectionView(CollectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
-        let destinationVC = ChannelVideoViewController(coder: coder)
-        destinationVC?.performSegue(withIdentifier: "showVideo", sender: self)
+        let destinationVC = ChannelVideoViewController()
+        destinationVC.performSegue(withIdentifier: "showVideo", sender: self)
     }
 
     

@@ -74,6 +74,7 @@
     * App actually kicks you into the login screen if your user token is invalid
     * Added status code check (to check 401 if user is unauthorized)
     * Fixed bug where app would crash if your user was invalid
+    * Added home feed (Shows random videos across the platform)
 * Storyboards
     * Changed the flip icon to the none deprecated one in the record view.
     * Added second storyboard

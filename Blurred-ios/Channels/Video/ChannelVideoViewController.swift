@@ -14,6 +14,7 @@ import AsyncDisplayKit
 
 class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
+    
     // MARK: Tap for channel from overlay
     func didTapChannel(_ view: ChannelVideoOverlayView, videousername: String) {
         showUserChannel(videoUsername: videousername)
@@ -36,12 +37,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var videoId = Int()
     var channelId = String()
     
-    // MARK: Initalizing
-    required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-            self.tableNode = ASTableNode(style: .plain)
-            self.wireDelegates()
-    }
+    
     // MARK: Tap function for share window
     @objc func sharetapFunction(sender:UITapGestureRecognizer) {
         // See note for shareWindow()
@@ -99,8 +95,8 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     
     // MARK: Delegates for table node
     func wireDelegates() {
-            self.tableNode.delegate = self
-            self.tableNode.dataSource = self
+        self.tableNode.delegate = self
+        self.tableNode.dataSource = self
     }
     
     // MARK: Request for channel's videos
@@ -137,11 +133,13 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         task.resume()
     }
 
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad() 
-        let vc = CommentingViewController()
-        vc.presentationController?.delegate = self
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
+        self.tableNode = ASTableNode(style: .plain)
+        self.wireDelegates()
         self.view.insertSubview(tableNode.view, at: 0)
         self.applyStyle()
         self.tableNode.leadingScreensForBatching = 1.0
@@ -204,26 +202,27 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     // MARK: Download array of videos for channels
     func channelVideoIds() { // Still not done we need to add the user's butt image
         let url = URL(string: "http://10.0.0.2:3000/api/v1/channelvideos/\(channelId).json")
-            guard let downloadURL = url else { return }
-            URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-                guard let data = data, error == nil, urlResponse != nil else {
-                    print("error code: 1kdm03o4-2")
-                    return
+        guard let downloadURL = url else { return }
+        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
+            guard let data = data, error == nil, urlResponse != nil else {
+                print("error code: 1kdm03o4-2")
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                self.videos = downloadedVideo.videos
+                let pathTotRow = IndexPath.init(row: self.rowNumber, section: 0)
+                DispatchQueue.main.async {
+                    self.tableNode.reloadData()
+                    self.tableNode.scrollToRow(at: pathTotRow, at: .none, animated: false)
                 }
-                do {
-                    let decoder = JSONDecoder()
-                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                    self.videos = downloadedVideo.videos
-                    let pathTotRow = IndexPath.init(row: self.rowNumber, section: 0)
-                    DispatchQueue.main.async {
-                        self.tableNode.reloadData()
-                        self.tableNode.scrollToRow(at: pathTotRow, at: .none, animated: false)
-                    }
-                } catch {
-                    print("error code: 1kzka0aww3-2")
-                    return
-                }
-            }.resume()
+            } catch {
+                print("error code: 1kzka0aww3-2")
+                print("\(self.channelId)")
+                return
+            }
+        }.resume()
     }
     
     // MARK: New rows for table node
@@ -254,13 +253,12 @@ extension ChannelVideoViewController: ASTableDataSource {
         return self.videos.count
     }
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        // May need to set isUserInteractionEnabled to false for the table
         if isItFromSearch != true {
             let videourll = self.videos[indexPath.row].videourl
             let videoId = self.videos[indexPath.row].videoid
             let videoUrl = URL(string: "http://10.0.0.2:3000\(videourll)")
             return {
-                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId)
+                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: false)
                 node.delegate = self
                 node.debugName = "\(self.videos[indexPath.row].videoid)"
                 return node
@@ -268,7 +266,7 @@ extension ChannelVideoViewController: ASTableDataSource {
         } else {
             let url = URL(string: "http://10.0.0.2:3000\(videoUrlString)")!
             return {
-                let node = ChannelVideoCellNode(with: url, videoId: self.videoString)
+                let node = ChannelVideoCellNode(with: url, videoId: self.videoString, doesParentHaveTabBar: false)
                 node.delegate = self
                 node.debugName = "\(self.videoString)"
                 return node

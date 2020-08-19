@@ -18,7 +18,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     
     
     // MARK: Variables
-    var coder = NSCoder()
     private var videos = [Video]()
     
     // MARK: Collectionview
@@ -66,10 +65,11 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         
         return cell
     }
+    
     func collectionView(CollectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
-        let destinationVC = ChannelVideoViewController(coder: coder)
-        destinationVC?.performSegue(withIdentifier: "showVideo", sender: self)
+        let destinationVC = ChannelVideoViewController()
+        destinationVC.performSegue(withIdentifier: "showVideo", sender: self)
     }
     
     
@@ -84,14 +84,15 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
         switch segue.destination {
         case is ChannelVideoViewController:
-            let vc = ChannelVideoViewController(coder: coder)
-            if segue.identifier == "showVideo" {
-                if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
-                    let selectedRow = indexPath.row
-                    vc?.videoString = videos[selectedRow].id
-                    vc?.channelId = userId
-                    vc?.rowNumber = indexPath.item
-                    vc?.isItFromSearch = false
+            if let vc = segue.destination as? ChannelVideoViewController {
+                if segue.identifier == "showVideo" {
+                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+                        let selectedRow = indexPath.row
+                        vc.videoString = videos[selectedRow].id
+                        vc.channelId = userId
+                        vc.rowNumber = indexPath.item
+                        vc.isItFromSearch = false
+                    }
                 }
             }
         case is OtherFollowerListViewController:

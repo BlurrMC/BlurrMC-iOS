@@ -75,6 +75,7 @@
     * Added status code check (to check 401 if user is unauthorized)
     * Fixed bug where app would crash if your user was invalid
     * Added home feed (Shows random videos across the platform)
+    * Added batch fetching to home feed
 * Storyboards
     * Changed the flip icon to the none deprecated one in the record view.
     * Added second storyboard

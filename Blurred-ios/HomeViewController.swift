@@ -54,6 +54,26 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         }
     }
     
+    
+    // MARK: Batch Fetch Request
+    func batchFetch(success: @escaping (_ response: AFDataResponse<Any>?) -> Void, failure: @escaping (_ error: NSError?) -> Void) {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let parameters = ["page" : "\(currentPage)"]
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        AF.request("http://10.0.0.2:3000/api/v1/apihomefeed.json", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                success(response)
+            case .failure(let error):
+                failure(error as NSError)
+            }
+            
+        }
+    }
+    
 
     // MARK: Function for showing user channel
     func showUserChannel(videoUsername: String) {
@@ -155,7 +175,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
         self.view.insertSubview(tableNode.view, at: 0)
         self.applyStyle()
-        self.tableNode.leadingScreensForBatching = 3.0
+        self.tableNode.leadingScreensForBatching = 1.0
         getRandomVideos()
         checkUser() // This doesn't have to be the first thing
     }
@@ -286,27 +306,30 @@ extension HomeViewController: ASTableDelegate {
     
     // MARK: Batch fetch function
     func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
-        self.retrieveNextPageWithCompletion { (newVideos) in
-            self.insertNewRowsInTableNode(newVideos: newVideos)
-            context.completeBatchFetching(true)
-        }
-        
+        currentPage = currentPage + 1
+        self.batchFetch(success: {(response) -> Void in
+            guard let data = response?.data else {
+                print("error code: 1kdm03o4-2")
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                let videos = downloadedVideo.videos + self.videos
+                self.videos = videos
+                DispatchQueue.main.async {
+                    self.tableNode.reloadData()
+                }
+                print("done")
+            } catch {
+                print("error code: 1kzka0aww3-2")
+                return
+            }
+        }, failure: { (error) -> Void in
+            print("error code: 1kd03l103-2")
+            print(error as Any)
+        })
+        context.completeBatchFetching(true)
     }
     
 }
-extension HomeViewController {
-    // MARK: More batch fetching function
-    func retrieveNextPageWithCompletion( block: @escaping ([Video]) -> Void) {
-        var oldVideoCount = Int()
-        oldVideoCount = self.videos.count
-        currentPage = currentPage + 1
-        getRandomVideos() // Add completion handler because next batch may not get loaded if user scrolls too fast or alamofire doesn't have enough time to respond.
-        // This may help: https://bit.ly/3l0azBM
-        if self.videos.count > oldVideoCount {
-            DispatchQueue.main.async {
-                block(self.videos)
-            }
-        }
-    }
-}
-

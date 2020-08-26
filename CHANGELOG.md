@@ -19,6 +19,7 @@
     * Added video scrolling (with texture tableview + cell node)
     * Moved all overlays to seperate class
     * Temporarily removed the share functionality.
+    * Removed gradient
 * Channel Video Overlay View
     * Made  `else if` statements into switches.
     * Channel icon and comment button now function as intended
@@ -97,6 +98,7 @@
     * Updated search to work with the new video playback.
 * Recording
     * Added zooming on front camera
+    * Thumbnail is now correctly rotated in upload details.
 * Other
     * Added more error handling.
     * Added groups for better sorting

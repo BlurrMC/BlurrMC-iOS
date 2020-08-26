@@ -16,14 +16,10 @@ class ChannelVideoCellNode: ASCellNode {
     
     // MARK: Variables
     var videoNode = ASVideoNode()
-    var gradientNode: GradientNode
 
     required init(with videoUrl: URL, videoId: Int, doesParentHaveTabBar: Bool) {
         self.videoNode = ASVideoNode()
-        self.gradientNode = GradientNode()
         super.init()
-        self.gradientNode.isLayerBacked = true;
-        self.gradientNode.isOpaque = false;
         self.addSubnode(self.videoNode)
         self.videoNode.shouldAutoplay = true
         self.videoNode.shouldAutorepeat = true
@@ -33,12 +29,6 @@ class ChannelVideoCellNode: ASCellNode {
             self.videoNode.asset = AVAsset(url: videoUrl)
         }
         self.addSubnode(self.videoNode)
-        if doesParentHaveTabBar == true {
-            self.gradientNode.doesItHaveTabBar = true
-        } else {
-            self.gradientNode.doesItHaveTabBar = false
-        }
-        self.addSubnode(self.gradientNode)
         DispatchQueue.main.async() {
             let overlay = ChannelVideoOverlayView()
             overlay.videoId = videoId
@@ -71,8 +61,7 @@ class ChannelVideoCellNode: ASCellNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let ratio = UIScreen.main.bounds.height / UIScreen.main.bounds.width
         let ratioSpec = ASRatioLayoutSpec(ratio:ratio, child:self.videoNode)
-        let gradientOverlaySpec = ASOverlayLayoutSpec(child:ratioSpec, overlay:self.gradientNode)
-        return gradientOverlaySpec
+        return ratioSpec
     }
     
   

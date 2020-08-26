@@ -34,7 +34,6 @@
 		E1BA897824E18CDC0015C546 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA897624E18CDC0015C546 /* OverlayView.swift */; };
 		E1BA897924E18CDC0015C546 /* ChannelVideoOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */; };
 		E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */; };
-		E1D452FA24DF14C800302F75 /* GradientNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D452F824DF14C800302F75 /* GradientNode.m */; };
 		E1D8C896246F119000F1EAD1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E1D8C895246F119000F1EAD1 /* Settings.bundle */; };
 		E1D92C9824732D6700EDABAA /* VideoPlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */; };
 		E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F69244F550300E11BF9 /* AppDelegate.swift */; };
@@ -105,8 +104,6 @@
 		E1BA897624E18CDC0015C546 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelVideoOverlay.xib; sourceTree = "<group>"; };
 		E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelVideoCell.swift; sourceTree = "<group>"; };
-		E1D452F824DF14C800302F75 /* GradientNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientNode.m; sourceTree = "<group>"; };
-		E1D452F924DF14C800302F75 /* GradientNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientNode.h; sourceTree = "<group>"; };
 		E1D8C895246F119000F1EAD1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackViewController.swift; sourceTree = "<group>"; };
 		E1DF6F66244F550300E11BF9 /* Blurred.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blurred.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,8 +189,6 @@
 			isa = PBXGroup;
 			children = (
 				E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */,
-				E1D452F924DF14C800302F75 /* GradientNode.h */,
-				E1D452F824DF14C800302F75 /* GradientNode.m */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -227,8 +222,7 @@
 		E139685524D3539700F01FDE /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				E1BA897424E18C680015C546 /* Overlay */,
-				E1BA897524E18C740015C546 /* Gradient */,
+				E1BA897424E18C680015C546 /* Overlays */,
 				E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */,
 			);
 			path = Video;
@@ -239,9 +233,35 @@
 			children = (
 				E139B92324E826490035901E /* DescriptionOverlayView.swift */,
 				E139B92824E82C070035901E /* DescriptionOverlayDelegate.swift */,
-				E139B92524E826B10035901E /* DescriptionOverlay.xib */,
+				E156A66C24F5F931005F6F6C /* XIB */,
 			);
 			path = "Description Overlay";
+			sourceTree = "<group>";
+		};
+		E156A66B24F5F923005F6F6C /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */,
+			);
+			path = XIB;
+			sourceTree = "<group>";
+		};
+		E156A66C24F5F931005F6F6C /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				E139B92524E826B10035901E /* DescriptionOverlay.xib */,
+			);
+			path = XIB;
+			sourceTree = "<group>";
+		};
+		E156A66D24F5F940005F6F6C /* Side Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				E156A66B24F5F923005F6F6C /* XIB */,
+				E1BA897624E18CDC0015C546 /* OverlayView.swift */,
+				E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */,
+			);
+			path = "Side Overlay";
 			sourceTree = "<group>";
 		};
 		E15D6FC524BA5E4C00CC1E0E /* Storyboards */ = {
@@ -294,22 +314,13 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		E1BA897424E18C680015C546 /* Overlay */ = {
+		E1BA897424E18C680015C546 /* Overlays */ = {
 			isa = PBXGroup;
 			children = (
-				E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */,
-				E1BA897624E18CDC0015C546 /* OverlayView.swift */,
-				E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */,
+				E156A66D24F5F940005F6F6C /* Side Overlay */,
 				E139B92724E826D20035901E /* Description Overlay */,
 			);
-			path = Overlay;
-			sourceTree = "<group>";
-		};
-		E1BA897524E18C740015C546 /* Gradient */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Gradient;
+			path = Overlays;
 			sourceTree = "<group>";
 		};
 		E1C3D95524BB977600323427 /* Channel */ = {
@@ -679,7 +690,6 @@
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
 				E146ACF7247441DE00D3ED10 /* OtherFollowerCell.swift in Sources */,
 				E139685424D34F4700F01FDE /* ChannelVideoCellNode.swift in Sources */,
-				E1D452FA24DF14C800302F75 /* GradientNode.m in Sources */,
 				E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */,
 				E139B92424E826490035901E /* DescriptionOverlayView.swift in Sources */,
 				E17C5EF824E6A99000D1E079 /* OverlayViewDelegate.swift in Sources */,

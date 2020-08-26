@@ -45,12 +45,38 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let Id: Int? = videos[indexPath.row].id
         
         cell.thumbnailView.image = UIImage(named: "load-image")
-        
         AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(Id!).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                 let imageUrl = JSON!["thumbnail_url"] as? String
+                guard let likenumber = JSON!["likecount"] as? Int else { return }
+                switch likenumber {
+                case _ where likenumber > 1000 && likenumber < 100000:
+                    DispatchQueue.main.async {
+                        cell.likeCount.text = "\(likenumber/1000).\((likenumber/100)%10)k"
+                    }
+                case _ where likenumber > 100000 && likenumber < 1000000:
+                    DispatchQueue.main.async {
+                        cell.likeCount.text = "\(likenumber/1000)k"
+                    }
+                case _ where likenumber > 1000000 && likenumber < 100000000:
+                    DispatchQueue.main.async {
+                        cell.likeCount.text = "\(likenumber/1000000).\((likenumber/1000)%10)M"
+                    }
+                case _ where likenumber > 100000000:
+                    DispatchQueue.main.async {
+                        cell.likeCount.text = "\(likenumber/1000000)M"
+                    }
+                case _ where likenumber == 1:
+                    DispatchQueue.main.async {
+                        cell.likeCount.text = "\(likenumber)"
+                    }
+                default:
+                    DispatchQueue.main.async {
+                        cell.likeCount.text = "\(likenumber)"
+                    }
+                }
                 let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
                 guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
                     return

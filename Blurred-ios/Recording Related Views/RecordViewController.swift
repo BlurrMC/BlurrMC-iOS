@@ -13,7 +13,7 @@ import MobileCoreServices
 import Alamofire
 import Valet
 
-
+// MARK: Maybe change camera method to CameraManager
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
     
     // MARK: Variables
@@ -22,7 +22,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     var isCameraThere = Bool()
     var previewLayer: AVCaptureVideoPreviewLayer!
     var captureDevice: AVCaptureDevice!
-    var activeInput: AVCaptureDeviceInput!
+    var activeInput: AVCaptureDeviceInput?
     var lastZoomFactor: CGFloat = 1.0
     var outputURL: URL!
     var isCameraFlipped: Bool = false
@@ -236,7 +236,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     
     // MARK: Setup the microphone
     func setupMicrophone() {
-        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
+        guard let microphone = AVCaptureDevice.default(for: AVMediaType.audio) else { return }
         
             do {
                 let micInput = try AVCaptureDeviceInput(device: microphone)
@@ -350,14 +350,14 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
         }
 
-        let device = activeInput.device
+        let device = activeInput?.device
 
-        if (device.isSmoothAutoFocusSupported) {
+        if ((device?.isSmoothAutoFocusSupported) != nil) {
 
             do {
-                try device.lockForConfiguration()
-                device.isSmoothAutoFocusEnabled = false
-                device.unlockForConfiguration()
+                try device?.lockForConfiguration()
+                device?.isSmoothAutoFocusEnabled = false
+                device?.unlockForConfiguration()
             } catch {
                print("Error setting configuration: \(error)")
             }
@@ -373,7 +373,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
          
         timer = Timer.scheduledTimer(timeInterval: 7.1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
          //EDIT2: And I forgot this
-         outputURL = tempURL()  
+         outputURL = tempURL()
+        
         self.movieOutput.startRecording(to: self.outputURL, recordingDelegate: self)
          
 

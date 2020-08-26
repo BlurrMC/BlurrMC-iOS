@@ -10,6 +10,7 @@ import UIKit
 
 class ChannelVideoCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailView: UIImageView!
+    @IBOutlet weak var likeCount: UILabel!
     
     override func prepareForReuse() {
         super.prepareForReuse()

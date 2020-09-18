@@ -339,7 +339,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 print("error code: 1039574638")
                 return
             }
-            }
+        }
     }
     
     
@@ -496,27 +496,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     
-    // MARK: Pick Avatar
-    func pickAvatar() {
-            let alert = UIAlertController(title: "Avatar", message: "Change your avatar.", preferredStyle: UIAlertController.Style.actionSheet)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "Pick from gallery", style: UIAlertAction.Style.default, handler: { action in
-                print("Pick from gallery")
-                self.importImage()
-            }))
-            alert.addAction(UIAlertAction(title: "Take photo", style: UIAlertAction.Style.default, handler: { action in
-                print("Take photo")
-                self.takePicture()
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    
     // MARK: Following Tap Function
     @objc func tappFunction(sender:UITapGestureRecognizer) {
         goToFollowingList()
@@ -543,7 +522,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             request.httpMethod = "GET"
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if error != nil {
-                    self.showErrorContactingServer()
+                    self.showMessage(title: "Eror", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                     return
                 }
                 
@@ -704,12 +683,30 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     
-    // MARK: Error Contacting Server Alert
-    func showErrorContactingServer() {
-            let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
+    // MARK: Pick Avatar
+    func pickAvatar() {
+            let alert = UIAlertController(title: "Avatar", message: "Change your avatar.", preferredStyle: UIAlertController.Style.actionSheet)
 
             // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Pick from gallery", style: UIAlertAction.Style.default, handler: { action in
+                print("Pick from gallery")
+                self.importImage()
+            }))
+            alert.addAction(UIAlertAction(title: "Take photo", style: UIAlertAction.Style.default, handler: { action in
+                print("Take photo")
+                self.takePicture()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
 
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)

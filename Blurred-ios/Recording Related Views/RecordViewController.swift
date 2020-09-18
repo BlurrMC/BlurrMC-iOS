@@ -139,7 +139,10 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             default: break
             }
         } else {
-            guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { showNoCamera(); isCameraThere = false; return }
+            guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
+                showMessage(title: "Error", message: "No camera found.", alertActionTitle: "OK")
+                isCameraThere = false
+                return }
             func minMaxZoom(_ factor: CGFloat) -> CGFloat {
                 return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
             }
@@ -356,7 +359,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
 
             do {
                 try device?.lockForConfiguration()
-                device?.isSmoothAutoFocusEnabled = false
                 device?.unlockForConfiguration()
             } catch {
                print("Error setting configuration: \(error)")
@@ -424,14 +426,10 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     
-    // MARK: No Camera Alert
-    func showNoCamera() {
-        let alert = UIAlertController(title: "Error", message: "No camera is connected. What phone are you on?", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK?", style: UIAlertAction.Style.default, handler: { action in
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "goToTabBar", sender: self)
-            }
-        }))
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }

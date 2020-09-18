@@ -34,11 +34,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             (emailTextField.text?.isEmpty)! ||
             (passwordTextField.text?.isEmpty)! ||
             (confirmPasswordTextField.text?.isEmpty)! {
-            self.showEmptyFields()
+            self.showMessage(title: "Alert", message: "A field is empty. Please fill in all fields.", alertActionTitle: "OK")
             return
         }
         if ((passwordTextField.text?.elementsEqual(confirmPasswordTextField.text!))! != true) {
-            self.showConfirmPasswordDoesNotMatch()
+            self.showMessage(title: "Alert", message: "Confirmation passwords do not match. Try again.", alertActionTitle: "OK")
             return // YA YA YA Y A YA
         }
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
@@ -57,13 +57,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
         } catch let error {
-            self.showErrorContactingServer()
+            self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
             print(error.localizedDescription)
         }
         let task = URLSession.shared.dataTask(with: request) { (Data, URLResponse, Error) in
             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
             if Error != nil {
-                self.showErrorContactingServer()
+                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                 print("error=\(String(describing: Error))")
                 return
             }
@@ -73,19 +73,19 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                     let userId = parseJSON["userId"] as? String
                     print("User Id: \(String(describing: userId))")
                     if (userId?.isEmpty)! {
-                        self.showErrorContactingServer()
+                        self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                         return
                     } else {
-                        self.showRegisterComplete()
+                        self.showMessage(title: "Success", message: "You have succesfully signed up.", alertActionTitle: "OK")
                         DispatchQueue.main.async {
                             self.dismiss(animated: true, completion: nil) 
                         }
                     }
                 } else {
-                    self.showErrorContactingServer()
+                    self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                 }
             } catch {
-                self.showErrorContactingServer()
+                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                 print(error)
             }
         }
@@ -146,60 +146,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // MARK: Empty Fields Alert
-    func showEmptyFields() {
-        let alert = UIAlertController(title: "Alert", message: "You must fill out all the fields.", preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    
-    // MARK: Confirm Password Does Not Match Alert
-    func showConfirmPasswordDoesNotMatch() {
-        
-        // create the alert
-        let alert = UIAlertController(title: "Alert", message: "Your confirmation password does not enter the one you have entered.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        
-        DispatchQueue.main.async {
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    
-    // MARK: Error Contacting Server Alert
-    func showErrorContactingServer() {
-        
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-        
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        
-        DispatchQueue.main.async {
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    
-    // MARK: Register Complete Alert
-    func showRegisterComplete() {
-        
-        // create the alert
-        let alert = UIAlertController(title: "Success", message: "Your new account has been registered. Go to your email to confirm it.", preferredStyle: UIAlertController.Style.alert)
-        
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        
-        DispatchQueue.main.async {
-            // show the alert
             self.present(alert, animated: true, completion: nil)
         }
     }

@@ -40,7 +40,10 @@ class AccountSettingsViewController: UIViewController {
     // MARK: Valet
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
-    // Check to see if any of the text fields have changed and if they have then 
+    // Check to see if any of the text fields have changed and if they have then
+    
+    
+    // MARK: Remove Activity Indicatory
     func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
         DispatchQueue.main.async {
             activityIndicator.stopAnimating()

@@ -95,16 +95,6 @@ class UploadDetailsViewController: UIViewController {
     }
     
     
-    // MARK: Error Contacting Server Alert
-    func showErrorContactingServer() {
-            let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }   
-    }
-    
-    
     // MARK: Remove Activity Indicator
     func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
         DispatchQueue.main.async {

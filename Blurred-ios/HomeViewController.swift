@@ -137,14 +137,6 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             self.videoid = videoid
         }
     }
-    
-    
-    // MARK: Initalizing
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.tableNode = ASTableNode(style: .plain)
-        self.wireDelegates()
-    }
 
     
     // MARK: Valet
@@ -173,6 +165,8 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
+        self.tableNode = ASTableNode(style: .plain)
+        self.wireDelegates()
         self.view.insertSubview(tableNode.view, at: 0)
         self.applyStyle()
         self.tableNode.leadingScreensForBatching = 1.0
@@ -221,15 +215,15 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                                 try self.tokenValet.removeObject(forKey: "Token")
                                 try self.myValet.removeAllObjects()
                                 try self.tokenValet.removeAllObjects()
-                                self.window =  UIWindow(frame: UIScreen.main.bounds)
                                 DispatchQueue.main.async {
                                     let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
+                                    self.window =  UIWindow(frame: UIScreen.main.bounds)
                                     self.present(loginPage, animated:false, completion:nil)
                                     self.window?.rootViewController = loginPage
                                     self.window?.makeKeyAndVisible()
                                 }
                             } else {
-                                self.showErrorContactingServer()
+                                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                             }
                         }
                     case .some(_):
@@ -263,10 +257,10 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     }
     
     
-    // Error Contacting Server Alert
-    func showErrorContactingServer() {
-        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Check your internet connection.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
@@ -317,10 +311,11 @@ extension HomeViewController: ASTableDelegate {
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
                 let videos = downloadedVideo.videos + self.videos
                 self.videos = videos
-                DispatchQueue.main.async {
-                    self.tableNode.reloadData()
+                if self.videos.count != 0 {
+                    DispatchQueue.main.async {
+                        self.tableNode.reloadData()
+                    }
                 }
-                print("done")
             } catch {
                 print("error code: 1kzka0aww3-2")
                 return
@@ -331,5 +326,6 @@ extension HomeViewController: ASTableDelegate {
         })
         context.completeBatchFetching(true)
     }
+
     
 }

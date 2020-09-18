@@ -82,7 +82,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
-                self.showNoResponseFromServer()
+                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                 return
             }
             do {
@@ -185,12 +185,13 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
     }
     
     
-    // MARK: No Response From Servber Alert
-    func showNoResponseFromServer() {
-        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
 }

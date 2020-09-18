@@ -82,7 +82,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
-                self.showNoResponseFromServer()
+                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                 return
             }
             do {
@@ -130,7 +130,6 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFollowerCell") as? OtherFollowerCell else { return UITableViewCell() }
         cell.followerUsername.text = followers[indexPath.row].username // Hey stupid if you want to add more just add one more line of code here
         cell.followerName.text = followers[indexPath.row].name
-        print("\(followers[indexPath.row].name)")
             if cell.followerUsername.text == nil {
                 DispatchQueue.main.async {
                     self.nothingHereLabel.text = String("Nothing Here")
@@ -185,15 +184,12 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
             detailVC.chanelVar = followers[selectedRow].username
         }
     }
+    
 
-    func showNoResponseFromServer() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "No response from server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }

@@ -68,7 +68,7 @@ class VideoPlaybackViewController: UIViewController {
                 return
             }
         } else {
-            self.showNoVideo()
+            self.showMessage(title: "Error", message: "There is no video present. Try again.", alertActionTitle: "OK")
         }
     }
     
@@ -140,13 +140,10 @@ class VideoPlaybackViewController: UIViewController {
     }
     
     
-    // MARK: No Video Alert
-    func showNoVideo() {
-            let alert = UIAlertController(title: "What?", message: "There's no video! How did this happen????", preferredStyle: UIAlertController.Style.alert)
-
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }

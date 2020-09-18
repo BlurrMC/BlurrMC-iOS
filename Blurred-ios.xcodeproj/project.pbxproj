@@ -13,6 +13,7 @@
 		5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2527AD2484388C0014F6CA /* Assets.xcassets */; };
 		9781C55A5BAEC9220B261C1E /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
 		D839AE13C55FBB2440896A3B /* Pods_Blurred_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */; };
+		E1104EC12511649800B52A11 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */; };
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
@@ -82,6 +83,7 @@
 		AB8CAF96EC774798F51E537E /* Pods-Blurred-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF0CF050DAFC11EFD08A2A31 /* Pods-Blurred-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.release.xcconfig"; sourceTree = "<group>"; };
 		CF9ECF27FDD727A974459E4E /* Pods-Blurred-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.release.xcconfig"; sourceTree = "<group>"; };
+		E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +212,14 @@
 			path = "Channel Video";
 			sourceTree = "<group>";
 		};
+		E1104EC52511649F00B52A11 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		E13848CF24C87E1C00232C7B /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +289,7 @@
 			children = (
 				E1C3D95524BB977600323427 /* Channel */,
 				E13848CF24C87E1C00232C7B /* Search */,
+				E1104EC52511649F00B52A11 /* Notifications */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -678,6 +689,7 @@
 				E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */,
 				E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */,
 				E139B92B24E871DF0035901E /* Throttler.swift in Sources */,
+				E1104EC12511649800B52A11 /* NotificationsTableViewCell.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
 				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,

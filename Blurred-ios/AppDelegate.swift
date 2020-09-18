@@ -10,8 +10,8 @@ import UIKit
 import CoreData
 import Valet
 import AVFoundation
+import Alamofire
 
-@available(iOS 13.0, *) // Again, ios 13?
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -26,8 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     // MARK: - Core Data stack
-
-    @available(iOS 13.0, *)
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
         /*
          The persistent container for the application. This implementation
@@ -83,6 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = homePage
             self.window?.makeKeyAndVisible()
             self.isItLoading = true
+            return true
         }
         registerForPushNotifications()
         URLCache.shared.removeAllCachedResponses()

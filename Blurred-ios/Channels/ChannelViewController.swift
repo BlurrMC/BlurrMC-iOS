@@ -110,25 +110,22 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
         switch segue.destination {
         case is ChannelVideoViewController:
-            if let vc = segue.destination as? ChannelVideoViewController {
-                if segue.identifier == "showVideo" {
-                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
-                        let selectedRow = indexPath.row
-                        vc.videoString = videos[selectedRow].id
-                        vc.channelId = userId
-                        vc.rowNumber = indexPath.item
-                        vc.isItFromSearch = false
-                    }
+            let vc = segue.destination as? ChannelVideoViewController
+            if segue.identifier == "showVideo" {
+                if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+                    let selectedRow = indexPath.row
+                    vc?.videoString = videos[selectedRow].id
+                    vc?.channelId = userId
+                    vc?.rowNumber = indexPath.item
+                    vc?.isItFromSearch = false
                 }
             }
         case is OtherFollowerListViewController:
-            let vc = OtherFollowerListViewController()
-            if segue.identifier == "showChannelFollowerList" {
-                vc.followerVar = userId
-            }
+            let vc = segue.destination as? OtherFollowerListViewController
+            vc?.followerVar = userId
         case is OtherFollowListViewController:
-            let vc = OtherFollowListViewController()
-            vc.followingVar = userId
+            let vc = segue.destination as? OtherFollowListViewController
+            vc?.followingVar = userId
         default:
             break
         }
@@ -274,7 +271,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             request.httpMethod = "GET"
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if error != nil {
-                    self.showErrorContactingServer()
+                    self.showMessage(title: "Error", message: "There has been an error contacting the server. Try again later.", alertActionTitle: "OK")
                     return
                 }
                 
@@ -410,9 +407,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             avatarImage.image = image
             upload()
-        } else {
-            self.showUnkownError()
-        }
+        } 
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -436,35 +431,14 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     
-    // MARK: Error Contacting Server Alert
-    func showErrorContactingServer() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
-    
-    // MARK: Unkown Error Alert
-    func showUnkownError() {
-
-        // create the alert
-        let alert = UIAlertController(title: "Error", message: "We don't know what happend wrong here! Try again later.", preferredStyle: UIAlertController.Style.alert)
-
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "Fine", style: UIAlertAction.Style.default, handler: nil))
-
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
     
     // MARK: Pick Avatar Alert
     func pickAvatar() {

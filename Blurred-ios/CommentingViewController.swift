@@ -120,13 +120,13 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
                     }
                 } catch {
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                    self.showErrorContactingServer()
+                    self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                     print(error)
                 }
             }
             task.resume()
         } else {
-            self.showEmptyComment()
+            self.showMessage(title: "Alert", message: "Your comment is empty. Please fill it.", alertActionTitle: "OK")
         }
         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
     }
@@ -219,23 +219,14 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
     }
     
     
-    // MARK: Error Contacting Server
-    func showErrorContactingServer() {
-        let alert = UIAlertController(title: "Error", message: "Error contacting the server. Try again later.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
     }
     
-    
-    // MARK: Empty Comment Alert
-    func showEmptyComment() {
-        let alert = UIAlertController(title: "Error", message: "You have nothing in your comment!", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
 
 }

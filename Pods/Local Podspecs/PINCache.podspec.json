@@ -1,6 +1,6 @@
 {
   "name": "PINCache",
-  "version": "3.0.1-beta.8",
+  "version": "3.0.1",
   "homepage": "https://github.com/pinterest/PINCache",
   "summary": "Fast, thread safe, parallel object cache for iOS and OS X.",
   "authors": {
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/pinterest/PINCache.git",
-    "tag": "3.0.1-beta.8"
+    "tag": "3.0.1"
   },
   "license": {
     "type": "Apache 2.0",
@@ -25,7 +25,7 @@
   },
   "platforms": {
     "ios": "8.0",
-    "osx": "10.11",
+    "osx": "10.8",
     "tvos": "9.0",
     "watchos": "2.0"
   },
@@ -36,7 +36,7 @@
       "source_files": "Source/*.{h,m}",
       "dependencies": {
         "PINOperation": [
-          "~> 1.1.1"
+          "~> 1.2.0"
         ]
       }
     },

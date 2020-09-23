@@ -1,20 +1,21 @@
 PODS:
   - Alamofire (5.2.2)
-  - Nuke (9.1.1)
-  - PINCache (3.0.1-beta.8):
-    - PINCache/Arc-exception-safe (= 3.0.1-beta.8)
-    - PINCache/Core (= 3.0.1-beta.8)
-  - PINCache/Arc-exception-safe (3.0.1-beta.8):
+  - NextLevel (0.16.4)
+  - Nuke (9.1.2)
+  - PINCache (3.0.1):
+    - PINCache/Arc-exception-safe (= 3.0.1)
+    - PINCache/Core (= 3.0.1)
+  - PINCache/Arc-exception-safe (3.0.1):
     - PINCache/Core
-  - PINCache/Core (3.0.1-beta.8):
-    - PINOperation (~> 1.1.1)
-  - PINOperation (1.1.2)
-  - PINRemoteImage/Core (3.0.0):
+  - PINCache/Core (3.0.1):
+    - PINOperation (~> 1.2.0)
+  - PINOperation (1.2)
+  - PINRemoteImage/Core (3.0.1):
     - PINOperation
-  - PINRemoteImage/iOS (3.0.0):
+  - PINRemoteImage/iOS (3.0.1):
     - PINRemoteImage/Core
-  - PINRemoteImage/PINCache (3.0.0):
-    - PINCache (= 3.0.1-beta.8)
+  - PINRemoteImage/PINCache (3.0.1):
+    - PINCache (~> 3.0.1)
     - PINRemoteImage/Core
   - Texture (3.0.0):
     - Texture/AssetsLibrary (= 3.0.0)
@@ -40,6 +41,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - NextLevel
   - Nuke
   - PINCache (from `https://github.com/pinterest/PINCache`, branch `master`)
   - Texture
@@ -48,6 +50,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - NextLevel
     - Nuke
     - PINOperation
     - PINRemoteImage
@@ -61,18 +64,19 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   PINCache:
-    :commit: 83ed1a03538a4e09f580732fa1d7032bbddbb21e
+    :commit: 7d1f63ab03ff71a5bbf033201e59072a6a69c17a
     :git: https://github.com/pinterest/PINCache
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  Nuke: af4301b154d3afd8a3b045a5194a9a773a00b7a8
-  PINCache: 534fd41d358d828dfdf227a0d327f3673a65e20b
-  PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
-  PINRemoteImage: e2b89e19fb6e77ffc099f9d9f3b3fe1745e3f9f9
+  NextLevel: f84ecba5c546a87e245809e0523ef3a24897323b
+  Nuke: dd2e6be6a34c042a7861e190632781d11f253026
+  PINCache: ee3c4abadd09970a61cdda0cfc345e69a3d75b26
+  PINOperation: 3a967a927e7867e61976c6cc23e5770416449fbc
+  PINRemoteImage: 3b7cedb118c2d357f87e9eabc7c81ba0202cb236
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   Valet: 11ab0e318b7284888a81392e36136563b4af5deb
 
-PODFILE CHECKSUM: 7fc18753b6f2fd449b61260f8840975831f9643e
+PODFILE CHECKSUM: 76004652ef7b86aa04edde24f83d9d7b2803f853
 
 COCOAPODS: 1.9.3

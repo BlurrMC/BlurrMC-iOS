@@ -429,7 +429,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="wnt-3G-Q63"/>
                     <connections>
-                        <outlet property="previewView" destination="pf2-uH-y5s" id="tOv-Vd-ppe"/>
+                        <outlet property="previewView" destination="pf2-uH-y5s" id="qSp-KZ-jzv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lmf-SX-vhn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -594,7 +594,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="flipCameraIcon" destination="e7k-H4-A1N" id="A56-we-LA7"/>
-                        <outlet property="videoView" destination="Cgl-bZ-ljl" id="2Q3-oT-J3g"/>
+                        <outlet property="videoView" destination="Cgl-bZ-ljl" id="IJl-qO-FER"/>
                         <segue destination="i6k-Pp-sSl" kind="show" identifier="showVideo" id="zwu-Vq-I6h"/>
                         <segue destination="49e-Tb-3d3" kind="show" identifier="goToTabBar" id="1CG-s3-DW4"/>
                     </connections>

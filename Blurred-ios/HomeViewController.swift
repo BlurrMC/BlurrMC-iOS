@@ -218,9 +218,8 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                                 DispatchQueue.main.async {
                                     let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
                                     self.window =  UIWindow(frame: UIScreen.main.bounds)
-                                    self.present(loginPage, animated:false, completion:nil)
+                                    self.present(loginPage, animated: true, completion: nil)
                                     self.window?.rootViewController = loginPage
-                                    self.window?.makeKeyAndVisible()
                                 }
                             } else {
                                 self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")

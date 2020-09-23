@@ -99,6 +99,7 @@
 * Recording
     * Added zooming on front camera
     * Thumbnail is now correctly rotated in upload details.
+    * Changed from custom camera method to using NextLevel
 * Other
     * Added more error handling.
     * Added groups for better sorting

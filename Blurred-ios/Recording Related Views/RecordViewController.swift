@@ -12,65 +12,95 @@ import AVFoundation
 import MobileCoreServices
 import Alamofire
 import Valet
+import NextLevel
 
 // MARK: Maybe change camera method to CameraManager
-class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureFileOutputRecordingDelegate {
+class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // MARK: Variables
     var timer = Timer()
+    var flashMode = String()
     var usingFrontCamera = Bool()
     var isCameraThere = Bool()
-    var previewLayer: AVCaptureVideoPreviewLayer!
-    var captureDevice: AVCaptureDevice!
-    var activeInput: AVCaptureDeviceInput?
     var lastZoomFactor: CGFloat = 1.0
     var outputURL: URL!
     var isCameraFlipped: Bool = false
+    internal var _panStartPoint: CGPoint = .zero
+    internal var _panStartZoom: CGFloat = 1
+    let minimumZoom: CGFloat = 1.0
+    let maximumZoom: CGFloat = 15.0
     
     // MARK: Lets
-    let minimumZoom: CGFloat = 1.0
-    let maximumZoom: CGFloat = 10.0
     let cameraButton = UIView()
-    let captureSession = AVCaptureSession()
-    let movieOutput = AVCaptureMovieFileOutput()
 
     
     // MARK: Outlets
     @IBOutlet weak var flipCameraIcon: UIButton!
-    @IBOutlet weak var videoView: UIView!
+    @IBOutlet var videoView: UIView!
+    
     
     // MARK: Valet
     let myValet = Valet.valet(with: Identifier(nonEmpty: "frontCamera")!, accessibility: .whenUnlocked)
+    let flashValet = Valet.valet(with: Identifier(nonEmpty: "flash")!, accessibility: .whenUnlocked)
     
     
     // MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if usingFrontCamera == true {
-            usingFrontCamera = false
+            switch NextLevel.shared.devicePosition {
+            case .back:
+                NextLevel.shared.flipCaptureDevicePosition()
+            case .front:
+                break
+            case .unspecified:
+                break
+            @unknown default:
+                break
+            }
         } else if usingFrontCamera == false {
-            usingFrontCamera = true
+            switch NextLevel.shared.devicePosition {
+            case .back:
+                break
+            case .front:
+                NextLevel.shared.flipCaptureDevicePosition()
+            case .unspecified:
+                break
+            @unknown default:
+                break
+            }
         }
-        frontOrBackCamera()
-        prepareRecording()
+        do {
+            try NextLevel.shared.start()
+        } catch {
+            print("error code: 10al10t929, NextLevel failed to start")
+        }
+        
+        
+        
+    }
+    
+    // MARK: Setup Camera Preview
+    func setupCameraPreview() {
+        let screenBounds = UIScreen.main.bounds
+        self.videoView = UIView(frame: screenBounds)
+        if let previewView = self.videoView {
+            previewView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            previewView.backgroundColor = UIColor.black
+            NextLevel.shared.previewLayer.frame = previewView.bounds
+            previewView.layer.addSublayer(NextLevel.shared.previewLayer)
+            let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
+            previewView.addGestureRecognizer(pinchRecognizer)
+            previewView.isUserInteractionEnabled = true
+            self.view.insertSubview(previewView, at: 1)
+        }
     }
     
     
     // MARK: Flip Camera Button Press
     @IBAction func flipCamera(_ sender: Any) {
         try? self.myValet.setString("\(usingFrontCamera)", forKey: "frontCamera")
-        frontOrBackCamera()
-    }
-    
-    
-    // MARK: Get Front Camera
-    func getFrontCamera() -> AVCaptureDevice?{
-        return AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices.first
-    }
-
-    // MARK: Get Back Camera
-    func getBackCamera() -> AVCaptureDevice?{
-        return AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back).devices.first
+        NextLevel.shared.flipCaptureDevicePosition()
     }
     
     
@@ -78,6 +108,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         timer.invalidate()
+        NextLevel.shared.stop()
     }
     
     
@@ -111,63 +142,25 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     
     // MARK: Pinch Gesture
     @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
-        // MARK: Zooming on front camera or back camera
-        if usingFrontCamera == true {
-            guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front) else { return }
-            func minMaxZoom(_ factor: CGFloat) -> CGFloat {
-                return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
-            }
-
-            func update(scale factor: CGFloat) {
-                do {
-                    try device.lockForConfiguration()
-                    defer { device.unlockForConfiguration() }
-                    device.videoZoomFactor = factor
-                } catch {
-                    print("\(error.localizedDescription)")
-                }
-            }
-
-            let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
-
-            switch pinch.state {
-            case .began: fallthrough
-            case .changed: update(scale: newScaleFactor)
-            case .ended:
-                lastZoomFactor = minMaxZoom(newScaleFactor)
-                update(scale: lastZoomFactor)
-            default: break
-            }
-        } else {
-            guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
-                showMessage(title: "Error", message: "No camera found.", alertActionTitle: "OK")
-                isCameraThere = false
-                return }
-            func minMaxZoom(_ factor: CGFloat) -> CGFloat {
-                return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
-            }
-
-            func update(scale factor: CGFloat) {
-                do {
-                    try device.lockForConfiguration()
-                    defer { device.unlockForConfiguration() }
-                    device.videoZoomFactor = factor
-                } catch {
-                    print("\(error.localizedDescription)")
-                }
-            }
-
-            let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
-
-            switch pinch.state {
-            case .began: fallthrough
-            case .changed: update(scale: newScaleFactor)
-            case .ended:
-                lastZoomFactor = minMaxZoom(newScaleFactor)
-                update(scale: lastZoomFactor)
-            default: break
-            }
+        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+            return min(min(max(factor, minimumZoom), maximumZoom), 15)
         }
+
+        func update(scale factor: CGFloat) {
+            NextLevel.shared.videoZoomFactor = Float(factor)
+        }
+
+        let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+
+        switch pinch.state {
+        case .began: fallthrough
+        case .changed: update(scale: newScaleFactor)
+        case .ended:
+            lastZoomFactor = minMaxZoom(newScaleFactor)
+            update(scale: lastZoomFactor)
+        default: break
+        }
+
     }
     
     
@@ -175,16 +168,17 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // No tab bar for you!
-        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
-        videoView.addGestureRecognizer(pinchRecognizer)
-        videoView.isUserInteractionEnabled = true
+        
         originalFlip()
-        if setupSession() {
-            setupPreview()
-            startSession()
-        }
-
+        
         videoView.addSubview(cameraButton)
+        
+        // New:
+        setupCameraPreview()
+        NextLevel.shared.videoConfiguration.bitRate = 6000000
+        NextLevel.shared.videoConfiguration.codec = AVVideoCodecType.h264
+        NextLevel.shared.videoConfiguration.preset = AVCaptureSession.Preset.high
+        NextLevel.shared.audioConfiguration.bitRate = 96000
     }
     
     
@@ -199,121 +193,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             usingFrontCamera = false
         }
     }
-    
-    
-    // MARK: Setup the video preview
-    func setupPreview() {
-        // Configure previewLayer
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = videoView.bounds
-        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        videoView.layer.addSublayer(previewLayer)
-    }
-    
-    
-    // MARK: Flip the camera
-    func frontOrBackCamera() {
-        usingFrontCamera = !usingFrontCamera
-        do{
-            if(usingFrontCamera){
-                captureDevice = getFrontCamera()
-            }else{
-                captureDevice = getBackCamera()
-            }
-            let captureDeviceInput1 = try AVCaptureDeviceInput(device: captureDevice)
-            if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
-                for input in inputs {
-                    captureSession.removeInput(input)
-                }
-            }
-            if captureSession.canAddInput(captureDeviceInput1) {
-                captureSession.addInput(captureDeviceInput1)
-                activeInput = captureDeviceInput1
-            }
-            setupMicrophone()
-        }catch{
-            print(error.localizedDescription)
-        }
-    }
-    
-    
-    // MARK: Setup the microphone
-    func setupMicrophone() {
-        guard let microphone = AVCaptureDevice.default(for: AVMediaType.audio) else { return }
-        
-            do {
-                let micInput = try AVCaptureDeviceInput(device: microphone)
-                if captureSession.canAddInput(micInput) {
-                    captureSession.addInput(micInput)
-                }
-            } catch {
-                print("Error setting device audio input: \(error)")
-                return
-            }
-    }
-    
-    
-    // MARK: Setup session (for recording)
-    func setupSession() -> Bool {
-        captureSession.sessionPreset = AVCaptureSession.Preset.high
-        frontOrBackCamera()
-        // Movie output
-        if captureSession.canAddOutput(movieOutput) {
-            captureSession.addOutput(movieOutput)
-        }
 
-        return true
-    }
-
-    
-    // MARK: Setup Capture Mode
-    func setupCaptureMode(_ mode: Int) {
-    }
-    
-    
-    // MARK: Start the session (for recording)
-    func startSession() {
-
-        if !captureSession.isRunning {
-            videoQueue().async {
-                self.captureSession.startRunning()
-            }
-        }
-    }
-    
-    
-    // MARK: Stop the session (for recording)
-    func stopSession() {
-        if captureSession.isRunning {
-            videoQueue().async {
-                self.captureSession.stopRunning()
-            }
-        }
-    }
-    
-    
-    // MARK: The Video Queue
-    func videoQueue() -> DispatchQueue {
-        return DispatchQueue.main
-    }
-    
-    
-    // MARK: Check the orientation
-    func currentVideoOrientation() -> AVCaptureVideoOrientation {
-       var orientation: AVCaptureVideoOrientation
-
-       switch UIDevice.current.orientation {
-           case .portrait:
-               orientation = AVCaptureVideoOrientation.portrait
-           case .portraitUpsideDown:
-               orientation = AVCaptureVideoOrientation.portraitUpsideDown
-           default:
-                orientation = AVCaptureVideoOrientation.portrait
-        }
-
-        return orientation
-    }
-    
     
     // MARK: Start Capturing
     @objc func startCapture() {
@@ -341,57 +221,41 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     
-    // MARK: Prepare for recording
-    func prepareRecording() {
-        let connection = movieOutput.connection(with: AVMediaType.video)
-       
-       
-       if ((connection?.isVideoOrientationSupported) != nil) {
-            connection?.videoOrientation = currentVideoOrientation()
-        }
-       if ((connection?.isVideoStabilizationSupported) != nil) {
-            connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
-        }
-
-        let device = activeInput?.device
-
-        if ((device?.isSmoothAutoFocusSupported) != nil) {
-
-            do {
-                try device?.lockForConfiguration()
-                device?.unlockForConfiguration()
-            } catch {
-               print("Error setting configuration: \(error)")
-            }
-
-        }
-    }
-    
-    
     // MARK: Start the recording
     func startRecording() {
-     if movieOutput.isRecording == false {
-
-         
-        timer = Timer.scheduledTimer(timeInterval: 7.1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
-         //EDIT2: And I forgot this
-         outputURL = tempURL()
-        
-        self.movieOutput.startRecording(to: self.outputURL, recordingDelegate: self)
-         
-
-         }
-         else {
-             stopRecording()
-         }
+        if NextLevel.shared.isRecording == false {
+            timer = Timer.scheduledTimer(timeInterval: 7.1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
+            NextLevel.shared.record()
+        } else {
+            stopRecording()
+        }
     }
     
     
     // MARK: Stop the recording
     func stopRecording() {
-        if movieOutput.isRecording == true {
-            movieOutput.stopRecording()
-         }
+        if NextLevel.shared.isRecording == true {
+            if let session = NextLevel.shared.session {
+                if let clip = session.lastClipUrl {
+                    self.outputURL = clip
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "showVideo", sender: clip)
+                    }
+                } else if session.currentClipHasStarted {
+                    session.endClip(completionHandler: {(clip, error) in
+                        if error == nil {
+                            DispatchQueue.main.async {
+                                self.performSegue(withIdentifier: "showVideo", sender: clip?.url)
+                            }
+                        } else {
+                            print("error code: 29fak03, error saving video: \(error?.localizedDescription ?? "")")
+                        }
+                    })
+                }
+
+            }
+        }
+        NextLevel.shared.pause()
         timer.invalidate()
     }
     
@@ -412,20 +276,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     
-    // MARK: Output Video
-    func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
-
-        if (error != nil) {
-            print("Error: \(error!.localizedDescription)")
-        } else {
-
-            let videoRecorded = outputURL! as URL
-
-            performSegue(withIdentifier: "showVideo", sender: videoRecorded)
-        }
-    }
-    
-    
     // MARK: Show Message
     func showMessage(title: String, message: String, alertActionTitle: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -433,24 +283,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
-    }
-
-    
-    // MARK: File Output (For video)
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-
-        if (error != nil) {
-
-            print("Error recording movie: \(error!.localizedDescription)")
-
-        } else {
-
-            let videoRecorded = outputURL! as URL
-
-            performSegue(withIdentifier: "showVideo", sender: videoRecorded)
-
-        }
-
     }
     
     

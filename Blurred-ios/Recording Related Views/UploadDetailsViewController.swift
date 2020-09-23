@@ -48,9 +48,9 @@ class UploadDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         AVAsset(url: videoDetails).generateThumbnail { [weak self] (image) in
             DispatchQueue.main.async {
-                guard let image = image else { return }
-                let actualimage = image.rotate(radians: .pi / 2) 
-                self?.thumbnailView.image = actualimage
+                // guard let image = image else { return }
+                // let actualimage = image.rotate(radians: .pi / 2)
+                self?.thumbnailView.image = image
             }
         }
     }

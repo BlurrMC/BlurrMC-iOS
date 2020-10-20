@@ -1114,6 +1114,13 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User has blocked you" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qM-ME-TeM">
+                                <rect key="frame" x="108" y="320" width="189" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oP4-gb-LJI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1147,6 +1154,7 @@
                         <outlet property="followersLabel" destination="YSr-hM-0xL" id="VOP-Ed-9SU"/>
                         <outlet property="followingLabel" destination="Mta-wt-Viq" id="jQy-yv-TYs"/>
                         <outlet property="nameLabel" destination="fB5-sr-lPI" id="QzD-8C-vUo"/>
+                        <outlet property="userBlockedLabel" destination="5qM-ME-TeM" id="ueB-mi-r5f"/>
                         <outlet property="usernameLabel" destination="uzw-Tq-P48" id="IVD-rt-616"/>
                         <outletCollection property="dropDownButtons" destination="mcT-1v-s0H" collectionClass="NSMutableArray" id="qCS-I5-DEM"/>
                         <outletCollection property="dropDownButtons" destination="okr-eY-tul" collectionClass="NSMutableArray" id="cu1-FN-pYZ"/>
@@ -1746,13 +1754,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kHw-nu-gLE"/>
-        <segue reference="xcm-IK-Wan"/>
+        <segue reference="exv-N4-hW9"/>
+        <segue reference="745-eJ-5Gd"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="J7Q-1z-U6Z"/>
         <segue reference="Bvt-h1-M8t"/>
         <segue reference="ojZ-HU-szu"/>
-        <segue reference="APA-y0-haT"/>
+        <segue reference="qUe-BW-JJn"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="12" height="10"/>

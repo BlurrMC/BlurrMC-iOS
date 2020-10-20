@@ -9,12 +9,17 @@
 import UIKit
 
 class CommentCell: UITableViewCell {
+    
+    var delegate: CommentCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.likeButtonTap(sender:)))
+        likeButton.addGestureRecognizer(tap)
     }
-
+    
+    var commentId = Int()
+    var indexPath = IndexPath()
     @IBOutlet weak var likeNumber: UILabel!
     @IBOutlet weak var likeButton: UIImageView!
     @IBOutlet weak var comment: UILabel!
@@ -23,5 +28,14 @@ class CommentCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    
+    // MARK: Like Button Tapped
+    @objc func likeButtonTap(sender:UITapGestureRecognizer) {
+        delegate?.likeButtonTapped(commentId: commentId, indexPath: indexPath)
+    }
 
+}
+protocol CommentCellDelegate {
+    func likeButtonTapped(commentId: Int, indexPath: IndexPath)
 }

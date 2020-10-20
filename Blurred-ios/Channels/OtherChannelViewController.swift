@@ -19,9 +19,11 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     private var videos = [Video]()
     var chanelVar = String()
     var following = Bool()
+    var blocking = Bool()
     var relationshipId = Int()
     var channelUsername = String()
     var timer2 = Timer()
+    var blockId = Int()
     
     
     // MARK: Valet
@@ -40,6 +42,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
+    @IBOutlet weak var userBlockedLabel: UILabel!
     
     
     // MARK: Lets
@@ -99,26 +102,47 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Follow Button Tap
     @IBAction func followButtonTap(_ sender: Any) {
+        let throttler = Throttler(minimumDelay: 3)
         following = !following
         switch following {
         case true:
             DispatchQueue.main.async {
                 self.followButton.setTitle("Unfollow", for: .normal)
             }
-            // Follow the targeted user
-            followUser()
+            throttler.throttle {
+                self.followUser()
+            }
         case false:
             DispatchQueue.main.async {
                 self.followButton.setTitle("Follow", for: .normal)
             }
-            // Unfollow the targeted user
-            unfollowUser()
+            throttler.throttle {
+                self.unfollowUser()
+            }
         }
     }
     
     
     // MARK: Block Button Tap
     @IBAction func blockButtonTap(_ sender: Any) {
+        let throttler = Throttler(minimumDelay: 3)
+        blocking = !blocking
+        switch blocking {
+        case true:
+            DispatchQueue.main.async {
+                self.blockButton.setTitle("Unblock", for: .normal)
+            }
+            throttler.throttle {
+                self.blockUser()
+            }
+        case false:
+            DispatchQueue.main.async {
+                self.blockButton.setTitle("Block", for: .normal)
+            }
+            throttler.throttle {
+                self.unblockUser()
+            }
+        }
     }
     
 
@@ -300,6 +324,16 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                         self.followButton.setTitle("Follow", for: .normal)
                     }
                 }
+            switch blocking {
+            case true:
+                DispatchQueue.main.async {
+                    self.blockButton.setTitle("Unblock", for: .normal)
+                }
+            case false:
+                DispatchQueue.main.async {
+                    self.blockButton.setTitle("Block", for: .normal)
+                }
+            }
                 dropDownButtons.forEach { (button) in
                     UIView.animate(withDuration: 0.15, animations: {
                         button.isHidden = !button.isHidden
@@ -316,9 +350,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Unfollow the user
     func unfollowUser() {
-        let token: String? = try? tokenValet.string(forKey: "Token")
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token!)",
+            "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
         let params = [
@@ -343,15 +377,94 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     
+    // MARK: Unblock the user
+    func unblockUser() {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        let params = [
+            "username": "\(chanelVar)"
+        ] as [String: String]
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/blocks/\(blockId)")
+        AF.request(url!, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let status = JSON!["status"] as? String
+                switch status {
+                case "User has been unblocked":
+                    self.blocking = false
+                case "User has not been blocked":
+                    self.blocking = false
+                case .none:
+                    print("error code: 10cka043")
+                    return
+                case .some(_):
+                    print("eror code: v0bk4r04323ef")
+                    return
+                }
+            } catch {
+                print("error code: 1039574638")
+                return
+            }
+        }
+    }
+    
+    
+    // MARK: Block the user
+    func blockUser() {
+        guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/blocks/")
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(accessToken)",
+            "Accept": "application/json"
+        ]
+        let params = [
+            "id": "\(chanelVar)"
+        ] as [String: String]
+        AF.request(myUrl!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            guard let data = response.data else {
+                print("error code: a0vob94mf9a2")
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let status: String? = parseJSON["status"] as? String
+                    let blockId: Int? = parseJSON["blocked_id"] as? Int
+                    switch status {
+                    case "User has been blocked":
+                        self.blocking = true
+                        self.blockId = blockId!
+                    case "User is already blocked":
+                        self.blocking = true
+                        self.blockId = blockId!
+                    case .none:
+                        print("error code: 9nka0vmf9s32")
+                        return
+                    case .some(_):
+                        print("error code: 10fka94k2")
+                        return
+                    }
+                }
+            } catch {
+                
+            }
+        }
+    }
+    
+    
     // MARK: Follow the user
     func followUser() {
-        let accessToken: String? = try? tokenValet.string(forKey: "Token")
+        guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/apirelationships/")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("Bearer \(accessToken!)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         let params = ["id": "\(chanelVar)"] as [String: String]
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
@@ -386,44 +499,58 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     
+    
+    
     // MARK: Check if user is following/blocking (for dropdown)
     func checkForFollowing() {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
-                       let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuserfollowing/\(chanelVar).json")
-                       var request = URLRequest(url:myUrl!)
-                       request.httpMethod = "GET"
-                       request.addValue("application/json", forHTTPHeaderField: "content-type")
-                       request.addValue("application/json", forHTTPHeaderField: "Accept")
-                       request.setValue("Bearer \(accessToken!)", forHTTPHeaderField: "Authorization")
-                       let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                           if error != nil {
-                               print("there is an error")
-                               return
-                           }
-                           do {
-                               let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                               if let parseJSON = json {
-                                   let status: String? = parseJSON["status"] as? String
-                                let relationshipId: Int? = parseJSON["relationship_id"] as? Int
-                                DispatchQueue.main.async {
-                                    if status == "User is not following." {
-                                        self.following = false
-                                    } else if status == "User is following." {
-                                        self.following = true
-                                        self.relationshipId = relationshipId!
-                                    } else {
-                                        print("error code: afnadf8y3")
-                                        return
-                                    }
-                                }
-                               } else {
-                                   return
-                               }
-                           } catch {
-                               return
-                           }
-                       }
-                   task.resume()
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuserfollowing/\(chanelVar).json")
+        var request = URLRequest(url:myUrl!)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "content-type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("Bearer \(accessToken!)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                print("there is an error")
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let status: String? = parseJSON["status"] as? String
+                    let relationshipId: Int? = parseJSON["relationship_id"] as? Int
+                    let blockId: Int? = parseJSON["block_id"] as? Int
+                    switch status {
+                    case "User is not following or blocking":
+                        self.following = false
+                        self.blocking = false
+                    case "User is not following but blocking":
+                        self.following = false
+                        self.blocking = true
+                        self.blockId = blockId!
+                    case "User is following but not blocking":
+                        self.following = true
+                        self.blocking = false
+                        self.relationshipId = relationshipId!
+                    case "User is following and blocking":
+                        self.following = true
+                        self.blocking = true
+                        self.relationshipId = relationshipId!
+                        self.blockId = blockId!
+                    case .none:
+                        print("error code: q01039bjtasme923hf7")
+                    case .some(_):
+                        print("error code: ajh943l")
+                    }
+                } else {
+                    return
+                }
+            } catch {
+                return
+            }
+        }
+        task.resume()
     }
     
     
@@ -516,106 +643,117 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: Load the channel's information
     func loadMemberChannel() {
-            let Id = chanelVar
-            let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
-            var request = URLRequest(url:myUrl!)
-            request.httpMethod = "GET"
-            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-                if error != nil {
-                    self.showMessage(title: "Eror", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
-                    return
-                }
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                    if let parseJSON = json {
-                        let username: String? = parseJSON["username"] as? String
-                        self.channelUsername = username!
-                        let name: String? = parseJSON["name"] as? String
-                        let imageUrl: String? = parseJSON["avatar_url"] as? String // Forgot to change to the new api here
-                        guard let followerCount: Int = parseJSON["followers_count"] as? Int else { return }
-                        guard let followingCount: Int = parseJSON["following_count"] as? Int else { return }
-                        let bio: String? = parseJSON["bio"] as? String
-                        let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
-                            if bio?.isEmpty != true {
-                                DispatchQueue.main.async {
-                                    self.bioLabel.text = bio ?? ""
-                                }
-                            } else {
-                                DispatchQueue.main.async {
-                                    self.bioLabel.text = String("")
-                                }
-                            }
-                            if username?.isEmpty != true && name?.isEmpty != true {
-                                DispatchQueue.main.async {
-                                    self.usernameLabel.text = username ?? ""
-                                    self.nameLabel.text = name ?? ""
-                                }
-                            } else {
-                                return
-                            }
-                        switch followerCount {
-                        case _ where followerCount < 1000:
-                            DispatchQueue.main.async {
-                                self.followersLabel.text = "\(followerCount)"
-                            }
-                        case _ where followerCount > 1000 && followerCount < 100000:
-                            DispatchQueue.main.async {
-                                self.followersLabel.text = "\(followerCount/1000).\((followerCount/100)%10)k" }
-                        case _ where followerCount > 100000 && followerCount < 1000000:
-                            DispatchQueue.main.async {
-                                self.followersLabel.text = "\(followerCount/1000)k"
-                            }
-                        case _ where followerCount > 1000000 && followerCount < 100000000:
-                            DispatchQueue.main.async {
-                                self.followersLabel.text = "\(followerCount/1000000).\((followerCount/1000)%10)M"
-                            }
-                        case _ where followerCount > 100000000:
-                            DispatchQueue.main.async {
-                                self.followersLabel.text = "\(followerCount/1000000)M"
-                            }
-                        default:
-                            DispatchQueue.main.async {
-                                self.followersLabel.text = "\(followerCount )"
-                            }
-                        }
-                        switch followingCount {
-                        case _ where followingCount < 1000:
-                            DispatchQueue.main.async {
-                                self.followingLabel.text = "\(followingCount)"
-                            }
-                        case _ where followingCount > 1000 && followingCount < 100000:
-                            DispatchQueue.main.async {
-                                self.followingLabel.text = "\(followingCount/1000).\((followingCount/100)%10)k" }
-                        case _ where followingCount > 100000 && followingCount < 1000000:
-                            DispatchQueue.main.async {
-                                self.followingLabel.text = "\(followingCount/1000)k"
-                            }
-                        case _ where followingCount > 1000000 && followingCount < 100000000:
-                            DispatchQueue.main.async {
-                                self.followingLabel.text = "\(followingCount/1000000).\((followingCount/1000)%10)M"
-                            }
-                        case _ where followingCount > 100000000:
-                            DispatchQueue.main.async {
-                                self.followingLabel.text = "\(followingCount/1000000)M"
-                            }
-                        default:
-                            DispatchQueue.main.async {
-                                self.followingLabel.text = "\(followingCount)"
-                            }
-                        }
-                        DispatchQueue.main.async {
-                            Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
-                        }
-                    } else {
-                        print(error ?? "")
-                        return
-                    }
-                } catch {
-                        print(error)
-                    return
-                }
+        let Id = chanelVar
+        guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
+        var request = URLRequest(url:myUrl!)
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                self.showMessage(title: "Eror", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+                return
             }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    let username: String? = parseJSON["username"] as? String
+                    self.channelUsername = username!
+                    let name: String? = parseJSON["name"] as? String
+                    let imageUrl: String? = parseJSON["avatar_url"] as? String // Forgot to change to the new api here
+                    guard let followerCount: Int = parseJSON["followers_count"] as? Int else { return }
+                    guard let followingCount: Int = parseJSON["following_count"] as? Int else { return }
+                    guard let isBlocked: Bool = parseJSON["isblocked"] as? Bool else { return }
+                    let bio: String? = parseJSON["bio"] as? String
+                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
+                        if bio?.isEmpty != true {
+                            DispatchQueue.main.async {
+                                self.bioLabel.text = bio ?? ""
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.bioLabel.text = String("")
+                            }
+                        }
+                        if username?.isEmpty != true && name?.isEmpty != true {
+                            DispatchQueue.main.async {
+                                self.usernameLabel.text = username ?? ""
+                                self.nameLabel.text = name ?? ""
+                            }
+                        } else {
+                            return
+                        }
+                    switch isBlocked {
+                    case true:
+                        DispatchQueue.main.async {
+                            self.collectionView.isHidden = true
+                            self.userBlockedLabel.isHidden = false
+                        }
+                    case false:
+                        break
+                    }
+                    switch followerCount {
+                    case _ where followerCount < 1000:
+                        DispatchQueue.main.async {
+                            self.followersLabel.text = "\(followerCount)"
+                        }
+                    case _ where followerCount > 1000 && followerCount < 100000:
+                        DispatchQueue.main.async {
+                            self.followersLabel.text = "\(followerCount/1000).\((followerCount/100)%10)k" }
+                    case _ where followerCount > 100000 && followerCount < 1000000:
+                        DispatchQueue.main.async {
+                            self.followersLabel.text = "\(followerCount/1000)k"
+                        }
+                    case _ where followerCount > 1000000 && followerCount < 100000000:
+                        DispatchQueue.main.async {
+                            self.followersLabel.text = "\(followerCount/1000000).\((followerCount/1000)%10)M"
+                        }
+                    case _ where followerCount > 100000000:
+                        DispatchQueue.main.async {
+                            self.followersLabel.text = "\(followerCount/1000000)M"
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            self.followersLabel.text = "\(followerCount )"
+                        }
+                    }
+                    switch followingCount {
+                    case _ where followingCount < 1000:
+                        DispatchQueue.main.async {
+                            self.followingLabel.text = "\(followingCount)"
+                        }
+                    case _ where followingCount > 1000 && followingCount < 100000:
+                        DispatchQueue.main.async {
+                            self.followingLabel.text = "\(followingCount/1000).\((followingCount/100)%10)k" }
+                    case _ where followingCount > 100000 && followingCount < 1000000:
+                        DispatchQueue.main.async {
+                            self.followingLabel.text = "\(followingCount/1000)k"
+                        }
+                    case _ where followingCount > 1000000 && followingCount < 100000000:
+                        DispatchQueue.main.async {
+                            self.followingLabel.text = "\(followingCount/1000000).\((followingCount/1000)%10)M"
+                        }
+                    case _ where followingCount > 100000000:
+                        DispatchQueue.main.async {
+                            self.followingLabel.text = "\(followingCount/1000000)M"
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            self.followingLabel.text = "\(followingCount)"
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
+                    }
+                } else {
+                    print(error ?? "")
+                    return
+                }
+            } catch {
+                    print(error)
+                return
+            }
+        }
         task.resume()
     }
     

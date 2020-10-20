@@ -85,7 +85,7 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
             self.view.addSubview(myActivityIndicator)
         }
         let token: String? = try? tokenValet.string(forKey: "Token")
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/comments/\(videoId).json")
+        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -93,7 +93,7 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
         request.setValue("Bearer \(token!)", forHTTPHeaderField: "Authorization")
         if commentField?.text?.isEmpty != true {
             let comment = commentField.text
-            let patchString = ["comment": comment!] as [String: String]
+            let patchString = ["comment": ["body": comment]]
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
             } catch let error {
@@ -111,7 +111,7 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
                     
                     if let parseJSON = json {
                         let returnCode = parseJSON["status"] as? String
-                        if returnCode != String("Commented") {
+                        if returnCode != String("Comment has been made") {
                             return
                         }
                     } else {
@@ -135,9 +135,18 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
     // MARK: Cell for row at
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as? CommentCell else { return UITableViewCell() }
-        let usernameComment = comments[indexPath.row].username
+        let usernameComment = comments[indexPath.row].created_by
+        cell.delegate = self
+        cell.comment.text = comments[indexPath.row].body // Add handling if comment is over a certain number of characters
+        cell.indexPath = indexPath
         cell.commentUsername.text = usernameComment
-        cell.comment.text = comments[indexPath.row].comment // Add handling if comment is over a certain number of characters
+        cell.likeNumber.text = String(comments[indexPath.row].likes)
+        switch comments[indexPath.row].liked {
+        case true:
+            cell.likeButton.image = UIImage(systemName: "heart.fill")
+        case false:
+            cell.likeButton.image = UIImage(systemName: "heart")
+        }
         AF.request("http://10.0.0.2:3000/api/v1/channels/\(usernameComment).json").responseJSON { response in
                    var JSON: [String: Any]?
                    do {
@@ -164,22 +173,35 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
         }
     }
     class Comment: Codable {
-        let username: String
-        let likecount: Int
-        let comment: String
-        init(username: String, likecount: Int, comment: String) {
-            self.username = username
-            self.likecount = likecount
-            self.comment = comment
+        let created_by: String
+        let likes: Int
+        let id: Int
+        let reply: Bool
+        let time_since_creation: String
+        let body: String
+        let liked: Bool
+        // Add replies
+        init(created_by: String, likes: Int, body: String, id: Int, reply: Bool, time_since_creation: String, liked: Bool) {
+            self.id = id
+            self.reply = reply
+            self.time_since_creation = time_since_creation
+            self.created_by = created_by
+            self.likes = likes
+            self.body = body
+            self.liked = liked
         }
     }
     
     // MARK: Download the comments
     func downloadJson() { // Still not done we need to add the user's butt image
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/comments/\(videoId).json")  // 23:40
-        guard let downloadURL = url else { return }
-        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-            guard let data = data, error == nil, urlResponse != nil else {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        AF.request("http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/", method: .get, headers: headers).responseJSON { response in
+            guard let data = response.data else {
+                print("error code: coi329fj482")
                 return
             }
             do {
@@ -190,9 +212,10 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
                     self.tableView.reloadData()
                 }
             } catch {
-                print(error)
+                print("error code: f0bm39fna9319g427hf42")
+                return
             }
-        }.resume()
+        }
     }
     
     
@@ -200,6 +223,8 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
     override func viewDidLoad() {
         super.viewDidLoad()
         commentField?.delegate = self
+        downloadJson()
+        
     }
     
     
@@ -229,4 +254,11 @@ class CommentingViewController: UIViewController, UITableViewDataSource, UITextF
     }
     
 
+}
+extension CommentingViewController: CommentCellDelegate {
+    func likeButtonTapped(commentId: Int, indexPath: IndexPath) {
+        
+    }
+    
+    
 }

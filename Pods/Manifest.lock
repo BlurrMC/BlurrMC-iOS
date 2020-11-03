@@ -43,7 +43,7 @@ DEPENDENCIES:
   - Alamofire
   - NextLevel
   - Nuke
-  - PINCache (from `https://github.com/pinterest/PINCache`, branch `master`)
+  - PINCache
   - Texture
   - Valet
 
@@ -52,20 +52,11 @@ SPEC REPOS:
     - Alamofire
     - NextLevel
     - Nuke
+    - PINCache
     - PINOperation
     - PINRemoteImage
     - Texture
     - Valet
-
-EXTERNAL SOURCES:
-  PINCache:
-    :branch: master
-    :git: https://github.com/pinterest/PINCache
-
-CHECKOUT OPTIONS:
-  PINCache:
-    :commit: 7d1f63ab03ff71a5bbf033201e59072a6a69c17a
-    :git: https://github.com/pinterest/PINCache
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
@@ -77,6 +68,6 @@ SPEC CHECKSUMS:
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   Valet: 11ab0e318b7284888a81392e36136563b4af5deb
 
-PODFILE CHECKSUM: bd467c19ad871acada4b01655f3f94043761ca4b
+PODFILE CHECKSUM: 4393844b6d44fa3e56dd78dcc23542325694b55e
 
 COCOAPODS: 1.9.3

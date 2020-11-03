@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D81082D068F71EEEF45F04A /* Pods_Blurred_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAE9BA564235C9D40B2D093 /* Pods_Blurred_ios.framework */; };
+		39BFFB669B06EF7699B64644 /* Pods_Blurred_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A54AE468CD7979EA2C7B6928 /* Pods_Blurred_iosTests.framework */; };
 		594B8BD024E41793002D620D /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594B8BCF24E41793002D620D /* SearchCell.swift */; };
 		596AEE4724E89174002531C0 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596AEE4624E89174002531C0 /* CommentCell.swift */; };
 		5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2527AD2484388C0014F6CA /* Assets.xcassets */; };
-		9781C55A5BAEC9220B261C1E /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
-		D839AE13C55FBB2440896A3B /* Pods_Blurred_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */; };
+		A400503340A44B2C542F084B /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55997397D8A83ECBD5F7161 /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
+		C0DB4F7E900B16800F0EFA38 /* Pods_Blurred_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B530160232BFC32BE06C4F /* Pods_Blurred_ios.framework */; };
 		E1104EC12511649800B52A11 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */; };
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
@@ -74,17 +74,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		078BAB9A2CA12C82A195670D /* Pods-Blurred-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.release.xcconfig"; sourceTree = "<group>"; };
-		27CD821790FAB3DEBC14BAB4 /* Pods-Blurred-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.debug.xcconfig"; sourceTree = "<group>"; };
-		2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios_Blurred_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FD9B289C1FE67D1AB705F3B /* Pods-Blurred-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
+		59303CECF0E6FF74AE914CB6 /* Pods-Blurred-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		594B8BCF24E41793002D620D /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		596AEE4624E89174002531C0 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		5B2527AD2484388C0014F6CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		88A6F049C80FC824A8E42F90 /* Pods-Blurred-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
-		8B11C442751AC14293FCAB3F /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		9EAE9BA564235C9D40B2D093 /* Pods_Blurred_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5C6A3BDD5CF792C4BC390DD /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
-		AE3332D2840C95759B60A4E2 /* Pods-Blurred-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.release.xcconfig"; sourceTree = "<group>"; };
+		5CDF210A8E22D0F54481F28D /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
+		95B530160232BFC32BE06C4F /* Pods_Blurred_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DC8B456F1A2903F763BF85C /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A54AE468CD7979EA2C7B6928 /* Pods_Blurred_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
@@ -134,7 +132,9 @@
 		E1EBD0BC2453A1CE00FE901F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 		E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoCell.swift; sourceTree = "<group>"; };
 		E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDetailsViewController.swift; sourceTree = "<group>"; };
-		ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E506893DA9FC7FA3C7672E2C /* Pods-Blurred-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.release.xcconfig"; sourceTree = "<group>"; };
+		E55997397D8A83ECBD5F7161 /* Pods_Blurred_ios_Blurred_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios_Blurred_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F41306D471E35B036F6E30B7 /* Pods-Blurred-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D81082D068F71EEEF45F04A /* Pods_Blurred_ios.framework in Frameworks */,
+				C0DB4F7E900B16800F0EFA38 /* Pods_Blurred_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D839AE13C55FBB2440896A3B /* Pods_Blurred_iosTests.framework in Frameworks */,
+				39BFFB669B06EF7699B64644 /* Pods_Blurred_iosTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9781C55A5BAEC9220B261C1E /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */,
+				A400503340A44B2C542F084B /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,24 +168,14 @@
 		15B5D27D935DD3C520B2F0DE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				27CD821790FAB3DEBC14BAB4 /* Pods-Blurred-ios.debug.xcconfig */,
-				078BAB9A2CA12C82A195670D /* Pods-Blurred-ios.release.xcconfig */,
-				8B11C442751AC14293FCAB3F /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */,
-				A5C6A3BDD5CF792C4BC390DD /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */,
-				88A6F049C80FC824A8E42F90 /* Pods-Blurred-iosTests.debug.xcconfig */,
-				AE3332D2840C95759B60A4E2 /* Pods-Blurred-iosTests.release.xcconfig */,
+				F41306D471E35B036F6E30B7 /* Pods-Blurred-ios.debug.xcconfig */,
+				E506893DA9FC7FA3C7672E2C /* Pods-Blurred-ios.release.xcconfig */,
+				9DC8B456F1A2903F763BF85C /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */,
+				5CDF210A8E22D0F54481F28D /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */,
+				0FD9B289C1FE67D1AB705F3B /* Pods-Blurred-iosTests.debug.xcconfig */,
+				59303CECF0E6FF74AE914CB6 /* Pods-Blurred-iosTests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		52AA989E66B9244014B9A515 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9EAE9BA564235C9D40B2D093 /* Pods_Blurred_ios.framework */,
-				2D6AEDB51ADAB8D0776585BF /* Pods_Blurred_ios_Blurred_iosUITests.framework */,
-				ED6F0C917B8BD0F88B2F7D7C /* Pods_Blurred_iosTests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		590D20AB24EDAEA300109359 /* Nodes */ = {
@@ -228,6 +218,16 @@
 				E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */,
 			);
 			path = "Channel Video";
+			sourceTree = "<group>";
+		};
+		6F43770AC0D498D027D073B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				95B530160232BFC32BE06C4F /* Pods_Blurred_ios.framework */,
+				E55997397D8A83ECBD5F7161 /* Pods_Blurred_ios_Blurred_iosUITests.framework */,
+				A54AE468CD7979EA2C7B6928 /* Pods_Blurred_iosTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E1104EC52511649F00B52A11 /* Notifications */ = {
@@ -388,9 +388,9 @@
 				E1DF6F68244F550300E11BF9 /* Blurred-ios */,
 				E1DF6F84244F550600E11BF9 /* Blurred-iosTests */,
 				E1DF6F8F244F550700E11BF9 /* Blurred-iosUITests */,
-				52AA989E66B9244014B9A515 /* Frameworks */,
 				E1DF6F67244F550300E11BF9 /* Products */,
 				15B5D27D935DD3C520B2F0DE /* Pods */,
+				6F43770AC0D498D027D073B3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -455,11 +455,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E1DF6F95244F550700E11BF9 /* Build configuration list for PBXNativeTarget "Blurred-ios" */;
 			buildPhases = (
-				F0F7CC1D348138FEB9456B98 /* [CP] Check Pods Manifest.lock */,
+				9696E8A0ECE6D65E0073E52B /* [CP] Check Pods Manifest.lock */,
 				E1DF6F62244F550300E11BF9 /* Sources */,
 				E1DF6F63244F550300E11BF9 /* Frameworks */,
 				E1DF6F64244F550300E11BF9 /* Resources */,
-				932A24FB4F76D6D4C46A8750 /* [CP] Embed Pods Frameworks */,
+				B44D62B56F96016AAC8BED6C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -474,7 +474,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E1DF6F98244F550700E11BF9 /* Build configuration list for PBXNativeTarget "Blurred-iosTests" */;
 			buildPhases = (
-				DA9F94E030B023AFE11D4EBA /* [CP] Check Pods Manifest.lock */,
+				E93D7CEFBC2972A86F399557 /* [CP] Check Pods Manifest.lock */,
 				E1DF6F7D244F550600E11BF9 /* Sources */,
 				E1DF6F7E244F550600E11BF9 /* Frameworks */,
 				E1DF6F7F244F550600E11BF9 /* Resources */,
@@ -493,11 +493,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E1DF6F9B244F550700E11BF9 /* Build configuration list for PBXNativeTarget "Blurred-iosUITests" */;
 			buildPhases = (
-				660B5F50A3ED24C5521619E9 /* [CP] Check Pods Manifest.lock */,
+				A2BA6725F67F02644D8E1925 /* [CP] Check Pods Manifest.lock */,
 				E1DF6F88244F550700E11BF9 /* Sources */,
 				E1DF6F89244F550700E11BF9 /* Frameworks */,
 				E1DF6F8A244F550700E11BF9 /* Resources */,
-				6CE676B760428026A87FC0DC /* [CP] Embed Pods Frameworks */,
+				8DB52694DF373E1DF231B94F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -585,7 +585,46 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		660B5F50A3ED24C5521619E9 /* [CP] Check Pods Manifest.lock */ = {
+		8DB52694DF373E1DF231B94F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9696E8A0ECE6D65E0073E52B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Blurred-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2BA6725F67F02644D8E1925 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -607,24 +646,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6CE676B760428026A87FC0DC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		932A24FB4F76D6D4C46A8750 /* [CP] Embed Pods Frameworks */ = {
+		B44D62B56F96016AAC8BED6C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -641,7 +663,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DA9F94E030B023AFE11D4EBA /* [CP] Check Pods Manifest.lock */ = {
+		E93D7CEFBC2972A86F399557 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -657,28 +679,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Blurred-iosTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F0F7CC1D348138FEB9456B98 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Blurred-ios-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -893,7 +893,7 @@
 		};
 		E1DF6F96244F550700E11BF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27CD821790FAB3DEBC14BAB4 /* Pods-Blurred-ios.debug.xcconfig */;
+			baseConfigurationReference = F41306D471E35B036F6E30B7 /* Pods-Blurred-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -928,7 +928,7 @@
 		};
 		E1DF6F97244F550700E11BF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 078BAB9A2CA12C82A195670D /* Pods-Blurred-ios.release.xcconfig */;
+			baseConfigurationReference = E506893DA9FC7FA3C7672E2C /* Pods-Blurred-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -956,7 +956,7 @@
 		};
 		E1DF6F99244F550700E11BF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88A6F049C80FC824A8E42F90 /* Pods-Blurred-iosTests.debug.xcconfig */;
+			baseConfigurationReference = 0FD9B289C1FE67D1AB705F3B /* Pods-Blurred-iosTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -979,7 +979,7 @@
 		};
 		E1DF6F9A244F550700E11BF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AE3332D2840C95759B60A4E2 /* Pods-Blurred-iosTests.release.xcconfig */;
+			baseConfigurationReference = 59303CECF0E6FF74AE914CB6 /* Pods-Blurred-iosTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1002,7 +1002,7 @@
 		};
 		E1DF6F9C244F550700E11BF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8B11C442751AC14293FCAB3F /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */;
+			baseConfigurationReference = 9DC8B456F1A2903F763BF85C /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1023,7 +1023,7 @@
 		};
 		E1DF6F9D244F550700E11BF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A5C6A3BDD5CF792C4BC390DD /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */;
+			baseConfigurationReference = 5CDF210A8E22D0F54481F28D /* Pods-Blurred-ios-Blurred-iosUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

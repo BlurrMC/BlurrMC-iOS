@@ -6,9 +6,9 @@ target 'Blurred-ios' do
   use_frameworks!
 
   # Pods for Blurred-ios
-  pod 'NextLevel'
   pod 'Valet'
   pod 'Alamofire'
+  pod 'NextLevel'
   pod 'Nuke'
   pod 'Texture'
   pod 'PINCache'

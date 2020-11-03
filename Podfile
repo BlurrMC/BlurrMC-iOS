@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.0'
+# platform :ios, '13.0'
 
 target 'Blurred-ios' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -12,7 +12,6 @@ target 'Blurred-ios' do
   pod 'Nuke'
   pod 'Texture'
   pod 'PINCache', :git => "https://github.com/pinterest/PINCache", :branch => 'master'
-  # Pods end
 
   target 'Blurred-iosTests' do
     inherit! :search_paths

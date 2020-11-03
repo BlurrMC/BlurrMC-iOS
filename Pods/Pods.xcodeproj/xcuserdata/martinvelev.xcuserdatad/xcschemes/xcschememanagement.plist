@@ -9,80 +9,136 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>NextLevel.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<key>Nuke.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>5</integer>
 		</dict>
 		<key>PINCache.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>6</integer>
 		</dict>
 		<key>PINOperation.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>9</integer>
 		</dict>
 		<key>PINRemoteImage.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>11</integer>
 		</dict>
 		<key>Pods-Blurred-ios-Blurred-iosUITests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>14</integer>
 		</dict>
 		<key>Pods-Blurred-ios.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>13</integer>
 		</dict>
 		<key>Pods-Blurred-iosTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>16</integer>
 		</dict>
 		<key>Texture.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>18</integer>
 		</dict>
 		<key>Valet.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>20</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict/>
+	<dict>
+		<key>062A64896E847A6749F58B6BA9A931B1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>18C1D8809D7FC22DEA2F00E9813EAB0F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>57310B016450E63387C9D64F4933E995</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7A4891EF9718DE03F9EC8B26C9765560</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A927C3CD51C30012080D6CA07959B246</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B36AEC81309F0FEDAE7D7985020CA31A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CEC7622A20CE8A372FA5E36C3B778C4B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB66E43BC980D741F3C7C5CF3ACEEFA4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E2A8B2A28D2EAB2E4CCF3B69E6792851</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E3D29E214E770F28213292B63B7A05DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EAAA1AD3A8A1B59AB91319EE40752C6D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>

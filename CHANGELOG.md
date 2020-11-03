@@ -3,6 +3,8 @@
 * Comments
     * Changed thumbs up icon to heart icon
     * Added functionality for like count to update
+    * Added liking to comments
+    * Added read more button to comments
 ## v0.3.5 (PRERELEASE)
 * ChannelVideoView
     * Fixed bug where liking video would first go +2 and then correct itself half of a second later.

@@ -17,6 +17,7 @@
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
+		E13515CC25492078000437CB /* CommentCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13515CB25492078000437CB /* CommentCellDelegate.swift */; };
 		E139685424D34F4700F01FDE /* ChannelVideoCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */; };
 		E139B92424E826490035901E /* DescriptionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E139B92324E826490035901E /* DescriptionOverlayView.swift */; };
 		E139B92624E826B10035901E /* DescriptionOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = E139B92524E826B10035901E /* DescriptionOverlay.xib */; };
@@ -27,6 +28,7 @@
 		E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */; };
 		E146ACF7247441DE00D3ED10 /* OtherFollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF6247441DE00D3ED10 /* OtherFollowerCell.swift */; };
 		E146ACF9247441F100D3ED10 /* OtherFollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E146ACF8247441F100D3ED10 /* OtherFollowingCell.swift */; };
+		E1477EB22548C64C006A3008 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1477EB12548C64C006A3008 /* ReplyTableViewCell.swift */; };
 		E15D6FC224BA5DCD00CC1E0E /* CommentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */; };
 		E15D6FC424BA5E3F00CC1E0E /* CommentBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */; };
 		E17C5EF824E6A99000D1E079 /* OverlayViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */; };
@@ -87,6 +89,7 @@
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		E13515CB25492078000437CB /* CommentCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellDelegate.swift; sourceTree = "<group>"; };
 		E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoCellNode.swift; sourceTree = "<group>"; };
 		E139B92324E826490035901E /* DescriptionOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionOverlayView.swift; sourceTree = "<group>"; };
 		E139B92524E826B10035901E /* DescriptionOverlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionOverlay.xib; sourceTree = "<group>"; };
@@ -97,6 +100,7 @@
 		E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowListViewController.swift; sourceTree = "<group>"; };
 		E146ACF6247441DE00D3ED10 /* OtherFollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowerCell.swift; sourceTree = "<group>"; };
 		E146ACF8247441F100D3ED10 /* OtherFollowingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowingCell.swift; sourceTree = "<group>"; };
+		E1477EB12548C64C006A3008 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
 		E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentingViewController.swift; sourceTree = "<group>"; };
 		E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentBoard.storyboard; sourceTree = "<group>"; };
 		E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewDelegate.swift; sourceTree = "<group>"; };
@@ -207,7 +211,8 @@
 		596AEE4524E89143002531C0 /* Channel Video */ = {
 			isa = PBXGroup;
 			children = (
-				596AEE4624E89174002531C0 /* CommentCell.swift */,
+				E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */,
+				E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */,
 			);
 			path = "Channel Video";
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 		E139685524D3539700F01FDE /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				E1477EB62548C7C2006A3008 /* Comments */,
 				E1BA897424E18C680015C546 /* Overlays */,
 				E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */,
 			);
@@ -246,6 +252,14 @@
 				E156A66C24F5F931005F6F6C /* XIB */,
 			);
 			path = "Description Overlay";
+			sourceTree = "<group>";
+		};
+		E1477EB62548C7C2006A3008 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */,
+			);
+			path = Comments;
 			sourceTree = "<group>";
 		};
 		E156A66B24F5F923005F6F6C /* XIB */ = {
@@ -284,9 +298,20 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		E19413C12545C7540037D650 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				596AEE4624E89174002531C0 /* CommentCell.swift */,
+				E13515CB25492078000437CB /* CommentCellDelegate.swift */,
+				E1477EB12548C64C006A3008 /* ReplyTableViewCell.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 		E196F5F224A8D589001BE742 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				E19413C12545C7540037D650 /* Comment */,
 				E1C3D95524BB977600323427 /* Channel */,
 				E13848CF24C87E1C00232C7B /* Search */,
 				E1104EC52511649F00B52A11 /* Notifications */,
@@ -338,9 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				596AEE4524E89143002531C0 /* Channel Video */,
-				E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */,
 				596AEE4424E89114002531C0 /* Follower + Following */,
-				E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */,
 			);
 			path = Channel;
 			sourceTree = "<group>";
@@ -383,7 +406,6 @@
 				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
 				E19286EB24D72F1B00382D98 /* Blurred-ios-Bridging-Header.h */,
 				E1BA897024E0427A0015C546 /* CacheManager.swift */,
-				E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */,
 				E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */,
 				E1DF6F7C244F550600E11BF9 /* Info.plist */,
 				E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */,
@@ -696,6 +718,7 @@
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
 				596AEE4724E89174002531C0 /* CommentCell.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
+				E1477EB22548C64C006A3008 /* ReplyTableViewCell.swift in Sources */,
 				E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */,
 				E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */,
 				E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */,
@@ -703,6 +726,7 @@
 				E146ACF7247441DE00D3ED10 /* OtherFollowerCell.swift in Sources */,
 				E139685424D34F4700F01FDE /* ChannelVideoCellNode.swift in Sources */,
 				E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */,
+				E13515CC25492078000437CB /* CommentCellDelegate.swift in Sources */,
 				E139B92424E826490035901E /* DescriptionOverlayView.swift in Sources */,
 				E17C5EF824E6A99000D1E079 /* OverlayViewDelegate.swift in Sources */,
 				E1DF6FBD244F5DE300E11BF9 /* ChannelViewController.swift in Sources */,

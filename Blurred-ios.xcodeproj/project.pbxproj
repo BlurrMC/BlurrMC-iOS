@@ -175,7 +175,6 @@
 				88A6F049C80FC824A8E42F90 /* Pods-Blurred-iosTests.debug.xcconfig */,
 				AE3332D2840C95759B60A4E2 /* Pods-Blurred-iosTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

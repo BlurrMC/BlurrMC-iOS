@@ -903,10 +903,15 @@
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
+					"\"$(inherited)\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftKeychainWrapper\"",
-					"$(SRCROOT)/**",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/NextLevel\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nuke\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PINCache\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PINOperation\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PINRemoteImage\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Texture\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Valet\"",
 				);
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -937,6 +942,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(inherited)\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/NextLevel\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nuke\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PINCache\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PINOperation\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PINRemoteImage\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Texture\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Valet\"",
+				);
 				INFOPLIST_FILE = "Blurred-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (

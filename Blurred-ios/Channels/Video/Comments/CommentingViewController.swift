@@ -106,6 +106,11 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                         let returnCode = parseJSON["status"] as? String
                         if returnCode != String("Comment has been made") {
                             return
+                        } else {
+                            DispatchQueue.main.async {
+                                self.commentField.text = ""
+                            }
+                            self.downloadJson()
                         }
                     } else {
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
@@ -141,7 +146,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         let body: String
         var liked: Bool
         let parent_id: Int
-        let replies: [Comment]?
+        var replies: [Comment]?
         var opened: Bool? = false
         var likeId: Int?
         init(created_by: String, likes: Int, body: String, id: Int, reply: Bool, time_since_creation: String, liked: Bool, parent_id: Int, replies: [Comment], likeId: Int) {
@@ -226,12 +231,13 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
 }
 extension CommentingViewController: CommentCellDelegate {
     func likeButtonTapped(commentId: Int, indexPath: IndexPath, reply: Bool) {
+        let commentIndex = indexPath.section
         switch reply {
         case true:
-            guard let reply = comments[indexPath.section].replies?[indexPath.row - 1] else { return }
+            guard let reply = comments[commentIndex].replies?[indexPath.row - 1] else { return }
             like(alreadyLiked: reply.liked, cell: reply, likes: reply.likes, indexPath: indexPath, reply: true)
         case false:
-            let comment = comments[indexPath.section]
+            let comment = comments[commentIndex]
             like(alreadyLiked: comment.liked, cell: comment, likes: comment.likes, indexPath: indexPath, reply: false)
         }
     }
@@ -258,10 +264,6 @@ extension CommentingViewController: CommentCellDelegate {
                 DispatchQueue.main.async {
                     cell?.likeNumber.text = "\(likeNumber/1000000)M"
                 }
-            case _ where likeNumber == 1:
-                DispatchQueue.main.async {
-                    cell?.likeNumber.text = "\(likeNumber)"
-                }
             default:
                 DispatchQueue.main.async {
                     cell?.likeNumber.text = "\(likeNumber)"
@@ -286,10 +288,6 @@ extension CommentingViewController: CommentCellDelegate {
                 DispatchQueue.main.async {
                     cell?.likeNumber.text = "\(likeNumber/1000000)M"
                 }
-            case _ where likeNumber == 1:
-                DispatchQueue.main.async {
-                    cell?.likeNumber.text = "\(likeNumber)"
-                }
             default:
                 DispatchQueue.main.async {
                     cell?.likeNumber.text = "\(likeNumber)"
@@ -306,34 +304,44 @@ extension CommentingViewController: CommentCellDelegate {
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
-        
+        let throttler = Throttler(minimumDelay: 5)
         if likeid != nil {
-            let url = "http://10.0.0.2:3000/api/v1/videos/\(videoId)/commentlikes/\(commentId)/\(String(describing: likeid))"
-            AF.request(URL.init(string: url)!, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
-                var JSON: [String: Any]?
-                do {
-                    JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                    let status = JSON!["status"] as? String
-                    if status != "Video has been unliked." && status == "You have not liked this!" {
-                        self.sendLikeRequest(commentId: commentId, cell: cell, indexPath: indexPath, reply: reply)
-                    } else if status == "Video has been unliked." {
+            let url = "http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes/\(likeid ?? 0)"
+            throttler.throttle {
+                AF.request(URL.init(string: url)!, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+                    var JSON: [String: Any]?
+                    guard let data = response.data else { return }
+                    let commentIndex = indexPath.section
+                    let replyIndex = indexPath.row - 1
+                    do {
+                        JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                        let status = JSON!["status"] as? String
+                        if status == "Video has been unliked." {
+                            switch reply {
+                            case true:
+                                self.comments[commentIndex].replies?[replyIndex].liked = false
+                                self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                            case false:
+                                self.comments[commentIndex].replies?[replyIndex].liked = false
+                                self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                            }
+                            
+                        }
+                    } catch {
                         switch reply {
                         case true:
-                            let reply = indexPath.row - 1
-                            self.comments[reply].liked = false
-                            self.comments[reply].likeId = 0
+                            self.comments[commentIndex].replies?[replyIndex].liked = false
+                            self.comments[commentIndex].replies?[replyIndex].likeId = 0
                         case false:
-                            let comment = indexPath.section
-                            self.comments[comment].liked = false
-                            self.comments[comment].likeId = 0
+                            self.comments[commentIndex].replies?[replyIndex].liked = false
+                            self.comments[commentIndex].replies?[replyIndex].likeId = 0
                         }
-                        
+                        print("This typically isn't supposed to happen, but might. Ignore this unless a serious issue. error code: 0fnboglap139gnza")
+                        return
                     }
-                } catch {
-                    print("error code: 0fnboglap139gnza")
-                    return
                 }
             }
+            
         }
         
     }
@@ -346,118 +354,113 @@ extension CommentingViewController: CommentCellDelegate {
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
-        let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/\(commentId)")
-        AF.request(URL.init(string: url)!, method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
-            var JSON: [String: Any]?
-            do {
-                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                let status = JSON!["status"] as? String
-                switch status {
-                case "You have already liked it!":
-                    let likeid = JSON!["likeid"] as? Int
-                    self.sendDeleteLikeRequest(likeid: likeid, commentId: commentId, cell: cell, indexPath: indexPath, reply: reply)
-                case "Video has been liked":
-                    let likeid = JSON!["likeid"] as? Int
-                    switch reply {
-                    case true:
-                        let reply = indexPath.row - 1
-                        self.comments[reply].liked = true
-                        self.comments[reply].likeId = likeid
-                    case false:
-                        let comment = indexPath.section
-                        self.comments[comment].liked = true
-                        self.comments[comment].likeId = likeid
+        let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes")
+        let throttler = Throttler(minimumDelay: 5)
+        throttler.throttle {
+            AF.request(URL.init(string: url)!, method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+                var JSON: [String: Any]?
+                do {
+                    JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                    let status = JSON!["status"] as? String
+                    let commentIndex = indexPath.section
+                    let replyIndex = indexPath.row - 1
+                    switch status {
+                    case "You have already liked it!":
+                        let likeid = JSON!["likeid"] as? Int
+                        self.sendDeleteLikeRequest(likeid: likeid, commentId: commentId, cell: cell, indexPath: indexPath, reply: reply)
+                    case "Video has been liked":
+                        let likeid = JSON!["likeid"] as? Int
+                        switch reply {
+                        case true:
+                            self.comments[commentIndex].replies?[replyIndex].liked = true
+                            self.comments[commentIndex].replies?[replyIndex].likeId = likeid
+                        case false:
+                            self.comments[commentIndex].replies?[replyIndex].liked = true
+                            self.comments[commentIndex].replies?[replyIndex].likeId = likeid
+                        }
+                        self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: true)
+                    case "Video has been unliked.":
+                        switch reply {
+                        case true:
+                            self.comments[commentIndex].replies?[replyIndex].liked = false
+                            self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                        case false:
+                            self.comments[commentIndex].replies?[replyIndex].liked = false
+                            self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                        }
+                        self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: false)
+                    case .none:
+                        break
+                    case .some(_):
+                        break
                     }
-                    
-                    self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: true)
-                case "Video has been unliked.":
-                    switch reply {
-                    case true:
-                        let reply = indexPath.row - 1
-                        self.comments[reply].liked = false
-                        self.comments[reply].likeId = 0
-                    case false:
-                        let comment = indexPath.section
-                        self.comments[comment].liked = false
-                        self.comments[comment].likeId = 0
-                    }
-                    
-                    self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: false)
-                case .none:
-                    break
-                case .some(_):
-                    break
+                } catch {
+                    print(error)
+                    print("error code: 1972026583")
+                    return
                 }
-            } catch {
-                print(error)
-                print("error code: 1972026583")
-                return
             }
+
         }
     }
     
     
     // MARK: Like Tapped (For Delegate)
     func like(alreadyLiked: Bool, cell: Comment, likes: Int, indexPath: IndexPath, reply: Bool) {
-        let throttler = Throttler(minimumDelay: 5)
+        let replyIndex = indexPath.row - 1
+        let commentIndex = indexPath.section
         if alreadyLiked == true {
             switch reply {
             case true:
-                comments[indexPath.row - 1].liked = false
+                comments[commentIndex].replies?[replyIndex].liked = false
             case false:
-                comments[indexPath.section].liked = false
+                comments[commentIndex].liked = false
             }
             
-            self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: alreadyLiked)
+            self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: false)
             if cell.likes != 0 {
                 let subtot = cell.likes - 1
                 switch reply {
                 case true:
-                    comments[indexPath.row - 1].likes = subtot
+                    comments[commentIndex].replies?[replyIndex].likes = subtot
                 case false:
-                    comments[indexPath.section].likes = subtot
+                    comments[commentIndex].likes = subtot
                 }
-                
-                self.changeLikeCount(likeNumber: likes, indexPath: indexPath, reply: reply)
+                self.changeLikeCount(likeNumber: subtot, indexPath: indexPath, reply: reply)
             }
-            throttler.throttle {
-                switch reply {
-                case true:
-                    let reply = indexPath.row - 1
-                    self.sendDeleteLikeRequest(likeid: self.comments[reply].likeId, commentId: self.comments[reply].id, cell: cell, indexPath: indexPath, reply: true)
-                case false:
-                    let comment = indexPath.section
-                    self.sendDeleteLikeRequest(likeid: self.comments[comment].likeId, commentId: self.comments[comment].id, cell: cell, indexPath: indexPath, reply: false)
-                }
-                
+            switch reply {
+            case true:
+                let reply = indexPath.row - 1
+                self.sendDeleteLikeRequest(likeid: self.comments[reply].likeId, commentId: self.comments[reply].id, cell: cell, indexPath: indexPath, reply: true)
+            case false:
+                let comment = indexPath.section
+                self.sendDeleteLikeRequest(likeid: self.comments[comment].likeId, commentId: self.comments[comment].id, cell: cell, indexPath: indexPath, reply: false)
             }
+                
         } else {
             switch reply {
             case true:
-                comments[indexPath.row - 1].liked = true
+                comments[commentIndex].replies?[replyIndex].liked = true
             case false:
-                comments[indexPath.section].liked = true
+                comments[commentIndex].liked = true
             }
-            self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: alreadyLiked)
+            self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: true)
             let subtot = cell.likes + 1
             switch reply {
             case true:
-                comments[indexPath.row - 1].likes = subtot
+                comments[commentIndex].replies?[replyIndex].likes = subtot
             case false:
-                comments[indexPath.section].likes = subtot
+                comments[commentIndex].likes = subtot
             }
-            
-            self.changeLikeCount(likeNumber: likes, indexPath: indexPath, reply: reply)
-            throttler.throttle {
-                switch reply {
-                case true:
-                    self.sendLikeRequest(commentId: self.comments[indexPath.row - 1].id, cell: cell, indexPath: indexPath, reply: true)
-                case false:
-                    self.sendLikeRequest(commentId: self.comments[indexPath.section].id, cell: cell, indexPath: indexPath, reply: false)
-                }
+            self.changeLikeCount(likeNumber: subtot, indexPath: indexPath, reply: reply)
+            switch reply {
+            case true:
+                self.sendLikeRequest(commentId: self.comments[indexPath.row - 1].id, cell: cell, indexPath: indexPath, reply: true)
+            case false:
+                self.sendLikeRequest(commentId: self.comments[indexPath.section].id, cell: cell, indexPath: indexPath, reply: false)
+            }
                 
                 
-            }
         }
         
     }
@@ -540,7 +543,19 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
             cell.comment.text = comment.body // Add handling if comment is over a certain number of characters
             cell.indexPath = indexPath
             cell.commentUsername.text = usernameComment
-            cell.likeNumber.text = String(comment.likes)
+            let likeNumber = comment.likes
+            switch likeNumber {
+            case _ where likeNumber > 1000 && likeNumber < 100000:
+                cell.likeNumber.text = "\(likeNumber/1000).\((likeNumber/100)%10)k"
+            case _ where likeNumber > 100000 && likeNumber < 1000000:
+                cell.likeNumber.text = "\(likeNumber/1000)k"
+            case _ where likeNumber > 1000000 && likeNumber < 100000000:
+                cell.likeNumber.text = "\(likeNumber/1000000).\((likeNumber/1000)%10)M"
+            case _ where likeNumber > 100000000:
+                cell.likeNumber.text = "\(likeNumber/1000000)M"
+            default:
+                cell.likeNumber.text = "\(likeNumber)"
+            }
             switch comment.liked {
             case true:
                 cell.likeButton.image = UIImage(systemName: "heart.fill")
@@ -585,8 +600,20 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
             cell.indexPath = indexPath
             let username = reply.created_by
             cell.username.text = username
-            cell.likeNumber.text = String(reply.likes)
-            switch comments[indexPath.row].liked {
+            let likeNumber = reply.likes
+            switch likeNumber {
+            case _ where likeNumber > 1000 && likeNumber < 100000:
+                cell.likeNumber.text = "\(likeNumber/1000).\((likeNumber/100)%10)k"
+            case _ where likeNumber > 100000 && likeNumber < 1000000:
+                cell.likeNumber.text = "\(likeNumber/1000)k"
+            case _ where likeNumber > 1000000 && likeNumber < 100000000:
+                cell.likeNumber.text = "\(likeNumber/1000000).\((likeNumber/1000)%10)M"
+            case _ where likeNumber > 100000000:
+                cell.likeNumber.text = "\(likeNumber/1000000)M"
+            default:
+                cell.likeNumber.text = "\(likeNumber)"
+            }
+            switch reply.liked {
             case true:
                 cell.likeButton.image = UIImage(systemName: "heart.fill")
                 cell.likeButton.tintColor = UIColor.systemRed
@@ -594,6 +621,7 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.likeButton.image = UIImage(systemName: "heart")
                 cell.likeButton.tintColor = UIColor.lightGray
             }
+            
             AF.request("http://10.0.0.2:3000/api/v1/channels/\(username).json").responseJSON { response in
                 var JSON: [String: Any]?
                 do {

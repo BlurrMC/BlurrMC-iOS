@@ -7,6 +7,8 @@
     * Added read more button to comments
 * UI Tests
     * Updated method that tested the app launch time.
+* Misc.
+    * Fixed some pod bugs
 ## v0.3.5 (PRERELEASE)
 * ChannelVideoView
     * Fixed bug where liking video would first go +2 and then correct itself half of a second later.

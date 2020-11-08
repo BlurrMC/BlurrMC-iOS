@@ -1318,8 +1318,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
             landmarkName = "likeButtonTapped(commentId:indexPath:reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1334,8 +1334,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "likeButtonTapped(commentId:indexPath:reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1350,8 +1350,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "changeLikeCount(likeNumber:indexPath:reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1366,8 +1366,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "424"
+            endingLineNumber = "424"
             landmarkName = "sendLikeRequest(commentId:cell:indexPath:reply:)"
             landmarkType = "7">
             <Locations>
@@ -1414,8 +1414,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
             landmarkName = "sendLikeRequest(commentId:cell:indexPath:reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1430,8 +1430,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "475"
-            endingLineNumber = "475"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
             landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
             landmarkType = "7">
             <Locations>
@@ -1478,8 +1478,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
+            startingLineNumber = "546"
+            endingLineNumber = "546"
             landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1494,8 +1494,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "491"
-            endingLineNumber = "491"
+            startingLineNumber = "555"
+            endingLineNumber = "555"
             landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1510,8 +1510,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "497"
-            endingLineNumber = "497"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1526,8 +1526,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
+            startingLineNumber = "556"
+            endingLineNumber = "556"
             landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1542,8 +1542,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "481"
-            endingLineNumber = "481"
+            startingLineNumber = "545"
+            endingLineNumber = "545"
             landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
             landmarkType = "7">
             <Locations>
@@ -1578,6 +1578,22 @@
                   offsetFromSymbolStart = "48">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4596AFA6-3073-44AF-BA4F-BF4C3FA51CE9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "submitComment(reply:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

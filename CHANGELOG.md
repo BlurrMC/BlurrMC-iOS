@@ -5,6 +5,7 @@
     * Added functionality for like count to update
     * Added liking to comments
     * Added read more button to comments
+    * Replying to comments
 * UI Tests
     * Updated method that tested the app launch time.
 * Misc.

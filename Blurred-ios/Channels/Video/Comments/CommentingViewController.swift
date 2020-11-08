@@ -16,12 +16,17 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     // MARK: Variables
     private var comments = [Comment]()
     var videoId = Int()
+    var isReplyKeyboardUp = Bool()
+    var replyParentId = Int()
+    var replyIndex = IndexPath()
+
     
     
     // MARK: Outlets
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var commentField: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var replyField: UITextField!
     
     
     // MARK: Valet
@@ -50,10 +55,12 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Text Field Should Return (Send Button)
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         if textField == commentField {
-            textField.resignFirstResponder()
-            submitComment()
-            downloadJson()
+            submitComment(reply: false)
+            downloadJson(fromReply: false)
+        } else {
+            submitComment(reply: true)
         }
         return true
     }
@@ -67,8 +74,29 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    // MARK: Reply Keyboard
+    @objc func keyboardWillChange(notification: Notification) {
+        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        
+        if notification.name == UIApplication.keyboardWillShowNotification {
+            replyField.frame.origin.y = keyboardRect.minY - replyField.frame.height - 40
+        } else {
+            replyField.frame.origin.y = 0
+            replyField.isHidden = true
+            
+        }
+    }
+    
+    deinit {
+        // Remove listeners for the keyboard
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     // MARK: Submit the user's comment
-    func submitComment() {
+    func submitComment(reply: Bool) {
         // Add edit function so you can edit it if is your (and remove it) and if it isn't yours then you can report the comment.
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         myActivityIndicator.center = view.center
@@ -84,11 +112,26 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("Bearer \(token!)", forHTTPHeaderField: "Authorization")
-        if commentField?.text?.isEmpty != true {
+        if replyField?.text?.isEmpty != true || commentField?.text?.isEmpty != true {
             let comment = commentField.text
-            let patchString = ["comment": ["body": comment]]
+            let replyBody = replyField.text
             do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
+                switch reply {
+                case true:
+                    let patchString = [
+                        "comment": [
+                            "body": replyBody as Any,
+                            "parent_id": replyParentId
+                        ]
+                    ]
+                    request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
+                    replyField.text = nil
+                    replyField.isHidden = true
+                case false:
+                    let patchString = ["comment": ["body": comment]]
+                    request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
+                }
+                
             } catch let error {
                 print(error.localizedDescription)
                 return
@@ -110,13 +153,15 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                             DispatchQueue.main.async {
                                 self.commentField.text = ""
                             }
-                            self.downloadJson()
+                            self.downloadJson(fromReply: reply)
                         }
                     } else {
+                        self.replyField.text = nil
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         print(error ?? "No error")
                     }
                 } catch {
+                    self.replyField.text = nil
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                     print(error)
@@ -124,6 +169,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
             }
             task.resume()
         } else {
+            replyField.text = nil
             self.showMessage(title: "Alert", message: "Your comment is empty. Please fill it.", alertActionTitle: "OK")
         }
         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
@@ -168,7 +214,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: Download the comments
-    func downloadJson() { // Still not done we need to add the user's butt image
+    func downloadJson(fromReply: Bool) { // Still not done we need to add the user's butt image
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
@@ -183,6 +229,9 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                 let decoder = JSONDecoder()
                 let downloadedComments = try decoder.decode(Comments.self, from: data)
                 self.comments = downloadedComments.comments
+                if fromReply == true {
+                    self.comments[self.replyIndex.section].opened = true
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -198,7 +247,22 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         commentField?.delegate = self
-        downloadJson()
+        downloadJson(fromReply: false)
+        
+        // Listen for keyboard events
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillChange(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillChange(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+        replyField.backgroundColor = UIColor.darkGray
     }
     
     
@@ -501,6 +565,8 @@ extension CommentingViewController: CommentCellDelegate {
         }
     }
     
+    
+    // MARK: Read more button tap
     func readMoreButtonTapped(commentId: Int, indexPath: IndexPath) {
         if indexPath.row == 0 {
             switch comments[indexPath.section].opened {
@@ -579,15 +645,10 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
                            return
                        }
             }
-            if comment.replies?.isEmpty == true {
-                cell.readMoreButton.isHidden = true
+            if comment.replies?.count ?? 0 > 1 {
+                cell.readMoreButton.setTitle("Read \(comment.replies?.count ?? 0) Replies", for: .normal)
             } else {
-                if comment.replies?.count ?? 0 > 1 {
-                    cell.readMoreButton.setTitle("Read \(comment.replies?.count ?? 0) Replies", for: .normal)
-                } else {
-                    cell.readMoreButton.setTitle("Read \(comment.replies?.count ?? 0) Reply", for: .normal)
-                }
-                
+                cell.readMoreButton.setTitle("Read \(comment.replies?.count ?? 0) Reply", for: .normal)
             }
             return cell
         } else {
@@ -665,6 +726,15 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: Selected Row At
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let dataIndex = indexPath.row - 1
+        if indexPath.row == 0 {
+            self.replyParentId = self.comments[indexPath.section].parent_id
+        } else {
+            self.replyParentId = self.comments[indexPath.section].replies?[dataIndex].parent_id ?? self.comments[indexPath.section].id
+        }
+        self.replyIndex = indexPath
+        self.replyField.isHidden = false
+        self.replyField.becomeFirstResponder()
     }
     
     

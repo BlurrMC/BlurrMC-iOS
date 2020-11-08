@@ -903,7 +903,7 @@
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(inherited)\"",
+					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/NextLevel\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nuke\"",
@@ -919,7 +919,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.5p;
+				MARKETING_VERSION = 0.4p;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -943,7 +943,7 @@
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(inherited)\"",
+					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/NextLevel\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nuke\"",
@@ -959,7 +959,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.5p;
+				MARKETING_VERSION = 0.4p;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";

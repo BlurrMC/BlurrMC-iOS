@@ -15,7 +15,9 @@ class CommentCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.likeButtonTap(sender:)))
+        let moreTap = UITapGestureRecognizer(target: self, action: #selector(self.moreButtonTap(sender:)))
         likeButton.addGestureRecognizer(tap)
+        moreButton.addGestureRecognizer(moreTap)
     }
     
     
@@ -23,6 +25,7 @@ class CommentCell: UITableViewCell {
     var delegate: CommentCellDelegate?
     var commentId = Int()
     var indexPath = IndexPath()
+    @IBOutlet weak var moreButton: UIImageView!
     @IBOutlet weak var readMoreButton: UIButton!
     @IBOutlet weak var likeNumber: UILabel!
     @IBOutlet weak var likeButton: UIImageView!
@@ -31,6 +34,12 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var commentAvatar: UIImageView!
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    
+    // MARK: More Button Tap Recognizer
+    @objc func moreButtonTap(sender:UITapGestureRecognizer) {
+        delegate?.moreButtonTapped(commentId: commentId, indexPath: indexPath, reply: false)
     }
     
     

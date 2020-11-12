@@ -177,15 +177,14 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     // MARK: Check user's account to make sure it's valid
     func checkUser() {
-        let accessToken: String? = try? tokenValet.string(forKey: "Token")
-        let userId: String? = try? myValet.string(forKey: "Id")
-        let Id = Int(userId!)
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuservalid/\(Id!).json")
-        var request = URLRequest(url:myUrl!)
+        guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
+        guard let userId: String = try? myValet.string(forKey: "Id") else { return }
+        guard let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuservalid/\(userId)") else { return }
+        var request = URLRequest(url:myUrl)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("Bearer \(accessToken!)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if error != nil {
                 print("there is an error")
@@ -209,8 +208,10 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                         self.window?.rootViewController = loginPage
                         self.window?.makeKeyAndVisible()
                     case .none:
+                        break
+                    case .some(_):
                         if let httpResponse = response as? HTTPURLResponse {
-                            if httpResponse.statusCode == 401 {
+                            if httpResponse.statusCode == 404 {
                                 try self.myValet.removeObject(forKey: "Id")
                                 try self.tokenValet.removeObject(forKey: "Token")
                                 try self.myValet.removeAllObjects()
@@ -221,12 +222,10 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                                     self.present(loginPage, animated: true, completion: nil)
                                     self.window?.rootViewController = loginPage
                                 }
-                            } else {
-                                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                             }
+                        } else {
+                            break
                         }
-                    case .some(_):
-                        break
                     }
                 } else {
                     return

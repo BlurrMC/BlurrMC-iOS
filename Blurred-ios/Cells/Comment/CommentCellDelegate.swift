@@ -11,4 +11,5 @@ import Foundation
 protocol CommentCellDelegate {
     func likeButtonTapped(commentId: Int, indexPath: IndexPath, reply: Bool)
     func readMoreButtonTapped(commentId: Int, indexPath: IndexPath)
+    func moreButtonTapped(commentId: Int, indexPath: IndexPath, reply: Bool)
 }

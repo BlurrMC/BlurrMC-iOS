@@ -34,7 +34,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" rowHeight="60" id="ROM-Lo-ABc" customClass="CommentCell" customModule="Blurred" customModuleProvider="target">
+                                            <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" rowHeight="60" id="ROM-Lo-ABc" customClass="CommentCell" customModule="Blurred" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ROM-Lo-ABc" id="hwI-gU-qr4">
@@ -65,7 +65,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="so4-Xw-4B8">
-                                                            <rect key="frame" x="319" y="3" width="25" height="25"/>
+                                                            <rect key="frame" x="314" y="1.5" width="35" height="33"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="tintColor" systemColor="labelColor"/>
                                                         </imageView>
@@ -85,6 +85,11 @@
                                                                 <action selector="readMore:" destination="ROM-Lo-ABc" eventType="touchUpInside" id="wRS-K1-41S"/>
                                                             </connections>
                                                         </button>
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ellipsis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="I4k-xu-CFk">
+                                                            <rect key="frame" x="345" y="7" width="30" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="tintColor" systemColor="labelColor"/>
+                                                        </imageView>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -93,10 +98,11 @@
                                                     <outlet property="commentUsername" destination="h9V-m6-rnP" id="iY2-lp-lqK"/>
                                                     <outlet property="likeButton" destination="so4-Xw-4B8" id="Lf4-aH-GbO"/>
                                                     <outlet property="likeNumber" destination="pil-de-AyG" id="mRE-dz-DgZ"/>
+                                                    <outlet property="moreButton" destination="I4k-xu-CFk" id="tce-IB-2uL"/>
                                                     <outlet property="readMoreButton" destination="K3y-eU-uTs" id="vMm-kz-fei"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ReplyTableViewCell" rowHeight="60" id="2dc-b9-JfG" customClass="ReplyTableViewCell" customModule="Blurred" customModuleProvider="target">
+                                            <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ReplyTableViewCell" rowHeight="60" id="2dc-b9-JfG" customClass="ReplyTableViewCell" customModule="Blurred" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="88" width="375" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2dc-b9-JfG" id="mMT-LA-xXc">
@@ -117,11 +123,6 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2aB-C7-Qw2">
-                                                            <rect key="frame" x="319" y="3" width="25" height="25"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <color key="tintColor" systemColor="labelColor"/>
-                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="500k" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxF-5w-D0A">
                                                             <rect key="frame" x="319" y="34" width="25" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -138,6 +139,16 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2aB-C7-Qw2">
+                                                            <rect key="frame" x="314" y="2.5" width="35" height="33"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="tintColor" systemColor="labelColor"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ellipsis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Kn4-7e-QdF">
+                                                            <rect key="frame" x="345" y="7" width="30" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="tintColor" systemColor="labelColor"/>
+                                                        </imageView>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -145,6 +156,7 @@
                                                     <outlet property="comment" destination="Too-Am-Txy" id="fFK-fV-Stv"/>
                                                     <outlet property="likeButton" destination="2aB-C7-Qw2" id="z0L-xS-eXa"/>
                                                     <outlet property="likeNumber" destination="HxF-5w-D0A" id="smh-cz-BgG"/>
+                                                    <outlet property="moreButton" destination="Kn4-7e-QdF" id="Gq1-cK-ykf"/>
                                                     <outlet property="username" destination="Swq-d5-AlO" id="Ztx-OO-RmZ"/>
                                                 </connections>
                                             </tableViewCell>
@@ -218,6 +230,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

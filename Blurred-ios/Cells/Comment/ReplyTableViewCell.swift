@@ -16,6 +16,7 @@ class ReplyTableViewCell: UITableViewCell {
     var indexPath = IndexPath()
     var parentId = Int()
     var delegate: CommentCellDelegate?
+    @IBOutlet weak var moreButton: UIImageView!
     @IBOutlet weak var likeNumber: UILabel!
     @IBOutlet weak var likeButton: UIImageView!
     @IBOutlet weak var comment: UILabel!
@@ -25,8 +26,10 @@ class ReplyTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        let moreTap = UITapGestureRecognizer(target: self, action: #selector(self.moreButtonTap(sender:)))
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.likeButtonTap(sender:)))
         likeButton.addGestureRecognizer(tap)
+        moreButton.addGestureRecognizer(moreTap)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -34,6 +37,12 @@ class ReplyTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    // MARK: More Button Tap Recognizer
+    @objc func moreButtonTap(sender:UITapGestureRecognizer) {
+        delegate?.moreButtonTapped(commentId: commentId, indexPath: indexPath, reply: true)
+    }
+    
     
     // MARK: Like Button Tapped
     @objc func likeButtonTap(sender:UITapGestureRecognizer) {

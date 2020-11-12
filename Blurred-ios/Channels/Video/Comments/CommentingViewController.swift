@@ -195,7 +195,9 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         var replies: [Comment]?
         var opened: Bool? = false
         var likeId: Int?
-        init(created_by: String, likes: Int, body: String, id: Int, reply: Bool, time_since_creation: String, liked: Bool, parent_id: Int, replies: [Comment], likeId: Int) {
+        var reported: Bool
+        var comment_is_editable: Bool
+        init(created_by: String, likes: Int, body: String, id: Int, reply: Bool, time_since_creation: String, liked: Bool, parent_id: Int, replies: [Comment], likeId: Int, reported: Bool, comment_is_editable: Bool) {
             self.id = id
             self.reply = reply
             self.time_since_creation = time_since_creation
@@ -209,7 +211,9 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                 self.parent_id = 0
             }
             self.replies = replies
+            self.reported = reported
             self.likeId = likeId
+            self.comment_is_editable = comment_is_editable
         }
     }
     
@@ -294,6 +298,110 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
 
 }
 extension CommentingViewController: CommentCellDelegate {
+    
+    
+    // MARK: Delete a comment
+    func deleteComment(indexPath: IndexPath, commentId: Int?, reply: Bool) {
+        switch reply {
+        case true:
+            self.comments.remove(at: indexPath.row - 1)
+        case false:
+            self.comments.remove(at: indexPath.section)
+        }
+        DispatchQueue.main.async {
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/\(commentId)")
+        AF.request(URL.init(string: url)!, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let status = JSON!["status"] as? String
+                if status != "Comment Destroyed!" {
+                    self.showMessage(title: "Error", message: "Message could not be deleted. Try again later.", alertActionTitle: "OK")
+                }
+            } catch {
+                print(error)
+                print("error code: aog92mxz932")
+                return
+            }
+        }
+    }
+    
+    
+    // MARK: Report a comment
+    func reportComment(commentId: Int?) {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        let params = [
+            "video_id": videoId,
+            "comment_id": commentId
+        ]
+        let url = String("http://10.0.0.2:3000/api/v1/reports")
+        AF.request(URL.init(string: url)!, method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let status = JSON!["status"] as? String
+                if status != "Reported" {
+                    print("error code: 1vnt92mt9a2")
+                }
+            } catch {
+                print(error)
+                print("error code: 10y19692420")
+                return
+            }
+        }
+    }
+    
+    func moreButtonTapped(commentId: Int, indexPath: IndexPath, reply: Bool) {
+        // Change the actionSheet to a custom made stack view to look better
+        let alert = UIAlertController(title: "More", message: "More Options", preferredStyle: UIAlertController.Style.actionSheet)
+
+        switch reply {
+        case true:
+            let reply = self.comments[indexPath.section].replies?[indexPath.row - 1]
+            if reply?.reported != true {
+                alert.addAction(UIAlertAction(title: "Report", style: UIAlertAction.Style.default, handler: {_ in
+                    self.comments[indexPath.section].replies?[indexPath.row - 1].reported = true
+                    self.reportComment(commentId: commentId)
+                }))
+            }
+            if reply?.comment_is_editable == true {
+                alert.addAction(UIAlertAction(title: "Edit", style: UIAlertAction.Style.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: {_ in
+                    self.deleteComment(indexPath: indexPath, commentId: commentId, reply: true)
+                }))
+            }
+        case false:
+            let comment = self.comments[indexPath.section]
+            if comment.reported != true {
+                alert.addAction(UIAlertAction(title: "Report", style: UIAlertAction.Style.default, handler: {_ in
+                    self.comments[indexPath.section].reported = true
+                    self.reportComment(commentId: commentId)
+                }))
+            }
+            if comment.comment_is_editable == true {
+                alert.addAction(UIAlertAction(title: "Edit", style: UIAlertAction.Style.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: {_ in
+                    self.deleteComment(indexPath: indexPath, commentId: commentId, reply: false)
+                }))
+            }
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     func likeButtonTapped(commentId: Int, indexPath: IndexPath, reply: Bool) {
         let commentIndex = indexPath.section
         switch reply {

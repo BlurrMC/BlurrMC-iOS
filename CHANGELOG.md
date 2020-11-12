@@ -6,8 +6,11 @@
     * Added liking to comments
     * Added read more button to comments
     * Replying to comments
+    * You can now delete comments
 * UI Tests
     * Updated method that tested the app launch time.
+* Authentication
+    * Fixed bug where you couldn't log in after logging out recently.
 * Misc.
     * Fixed some pod bugs
 ## v0.3.5 (PRERELEASE)

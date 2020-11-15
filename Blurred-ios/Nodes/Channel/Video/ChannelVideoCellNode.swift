@@ -32,6 +32,7 @@ class ChannelVideoCellNode: ASCellNode {
         DispatchQueue.main.async() {
             let overlay = ChannelVideoOverlayView()
             overlay.videoId = videoId
+            overlay.videoUrl = videoUrl
             overlay.delegate = self.delegate
             overlay.frame = CGRect(x: 329, y: 284, width: 40, height: 239)
             self.view.addSubview(overlay)

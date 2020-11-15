@@ -15,6 +15,11 @@ import AsyncDisplayKit
 class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
     
+    // MARK: From delegate, for sharing
+    func didTapShare(_ view: ChannelVideoOverlayView, videoUrl: String) {
+        //shareWindow(videoUrl: videoUrl)
+    }
+
     // MARK: Tap for channel from overlay
     func didTapChannel(_ view: ChannelVideoOverlayView, videousername: String) {
         showUserChannel(videoUsername: videousername)
@@ -37,15 +42,10 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var videoId = Int()
     var channelId = String()
     
-    
-    // MARK: Tap function for share window
-    @objc func sharetapFunction(sender:UITapGestureRecognizer) {
-        // See note for shareWindow()
-    }
-    
-    // MARK: Setup window for sharing functionality (disabled temporarily)
-    /*func shareWindow() {
-        CacheManager.shared.getFileWith(stringUrl: "\(videoUrl)") { result in
+    // MARK: Setup window for sharing functionality (Disabled because of cache manager not working)
+    // This uses A LOT of ram over a long period of time. Fix this by deleting cache after person is done dealing with video?
+    /*func shareWindow(videoUrl: String) {
+        CacheManager.shared.getFileWith(stringUrl: videoUrl) { result in
                 switch result {
                 case .success(let url):
                     let videoToShare = [ url ]
@@ -59,7 +59,8 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                     }
                     activityViewController.completionWithItemsHandler = { activity, completed, items, error in
                             if !completed {
-                                CacheManager.shared.clearContents(url) // Clearing the cache still doesn't work!
+                                guard let url = URL(string: videoUrl) else { return }
+                                CacheManager.shared.clearContents(url) // Clearing the cache still doesn't work!?
                                 return
                             }
                         }
@@ -67,7 +68,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                 }
         }
         
-    }*/    
+    }*/
     
     // MARK: Remove URL Cache
     override func didReceiveMemoryWarning() {
@@ -256,7 +257,7 @@ extension ChannelVideoViewController: ASTableDataSource {
         if isItFromSearch != true {
             let videourll = self.videos[indexPath.row].videourl
             let videoId = self.videos[indexPath.row].videoid
-            let videoUrl = URL(string: "http://10.0.0.2:3000\(videourll)")
+            let videoUrl = URL(string: videourll)
             return {
                 let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: false)
                 node.delegate = self
@@ -264,7 +265,7 @@ extension ChannelVideoViewController: ASTableDataSource {
                 return node
             }
         } else {
-            let url = URL(string: "http://10.0.0.2:3000\(videoUrlString)")!
+            let url = URL(string: videoUrlString)!
             return {
                 let node = ChannelVideoCellNode(with: url, videoId: self.videoString, doesParentHaveTabBar: false)
                 node.delegate = self

@@ -20,6 +20,7 @@ class ChannelVideoOverlayView: UIView {
     var likenumber = Int()
     var likeId = Int()
     var videoUsername = String()
+    var videoUrl: URL?
     
     // MARK: Delegates
     weak var delegate2: ChannelVideoDescriptionDelegate?
@@ -105,12 +106,20 @@ class ChannelVideoOverlayView: UIView {
             let tapp = UITapGestureRecognizer(target: self, action: #selector(self.tappFunction))
             let tappp = UITapGestureRecognizer(target: self, action: #selector(self.tapppFunction))
             let liketap = UITapGestureRecognizer(target: self, action: #selector(self.liketapFunction(_:)))
+            let shareTap = UITapGestureRecognizer(target: self, action: #selector(self.shareTap(sender:)))
             DispatchQueue.main.async {
                 self.videoComment.addGestureRecognizer(tappp)
                 self.videoChannel.addGestureRecognizer(tapp)
                 self.videoLike.addGestureRecognizer(liketap)
+                self.videoShare.addGestureRecognizer(shareTap)
             }
         }
+    }
+    
+    
+    // MARK: Share Tap Recognizer
+    @objc func shareTap(sender:UITapGestureRecognizer) {
+        delegate?.didTapShare(self, videoUrl: "\(String(describing: videoUrl))")
     }
     
     // MARK: Show user channel tap

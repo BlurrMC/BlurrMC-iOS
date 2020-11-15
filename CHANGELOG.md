@@ -1,5 +1,7 @@
 # Changelog
 ## Unreleased (PRERELEASE)
+* Channel Videos
+    * Fixed urls to match new api
 * Comments
     * Changed thumbs up icon to heart icon
     * Added functionality for like count to update
@@ -7,6 +9,7 @@
     * Added read more button to comments
     * Replying to comments
     * You can now delete comments
+    * Edit comments
 * UI Tests
     * Updated method that tested the app launch time.
 * Authentication

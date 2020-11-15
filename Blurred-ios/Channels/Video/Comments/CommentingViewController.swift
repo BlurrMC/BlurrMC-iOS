@@ -19,7 +19,9 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     var isReplyKeyboardUp = Bool()
     var replyParentId = Int()
     var replyIndex = IndexPath()
-
+    var isItEditing: Bool = false
+    var isEditingAReply = Bool()
+    var originalUneditedText = String()
     
     
     // MARK: Outlets
@@ -60,7 +62,23 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
             submitComment(reply: false)
             downloadJson(fromReply: false)
         } else {
-            submitComment(reply: true)
+            switch isItEditing {
+            case true:
+                if self.replyField.text != nil {
+                    submitEditedComment(indexPath: replyIndex, reply: isEditingAReply)
+                } else {
+                    switch isEditingAReply {
+                    case true:
+                        deleteComment(indexPath: replyIndex, commentId: self.comments[replyIndex.section].replies?[replyIndex.row - 1].id, reply: true)
+                    case false:
+                        deleteComment(indexPath: replyIndex, commentId: self.comments[replyIndex.section].id, reply: true)
+                    }
+                    
+                }
+                
+            case false:
+                submitComment(reply: true)
+            }
         }
         return true
     }
@@ -189,7 +207,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         let id: Int
         let reply: Bool
         let time_since_creation: String
-        let body: String
+        var body: String
         var liked: Bool
         let parent_id: Int
         var replies: [Comment]?
@@ -299,6 +317,88 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
 }
 extension CommentingViewController: CommentCellDelegate {
     
+    // MARK: Submit an edited comment
+    func submitEditedComment(indexPath: IndexPath, reply: Bool) {
+        switch reply {
+        case true:
+            self.comments[indexPath.section].replies?[indexPath.row - 1].body = self.replyField.text ?? originalUneditedText
+        case false:
+            self.comments[indexPath.section].body = self.replyField.text ?? originalUneditedText
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        switch reply {
+        case true:
+            guard let reply = self.comments[indexPath.section].replies?[indexPath.row - 1] else { return }
+            let params = [
+                "body": reply.body,
+                "parent_id": reply.parent_id
+            ] as [String : Any]
+            let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/\(reply.id)")
+            AF.request(URL.init(string: url)!, method: .patch, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+                var JSON: [String: Any]?
+                do {
+                    JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                    let status = JSON!["status"] as? String
+                    if status != "Comment updated." {
+                        print("error code: asc9r822ma919d382hf")
+                    }
+                } catch {
+                    print(error)
+                    print("error code: aisajc238998232")
+                    return
+                }
+            }
+        case false:
+            let comment = self.comments[indexPath.section]
+            let params = [
+                "body": comment.body
+            ] as [String : Any]
+            let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/\(comment.id)")
+            AF.request(URL.init(string: url)!, method: .patch, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+                var JSON: [String: Any]?
+                do {
+                    JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                    let status = JSON!["status"] as? String
+                    if status != "Comment updated." {
+                        print("error code: 9fj29ej1n2d8ad")
+                    }
+                } catch {
+                    print(error)
+                    print("error code: kg934nbxbbbcxbxhae823euji")
+                    return
+                }
+            }
+        }
+        
+    }
+    
+    
+    
+    // MARK: Edit a comment
+    func editComment(indexPath: IndexPath, reply: Bool) {
+        self.replyIndex = indexPath
+        self.replyField.isHidden = false
+        self.isItEditing = true
+        switch reply {
+        case true:
+            guard let reply = self.comments[indexPath.section].replies?[indexPath.row - 1] else { return }
+            self.originalUneditedText = reply.body
+            self.replyField.text = reply.body
+        case false:
+            let comment = self.comments[indexPath.section]
+            self.originalUneditedText = comment.body
+            self.replyField.text = comment.body
+        }
+        self.replyField.becomeFirstResponder()
+    }
+    
     
     // MARK: Delete a comment
     func deleteComment(indexPath: IndexPath, commentId: Int?, reply: Bool) {
@@ -376,7 +476,9 @@ extension CommentingViewController: CommentCellDelegate {
                 }))
             }
             if reply?.comment_is_editable == true {
-                alert.addAction(UIAlertAction(title: "Edit", style: UIAlertAction.Style.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Edit", style: UIAlertAction.Style.default, handler: {_ in
+                    self.editComment(indexPath: indexPath, reply: true)
+                }))
                 alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: {_ in
                     self.deleteComment(indexPath: indexPath, commentId: commentId, reply: true)
                 }))
@@ -390,7 +492,9 @@ extension CommentingViewController: CommentCellDelegate {
                 }))
             }
             if comment.comment_is_editable == true {
-                alert.addAction(UIAlertAction(title: "Edit", style: UIAlertAction.Style.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Edit", style: UIAlertAction.Style.default, handler: {_ in
+                    self.editComment(indexPath: indexPath, reply: false)
+                }))
                 alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: {_ in
                     self.deleteComment(indexPath: indexPath, commentId: commentId, reply: false)
                 }))
@@ -840,6 +944,7 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             self.replyParentId = self.comments[indexPath.section].replies?[dataIndex].parent_id ?? self.comments[indexPath.section].id
         }
+        isItEditing = false
         self.replyIndex = indexPath
         self.replyField.isHidden = false
         self.replyField.becomeFirstResponder()

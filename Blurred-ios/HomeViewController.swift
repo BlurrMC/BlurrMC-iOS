@@ -15,6 +15,12 @@ import Alamofire
 class HomeViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
     
+    // MARK: From delegate, for sharing
+    func didTapShare(_ view: ChannelVideoOverlayView, videoUrl: String) {
+        // shareWindow(videoUrl: videoUrl)
+    }
+    
+    
     // MARK: Tap for channel from overlay
     func didTapChannel(_ view: ChannelVideoOverlayView, videousername: String) {
         showUserChannel(videoUsername: videousername)
@@ -25,6 +31,34 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     func didTapComments(_ view: ChannelVideoOverlayView, videoid: Int) {
         showVideoComments(videoId: videoid)
     }
+    
+    
+    // MARK: Setup window for sharing functionality  (Disabled because of cache manager not working)
+    // This uses A LOT of ram over a long period of time. Fix this by deleting cache after person is done dealing with video?
+    /*func shareWindow(videoUrl: String) {
+        CacheManager.shared.getFileWith(stringUrl: "\(videoUrl)") { result in
+                switch result {
+                case .success(let url):
+                    let videoToShare = [ url ]
+                    let activityViewController = UIActivityViewController(activityItems: videoToShare as [Any], applicationActivities: nil)
+                    activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                    activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToFlickr,
+                        UIActivity.ActivityType.postToTwitter, UIActivity.ActivityType.postToTencentWeibo
+                    ]
+                    DispatchQueue.main.async {
+                        self.present(activityViewController, animated: true, completion: nil)
+                    }
+                    activityViewController.completionWithItemsHandler = { activity, completed, items, error in
+                            if !completed {
+                                CacheManager.shared.clearContents(url) // Clearing the cache still doesn't work!
+                                return
+                            }
+                        }
+                case .failure( _): break
+                }
+        }
+        
+    }*/
     
     
     // MARK: Get Videos For Home Page
@@ -48,7 +82,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                     self.tableNode.reloadData()
                 }
             } catch {
-                print("error code: 1kzka0aww3-2")
+                print("error code: 1kasfio23uena")
                 return
             }
         }
@@ -273,7 +307,7 @@ extension HomeViewController: ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         let videourll = self.videos[indexPath.row].videourl
         let videoId = self.videos[indexPath.row].videoid
-        let videoUrl = URL(string: "http://10.0.0.2:3000\(videourll)")
+        let videoUrl = URL(string: videourll)
         return {
             let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true)
             node.delegate = self

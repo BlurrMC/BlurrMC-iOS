@@ -157,7 +157,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                let imageUrl = JSON!["thumbnail_url"] as? String
+                guard let imageUrl = JSON!["thumbnail_url"] as? String else { return }
                 guard let likenumber = JSON!["likecount"] as? Int else { return }
                 switch likenumber {
                 case _ where likenumber > 1000 && likenumber < 100000:
@@ -185,7 +185,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                         cell.likeCount.text = "\(likenumber)"
                     }
                 }
-                let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
+                let railsUrl = URL(string: imageUrl)
                 guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
                     return
                 }

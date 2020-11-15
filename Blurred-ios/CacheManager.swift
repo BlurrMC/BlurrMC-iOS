@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import AVFoundation
 
 class CacheManager {
-
     
     // MARK: Lets
     static let shared = CacheManager()
@@ -52,6 +52,7 @@ class CacheManager {
         }
 
         DispatchQueue.global().async {
+            
 
             if let videoData = NSData(contentsOf: URL(string: stringUrl)!) {
                 videoData.write(to: file, atomically: true)
@@ -60,9 +61,11 @@ class CacheManager {
                     completionHandler(Result.success(file))
                 }
             } else {
-                print("error code: 1957329172")
+                print("error code: 1957329172, url: \(stringUrl)")
             }
         }
+        
+        
     }
 
     

@@ -1079,8 +1079,8 @@
             filePath = "Blurred-ios/Channels/Video/ChannelVideoViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "shouldBatchFetch(for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1095,8 +1095,8 @@
             filePath = "Blurred-ios/Channels/Video/ChannelVideoViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "tableNode(_:willBeginBatchFetchWith:)"
             landmarkType = "7">
          </BreakpointContent>

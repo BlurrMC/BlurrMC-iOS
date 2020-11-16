@@ -119,7 +119,8 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Share Tap Recognizer
     @objc func shareTap(sender:UITapGestureRecognizer) {
-        delegate?.didTapShare(self, videoUrl: "\(String(describing: videoUrl))")
+        guard let videoUrl = self.videoUrl?.absoluteString else { return }
+        delegate?.didTapShare(self, videoUrl: videoUrl, videoId: videoId)
     }
     
     // MARK: Show user channel tap

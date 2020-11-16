@@ -1,7 +1,8 @@
 # Changelog
 ## Unreleased (PRERELEASE)
-* Channel Videos
+* Videos
     * Fixed urls to match new api
+    * Added sharing to videos
 * Comments
     * Changed thumbs up icon to heart icon
     * Added functionality for like count to update

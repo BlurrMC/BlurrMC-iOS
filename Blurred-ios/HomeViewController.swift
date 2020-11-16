@@ -16,8 +16,8 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     
     // MARK: From delegate, for sharing
-    func didTapShare(_ view: ChannelVideoOverlayView, videoUrl: String) {
-        // shareWindow(videoUrl: videoUrl)
+    func didTapShare(_ view: ChannelVideoOverlayView, videoUrl: String, videoId: Int) {
+        shareWindow(videoUrl: videoUrl, videoId: videoId)
     }
     
     
@@ -33,10 +33,10 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     }
     
     
-    // MARK: Setup window for sharing functionality  (Disabled because of cache manager not working)
-    // This uses A LOT of ram over a long period of time. Fix this by deleting cache after person is done dealing with video?
-    /*func shareWindow(videoUrl: String) {
-        CacheManager.shared.getFileWith(stringUrl: "\(videoUrl)") { result in
+    // MARK: Setup window for sharing functionality
+    // This may use A LOT of ram over a long period of time. Possible fix: deleting cache after user is done dealing with video?
+    func shareWindow(videoUrl: String, videoId: Int) {
+        CacheManager.shared.getFileWith(stringUrl: videoUrl) { result in
                 switch result {
                 case .success(let url):
                     let videoToShare = [ url ]
@@ -50,16 +50,30 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                     }
                     activityViewController.completionWithItemsHandler = { activity, completed, items, error in
                             if !completed {
-                                CacheManager.shared.clearContents(url) // Clearing the cache still doesn't work!
+                                guard let url = URL(string: videoUrl) else { return }
+                                CacheManager.shared.clearContents(url) // Clearing the cache still doesn't work!?
                                 return
                             }
                         }
-                case .failure( _): break
+                case .failure( _):
+                    // Share the url of the video if downloading the video did not work (backup method)
+                    let videoToShare = [ URL(string: "http://10.0.0.2:3000/videos/\(videoId)") ]
+                    let activityViewController = UIActivityViewController(activityItems: videoToShare as [Any], applicationActivities: nil)
+                    activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                    activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToFlickr,
+                        UIActivity.ActivityType.postToTwitter, UIActivity.ActivityType.postToTencentWeibo
+                    ]
+                    DispatchQueue.main.async {
+                        self.present(activityViewController, animated: true, completion: nil)
+                    }
+                    activityViewController.completionWithItemsHandler = { activity, completed, items, error in
+                            if !completed {
+                                return
+                            }
+                        }
                 }
         }
-        
-    }*/
-    
+    }
     
     // MARK: Get Videos For Home Page
     func getRandomVideos() {

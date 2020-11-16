@@ -252,6 +252,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                 let downloadedComments = try decoder.decode(Comments.self, from: data)
                 self.comments = downloadedComments.comments
                 if fromReply == true {
+                    guard let _ = self.comments[safe: self.replyIndex.section] else { return }
                     self.comments[self.replyIndex.section].opened = true
                 }
                 DispatchQueue.main.async {
@@ -595,22 +596,25 @@ extension CommentingViewController: CommentCellDelegate {
                         if status == "Video has been unliked." {
                             switch reply {
                             case true:
+                                guard let _ = self.comments[safe: commentIndex]?.replies?[safe: replyIndex] else { return }
                                 self.comments[commentIndex].replies?[replyIndex].liked = false
                                 self.comments[commentIndex].replies?[replyIndex].likeId = 0
                             case false:
-                                self.comments[commentIndex].replies?[replyIndex].liked = false
-                                self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                                self.comments[commentIndex].liked = false
+                                self.comments[commentIndex].likeId = 0
                             }
                             
                         }
                     } catch {
                         switch reply {
                         case true:
+                            guard let _ = self.comments[safe: commentIndex]?.replies?[safe: replyIndex] else { return }
                             self.comments[commentIndex].replies?[replyIndex].liked = false
                             self.comments[commentIndex].replies?[replyIndex].likeId = 0
                         case false:
-                            self.comments[commentIndex].replies?[replyIndex].liked = false
-                            self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                            guard let _ = self.comments[safe: commentIndex] else { return }
+                            self.comments[commentIndex].liked = false
+                            self.comments[commentIndex].likeId = 0
                         }
                         print("This typically isn't supposed to happen, but might. Ignore this unless a serious issue. error code: 0fnboglap139gnza")
                         return
@@ -648,19 +652,23 @@ extension CommentingViewController: CommentCellDelegate {
                         let likeid = JSON!["likeid"] as? Int
                         switch reply {
                         case true:
+                            guard let _ = self.comments[safe: commentIndex]?.replies?[safe: replyIndex] else { return }
                             self.comments[commentIndex].replies?[replyIndex].liked = true
                             self.comments[commentIndex].replies?[replyIndex].likeId = likeid
                         case false:
-                            self.comments[commentIndex].replies?[replyIndex].liked = true
-                            self.comments[commentIndex].replies?[replyIndex].likeId = likeid
+                            guard let _ = self.comments[safe: commentIndex] else { return }
+                            self.comments[commentIndex].liked = true
+                            self.comments[commentIndex].likeId = likeid
                         }
                         self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: true)
                     case "Video has been unliked.":
                         switch reply {
                         case true:
+                            guard let _ = self.comments[safe: commentIndex]?.replies?[safe: replyIndex] else { return }
                             self.comments[commentIndex].replies?[replyIndex].liked = false
                             self.comments[commentIndex].replies?[replyIndex].likeId = 0
                         case false:
+                            guard let _ = self.comments[safe: commentIndex] else { return }
                             self.comments[commentIndex].replies?[replyIndex].liked = false
                             self.comments[commentIndex].replies?[replyIndex].likeId = 0
                         }
@@ -951,4 +959,9 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
+}
+extension Collection where Indices.Iterator.Element == Index {
+    subscript (safe index: Index) -> Iterator.Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
 }

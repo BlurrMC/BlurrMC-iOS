@@ -1,5 +1,7 @@
 # Changelog
 ## Unreleased (PRERELEASE)
+* Channels
+    * Added reporting
 * Videos
     * Fixed urls to match new api
     * Added sharing to videos

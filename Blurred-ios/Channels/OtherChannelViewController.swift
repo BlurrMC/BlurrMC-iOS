@@ -17,13 +17,14 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Variables
     var isItThemselves = Bool()
     private var videos = [Video]()
-    var chanelVar = String()
+    var chanelVar = String() // This is the channel's id
     var following = Bool()
     var blocking = Bool()
     var relationshipId = Int()
     var channelUsername = String()
     var timer2 = Timer()
     var blockId = Int()
+    var isReported = Bool()
     
     
     // MARK: Valet
@@ -33,6 +34,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Outlets
     @IBOutlet var dropDownButtons: [UIButton]!
+    @IBOutlet weak var reportButton: UIButton!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var blockButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -88,7 +90,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 return
             }
         }
-    task.resume()
+        task.resume()
     }
     
     
@@ -118,6 +120,53 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             }
             throttler.throttle {
                 self.unfollowUser()
+            }
+        }
+    }
+    
+    
+    // MARK: Report Button Tapped
+    @IBAction func reportButtonTap(_ sender: Any) {
+        if isReported != true {
+            self.isReported = true
+            dropDownButtons.forEach { (button) in
+                UIView.animate(withDuration: 0.15, animations: {
+                    button.isHidden = !button.isHidden
+                    
+                    self.view.layoutIfNeeded()
+                }, completion: {_ in
+                    self.reportButton.removeFromSuperview()
+                })
+                
+            }
+            reportUser()
+        }
+    }
+    
+    
+    // MARK: Report the user
+    func reportUser() {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        let params = [
+            "c_id": chanelVar
+        ]
+        let url = String("http://10.0.0.2:3000/api/v1/reports")
+        AF.request(URL.init(string: url)!, method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let status = JSON!["status"] as? String
+                if status != "Reported" {
+                    print("error code: amcir2bauinfs")
+                }
+            } catch {
+                print(error)
+                print("error code: cadskam329dj29")
+                return
             }
         }
     }
@@ -296,7 +345,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     
-    // MARK: Follower Tap Function
+    // MARK: Follower Tap
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         goToFollowersList()
     }
@@ -310,7 +359,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     
-    // MARK: Dropdown menu tap function
+    // MARK: Dropdown menu tap
     @objc func tapppFunction(sender:UITapGestureRecognizer) {
         if isItThemselves == false {
             // Check if user is following before showing the follow/block button.
@@ -337,6 +386,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 dropDownButtons.forEach { (button) in
                     UIView.animate(withDuration: 0.15, animations: {
                         button.isHidden = !button.isHidden
+                        
                         self.view.layoutIfNeeded()
                     }, completion: nil)
                     
@@ -641,7 +691,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
 
-    // MARK: Load the channel's information
+    // MARK: Load the user's channel info
     func loadMemberChannel() {
         let Id = chanelVar
         guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
@@ -664,6 +714,11 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                     guard let followerCount: Int = parseJSON["followers_count"] as? Int else { return }
                     guard let followingCount: Int = parseJSON["following_count"] as? Int else { return }
                     guard let isBlocked: Bool = parseJSON["isblocked"] as? Bool else { return }
+                    guard let isReported: Bool = parseJSON["reported"] as? Bool else { return }
+                    self.isReported = isReported
+                    DispatchQueue.main.async {
+                        self.reportButton.isHidden = true
+                    }
                     let bio: String? = parseJSON["bio"] as? String
                     let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
                         if bio?.isEmpty != true {

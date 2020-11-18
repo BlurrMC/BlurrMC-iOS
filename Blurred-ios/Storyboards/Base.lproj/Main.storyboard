@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TBe-HX-4sR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TBe-HX-4sR">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -1081,7 +1081,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Follow">
-                                            <color key="titleColor" systemColor="systemPurpleColor"/>
+                                            <color key="titleColor" systemColor="systemTealColor"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1110,6 +1110,26 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="blockButtonTap:" destination="C9p-qA-0Zi" eventType="touchUpInside" id="mwJ-Tb-nVg"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCp-rE-ecG">
+                                        <rect key="frame" x="0.0" y="0.0" width="105" height="33"/>
+                                        <color key="backgroundColor" red="0.91622814119999996" green="0.86840908549999996" blue="0.87959575059999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="105" id="Ne9-bI-VJg"/>
+                                            <constraint firstAttribute="height" constant="33" id="sTh-AS-jcY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Report">
+                                            <color key="titleColor" systemColor="systemIndigoColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="reportButtonTap:" destination="C9p-qA-0Zi" eventType="touchUpInside" id="wiX-5R-urc"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1154,10 +1174,12 @@
                         <outlet property="followersLabel" destination="YSr-hM-0xL" id="VOP-Ed-9SU"/>
                         <outlet property="followingLabel" destination="Mta-wt-Viq" id="jQy-yv-TYs"/>
                         <outlet property="nameLabel" destination="fB5-sr-lPI" id="QzD-8C-vUo"/>
+                        <outlet property="reportButton" destination="XCp-rE-ecG" id="ZEG-CU-C1i"/>
                         <outlet property="userBlockedLabel" destination="5qM-ME-TeM" id="ueB-mi-r5f"/>
                         <outlet property="usernameLabel" destination="uzw-Tq-P48" id="IVD-rt-616"/>
                         <outletCollection property="dropDownButtons" destination="mcT-1v-s0H" collectionClass="NSMutableArray" id="qCS-I5-DEM"/>
                         <outletCollection property="dropDownButtons" destination="okr-eY-tul" collectionClass="NSMutableArray" id="cu1-FN-pYZ"/>
+                        <outletCollection property="dropDownButtons" destination="XCp-rE-ecG" collectionClass="NSMutableArray" id="xkE-Im-nBS"/>
                         <segue destination="QcA-Gj-WsG" kind="show" identifier="showOtherFollower" id="745-eJ-5Gd"/>
                         <segue destination="0Mr-xg-87d" kind="show" identifier="showOtherFollowing" id="exv-N4-hW9"/>
                     </connections>
@@ -1779,11 +1801,17 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemPurpleColor">
             <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

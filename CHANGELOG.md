@@ -14,6 +14,7 @@
     * You can now delete comments
     * Edit comments
     * Fixed bug where index out of range would be thrown
+    * Fixed bug that addresses throttling of all liking/disliking comments.
 * UI Tests
     * Updated method that tested the app launch time.
 * Authentication

@@ -16,28 +16,43 @@ class Throttler {
     private var previousRun: Date = Date.distantPast
     private let queue: DispatchQueue
     private let minimumDelay: TimeInterval
-
+    private var uniqueIds: [Int?] = []
+    
     init(minimumDelay: TimeInterval, queue: DispatchQueue = DispatchQueue.main) {
         self.minimumDelay = minimumDelay
         self.queue = queue
     }
 
-    func throttle(_ block: @escaping () -> Void) {
-        // Cancel any existing work item if it has not yet executed
-        workItem.cancel()
+    func throttle(_ block: @escaping () -> Void, uniqueId: Int?) {
+        if self.uniqueIds.contains(uniqueId) ||
+            uniqueId == nil
+            {
+            // Cancel any existing work item if it has not yet executed
+            workItem.cancel()
 
-        // Re-assign workItem with the new block task, resetting the previousRun time when it executes
-        workItem = DispatchWorkItem() {
-            [weak self] in
-            self?.previousRun = Date()
-            block()
+            // Re-assign workItem with the new block task, resetting the previousRun time when it executes
+            workItem = DispatchWorkItem() {
+                [weak self] in
+                self?.previousRun = Date()
+                block()
+            }
+
+            // If the time since the previous run is more than the required minimum delay
+            // => execute the workItem immediately
+            // else
+            // => delay the workItem execution by the minimum delay time
+            let delay = previousRun.timeIntervalSinceNow > minimumDelay ? 0 : minimumDelay
+            queue.asyncAfter(deadline: .now() + Double(delay), execute: workItem)
+        } else if uniqueId != nil {
+            guard let uniqueId = uniqueId else { return }
+            self.uniqueIds.append(uniqueId)
+            workItem.cancel()
+            workItem = DispatchWorkItem() {
+                [weak self] in
+                self?.previousRun = Date()
+                block()
+            }
+            queue.asyncAfter(deadline: .now(), execute: workItem)
         }
-
-        // If the time since the previous run is more than the required minimum delay
-        // => execute the workItem immediately
-        // else
-        // => delay the workItem execution by the minimum delay time
-        let delay = previousRun.timeIntervalSinceNow > minimumDelay ? 0 : minimumDelay
-        queue.asyncAfter(deadline: .now() + Double(delay), execute: workItem)
     }
 }

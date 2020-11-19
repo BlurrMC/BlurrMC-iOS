@@ -111,16 +111,16 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             DispatchQueue.main.async {
                 self.followButton.setTitle("Unfollow", for: .normal)
             }
-            throttler.throttle {
+            throttler.throttle( {
                 self.followUser()
-            }
+            }, uniqueId: nil)
         case false:
             DispatchQueue.main.async {
                 self.followButton.setTitle("Follow", for: .normal)
             }
-            throttler.throttle {
+            throttler.throttle( {
                 self.unfollowUser()
-            }
+            }, uniqueId: nil)
         }
     }
     
@@ -181,16 +181,16 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             DispatchQueue.main.async {
                 self.blockButton.setTitle("Unblock", for: .normal)
             }
-            throttler.throttle {
+            throttler.throttle( {
                 self.blockUser()
-            }
+            },uniqueId: nil)
         case false:
             DispatchQueue.main.async {
                 self.blockButton.setTitle("Block", for: .normal)
             }
-            throttler.throttle {
+            throttler.throttle( {
                 self.unblockUser()
-            }
+            }, uniqueId: nil)
         }
     }
     

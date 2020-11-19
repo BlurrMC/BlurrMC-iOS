@@ -244,18 +244,18 @@ class ChannelVideoOverlayView: UIView {
                 self.likenumber = subtot
                 self.changeLikeCount()
             }
-            throttler.throttle {
+            throttler.throttle( {
                 self.sendDeleteLikeRequest()
-            }
+            }, uniqueId: nil)
         } else if isVideoLiked == false {
             isVideoLiked = true
             self.changeHeartIcon()
             let subtot = likenumber + 1
             likenumber = subtot
             self.changeLikeCount()
-            throttler.throttle {
+            throttler.throttle( {
                 self.sendLikeRequest()
-            }
+            }, uniqueId: nil)
         }
     }
     

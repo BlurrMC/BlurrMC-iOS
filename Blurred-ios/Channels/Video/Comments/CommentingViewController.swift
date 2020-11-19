@@ -584,7 +584,7 @@ extension CommentingViewController: CommentCellDelegate {
         let throttler = Throttler(minimumDelay: 5)
         if likeid != nil {
             let url = "http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes/\(likeid ?? 0)"
-            throttler.throttle {
+            throttler.throttle( {
                 AF.request(URL.init(string: url)!, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                     var JSON: [String: Any]?
                     guard let data = response.data else { return }
@@ -620,7 +620,7 @@ extension CommentingViewController: CommentCellDelegate {
                         return
                     }
                 }
-            }
+            }, uniqueId: commentId)
             
         }
         
@@ -636,7 +636,7 @@ extension CommentingViewController: CommentCellDelegate {
         ]
         let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes")
         let throttler = Throttler(minimumDelay: 5)
-        throttler.throttle {
+        throttler.throttle( {
             AF.request(URL.init(string: url)!, method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                 var JSON: [String: Any]?
                 do {
@@ -685,7 +685,7 @@ extension CommentingViewController: CommentCellDelegate {
                 }
             }
 
-        }
+        }, uniqueId: commentId)
     }
     
     

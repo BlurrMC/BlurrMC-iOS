@@ -16,6 +16,7 @@
 		E1104EC12511649800B52A11 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */; };
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
+		E125D30E2566E15D005E4E27 /* ImagePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E125D30D2566E15D005E4E27 /* ImagePublisher.swift */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
 		E13515CC25492078000437CB /* CommentCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13515CB25492078000437CB /* CommentCellDelegate.swift */; };
 		E139685424D34F4700F01FDE /* ChannelVideoCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */; };
@@ -86,6 +87,7 @@
 		E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
+		E125D30D2566E15D005E4E27 /* ImagePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePublisher.swift; sourceTree = "<group>"; };
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E13515CB25492078000437CB /* CommentCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellDelegate.swift; sourceTree = "<group>"; };
 		E139685324D34F4700F01FDE /* ChannelVideoCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoCellNode.swift; sourceTree = "<group>"; };
@@ -238,6 +240,24 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		E125D32725670688005E4E27 /* Follower + Following */ = {
+			isa = PBXGroup;
+			children = (
+				E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */,
+				E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */,
+			);
+			path = "Follower + Following";
+			sourceTree = "<group>";
+		};
+		E125D328256706A3005E4E27 /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */,
+				E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */,
+			);
+			path = Channel;
+			sourceTree = "<group>";
+		};
 		E13848CF24C87E1C00232C7B /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,10 +366,8 @@
 			isa = PBXGroup;
 			children = (
 				E139685524D3539700F01FDE /* Video */,
-				E1DF6FBC244F5DE300E11BF9 /* ChannelViewController.swift */,
-				E146ACF02474188700D3ED10 /* OtherChannelViewController.swift */,
-				E146ACF22474254400D3ED10 /* OtherFollowerListViewController.swift */,
-				E146ACF42474255D00D3ED10 /* OtherFollowListViewController.swift */,
+				E125D328256706A3005E4E27 /* Channel */,
+				E125D32725670688005E4E27 /* Follower + Following */,
 			);
 			path = Channels;
 			sourceTree = "<group>";
@@ -384,6 +402,7 @@
 		E1DF6F5D244F550300E11BF9 = {
 			isa = PBXGroup;
 			children = (
+				E125D30D2566E15D005E4E27 /* ImagePublisher.swift */,
 				E1EBD0BC2453A1CE00FE901F /* CHANGELOG.md */,
 				E1DF6F68244F550300E11BF9 /* Blurred-ios */,
 				E1DF6F84244F550600E11BF9 /* Blurred-iosTests */,
@@ -720,6 +739,7 @@
 				E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,
 				E146ACF7247441DE00D3ED10 /* OtherFollowerCell.swift in Sources */,
+				E125D30E2566E15D005E4E27 /* ImagePublisher.swift in Sources */,
 				E139685424D34F4700F01FDE /* ChannelVideoCellNode.swift in Sources */,
 				E1DF6FBB244F5DCE00E11BF9 /* NotificationsViewController.swift in Sources */,
 				E13515CC25492078000437CB /* CommentCellDelegate.swift in Sources */,

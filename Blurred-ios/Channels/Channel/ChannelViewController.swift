@@ -13,12 +13,14 @@ import Alamofire
 
 class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource {
     
-    // MARK: Lets
+    // MARK: Constants
     private let refreshControl = UIRefreshControl()
+    let imageCache = NSCache<NSString, UIImage>()
     
     
     // MARK: Variables
     private var videos = [Video]()
+
     
     // MARK: Collectionview
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -43,8 +45,13 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
         let Id: Int? = videos[indexPath.row].id
-        
-        cell.thumbnailView.image = UIImage(named: "load-image")
+        var resizedImageProcessors: [ImageProcessing] {
+            let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
+            return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
+        }
+        let options = ImageLoadingOptions(
+            placeholder: UIImage(named: "load-image"),
+            transition: .fadeIn(duration: 0.25))
         AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(Id!).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
@@ -77,12 +84,12 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                         cell.likeCount.text = "\(likenumber)"
                     }
                 }
-                let railsUrl = URL(string: imageUrl)
-                guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
-                    return
-                }
+                guard let railsUrl = URL(string: imageUrl) else { return }
+                let request = ImageRequest(
+                  url: railsUrl,
+                  processors: resizedImageProcessors)
                 DispatchQueue.main.async {
-                    Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.thumbnailView)
+                    Nuke.loadImage(with: request, options: options, into: cell.thumbnailView)
                 }
             } catch {
                 return
@@ -91,6 +98,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         
         return cell
     }
+    
     
     func collectionView(CollectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
@@ -264,7 +272,16 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     
     // MARK: Load the channel's info
     func loadMemberChannel() {
+        ImageCache.shared.costLimit = 1024 * 1024 * 100
+        ImageCache.shared.countLimit = 100
+        ImageCache.shared.ttl = 120
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
+        if let avatarUrl: String  = try? myValet.string(forKey: "avatar url") {
+            guard let url = URL(string: avatarUrl) else { return }
+            DispatchQueue.main.async {
+                Nuke.loadImage(with: url, into: self.avatarImage)
+            }
+        }
         guard let Id = Int(userId) else { return }
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
             var request = URLRequest(url:myUrl!)
@@ -273,8 +290,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 if error != nil {
                     self.showMessage(title: "Error", message: "There has been an error contacting the server. Try again later.", alertActionTitle: "OK")
                     return
-                }
-                
+                } 
                 do {
                     let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                     if let parseJSON = json {
@@ -284,7 +300,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                         guard let followerCount: Int = parseJSON["followers_count"] as? Int else { return }
                         guard let followingCount: Int = parseJSON["following_count"] as? Int else { return }
                         let bio: String? = parseJSON["bio"] as? String
-                        let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
+                        guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else  { return }
                         if bio?.isEmpty != true {
                             DispatchQueue.main.async {
                                 self.bioLabel.text = bio ?? ""
@@ -353,7 +369,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                             }
                         }
                         DispatchQueue.main.async {
-                            Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
+                            Nuke.loadImage(with: railsUrl, into: self.avatarImage)
+                            try? self.myValet.setString("\(railsUrl)", forKey: "avatar url for \(userId)")
                         }
                     } else {
                         return
@@ -364,7 +381,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             }
             task.resume()
     }
-    
+
     
     // MARK: Import image for avatar
     func importImage() {

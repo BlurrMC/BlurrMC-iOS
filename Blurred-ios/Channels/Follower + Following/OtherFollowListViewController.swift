@@ -44,7 +44,15 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshFollowing(_:)), for: .valueChanged)
         tableView.tableFooterView = UIView()
-        // Do any additional setup after loading the view.
+        let contentModes = ImageLoadingOptions.ContentModes(
+          success: .scaleAspectFill,
+          failure: .scaleAspectFill,
+          placeholder: .scaleAspectFill)
+        ImageLoadingOptions.shared.contentModes = contentModes
+        ImageLoadingOptions.shared.placeholder = UIImage(named: "load-image")
+        ImageLoadingOptions.shared.failureImage = UIImage(named: "load-image")
+        ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.25)
+        DataLoader.sharedUrlCache.diskCapacity = 0
     }
     
     
@@ -127,7 +135,12 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
     
     // MARK: Did Select Row At
     func tableView(tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? OtherFollowingCell else { return }
         let destinationVC = OtherChannelViewController()
+        destinationVC.segueName = self.followings[indexPath.row].name
+        destinationVC.segueUsername = self.followings[indexPath.row].username
+        destinationVC.isReported = cell.isReported
+        destinationVC.avatarUrl = cell.avatarUrl
         destinationVC.performSegue(withIdentifier: "showChannel", sender: self)
     }
     
@@ -158,12 +171,15 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let imageUrl: String? = parseJSON["avatar_url"] as? String
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
+                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl!, into: cell.followingAvatar)
+                        Nuke.loadImage(with: railsUrl, into: cell.followingAvatar)
                     }
+                    guard let isReported = parseJSON["reported"] as? Bool else { return }
+                    cell.isReported = isReported
+                    cell.avatarUrl = railsUrl.absoluteString
                 } else {
-                    print(error ?? "")
+                    print(error ?? "error code: a9gnaids8723hdas78h8")
                 }
             } catch {
                 print(error)

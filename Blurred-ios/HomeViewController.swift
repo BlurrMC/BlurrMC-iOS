@@ -10,9 +10,13 @@ import UIKit
 import Valet
 import UserNotifications
 import AsyncDisplayKit
+import Nuke
 import Alamofire
 
 class HomeViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
+    
+
+    var resizedImageProcessors = [ImageProcessing]()
     
     
     // MARK: From delegate, for sharing
@@ -22,7 +26,11 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     
     // MARK: Tap for channel from overlay
-    func didTapChannel(_ view: ChannelVideoOverlayView, videousername: String) {
+    func didTapChannel(_ view: ChannelVideoOverlayView, videousername: String, resizedImageProcessor: [ImageProcessing], isReported: Bool, isBlocked: Bool, name: String) {
+        self.resizedImageProcessors = resizedImageProcessor
+        self.reported = isReported
+        self.blocked = isBlocked
+        self.name = name
         showUserChannel(videoUsername: videousername)
     }
     
@@ -155,6 +163,11 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         } else if let vc = segue.destination as? OtherChannelViewController {
             if segue.identifier == "showHomeVideoUserChannel" {
                 vc.chanelVar = videoUsername
+                vc.resizedImageProcessors = self.resizedImageProcessors
+                vc.channelUsername = videoUsername
+                vc.segueUsername = videoUsername
+                vc.segueName = name
+                vc.isReported = reported
             }
         }
     }
@@ -167,6 +180,9 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     var lastNode: ChannelVideoCellNode?
     private var videos = [Video]()
     var currentPage: Int = 1
+    var name = String()
+    var reported = Bool()
+    var blocked = Bool()
     
     
     // MARK: Videos downloaded

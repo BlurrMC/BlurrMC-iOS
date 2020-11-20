@@ -16,15 +16,18 @@ class CommentCell: UITableViewCell {
         super.awakeFromNib()
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.likeButtonTap(sender:)))
         let moreTap = UITapGestureRecognizer(target: self, action: #selector(self.moreButtonTap(sender:)))
+        let avatarTap = UITapGestureRecognizer(target: self, action: #selector(self.avatarTap(sender:)))
         likeButton.addGestureRecognizer(tap)
         moreButton.addGestureRecognizer(moreTap)
+        commentAvatar.addGestureRecognizer(avatarTap)
     }
-    
-    
     
     var delegate: CommentCellDelegate?
     var commentId = Int()
     var indexPath = IndexPath()
+    var commentName = String()
+    var reported = Bool()
+    var avatarUrl = String()
     @IBOutlet weak var moreButton: UIImageView!
     @IBOutlet weak var readMoreButton: UIButton!
     @IBOutlet weak var likeNumber: UILabel!
@@ -34,6 +37,12 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var commentAvatar: UIImageView!
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    
+    // MARK: Avatar Button Tap Recognizer
+    @objc func avatarTap(sender:UITapGestureRecognizer) {
+        delegate?.cellAvatarTapped(commentId: commentId, indexPath: indexPath, reply: false, name: commentName, isReported: reported, avatarUrl: avatarUrl)
     }
     
     

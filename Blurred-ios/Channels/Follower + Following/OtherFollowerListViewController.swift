@@ -44,6 +44,15 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         tableView.tableFooterView = UIView()
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshFollowers(_:)), for: .valueChanged)
+        let contentModes = ImageLoadingOptions.ContentModes(
+          success: .scaleAspectFill,
+          failure: .scaleAspectFill,
+          placeholder: .scaleAspectFill)
+        ImageLoadingOptions.shared.contentModes = contentModes
+        ImageLoadingOptions.shared.placeholder = UIImage(named: "load-image")
+        ImageLoadingOptions.shared.failureImage = UIImage(named: "load-image")
+        ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.25)
+        DataLoader.sharedUrlCache.diskCapacity = 0
     }
     
     
@@ -152,10 +161,13 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let imageUrl: String? = parseJSON["avatar_url"] as? String
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
+                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl!, into: cell.followerAvatar)
-                        }
+                        Nuke.loadImage(with: railsUrl, into: cell.followerAvatar)
+                    }
+                    guard let isReported = parseJSON["reported"] as? Bool else { return }
+                    cell.isReported = isReported
+                    cell.avatarUrl = railsUrl.absoluteString
                 } else {
                     return
                 }
@@ -171,7 +183,12 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
     
     // MARK: Did Select Row
     func tableView(tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? OtherFollowerCell else { return }
         let destinationVC = OtherChannelViewController()
+        destinationVC.segueName = self.followers[indexPath.row].name
+        destinationVC.segueUsername = self.followers[indexPath.row].username
+        destinationVC.isReported = cell.isReported
+        destinationVC.avatarUrl = cell.avatarUrl
         destinationVC.performSegue(withIdentifier: "showChannel", sender: self)
     }
     

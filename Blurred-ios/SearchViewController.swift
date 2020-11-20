@@ -38,7 +38,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         URLCache.shared.memoryCapacity = 0
     }
     
-    // MARK: Cell For ROw At
+    // MARK: Cell For Row At
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
         case self.tableView:
@@ -57,14 +57,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     let bio = JSON!["bio"] as? String
                     let followerCount = JSON!["followers_count"] as? Int
                     let followerCountString = String("\(followerCount ?? 0)")
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(avatarUrl ?? "/assets/fallback/default-avatar-3.png")")
+                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(avatarUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl!, into: cell.searchAvatar)
+                        Nuke.loadImage(with: railsUrl, into: cell.searchAvatar)
                         cell.searchName.text = name ?? ""
                         cell.searchUsername.text = username ?? ""
                         cell.searchBio.text = bio ?? ""
                         cell.searchFollowerCount.text = followerCountString
                     }
+                    cell.avatarUrl = railsUrl.absoluteString
                 } catch {
                     return
                 }
@@ -83,7 +84,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     guard let username = JSON!["username"] as? String else { return }
                     guard let publishDate = JSON!["publishdate"] as? String else { return }
                     guard let viewCount = JSON!["viewcount"] as? Int else { return }
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(thumbnailUrl)")
+                    guard let railsUrl = URL(string: thumbnailUrl) else { return }
                     switch viewCount {
                     case _ where viewCount < 1000:
                         DispatchQueue.main.async {
@@ -110,7 +111,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                         }
                     }
                     DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl!, into: cell.searchThumbnail)
+                        Nuke.loadImage(with: railsUrl, into: cell.searchThumbnail)
                         cell.searchDescription.text = description
                         cell.searchUsername.text = username
                         cell.searchDate.text = publishDate
@@ -133,7 +134,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     guard let username = JSON!["username"] as? String else { return }
                     guard let publishDate = JSON!["publishdate"] as? String else { return }
                     guard let viewCount = JSON!["viewcount"] as? Int else { return }
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(thumbnailUrl)")
+                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(thumbnailUrl)") else { return }
                     switch viewCount {
                     case _ where viewCount < 1000:
                         DispatchQueue.main.async {
@@ -160,7 +161,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                         }
                     }
                     DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl!, into: cell.searchThumbnail)
+                        Nuke.loadImage(with: railsUrl, into: cell.searchThumbnail)
                         cell.searchDescription.text = description
                         cell.searchUsername.text = username
                         cell.searchDate.text = publishDate
@@ -213,6 +214,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 if segue.identifier == "showSearchChannel" {
                     if let indexPath = tableView.indexPathForSelectedRow{
                         let selectedRow = indexPath.row
+                        guard let cell = self.tableView.cellForRow(at: indexPath) as? SearchCell else { return }
+                        vc.avatarUrl = cell.avatarUrl
+                        vc.segueUsername = users[selectedRow].username
+                        vc.segueBio = cell.searchBio.text
+                        vc.segueFollowerCount = cell.searchFollowerCount.text
+                        vc.segueName = cell.searchName.text
                         vc.chanelVar = users[selectedRow].username
                     }
                 }

@@ -11,6 +11,7 @@ import Nuke
 import Valet
 import Foundation
 import Alamofire
+import Combine
 
 class OtherChannelViewController: UIViewController, UICollectionViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
@@ -25,6 +26,13 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     var timer2 = Timer()
     var blockId = Int()
     var isReported = Bool()
+    var cancellable: AnyCancellable?
+    var resizedImageProcessors: [ImageProcessing] = []
+    var avatarUrl: String?
+    var segueUsername: String?
+    var segueName: String?
+    var segueFollowerCount: String?
+    var segueBio: String?
     
     
     // MARK: Valet
@@ -54,6 +62,17 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Number Of Items In Section
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
+    }
+    
+    
+    // MARK: Load any info from segue info
+    func loadSegueInfo() {
+        self.nameLabel.text = segueName
+        self.usernameLabel.text = segueUsername
+        self.bioLabel.text = segueBio
+        if self.segueFollowerCount != nil {
+            self.followersLabel.text = self.segueFollowerCount
+        }
     }
     
     
@@ -200,8 +219,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }
         let Id: Int? = videos[indexPath.row].id
-        
-        cell.thumbnailView.image = UIImage(named: "load-image")
+        var resizedImageProcessors: [ImageProcessing] {
+            let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
+            return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
+        }
         AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(Id!).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
@@ -234,12 +255,12 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                         cell.likeCount.text = "\(likenumber)"
                     }
                 }
-                let railsUrl = URL(string: imageUrl)
-                guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
-                    return
-                }
+                guard let railsUrl = URL(string: imageUrl) else { return }
+                let request = ImageRequest(
+                  url: railsUrl,
+                  processors: resizedImageProcessors)
                 DispatchQueue.main.async {
-                    Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.thumbnailView)
+                    Nuke.loadImage(with: request, into: cell.thumbnailView)
                 }
             } catch {
                 return
@@ -267,24 +288,24 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Load the channel's videos
     func channelVideoIds() { // Still not done we need to add the user's butt image
-            let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(chanelVar).json")  // 23:40
-            guard let downloadURL = url else { return }
-            URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-                guard let data = data, error == nil, urlResponse != nil else {
-                    return
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(chanelVar).json")  // 23:40
+        guard let downloadURL = url else { return }
+        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
+            guard let data = data, error == nil, urlResponse != nil else {
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                self.videos = downloadedVideo.videos
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
-                do {
-                    let decoder = JSONDecoder()
-                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                    self.videos = downloadedVideo.videos
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                        self.refreshControl.endRefreshing()
-                    }
-                } catch {
-                    return
-                }
-            }.resume()
+            } catch {
+                return
+            }
+        }.resume()
     }
     
     
@@ -315,6 +336,15 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             lineView.backgroundColor = UIColor.white
         }
         self.avatarImage.contentScaleFactor = 1.5
+        let contentModes = ImageLoadingOptions.ContentModes(
+          success: .scaleAspectFill,
+          failure: .scaleAspectFit,
+          placeholder: .scaleAspectFit)
+        ImageLoadingOptions.shared.contentModes = contentModes
+        ImageLoadingOptions.shared.placeholder = UIImage(named: "load-image")
+        ImageLoadingOptions.shared.failureImage = UIImage(named: "load-image")
+        ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.2)
+        DataLoader.sharedUrlCache.diskCapacity = 0
     }
     
     
@@ -338,6 +368,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        loadSegueInfo()
         loadMemberChannel()
         channelVideoIds()
         checkForFollowing()
@@ -693,6 +724,12 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: Load the user's channel info
     func loadMemberChannel() {
+        if avatarUrl != nil, let avatarUrl = avatarUrl {
+            guard let avatarUrl = URL(string: avatarUrl) else { return }
+            DispatchQueue.main.async {
+                self.loadImage(url: avatarUrl)
+            }
+        }
         let Id = chanelVar
         guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
         let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
@@ -720,7 +757,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                         self.reportButton.isHidden = true
                     }
                     let bio: String? = parseJSON["bio"] as? String
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
+                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                         if bio?.isEmpty != true {
                             DispatchQueue.main.async {
                                 self.bioLabel.text = bio ?? ""
@@ -798,8 +835,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                         }
                     }
                     DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl!, into: self.avatarImage)
+                        self.loadImage(url: railsUrl)
+                        //Nuke.loadImage(with: railsUrl, into: self.avatarImage)
                     }
+                    
                 } else {
                     print(error ?? "")
                     return
@@ -905,5 +944,33 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func loadImage(url: URL) {
+      // 1
+      let resizedImageRequest = ImageRequest(
+        url: url,
+        processors: resizedImageProcessors)
+        let originalImagePublisher = ImagePipeline.shared.imagePublisher(with: url)
+        guard let failedImage = ImageLoadingOptions.shared.failureImage else {
+          return
+        }
+      // 2
+      let resizedImagePublisher = ImagePipeline.shared
+        .imagePublisher(with: resizedImageRequest)
+
+      // 3
+        cancellable = resizedImagePublisher.append(originalImagePublisher)
+            .map {
+              ($0.image, UIView.ContentMode.scaleAspectFill)
+            }
+            .catch { _ in
+              Just((failedImage, .scaleAspectFit))
+            }
+            .sink {
+              self.avatarImage.image = $0
+              self.avatarImage.contentMode = $1
+            }
+    }
+
     
 }

@@ -13,6 +13,9 @@ class SearchCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    // MARK: Variables and Properties
+    var avatarUrl = String()
     @IBOutlet weak var searchFollowerCount: UILabel!
     @IBOutlet weak var searchBio: UILabel!
     @IBOutlet weak var searchUsername: UILabel!
@@ -23,11 +26,11 @@ class SearchCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     override func prepareForReuse() {
-           super.prepareForReuse()
+        super.prepareForReuse()
         searchAvatar.image = nil
-           isHidden = false
-           isSelected = false
-           isHighlighted = false
-       }
+        isHidden = false
+        isSelected = false
+        isHighlighted = false
+    }
 
 }

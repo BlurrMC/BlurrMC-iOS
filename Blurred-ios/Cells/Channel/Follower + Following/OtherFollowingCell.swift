@@ -10,9 +10,16 @@ import UIKit
 
 class OtherFollowingCell: UITableViewCell {
 
+    
+    // MARK: Variables and properties
+    var name = String()
+    var isReported = Bool()
+    var avatarUrl = String()
     @IBOutlet weak var followingUsername: UILabel!
     @IBOutlet weak var followingName: UILabel!
     @IBOutlet weak var followingAvatar: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

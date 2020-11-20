@@ -20,7 +20,7 @@
                                 <rect key="frame" x="-20" y="0.0" width="415" height="800"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgN-zK-gR2">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgN-zK-gR2">
                                         <rect key="frame" x="36" y="20" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <userDefinedRuntimeAttributes>
@@ -211,7 +211,7 @@
                         <outlet property="replyField" destination="mMr-Z0-W3q" id="G1S-Xn-94y"/>
                         <outlet property="tableView" destination="0PJ-Ep-TZa" id="V6R-Dc-G5l"/>
                         <outlet property="userAvatar" destination="rgN-zK-gR2" id="UVX-yN-scQ"/>
-                        <segue destination="tIC-nJ-0im" kind="show" identifier="showCommetChannel" id="6lO-oK-qvg"/>
+                        <segue destination="tIC-nJ-0im" kind="show" identifier="showCommentChannel" id="6lO-oK-qvg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ouT-Xt-y3q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

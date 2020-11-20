@@ -13,6 +13,8 @@ class SearchVideoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         searchThumbnail.image = nil
@@ -20,9 +22,14 @@ class SearchVideoCell: UITableViewCell {
         isSelected = false
         isHighlighted = false
     }
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    
+    // MARK: Variable and Properties
     @IBOutlet weak var searchDate: UILabel!
     @IBOutlet weak var searchViewCount: UILabel!
     @IBOutlet weak var searchUsername: UILabel!

@@ -22,6 +22,8 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     var isItEditing: Bool = false
     var isEditingAReply = Bool()
     var originalUneditedText = String()
+    var name = String()
+    var username = String()
     
     
     // MARK: Outlets
@@ -37,20 +39,30 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Get the user's avatar
     func getAvatar() {
-        let userId: String?  = try? myValet.string(forKey: "Id")
-        AF.request("http://10.0.0.2:3000/api/v1/channels/\(userId!).json").responseJSON { response in
-                   var JSON: [String: Any]?
-                   do {
-                       JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                       let imageUrl = JSON!["avatar_url"] as? String
-                       let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl!)")
-                    guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else { return }
-                       DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl ?? imageURL, into: self.userAvatar)
-                       }
-                   } catch {
-                       return
-                   }
+        if let avatarUrl: String  = try? myValet.string(forKey: "avatar url") {
+            guard let url = URL(string: avatarUrl) else { return }
+            DispatchQueue.main.async {
+                Nuke.loadImage(with: url, into: self.userAvatar)
+            }
+        }
+        guard let userId: String = try? myValet.string(forKey: "Id") else { return }
+        AF.request("http://10.0.0.2:3000/api/v1/channels/\(userId).json").responseJSON { response in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                guard let imageUrl = JSON!["avatar_url"] as? String else { return }
+                guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl)") else { return }
+                DispatchQueue.main.async {
+                    Nuke.loadImage(with: railsUrl, into: self.userAvatar)
+                    try? self.myValet.setString(railsUrl.absoluteString, forKey: "avatar url for \(userId)")
+                }
+                guard let name = JSON!["name"] as? String else { return }
+                guard let username = JSON!["username"] as? String else { return }
+                self.username = username
+                self.name = name
+            } catch {
+                return
+            }
         }
     }
     
@@ -271,7 +283,6 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         commentField?.delegate = self
         downloadJson(fromReply: false)
-        
         // Listen for keyboard events
         NotificationCenter.default.addObserver(
             self,
@@ -286,6 +297,34 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
             object: nil
         )
         replyField.backgroundColor = UIColor.darkGray
+        self.userAvatar.contentScaleFactor = 1.5
+        let contentModes = ImageLoadingOptions.ContentModes(
+            success: .scaleAspectFill,
+            failure: .scaleAspectFill,
+            placeholder: .scaleAspectFill)
+        ImageLoadingOptions.shared.contentModes = contentModes
+        ImageLoadingOptions.shared.placeholder = UIImage(named: "load-image")
+        ImageLoadingOptions.shared.failureImage = UIImage(named: "load-image")
+        ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.25)
+        DataLoader.sharedUrlCache.diskCapacity = 0
+        let avatarTap = UITapGestureRecognizer(target: self, action: #selector(self.avatarTap(sender:)))
+        self.userAvatar.addGestureRecognizer(avatarTap)
+    }
+    
+    
+    // MARK: Avatar Tapped
+    @objc func avatarTap(sender:UITapGestureRecognizer) {
+        let destinationVC = OtherChannelViewController()
+        destinationVC.usernameLabel.text = username
+        destinationVC.chanelVar = username
+        if let avatarUrl: String  = try? myValet.string(forKey: "avatar url") {
+            destinationVC.avatarUrl = avatarUrl
+        }
+        destinationVC.channelUsername = username
+        destinationVC.nameLabel.text = name
+        DispatchQueue.main.async {
+            destinationVC.performSegue(withIdentifier: "showCommentChannel", sender: self)
+        }
     }
     
     
@@ -317,6 +356,38 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
 
 }
 extension CommentingViewController: CommentCellDelegate {
+    
+    
+    // MARK: Avatar Tapped (Go to channel)
+    func cellAvatarTapped(commentId: Int, indexPath: IndexPath, reply: Bool, name: String, isReported: Bool, avatarUrl: String) {
+        switch reply {
+        case true:
+            guard let username = self.comments[indexPath.section].replies?[indexPath.row - 1].created_by else { return }
+            let destinationVC = OtherChannelViewController()
+            destinationVC.segueName = name
+            destinationVC.channelUsername = username
+            destinationVC.segueUsername = username
+            destinationVC.isReported = isReported
+            destinationVC.avatarUrl = avatarUrl
+            destinationVC.chanelVar = username
+            DispatchQueue.main.async {
+                destinationVC.performSegue(withIdentifier: "showCommentChannel", sender: self)
+            }
+        case false:
+            let username = self.comments[indexPath.section].created_by
+            let destinationVC = OtherChannelViewController()
+            destinationVC.segueName = name
+            destinationVC.channelUsername = username
+            destinationVC.segueUsername = username
+            destinationVC.isReported = isReported
+            destinationVC.avatarUrl = avatarUrl
+            destinationVC.chanelVar = username
+            DispatchQueue.main.async {
+                destinationVC.performSegue(withIdentifier: "showCommentChannel", sender: self)
+            }
+        }
+    }
+    
     
     // MARK: Submit an edited comment
     func submitEditedComment(indexPath: IndexPath, reply: Bool) {
@@ -852,18 +923,23 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
                 
             }
             AF.request("http://10.0.0.2:3000/api/v1/channels/\(usernameComment).json").responseJSON { response in
-                       var JSON: [String: Any]?
-                       do {
-                           JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                           let imageUrl = JSON!["avatar_url"] as? String
-                           let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
-                        guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else { return }
-                           DispatchQueue.main.async {
-                               Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.commentAvatar)
-                           }
-                       } catch {
-                           return
-                       }
+                guard let data = response.data else { return }
+                var JSON: [String: Any]?
+                do {
+                    JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    let imageUrl = JSON!["avatar_url"] as? String
+                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                    DispatchQueue.main.async {
+                        Nuke.loadImage(with: railsUrl, into: cell.commentAvatar)
+                    }
+                    guard let name = JSON!["name"] as? String else { return }
+                    guard let isReported = JSON!["reported"] as? Bool else { return }
+                    cell.commentName = name
+                    cell.reported = isReported
+                    cell.avatarUrl = railsUrl.absoluteString
+                } catch {
+                    return
+                }
             }
             if comment.replies?.count ?? 0 > 1 {
                 cell.readMoreButton.setTitle("Read \(comment.replies?.count ?? 0) Replies", for: .normal)
@@ -908,11 +984,15 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
                 do {
                     JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                     let imageUrl = JSON!["avatar_url"] as? String
-                    let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")")
-                    guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {return}
+                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
-                        Nuke.loadImage(with: railsUrl ?? imageURL, into: cell.avatar)
+                        Nuke.loadImage(with: railsUrl, into: cell.avatar)
                     }
+                    guard let name = JSON!["name"] as? String else { return }
+                    guard let isReported = JSON!["reported"] as? Bool else { return }
+                    cell.name = name
+                    cell.isReported = isReported
+                    cell.avatarUrl = railsUrl.absoluteString
                 } catch {
                     return
                 }

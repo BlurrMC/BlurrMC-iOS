@@ -11,9 +11,12 @@ import Valet
 import Alamofire
 import Photos
 import AsyncDisplayKit
+import Nuke
 
 class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
+    
+    var resizedImageProcessors = [ImageProcessing]()
     
     // MARK: From delegate, for sharing
     func didTapShare(_ view: ChannelVideoOverlayView, videoUrl: String, videoId: Int) {
@@ -21,7 +24,11 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     }
 
     // MARK: Tap for channel from overlay
-    func didTapChannel(_ view: ChannelVideoOverlayView, videousername: String) {
+    func didTapChannel(_ view: ChannelVideoOverlayView, videousername: String, resizedImageProcessor: [ImageProcessing], isReported: Bool, isBlocked: Bool, name: String) {
+        self.reported = isReported
+        self.blocked = isBlocked
+        self.name = name
+        self.resizedImageProcessors = resizedImageProcessor
         showUserChannel(videoUsername: videousername)
     }
     
@@ -41,6 +48,9 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var isItFromSearch = Bool()
     var videoId = Int()
     var channelId = String()
+    var reported = Bool()
+    var blocked = Bool()
+    var name = String()
     
     // MARK: Setup window for sharing functionality
     // This may use A LOT of ram over a long period of time. Possible fix: deleting cache after user is done dealing with video?
@@ -172,6 +182,11 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         } else if let vc = segue.destination as? OtherChannelViewController {
             if segue.identifier == "showVideoUserChannel" {
                 vc.chanelVar = videoUsername
+                vc.resizedImageProcessors = self.resizedImageProcessors
+                vc.channelUsername = videoUsername
+                vc.segueUsername = videoUsername
+                vc.segueName = name
+                vc.isReported = reported
             }
         }
     }

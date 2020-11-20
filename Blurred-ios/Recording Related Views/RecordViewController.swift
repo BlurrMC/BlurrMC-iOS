@@ -12,7 +12,7 @@ import AVFoundation
 import MobileCoreServices
 import Alamofire
 import Valet
-import NextLevel
+import NextLevel // This doesn't work!??!?!
 
 // MARK: Maybe change camera method to CameraManager
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {

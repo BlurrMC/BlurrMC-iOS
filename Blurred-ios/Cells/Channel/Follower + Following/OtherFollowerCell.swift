@@ -14,6 +14,10 @@ class OtherFollowerCell: UITableViewCell {
         super.awakeFromNib()
     }
 
+    // MARK: Variables and properties
+    var name = String()
+    var isReported = Bool()
+    var avatarUrl = String()
     @IBOutlet weak var followerUsername: UILabel!
     @IBOutlet weak var followerName: UILabel!
     @IBOutlet weak var followerAvatar: UIImageView!

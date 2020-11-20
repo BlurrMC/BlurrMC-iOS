@@ -1,5 +1,10 @@
 # Changelog
 ## Unreleased (PRERELEASE)
+* Search
+    * Video
+        * Updated thumbnail api url
+* Images
+    * Added better caching
 * Channels
     * Added reporting
 * Videos
@@ -15,6 +20,7 @@
     * Edit comments
     * Fixed bug where index out of range would be thrown
     * Fixed bug that addresses throttling of all liking/disliking comments.
+    * Tap on avatar to go to user's channel
 * UI Tests
     * Updated method that tested the app launch time.
 * Authentication

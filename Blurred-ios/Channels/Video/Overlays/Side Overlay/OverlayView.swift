@@ -21,6 +21,14 @@ class ChannelVideoOverlayView: UIView {
     var likeId = Int()
     var videoUsername = String()
     var videoUrl: URL?
+    var name = String()
+    var blocked = Bool()
+    var reported = Bool()
+    
+    var resizedImageProcessors: [ImageProcessing] {
+        let imageSize = CGSize(width: self.videoChannel.frame.width, height: self.videoChannel.frame.height)
+        return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
+    }
     
     // MARK: Delegates
     weak var delegate2: ChannelVideoDescriptionDelegate?
@@ -48,12 +56,15 @@ class ChannelVideoOverlayView: UIView {
         }
     }
     func changeChannelAvatar() {
-        guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
-            return
-        }
-        let avatarUrl = URL(string: "\(self.newAvatarUrl)")
+        guard let avatarUrl = URL(string: "\(self.newAvatarUrl)") else { return }
+        let request = ImageRequest(
+          url: avatarUrl,
+          processors: resizedImageProcessors)
+        let options = ImageLoadingOptions(
+          transition: .fadeIn(duration: 0.1)
+        )
         DispatchQueue.main.async {
-            Nuke.loadImage(with: avatarUrl ?? imageURL, into: self.videoChannel)
+            Nuke.loadImage(with: request, options: options, into: self.videoChannel)
         }
     }
     func changeLikeCount() {
@@ -113,6 +124,12 @@ class ChannelVideoOverlayView: UIView {
                 self.videoLike.addGestureRecognizer(liketap)
                 self.videoShare.addGestureRecognizer(shareTap)
             }
+            let pipeline = ImagePipeline {
+              let dataCache = try? DataCache(name: "com.blurrmc.blurrmc.datacache")
+              dataCache?.sizeLimit = 200 * 1024 * 1024
+              $0.dataCache = dataCache
+            }
+            ImagePipeline.shared = pipeline
         }
     }
     
@@ -125,7 +142,7 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Show user channel tap
     @objc func tappFunction(sender:UITapGestureRecognizer) {
-        delegate?.didTapChannel(self, videousername: videoUsername)
+        delegate?.didTapChannel(self, videousername: videoUsername, resizedImageProcessor: resizedImageProcessors, isReported: reported, isBlocked: blocked, name: name)
     }
     
     // MARK: Show Video Comments Tap
@@ -278,16 +295,22 @@ class ChannelVideoOverlayView: UIView {
                     guard let username: String = parseJSON["username"] as? String else { return }
                     self.videoUsername = username
                     AF.request("http://10.0.0.2:3000/api/v1/channels/\(String(describing: username)).json").responseJSON {   response in
-                               var JSON: [String: Any]?
-                               do {
-                                   JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                                   let avatarUrl = JSON!["avatar_url"] as? String
-                                   let railsUrl = String("http://10.0.0.2:3000\(avatarUrl!)")
-                                self.newAvatarUrl = railsUrl
-                                self.changeChannelAvatar()
-                               } catch {
-                                   return
-                               }
+                        var JSON: [String: Any]?
+                        do {
+                            JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                            let avatarUrl = JSON!["avatar_url"] as? String
+                            let railsUrl = String("http://10.0.0.2:3000\(avatarUrl!)")
+                            self.newAvatarUrl = railsUrl
+                            self.changeChannelAvatar()
+                            guard let name = JSON!["name"] as? String else { return }
+                            guard let isBlocked = JSON!["isblocked"] as? Bool else { return }
+                            guard let isReported = JSON!["reported"] as? Bool else { return }
+                            self.name = name
+                            self.blocked = isBlocked
+                            self.reported = isReported
+                        } catch {
+                            return
+                        }
                     }
                     self.delegate2?.didReceiveInfo(self, views: viewCount, description: descriptionString, publishdate: publishDate)
                 } else {

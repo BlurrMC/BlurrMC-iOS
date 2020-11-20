@@ -11,11 +11,13 @@ import UIKit
 class ReplyTableViewCell: UITableViewCell {
     
     // MARK: Variables and Properties
-    
     var commentId = Int()
     var indexPath = IndexPath()
     var parentId = Int()
     var delegate: CommentCellDelegate?
+    var name = String()
+    var isReported = Bool()
+    var avatarUrl = String()
     @IBOutlet weak var moreButton: UIImageView!
     @IBOutlet weak var likeNumber: UILabel!
     @IBOutlet weak var likeButton: UIImageView!
@@ -28,15 +30,22 @@ class ReplyTableViewCell: UITableViewCell {
         super.awakeFromNib()
         let moreTap = UITapGestureRecognizer(target: self, action: #selector(self.moreButtonTap(sender:)))
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.likeButtonTap(sender:)))
+        let avatarTap = UITapGestureRecognizer(target: self, action: #selector(self.avatarTap(sender:)))
         likeButton.addGestureRecognizer(tap)
         moreButton.addGestureRecognizer(moreTap)
+        avatar.addGestureRecognizer(avatarTap)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
+    
+    
+    // MARK: Avatar Button Tap Recognizer
+    @objc func avatarTap(sender:UITapGestureRecognizer) {
+        delegate?.cellAvatarTapped(commentId: commentId, indexPath: indexPath, reply: true, name: name, isReported: isReported, avatarUrl: avatarUrl)
+    }
+    
     
     // MARK: More Button Tap Recognizer
     @objc func moreButtonTap(sender:UITapGestureRecognizer) {

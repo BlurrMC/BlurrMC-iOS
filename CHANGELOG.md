@@ -1,5 +1,7 @@
 # Changelog
 ## Unreleased (PRERELEASE)
+* Recording
+    * Fixed bug where camera and microphone would not be requested for recording
 * Search
     * Video
         * Updated thumbnail api url

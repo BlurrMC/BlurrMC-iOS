@@ -569,7 +569,7 @@ extension NextLevel {
         case .arKit:
             fallthrough
         case .movie:
-            fallthrough
+             fallthrough
         case .video:
             let audioStatus = NextLevel.authorizationStatus(forMediaType: AVMediaType.audio)
             let videoStatus = NextLevel.authorizationStatus(forMediaType: AVMediaType.video)

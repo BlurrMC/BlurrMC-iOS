@@ -436,10 +436,10 @@
             </objects>
             <point key="canvasLocation" x="863.20000000000005" y="-1410.9445277361319"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController storyboardIdentifier="UITabBarController" modalPresentationStyle="fullScreen" id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarViewController" modalPresentationStyle="fullScreen" id="49e-Tb-3d3" customClass="MainTabBarViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="qFQ-cf-IkT"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -1776,13 +1776,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="exv-N4-hW9"/>
-        <segue reference="745-eJ-5Gd"/>
+        <segue reference="kHw-nu-gLE"/>
+        <segue reference="xcm-IK-Wan"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="QXk-9R-dne"/>
         <segue reference="Bvt-h1-M8t"/>
         <segue reference="ojZ-HU-szu"/>
-        <segue reference="FcB-cV-4K7"/>
+        <segue reference="8ek-7r-oz7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="12" height="10"/>

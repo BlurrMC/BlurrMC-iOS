@@ -946,7 +946,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     func loadImage(url: URL) {
-      // 1
       let resizedImageRequest = ImageRequest(
         url: url,
         processors: resizedImageProcessors)
@@ -954,11 +953,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         guard let failedImage = ImageLoadingOptions.shared.failureImage else {
           return
         }
-      // 2
+      
       let resizedImagePublisher = ImagePipeline.shared
         .imagePublisher(with: resizedImageRequest)
-
-      // 3
+        
         cancellable = resizedImagePublisher.append(originalImagePublisher)
             .map {
               ($0.image, UIView.ContentMode.scaleAspectFill)

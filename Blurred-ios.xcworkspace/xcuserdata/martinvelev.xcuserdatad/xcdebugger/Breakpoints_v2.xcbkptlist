@@ -1270,8 +1270,8 @@
             filePath = "Blurred-ios/Recording Related Views/RecordViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "stopRecording()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1286,8 +1286,8 @@
             filePath = "Blurred-ios/Recording Related Views/RecordViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "pinch(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1609,6 +1609,22 @@
             startingLineNumber = "458"
             endingLineNumber = "458"
             landmarkName = "showMessage(title:message:alertActionTitle:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E2A53501-9F72-47B8-9378-01137F3E30F7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/NextLevel/Sources/NextLevel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "567"
+            endingLineNumber = "567"
+            landmarkName = "authorizationStatusForCurrentCaptureMode()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

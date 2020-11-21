@@ -70,13 +70,11 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
                 break
             }
         }
-        do {
-            try NextLevel.shared.start()
-        } catch {
-            print("error code: 10al10t929, NextLevel failed to start")
-        }
-        
-        
+        NextLevel.requestAuthorization(forMediaType: AVMediaType.video, completionHandler: {_,_ in
+            NextLevel.requestAuthorization(forMediaType: AVMediaType.audio, completionHandler: {_,_ in
+                try? NextLevel.shared.start()
+            })
+        })
         
     }
     
@@ -90,6 +88,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             NextLevel.shared.previewLayer.frame = previewView.bounds
             previewView.layer.addSublayer(NextLevel.shared.previewLayer)
             let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
+            let flipGesture = UITapGestureRecognizer(target: self, action: #selector(flipVideo))
+            flipGesture.numberOfTapsRequired = 2
+            previewView.addGestureRecognizer(flipGesture)
             previewView.addGestureRecognizer(pinchRecognizer)
             previewView.isUserInteractionEnabled = true
             self.view.insertSubview(previewView, at: 1)
@@ -99,6 +100,10 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     
     // MARK: Flip Camera Button Press
     @IBAction func flipCamera(_ sender: Any) {
+        flipVideo()
+    }
+    
+    @objc func flipVideo() {
         try? self.myValet.setString("\(usingFrontCamera)", forKey: "frontCamera")
         NextLevel.shared.flipCaptureDevicePosition()
     }

@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if accessToken != nil && userId != nil {
             let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             self.window =  UIWindow(frame: UIScreen.main.bounds)
-            let homePage = storyboard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+            let homePage = storyboard.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
             self.window?.rootViewController = homePage
             self.window?.makeKeyAndVisible()
             self.isItLoading = true

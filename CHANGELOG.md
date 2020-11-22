@@ -1,5 +1,7 @@
 # Changelog
 ## Unreleased (PRERELEASE)
+* Tab bar
+    * Added avatar in tab bar
 * Recording
     * Fixed bug where camera and microphone would not be requested for recording
 * Search

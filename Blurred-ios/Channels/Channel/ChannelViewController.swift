@@ -10,17 +10,18 @@ import UIKit
 import Valet
 import Nuke
 import Alamofire
+import AlamofireImage
 
 class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource {
     
     // MARK: Constants
     private let refreshControl = UIRefreshControl()
-    let imageCache = NSCache<NSString, UIImage>()
-    
+    var documentsUrl: URL {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
     
     // MARK: Variables
     private var videos = [Video]()
-
     
     // MARK: Collectionview
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -167,10 +168,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let tapp = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.tappFunction))
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
+        self.avatarImage.contentScaleFactor = 1.5
         loadMemberChannel()
         channelVideoIds()
-        self.avatarImage.contentScaleFactor = 1.5
-        // Setup the view so you can integerate it right away with the channel api.
     }
     
     
@@ -276,10 +276,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         ImageCache.shared.countLimit = 100
         ImageCache.shared.ttl = 120
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
-        if let avatarUrl: String  = try? myValet.string(forKey: "avatar url") {
-            guard let url = URL(string: avatarUrl) else { return }
+        if let image = self.retrieveImage(forKey: "Avatar") {
             DispatchQueue.main.async {
-                Nuke.loadImage(with: url, into: self.avatarImage)
+                self.avatarImage.image = image
             }
         }
         guard let Id = Int(userId) else { return }
@@ -368,10 +367,18 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                                 self.followingLabel.text = "\(followingCount)"
                             }
                         }
-                        DispatchQueue.main.async {
-                            Nuke.loadImage(with: railsUrl, into: self.avatarImage)
-                            try? self.myValet.setString("\(railsUrl)", forKey: "avatar url for \(userId)")
+                        AF.request(railsUrl).responseImage { response in
+                            if case .success(let image) = response.result {
+                                let preImage = image.af.imageScaled(to: CGSize(width: 30, height: 30))
+                                let postImage = preImage.af.imageRounded(withCornerRadius: 15)
+                                DispatchQueue.main.async {
+                                    self.tabBarItem.image = postImage.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+                                    self.avatarImage.image = image
+                                }
+                                self.store(image: image, forKey: "Avatar")
+                            }
                         }
+                        try? self.myValet.setString("\(railsUrl)", forKey: "avatar url for \(userId)")
                     } else {
                         return
                     }
@@ -380,6 +387,41 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 }
             }
             task.resume()
+    }
+    
+    
+    // MARK: Load avatar for quicker access
+    private func retrieveImage(forKey key: String) -> UIImage? {
+        if let filePath = self.filePath(forKey: key),
+           let fileData = FileManager.default.contents(atPath: filePath.path),
+           let image = UIImage(data: fileData) {
+            return image
+        }
+        print("error code: 0fmviq940ckc9rka93d")
+        return nil
+    }
+    
+    
+    // MARK: Store avatar to be used for tab bar
+    private func store(image: UIImage, forKey key: String) {
+        if let pngRepresentation = image.pngData() {
+            if let filePath = filePath(forKey: key) {
+                do  {
+                    try pngRepresentation.write(to: filePath, options: .atomic)
+                    
+                } catch let err {
+                    print("Saving file resulted in error: ", err)                
+                }
+            }
+        }
+    }
+    
+    private func filePath(forKey key: String) -> URL? {
+        let fileManager = FileManager.default
+        guard let documentURL = fileManager.urls(for: .documentDirectory,
+                                                in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
+        
+        return documentURL.appendingPathComponent(key + ".png")
     }
 
     
@@ -423,7 +465,11 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             avatarImage.image = image
+            let preImage = image.resize(targetSize: CGSize(width: 30, height: 30))
+            let postImage = preImage.af.imageRounded(withCornerRadius: 15)
+            self.tabBarItem.image = postImage.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
             upload()
+            self.store(image: image, forKey: "Avatar")
         } 
         self.dismiss(animated: true, completion: nil)
     }

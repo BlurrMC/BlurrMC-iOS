@@ -1,5 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework
 ${BUILT_PRODUCTS_DIR}/NextLevel/NextLevel.framework
 ${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework
 ${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework

@@ -15,8 +15,16 @@ import Alamofire
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    public var isItLoading: Bool = false
+    var documentsUrl: URL {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
+    
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
+    
+    
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
 
         do {
@@ -25,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("AVAudioSessionCategoryPlayback not work")
         }
     }
+    
+    
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
         /*
@@ -69,8 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    public var isItLoading: Bool = false
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
         let userId: String? = try? myValet.string(forKey: "Id")
@@ -79,15 +87,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window =  UIWindow(frame: UIScreen.main.bounds)
             let homePage = storyboard.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
             self.window?.rootViewController = homePage
-            self.window?.makeKeyAndVisible()
-            self.isItLoading = true
-            return true
+            return finishLoadingHomepage()
         }
         registerForPushNotifications()
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 50
         return true
     }
+    
+    // MARK: Finish loading homepage
+    func finishLoadingHomepage() -> Bool {
+        self.window?.makeKeyAndVisible()
+        self.isItLoading = true
+        registerForPushNotifications()
+        return true
+    }
+    
     
     // MARK: Register For Notifications
     func registerForPushNotifications() {

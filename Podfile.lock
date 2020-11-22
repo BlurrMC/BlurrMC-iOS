@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (5.4.0)
+  - AlamofireImage (4.1.0):
+    - Alamofire (~> 5.1)
   - NextLevel (0.16.4)
   - Nuke (9.1.3)
   - PINCache (3.0.3):
@@ -41,6 +43,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - AlamofireImage
   - NextLevel
   - Nuke
   - PINCache
@@ -50,6 +53,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AlamofireImage
     - NextLevel
     - Nuke
     - PINCache
@@ -60,6 +64,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
+  AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
   NextLevel: f84ecba5c546a87e245809e0523ef3a24897323b
   Nuke: ee78dff29ad68cfd70a292a7960952f72cc6af6a
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
@@ -68,6 +73,6 @@ SPEC CHECKSUMS:
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   Valet: 11ab0e318b7284888a81392e36136563b4af5deb
 
-PODFILE CHECKSUM: 601e841b53aec588a732994acfafbf4bec26c0f2
+PODFILE CHECKSUM: b37f5a50341eb4754514543ce24ee3609c814802
 
 COCOAPODS: 1.10.0

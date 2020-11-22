@@ -447,6 +447,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
+                        <outlet property="mainTabBar" destination="W28-zg-YXA" id="PMG-X8-jVO"/>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="HAw-tc-kVG"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="1vN-3D-2eq"/>
                         <segue destination="bMe-qO-UEv" kind="relationship" relationship="viewControllers" id="Bv2-bB-TQM"/>
@@ -1776,6 +1777,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Bv2-bB-TQM"/>
         <segue reference="kHw-nu-gLE"/>
         <segue reference="xcm-IK-Wan"/>
         <segue reference="rna-Y0-bYD"/>

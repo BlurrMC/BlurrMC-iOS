@@ -7,11 +7,41 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class MainTabBarViewController: UITabBarController {
+    
+    @IBOutlet weak var mainTabBar: UITabBar!
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let image = self.retrieveImage(forKey: "Avatar") {
+            let preImage = image.resize(targetSize: CGSize(width: 30, height: 30))
+            let postImage = preImage.af.imageRounded(withCornerRadius: 15)
+            
+            self.viewControllers?[4].tabBarItem.image = postImage.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        }
+    }
+    
+    // MARK: Load avatar for tab bar
+    private func retrieveImage(forKey key: String) -> UIImage? {
+        if let filePath = self.filePath(forKey: key),
+           let fileData = FileManager.default.contents(atPath: filePath.path),
+           let image = UIImage(data: fileData) {
+            return image
+        }
+        print("error code: 0fmviq940ckc9rka93d")
+        return nil
+    }
+    
+    private func filePath(forKey key: String) -> URL? {
+        let fileManager = FileManager.default
+        guard let documentURL = fileManager.urls(for: .documentDirectory,
+                                                in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
+        
+        return documentURL.appendingPathComponent(key + ".png")
     }
     
 
@@ -24,5 +54,14 @@ class MainTabBarViewController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+extension UIImage {
+
+    func resize(targetSize: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size:targetSize).image { _ in
+            self.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+    }
 
 }

@@ -253,7 +253,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 // Display only user channels and only query for channels
             }
         } else {
-            searchString = searchBarTextField.text ?? ""
+            let search = searchBarTextField.text
+            let replaceHashtags = search?.replacingOccurrences(of: "#", with: "%23", options: .regularExpression)
+            searchString = replaceHashtags ?? ""
             isItUserSearch = false
             DispatchQueue.main.async {
                 self.tableView.isHidden = true
@@ -267,32 +269,34 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     // MARK: Submit the user's search query + loads the results
     func search() {
         // Contact api to search the query
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/search/?search=\(searchBarTextField.text!)")  // 23:40
-            guard let downloadURL = url else { return }
-            URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-                guard let data = data, error == nil, urlResponse != nil else {
-                    return
+        let search = searchBarTextField.text
+        guard let replaceHashtags = search?.replacingOccurrences(of: "#", with: "%23", options: .regularExpression) else { return }
+        let url = URL(string: "http://10.0.0.2:3000/api/v1/search/?search=\(replaceHashtags)")  // 23:40
+        guard let downloadURL = url else { return }
+        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
+            guard let data = data, error == nil, urlResponse != nil else {
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let downloadedResults = try decoder.decode(Users.self, from: data)
+                self.videos = downloadedResults.videosearchresults
+                self.users = downloadedResults.searchresults
+                if self.isItUserSearch == false {
+                    DispatchQueue.main.async {
+                        self.videoTableView.reloadData()
+                        self.refreshControl.endRefreshing()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.refreshControl.endRefreshing()
+                    }
                 }
-                do {
-                    let decoder = JSONDecoder()
-                    let downloadedResults = try decoder.decode(Users.self, from: data)
-                    self.videos = downloadedResults.videosearchresults
-                    self.users = downloadedResults.searchresults
-                    if self.isItUserSearch == false {
-                            DispatchQueue.main.async {
-                                self.videoTableView.reloadData()
-                                self.refreshControl.endRefreshing()
-                            }
-                        } else {
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                                self.refreshControl.endRefreshing()
-                            }
-                        }
-                } catch {
-                    return
-                }
-            }.resume()
+            } catch {
+                return
+            }
+        }.resume()
     }
     
     

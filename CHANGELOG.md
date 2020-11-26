@@ -7,6 +7,7 @@
 * Search
     * Video
         * Updated thumbnail api url
+        * Added support for hashtag searching
 * Images
     * Added better caching
 * Channels

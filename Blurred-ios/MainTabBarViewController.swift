@@ -23,6 +23,8 @@ class MainTabBarViewController: UITabBarController {
             
             self.viewControllers?[4].tabBarItem.image = postImage.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         }
+        // self.viewControllers?[3].tabBarItem.badgeValue = "3"
+        
     }
     
     // MARK: Load avatar for tab bar

@@ -227,7 +227,8 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         var likeId: Int?
         var reported: Bool
         var comment_is_editable: Bool
-        init(created_by: String, likes: Int, body: String, id: Int, reply: Bool, time_since_creation: String, liked: Bool, parent_id: Int, replies: [Comment], likeId: Int, reported: Bool, comment_is_editable: Bool) {
+        var edited: Bool
+        init(created_by: String, likes: Int, body: String, id: Int, reply: Bool, time_since_creation: String, liked: Bool, parent_id: Int, replies: [Comment], likeId: Int, reported: Bool, comment_is_editable: Bool, edited: Bool) {
             self.id = id
             self.reply = reply
             self.time_since_creation = time_since_creation
@@ -244,6 +245,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
             self.reported = reported
             self.likeId = likeId
             self.comment_is_editable = comment_is_editable
+            self.edited = edited
         }
     }
     
@@ -898,6 +900,9 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
             let usernameComment = comment.created_by
             cell.delegate = self
             cell.comment.text = comment.body // Add handling if comment is over a certain number of characters
+            if comment.edited == true {
+                cell.comment.text = comment.body + " (edited)"
+            }
             cell.indexPath = indexPath
             cell.commentUsername.text = usernameComment
             let likeNumber = comment.likes
@@ -952,6 +957,9 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
             guard let reply = comments[indexPath.section].replies?[dataIndex] else { return cell }
             cell.delegate = self
             cell.comment.text = reply.body
+            if reply.edited == true {
+                cell.comment.text = reply.body + " (edited)"
+            }
             cell.parentId = reply.parent_id
             cell.commentId = reply.id
             cell.indexPath = indexPath

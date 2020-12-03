@@ -1,5 +1,8 @@
 # Changelog
 ## Unreleased (PRERELEASE)
+* Settings
+    * Sign out
+        * Local avatar will be removed when user signs out
 * Tab bar
     * Added avatar in tab bar
 * Recording
@@ -26,6 +29,7 @@
     * Fixed bug where index out of range would be thrown
     * Fixed bug that addresses throttling of all liking/disliking comments.
     * Tap on avatar to go to user's channel
+    * Added (edited) to end of comment if comment is edited
 * UI Tests
     * Updated method that tested the app launch time.
 * Authentication

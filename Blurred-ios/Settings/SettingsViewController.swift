@@ -60,6 +60,7 @@ class SettingsViewController: UIViewController {
         try? tokenValet.removeObject(forKey: "Token")
         try? myValet.removeAllObjects()
         try? tokenValet.removeAllObjects()
+        self.removeFilePath(forKey: "Avatar")
         if #available(iOS 13.0, *) {
             let signInPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
             let appDelegate = UIApplication.shared.delegate
@@ -67,6 +68,20 @@ class SettingsViewController: UIViewController {
         } else {
             let homePage = AuthenticateViewController()
             self.present(homePage, animated:true, completion:nil)
+        }
+        
+    }
+    
+    
+    // MARK: File Path For Avatar
+    private func removeFilePath(forKey key: String) {
+        let fileManager = FileManager.default
+        guard let documentURL = fileManager.urls(for: .documentDirectory,
+                                                in: FileManager.SearchPathDomainMask.userDomainMask).first else { return }
+        do {
+            try fileManager.removeItem(at: documentURL.appendingPathComponent(key + ".png"))
+        } catch {
+            print("error code: 0cjs943, error: \(error)")
         }
         
     }

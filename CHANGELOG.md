@@ -1,5 +1,7 @@
 # Changelog
 ## Unreleased (PRERELEASE)
+* U.I.
+    * This version of U.I. has been updated for iPhone 12 mini (from iPhone 6s)
 * Settings
     * Sign out
         * Local avatar will be removed when user signs out

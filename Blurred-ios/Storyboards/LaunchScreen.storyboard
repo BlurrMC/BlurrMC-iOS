@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,18 +13,18 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="header5" translatesAutoresizingMaskIntoConstraints="NO" id="CLt-rm-P3P">
-                                <rect key="frame" x="-726" y="-258.5" width="1920" height="1080"/>
+                                <rect key="frame" x="-726" y="-186" width="1920" height="1080"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1080" id="D8b-kC-oOI"/>
                                     <constraint firstAttribute="width" constant="1920" id="rFg-bG-tjn"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Blurr_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="7JJ-S6-zcp">
-                                <rect key="frame" x="39" y="206.5" width="297" height="254"/>
+                                <rect key="frame" x="39" y="279" width="297" height="254"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="254" id="beU-aa-GG1"/>
                                     <constraint firstAttribute="width" constant="297" id="fQQ-uh-oTS"/>
@@ -43,14 +44,14 @@
                                 </variation>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="CLt-rm-P3P" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" constant="46.5" id="Kab-FF-lBs"/>
                             <constraint firstItem="CLt-rm-P3P" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-52" id="T5p-bl-KYb"/>
                             <constraint firstItem="7JJ-S6-zcp" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="W63-Vk-FBQ"/>
                             <constraint firstItem="7JJ-S6-zcp" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="dz1-6t-CRW"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -61,5 +62,8 @@
     <resources>
         <image name="Blurr_Logo" width="479" height="356"/>
         <image name="header5" width="1920" height="1080"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

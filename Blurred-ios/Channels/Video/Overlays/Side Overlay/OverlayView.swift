@@ -189,9 +189,10 @@ class ChannelVideoOverlayView: UIView {
         ]
         let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/didyoulikeit/")
         AF.request(URL.init(string: url)!, method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            guard let data = response.data else { return }
             var JSON: [String: Any]?
             do {
-                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 let status = JSON!["status"] as? String
                 if status == "This video is liked." {
                     self.isVideoLiked = true

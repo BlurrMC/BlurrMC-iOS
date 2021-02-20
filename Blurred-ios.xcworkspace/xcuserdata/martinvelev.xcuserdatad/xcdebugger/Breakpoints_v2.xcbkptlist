@@ -1320,8 +1320,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "587"
             endingLineNumber = "587"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "likeButtonTapped(commentId:indexPath:reply:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1336,8 +1336,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "588"
             endingLineNumber = "588"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "likeButtonTapped(commentId:indexPath:reply:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1352,8 +1352,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "599"
             endingLineNumber = "599"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "changeLikeCount(likeNumber:indexPath:reply:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1368,8 +1368,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "713"
             endingLineNumber = "713"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "sendLikeRequest(commentId:cell:indexPath:reply:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "493629DB-BB02-4A21-A329-B1A80F96AE9B - b06b33079162b427"
@@ -1416,8 +1416,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "711"
             endingLineNumber = "711"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "sendLikeRequest(commentId:cell:indexPath:reply:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1432,8 +1432,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "832"
             endingLineNumber = "832"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "6BEE81FC-829D-4B1F-BF89-4807E9FBCA41 - 1eeff2ff4d7fa7af"
@@ -1480,8 +1480,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "839"
             endingLineNumber = "839"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1496,8 +1496,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "848"
             endingLineNumber = "848"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1512,8 +1512,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "854"
             endingLineNumber = "854"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1528,8 +1528,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "849"
             endingLineNumber = "849"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1544,8 +1544,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "838"
             endingLineNumber = "838"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "7B1D7C39-1864-4D80-BBC0-7FFEC4C0105F - 1eeff2ff4d7fa6e5"
@@ -1592,8 +1592,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "203"
             endingLineNumber = "203"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "submitComment(reply:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

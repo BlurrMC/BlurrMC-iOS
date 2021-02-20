@@ -249,7 +249,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                     self.tableNode.scrollToRow(at: pathTotRow, at: .none, animated: false)
                 }
             } catch {
-                print("error code: 1kzka0aww3-2")
+                print("error code: 1kzka0aww3-2, controller: channelvideoview, error: \(error)")
                 print("\(self.channelId)")
                 return
             }

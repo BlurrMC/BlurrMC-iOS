@@ -45,12 +45,12 @@ class ChannelVideoOverlayView: UIView {
         switch isVideoLiked {
         case true:
             DispatchQueue.main.async {
-                self.videoLike.image = UIImage(systemName: "heart.fill")
+                UIView.transition(with: self.videoLike, duration: 0.5, options: .transitionFlipFromRight, animations: { self.videoLike.image = UIImage(systemName: "heart.fill") } ,completion: nil)
                 self.videoLike.tintColor = UIColor.systemRed
             }
         case false:
             DispatchQueue.main.async {
-                self.videoLike.image = UIImage(systemName: "heart")
+                UIView.transition(with: self.videoLike, duration: 0.5, options: .transitionFlipFromRight, animations: { self.videoLike.image = UIImage(systemName: "heart") } ,completion: nil)
                 self.videoLike.tintColor = UIColor.lightGray
             }
         }

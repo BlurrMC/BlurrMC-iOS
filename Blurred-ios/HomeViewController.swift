@@ -104,7 +104,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                     self.tableNode.reloadData()
                 }
             } catch {
-                print("error code: 1kasfio23uena")
+                print("error code: 1kasfio23uena, controller: homeview, error: \(error)")
                 return
             }
         }
@@ -214,8 +214,15 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     // MARK: Styling for table node
     func applyStyle() {
-        self.tableNode.view.separatorStyle = .none
-        self.tableNode.view.isPagingEnabled = true
+        let tableView = self.tableNode.view
+        let margins = view.layoutMarginsGuide
+        tableView.separatorStyle = .none
+        tableView.isPagingEnabled = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 0).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 0).isActive = true
+        tableView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 0).isActive = true
     }
     
     // MARK: Delegates for table node
@@ -379,7 +386,7 @@ extension HomeViewController: ASTableDelegate {
                     }
                 }
             } catch {
-                print("error code: 1kzka0aww3-2")
+                print("error code: g09an242, controller: homeview, error: \(error)")
                 return
             }
         }, failure: { (error) -> Void in

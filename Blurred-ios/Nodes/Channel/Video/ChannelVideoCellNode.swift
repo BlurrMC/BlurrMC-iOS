@@ -34,8 +34,10 @@ class ChannelVideoCellNode: ASCellNode {
             overlay.videoId = videoId
             overlay.videoUrl = videoUrl
             overlay.delegate = self.delegate
-            overlay.frame = CGRect(x: 329, y: 284, width: 40, height: 239)
             self.view.addSubview(overlay)
+            overlay.translatesAutoresizingMaskIntoConstraints = false
+            overlay.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 5).isActive = true
+            overlay.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
             DispatchQueue.global(qos: .default).async {
                 switch doesParentHaveTabBar {
                 case true:

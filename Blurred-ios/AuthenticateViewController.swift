@@ -122,7 +122,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                             DispatchQueue.main.async {
                                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "UITabBarController") as! UITabBarController
+                                guard let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarViewController") as? UITabBarController else { return } /// Using segue would be better, but I don't have time to change that. It's 8:55 pm. Too bad!
                                 self.present(nextViewController, animated: true, completion: nil)
                             }
                         }

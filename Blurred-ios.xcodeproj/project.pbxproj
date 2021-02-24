@@ -32,6 +32,7 @@
 		E1477EB22548C64C006A3008 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1477EB12548C64C006A3008 /* ReplyTableViewCell.swift */; };
 		E15D6FC224BA5DCD00CC1E0E /* CommentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */; };
 		E15D6FC424BA5E3F00CC1E0E /* CommentBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */; };
+		E179F01525E4AB5A003E14F2 /* ColorHexConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */; };
 		E17C5EF824E6A99000D1E079 /* OverlayViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */; };
 		E181026A25682A3200CA4522 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181026925682A3200CA4522 /* MainTabBarViewController.swift */; };
 		E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */; };
@@ -104,6 +105,7 @@
 		E1477EB12548C64C006A3008 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
 		E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentingViewController.swift; sourceTree = "<group>"; };
 		E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentBoard.storyboard; sourceTree = "<group>"; };
+		E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHexConverter.swift; sourceTree = "<group>"; };
 		E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewDelegate.swift; sourceTree = "<group>"; };
 		E181026925682A3200CA4522 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoViewController.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 		E1DF6F68244F550300E11BF9 /* Blurred-ios */ = {
 			isa = PBXGroup;
 			children = (
+				E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */,
 				E196F5F224A8D589001BE742 /* Cells */,
 				E196F5F424A8D5E4001BE742 /* Channels */,
 				590D20AB24EDAEA300109359 /* Nodes */,
@@ -726,6 +729,7 @@
 				E146ACF9247441F100D3ED10 /* OtherFollowingCell.swift in Sources */,
 				E1BA897824E18CDC0015C546 /* OverlayView.swift in Sources */,
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
+				E179F01525E4AB5A003E14F2 /* ColorHexConverter.swift in Sources */,
 				E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */,
 				E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */,
 				E139B92B24E871DF0035901E /* Throttler.swift in Sources */,

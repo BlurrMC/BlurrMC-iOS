@@ -14,14 +14,13 @@ import AlamofireImage
 
 class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource {
     
-    // MARK: Constants
-    private let refreshControl = UIRefreshControl()
+    // MARK: Variables & Constants
+    private var videos = [Video]()
     var documentsUrl: URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
-    
-    // MARK: Variables
-    private var videos = [Video]()
+    private let refreshControl = UIRefreshControl()
+    let generator = UIImpactFeedbackGenerator(style: .light)
     
     // MARK: Collectionview
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -100,7 +99,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         return cell
     }
     
-    
     func collectionView(CollectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
         let destinationVC = ChannelVideoViewController()
@@ -152,12 +150,17 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let lineView = UIView(frame: CGRect(x: 0, y: 240, width: self.view.frame.size.width, height: 1))
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
+            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
+            self.collectionView.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
+            self.view.backgroundColor = UIColor(hexString: "#141414")
+            self.collectionView.backgroundColor = UIColor(hexString: "#141414")
             lineView.backgroundColor = UIColor.white
         }
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshVideos(_:)), for: .valueChanged)
         self.view.addSubview(lineView)
+        lineView.centerYAnchor.constraint(equalTo: self.bioLabel.bottomAnchor, constant: 30).isActive = true // Leave more space in between the profile and this bar and the collection view!!! (oh and this is some feedback from my mom)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
         avatarImage.isUserInteractionEnabled = true
         ImageCache.shared.ttl = 120
@@ -171,6 +174,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         self.avatarImage.contentScaleFactor = 1.5
         loadMemberChannel()
         channelVideoIds()
+        generator.prepare()
+        self.avatarImage.layer.cornerRadius = self.avatarImage.frame.height / 2
+        self.navigationItem.title = "My Channel"
     }
     
     
@@ -185,6 +191,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     // MARK: Refresh the videos
     @objc private func refreshVideos(_ sender: Any) {
         channelVideoIds()
+        self.generator.impactOccurred()
     }
     
     
@@ -517,7 +524,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 self.takePicture()
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-
+        self.generator.impactOccurred()
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }

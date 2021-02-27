@@ -9,6 +9,7 @@
 import UIKit
 
 class ChannelVideoCell: UICollectionViewCell {
+    
     @IBOutlet weak var thumbnailView: UIImageView!
     @IBOutlet weak var likeCount: UILabel!
     
@@ -19,4 +20,5 @@ class ChannelVideoCell: UICollectionViewCell {
         isSelected = false
         isHighlighted = false
     }
+
 }

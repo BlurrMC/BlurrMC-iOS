@@ -21,6 +21,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     private let refreshControl = UIRefreshControl()
     let generator = UIImpactFeedbackGenerator(style: .light)
+    var timesVideoReloaded = Int()
     
     // MARK: Collectionview
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -147,7 +148,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     // MARK: View did load
     override func viewDidLoad() {
         super.viewDidLoad()
-        let lineView = UIView(frame: CGRect(x: 0, y: 240, width: self.view.frame.size.width, height: 1))
+        let lineView = UIView()
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
@@ -160,7 +161,10 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshVideos(_:)), for: .valueChanged)
         self.view.addSubview(lineView)
-        lineView.centerYAnchor.constraint(equalTo: self.bioLabel.bottomAnchor, constant: 30).isActive = true // Leave more space in between the profile and this bar and the collection view!!! (oh and this is some feedback from my mom)
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        lineView.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
+        lineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        lineView.centerYAnchor.constraint(equalTo: self.bioLabel.bottomAnchor, constant: 15).isActive = true // Leave more space in between the profile and this bar and the collection view!!! (this is some feedback from my mom) (update: this is literally breaking the bio)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
         avatarImage.isUserInteractionEnabled = true
         ImageCache.shared.ttl = 120
@@ -171,12 +175,30 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let tapp = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.tappFunction))
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
-        self.avatarImage.contentScaleFactor = 1.5
+        self.avatarImage.contentScaleFactor = 1.5 // WHy does IT LOOKS SO BAD
         loadMemberChannel()
         channelVideoIds()
         generator.prepare()
-        self.avatarImage.layer.cornerRadius = self.avatarImage.frame.height / 2
+        self.avatarImage.layer.cornerRadius = (self.avatarImage.frame.height + self.avatarImage.frame.width) / 4
         self.navigationItem.title = "My Channel"
+    }
+    
+    // MARK: Video reload timer
+    func videoReloadTimer(invalidate: Bool) {
+        Timer.scheduledTimer(withTimeInterval: 25.0, repeats: true, block: { timer in
+            if invalidate == true {
+                timer.invalidate()
+            } else {
+                self.channelVideoIds()
+            }
+        })
+    }
+    
+    
+    // MARK: View Will Disappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        self.videoReloadTimer(invalidate: false)
     }
     
     
@@ -184,7 +206,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadMemberChannel()
-        channelVideoIds()
+        self.videoReloadTimer(invalidate: true)
     }
     
     
@@ -315,6 +337,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                             DispatchQueue.main.async {
                                 self.bioLabel.text = String("")
                             }
+                            print("error code: 19vfana9as, issue: There is no bio")
                         }
                         if username?.isEmpty != true && name?.isEmpty != true {
                             DispatchQueue.main.async {

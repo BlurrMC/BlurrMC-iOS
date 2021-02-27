@@ -20,6 +20,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
     var followerVar = String()
     private var followers = [Follower]()
     var followerId = String()
+    var userIsSelf = Bool()
     
     
     // MARK: Valet
@@ -53,6 +54,12 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         ImageLoadingOptions.shared.failureImage = UIImage(named: "load-image")
         ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.25)
         DataLoader.sharedUrlCache.diskCapacity = 0
+        switch userIsSelf {
+        case true:
+            self.navigationItem.title = "My Followers"
+        case false:
+            self.navigationItem.title = "@" + self.followerVar + "'s Followers"
+        }
     }
     
     

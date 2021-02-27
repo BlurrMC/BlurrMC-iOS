@@ -1638,8 +1638,8 @@
             filePath = "Blurred-ios/Channels/Channel/ChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>

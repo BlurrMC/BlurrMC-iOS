@@ -131,9 +131,11 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         case is OtherFollowerListViewController:
             let vc = segue.destination as? OtherFollowerListViewController
             vc?.followerVar = userId
+            vc?.userIsSelf = true
         case is OtherFollowListViewController:
             let vc = segue.destination as? OtherFollowListViewController
             vc?.followingVar = userId
+            vc?.userIsSelf = true
         default:
             break
         }

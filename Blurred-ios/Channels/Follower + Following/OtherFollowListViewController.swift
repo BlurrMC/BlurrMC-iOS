@@ -5,6 +5,7 @@
 //  Created by Martin Velev on 5/19/20.
 //  Copyright © 2020 BlurrMC. All rights reserved.
 //
+// This could probably get merged with otherfollowerlist (or vice versa) and add a bool or something to switch between follower and following.
 
 import UIKit
 import Valet
@@ -15,6 +16,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
     // MARK: Variables
     var followingVar = String()
     private var followings = [Following]()
+    var userIsSelf = Bool()
     
     
     // MARK: Valet
@@ -53,6 +55,12 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
         ImageLoadingOptions.shared.failureImage = UIImage(named: "load-image")
         ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.25)
         DataLoader.sharedUrlCache.diskCapacity = 0
+        switch userIsSelf {
+        case true:
+            self.navigationItem.title = "My Follows"
+        case false:
+            self.navigationItem.title = "@" + self.followingVar + "'s Follows"
+        }
     }
     
     

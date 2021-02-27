@@ -5,6 +5,7 @@
 //  Created by Martin Velev on 5/19/20.
 //  Copyright © 2020 BlurrMC. All rights reserved.
 //
+// This controller should probably get merged with ChannelViewController, honestly pretty dumb, but I don't currently have the time to merge this crap.
 
 import UIKit
 import Nuke
@@ -33,6 +34,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     var segueName: String?
     var segueFollowerCount: String?
     var segueBio: String?
+    var timesReload = Int()
     
     
     // MARK: Valet
@@ -329,10 +331,19 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         followingLabel.addGestureRecognizer(tapp)
         loadMemberChannel()
         channelVideoIds()
-        let lineView = UIView(frame: CGRect(x: 0, y: 240, width: self.view.frame.size.width, height: 1  ))
+        let lineView = UIView()
+        self.view.addSubview(lineView)
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        lineView.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
+        lineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        lineView.centerYAnchor.constraint(equalTo: self.bioLabel.bottomAnchor, constant: 15).isActive = true
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
+            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
+            self.collectionView.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
+            self.view.backgroundColor = UIColor(hexString: "#141414")
+            self.collectionView.backgroundColor = UIColor(hexString: "#141414")
             lineView.backgroundColor = UIColor.white
         }
         self.avatarImage.contentScaleFactor = 1.5
@@ -345,6 +356,25 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         ImageLoadingOptions.shared.failureImage = UIImage(named: "load-image")
         ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.2)
         DataLoader.sharedUrlCache.diskCapacity = 0
+        guard let username = self.segueUsername else { return }
+        self.navigationItem.title = "@" + username
+    }
+    
+    
+    // MARK: Video reload timer
+    func videoReloadTimer(invalidate: Bool) {
+        Timer.scheduledTimer(withTimeInterval: 25.0, repeats: true, block: { timer in
+            if invalidate == true {
+                timer.invalidate()
+            } else {
+                if self.timesReload <= 5 {
+                    self.channelVideoIds()
+                    self.timesReload = self.timesReload + 1
+                } else {
+                    timer.invalidate()
+                }
+            }
+        })
     }
     
     
@@ -362,6 +392,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 button.isHidden = true
             }
         }
+        self.videoReloadTimer(invalidate: false)
     }
     
     
@@ -370,9 +401,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         super.viewWillAppear(true)
         loadSegueInfo()
         loadMemberChannel()
-        channelVideoIds()
         checkForFollowing()
         checkIfOtherUserIsCurrentUser()
+        self.videoReloadTimer(invalidate: true)
     }
     
     
@@ -744,9 +775,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
-                    let username: String? = parseJSON["username"] as? String
-                    self.channelUsername = username!
-                    let name: String? = parseJSON["name"] as? String
+                    guard let username: String = parseJSON["username"] as? String else { return }
+                    self.channelUsername = username
+                    self.navigationItem.title = "@" + username
+                    guard let name: String = parseJSON["name"] as? String else { return }
                     let imageUrl: String? = parseJSON["avatar_url"] as? String // Forgot to change to the new api here
                     guard let followerCount: Int = parseJSON["followers_count"] as? Int else { return }
                     guard let followingCount: Int = parseJSON["following_count"] as? Int else { return }
@@ -756,25 +788,13 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                     DispatchQueue.main.async {
                         self.reportButton.isHidden = true
                     }
-                    let bio: String? = parseJSON["bio"] as? String
+                    guard let bio: String = parseJSON["bio"] as? String else { return }
                     guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
-                        if bio?.isEmpty != true {
-                            DispatchQueue.main.async {
-                                self.bioLabel.text = bio ?? ""
-                            }
-                        } else {
-                            DispatchQueue.main.async {
-                                self.bioLabel.text = String("")
-                            }
-                        }
-                        if username?.isEmpty != true && name?.isEmpty != true {
-                            DispatchQueue.main.async {
-                                self.usernameLabel.text = username ?? ""
-                                self.nameLabel.text = name ?? ""
-                            }
-                        } else {
-                            return
-                        }
+                    DispatchQueue.main.async {
+                        self.usernameLabel.text = username
+                        self.nameLabel.text = name
+                        self.bioLabel.text = bio
+                    }
                     switch isBlocked {
                     case true:
                         DispatchQueue.main.async {
@@ -806,7 +826,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                         }
                     default:
                         DispatchQueue.main.async {
-                            self.followersLabel.text = "\(followerCount )"
+                            self.followersLabel.text = "\(followerCount)"
                         }
                     }
                     switch followingCount {
@@ -881,36 +901,37 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Segue Info
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.destination is OtherFollowerListViewController
-        {
-            if let vc = segue.destination as? OtherFollowerListViewController {
-                if segue.identifier == "showOtherFollower" {
-                    vc.followerVar = channelUsername
+        switch segue.destination {
+        case is OtherFollowerListViewController:
+            let vc = segue.destination as? OtherFollowerListViewController
+            if segue.identifier == "showOtherFollower" {
+                vc?.followerVar = channelUsername
+                vc?.userIsSelf = false
+            }
+        case is OtherFollowListViewController:
+            let vc = segue.destination as? OtherFollowListViewController
+            if segue.identifier == "showOtherFollowing" {
+                vc?.followingVar = channelUsername
+                vc?.userIsSelf = false
+            }
+        case is ChannelVideoViewController:
+            let vc = segue.destination as? ChannelVideoViewController
+            if segue.identifier == "showOtherVideo" {
+                if let indexPath = collectionView?.indexPathsForSelectedItems?.first { /// Come on! There has to be a better way than two consecutive if statements
+                    let selectedRow = indexPath.row
+                    vc?.videoString = videos[selectedRow].id
+                    vc?.channelId = chanelVar
+                    vc?.rowNumber = indexPath.item
+                    vc?.isItFromSearch = false
+                }
+            } else if segue.identifier == "showOtherVideoo" { /// Are you serious? What is this segue name
+                if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+                    let selectedRow = indexPath.row
+                    vc?.videoString = videos[selectedRow].id
                 }
             }
-        } else if segue.destination is OtherFollowListViewController {
-            if let vc = segue.destination as? OtherFollowListViewController {
-                if segue.identifier == "showOtherFollowing" {
-                    vc.followingVar = channelUsername
-                }
-            }
-        } else if segue.destination is ChannelVideoViewController {
-            if let vc = segue.destination as? ChannelVideoViewController {
-                if segue.identifier == "showOtherVideo" {
-                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
-                        let selectedRow = indexPath.row
-                        vc.videoString = videos[selectedRow].id
-                        vc.channelId = chanelVar
-                        vc.rowNumber = indexPath.item
-                        vc.isItFromSearch = false
-                    }
-                } else if segue.identifier == "showOtherVideoo" {
-                    if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
-                        let selectedRow = indexPath.row
-                        vc.videoString = videos[selectedRow].id
-                    }
-                }
-            }
+        default:
+            break
         }
     }
     

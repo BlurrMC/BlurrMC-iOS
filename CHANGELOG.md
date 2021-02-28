@@ -1,7 +1,9 @@
 # Changelog
-## Unreleased (PRERELEASE)
+## v0.4 (PRERELEASE)
 * U.I.
     * This version of U.I. has been updated for iPhone 12 mini (from iPhone 6s)
+    * Added more constraints for more things
+    * Embeded navigation controller
 * Settings
     * Sign out
         * Local avatar will be removed when user signs out
@@ -17,6 +19,7 @@
     * Added better caching
 * Channels
     * Added reporting
+    * Added background color
 * Videos
     * Fixed urls to match new api
     * Added sharing to videos
@@ -38,6 +41,8 @@
     * Fixed bug where you couldn't log in after logging out recently.
 * Misc.
     * Fixed some pod bugs
+* Additional Notes
+    * This is the last release before version 1.0 Alpha. Version 1.0 Alpha will not include any "changes" in the changelog. This is due to it being the first 1.0 version prerelase, and is simply adding a bunch of features and fixing a bunch of bugs. Version 1.0 Beta and version 1.0 will include changelogs (since it's changing what's based on alpha). <sub><sup>I am honestly stalling at this point.</sup></sub>
 ## v0.3.5 (PRERELEASE)
 * ChannelVideoView
     * Fixed bug where liking video would first go +2 and then correct itself half of a second later.

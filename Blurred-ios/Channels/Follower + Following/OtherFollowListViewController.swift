@@ -57,7 +57,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
         DataLoader.sharedUrlCache.diskCapacity = 0
         switch userIsSelf {
         case true:
-            self.navigationItem.title = "My Follows"
+            self.navigationItem.title = "Following"
         case false:
             self.navigationItem.title = "@" + self.followingVar + "'s Follows"
         }

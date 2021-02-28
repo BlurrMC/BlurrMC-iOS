@@ -56,7 +56,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         DataLoader.sharedUrlCache.diskCapacity = 0
         switch userIsSelf {
         case true:
-            self.navigationItem.title = "My Followers"
+            self.navigationItem.title = "Followers"
         case false:
             self.navigationItem.title = "@" + self.followerVar + "'s Followers"
         }

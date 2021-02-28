@@ -329,7 +329,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                         let imageUrl: String? = parseJSON["avatar_url"] as? String
                         guard let followerCount: Int = parseJSON["followers_count"] as? Int else { return }
                         guard let followingCount: Int = parseJSON["following_count"] as? Int else { return }
-                        let bio: String? = parseJSON["bio"] as? String
+                        let bio: String? = parseJSON["bio"] as? String 
                         guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else  { return }
                         if bio?.isEmpty != true {
                             DispatchQueue.main.async {

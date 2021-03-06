@@ -777,7 +777,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 if let parseJSON = json {
                     guard let username: String = parseJSON["username"] as? String else { return }
                     self.channelUsername = username
-                    self.navigationItem.title = "@" + username
+                    DispatchQueue.main.async {
+                        self.navigationItem.title = "@" + username
+                    }
                     guard let name: String = parseJSON["name"] as? String else { return }
                     let imageUrl: String? = parseJSON["avatar_url"] as? String // Forgot to change to the new api here
                     guard let followerCount: Int = parseJSON["followers_count"] as? Int else { return }

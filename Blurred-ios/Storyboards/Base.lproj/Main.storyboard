@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18121" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TBe-HX-4sR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TBe-HX-4sR">
     <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18092"/>
@@ -706,7 +706,6 @@
                                 <state key="normal" image="gear"/>
                                 <connections>
                                     <action selector="settingsButtonTap:" destination="xBp-jV-MSv" eventType="touchUpInside" id="Kh2-qU-iuU"/>
-                                    <segue destination="MJx-gh-FGt" kind="show" id="vmX-uT-25W"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -999,15 +998,16 @@
         <!--Settings Controller-->
         <scene sceneID="QI5-82-euP">
             <objects>
-                <viewController id="MJx-gh-FGt" userLabel="Settings Controller" customClass="SettingsViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" modalPresentationStyle="fullScreen" id="MJx-gh-FGt" userLabel="Settings Controller" customClass="SettingsViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d5c-ZW-K9X">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" id="HbB-oC-cXw">
                                 <rect key="frame" x="20" y="20" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="arrow.left"/>
+                                <color key="tintColor" red="0.94557504836009887" green="0.72083421399019609" blue="0.97501105714716618" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="xmark" catalog="system"/>
                                 <connections>
                                     <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="Zgt-3M-UV0"/>
                                 </connections>
@@ -1057,7 +1057,7 @@
         <!--Account Settings View Controller-->
         <scene sceneID="ZuY-HU-2f7">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="3CI-Sa-bhX" customClass="AccountSettingsViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3CI-Sa-bhX" customClass="AccountSettingsViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1h2-UX-IaQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1130,7 +1130,7 @@
             <objects>
                 <viewController storyboardIdentifier="AuthenticateViewController" modalPresentationStyle="fullScreen" id="TBe-HX-4sR" userLabel="Authenticate Controller" customClass="AuthenticateViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WHN-s5-ai0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4j-2t-jHr">
@@ -1216,7 +1216,7 @@
             <objects>
                 <viewController storyboardIdentifier="SignupViewController" modalPresentationStyle="fullScreen" id="4Hi-5f-KfX" userLabel="Signup Controller" customClass="SignupViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="exd-Mh-gFh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sign up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQu-l8-y91">
@@ -1517,6 +1517,7 @@
         <image name="record" width="35" height="35"/>
         <image name="rrecord-button" width="60" height="60"/>
         <image name="search" width="30" height="30"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

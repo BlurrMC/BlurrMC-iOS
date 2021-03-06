@@ -144,6 +144,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     
     // MARK: Settings Button Action
     @IBAction func settingsButtonTap(_ sender: Any) {
+        let settingsView =  self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
+        self.present(settingsView, animated: true, completion: nil)
     }
 
     
@@ -209,6 +211,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         super.viewWillAppear(true)
         loadMemberChannel()
         self.videoReloadTimer(invalidate: true)
+        
     }
     
     

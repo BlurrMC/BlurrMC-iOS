@@ -61,15 +61,9 @@ class SettingsViewController: UIViewController {
         try? myValet.removeAllObjects()
         try? tokenValet.removeAllObjects()
         self.removeFilePath(forKey: "Avatar")
-        if #available(iOS 13.0, *) {
-            let signInPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
-            let appDelegate = UIApplication.shared.delegate
-            appDelegate?.window??.rootViewController = signInPage
-        } else {
-            let homePage = AuthenticateViewController()
-            self.present(homePage, animated:true, completion:nil)
-        }
-        
+        let signInPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = signInPage
     }
     
     

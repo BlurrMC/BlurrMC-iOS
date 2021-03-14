@@ -168,7 +168,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         lineView.translatesAutoresizingMaskIntoConstraints = false
         lineView.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
         lineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        lineView.centerYAnchor.constraint(equalTo: self.bioLabel.bottomAnchor, constant: 15).isActive = true // Leave more space in between the profile and this bar and the collection view!!! (this is some feedback from my mom) (update: this is literally breaking the bio)
+        lineView.bottomAnchor.constraint(equalTo: self.collectionView.topAnchor, constant: 0).isActive = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
         avatarImage.isUserInteractionEnabled = true
         ImageCache.shared.ttl = 120
@@ -340,7 +340,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                             }
                         } else {
                             DispatchQueue.main.async {
-                                self.bioLabel.text = String("")
+                                self.bioLabel.text = String(".") /// This is just for testing purposes, please change it in production
                             }
                             print("error code: 19vfana9as, issue: There is no bio")
                         }
@@ -443,7 +443,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             if let filePath = filePath(forKey: key) {
                 do  {
                     try pngRepresentation.write(to: filePath, options: .atomic)
-                    
                 } catch let err {
                     print("Saving file resulted in error: ", err)                
                 }

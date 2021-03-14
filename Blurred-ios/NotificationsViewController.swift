@@ -14,6 +14,7 @@ import Nuke
 
 class NotificationsViewController: UIViewController {
     
+    let generator = UIImpactFeedbackGenerator(style: .light)
     
     // MARK: Mark notifications as read
     func markAsRead() {
@@ -35,7 +36,7 @@ class NotificationsViewController: UIViewController {
                 case "success":
                     return
                 case .none:
-                    print("error code: a04mv9rema")
+                    print("error code: a04mv9rema, error: There is no status, this typically happens if the user has no notifications, where: marking notifications as read")
                 case .some(_):
                     print("error code: 1kc0t-3ma")
                 }
@@ -50,22 +51,36 @@ class NotificationsViewController: UIViewController {
     // MARK: Segue Lifecycle
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow {
-            let json = convertStringToDictionary(text: notifications[indexPath.row].template)
+            guard let json = convertStringToDictionary(text: notifications[indexPath.row].template) else { return }
             switch notifications[indexPath.row].action {
             case "liked":
                 if let vc = segue.destination as? ChannelVideoViewController {
-                    if let parseJSON = json {
-                        guard let videoId = parseJSON["video"] as? Int else { return }
-                        vc.isItFromSearch = true
-                        vc.videoString = videoId
-                    }
+                    guard let videoId = json["video"] as? Int else { return }
+                    vc.isItFromSearch = true
+                    vc.videoString = videoId
                 }
             case "followed":
                 if let vc = segue.destination as? OtherChannelViewController {
-                    if let parseJSON = json {
-                        guard let follower = parseJSON["follower"] as? String else { return }
-                        vc.chanelVar = follower
-                    }
+                    guard let follower = json["follower"] as? String else { return }
+                    vc.chanelVar = follower
+                }
+            case "Commented":
+                if let vc = segue.destination as? ChannelVideoViewController {
+                    guard let video = json["video"] as? Int else { return }
+                    vc.isItFromSearch = true
+                    vc.videoString = video // WHY is this named videoString when its AN INTEGER?!?!?!?!?!?!
+                }
+            case "Replied":
+                if let vc = segue.destination as? ChannelVideoViewController {
+                    guard let video = json["video"] as? Int else { return }
+                    vc.isItFromSearch = true
+                    vc.videoString = video
+                }
+            case "Liked comment":
+                if let vc = segue.destination as? ChannelVideoViewController {
+                    guard let video = json["video"] as? Int else { return }
+                    vc.isItFromSearch = true
+                    vc.videoString = video
                 }
             default:
                 break
@@ -112,9 +127,10 @@ class NotificationsViewController: UIViewController {
                 self.notifications = downloadedNotifications.notifications
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
             } catch {
-                print("error code: f02mf0al0")
+                print("error code: f02mf0al0, error: could not decode notifications from api (may happen if user has no notifications), actual error: \(error)")
                 return
             }
         }
@@ -155,7 +171,21 @@ class NotificationsViewController: UIViewController {
         tableView.isUserInteractionEnabled = true
         tableView.tableFooterView = UIView()
         tableView.refreshControl = refreshControl
-        
+        refreshControl.addTarget(self, action: #selector(refreshNotifications), for: .valueChanged)
+        generator.prepare()
+        self.navigationItem.title = "Notifications"
+        if traitCollection.userInterfaceStyle == .light {
+            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
+            self.tableView.backgroundColor = UIColor(hexString: "#eaeaea")
+        } else {
+            self.view.backgroundColor = UIColor(hexString: "#141414")
+            self.tableView.backgroundColor = UIColor(hexString: "#141414")
+        }
+    }
+    
+    @objc func refreshNotifications() {
+        getNotifications()
+        generator.impactOccurred()
     }
     
 }
@@ -169,6 +199,15 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
             tableView.deselectRow(at: indexPath, animated: true)
         case "followed":
             self.performSegue(withIdentifier: "showNotificationChannel", sender: self)
+            tableView.deselectRow(at: indexPath, animated: true)
+        case "Commented":
+            self.performSegue(withIdentifier: "showNotificationVideo", sender: self)
+            tableView.deselectRow(at: indexPath, animated: true)
+        case "Replied":
+            self.performSegue(withIdentifier: "showNotificationVideo", sender: self)
+            tableView.deselectRow(at: indexPath, animated: true)
+        case "Liked comment":
+            self.performSegue(withIdentifier: "showNotificationVideo", sender: self)
             tableView.deselectRow(at: indexPath, animated: true)
         default:
             print("error code: alb04msi")
@@ -206,16 +245,13 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     
                 }
                 AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(videoId)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
-                    var JSON: [String: Any]?
+                    guard let data = response.data else { return }
                     do {
-                        JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                        let thumbnailUrl = JSON!["thumbnail_url"] as? String
-                        let url = URL(string: "http://10.0.0.2:3000" + thumbnailUrl!)
-                        guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("load-image") else {
-                            return
-                        }
+                        guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
+                        guard let thumbnail = JSON["thumbnail_url"] as? String else { return }
+                        guard let thumbnailUrl = URL(string: thumbnail) else { return }
                         DispatchQueue.main.async {
-                            Nuke.loadImage(with: url ?? imageURL, into: cell.thumbnailView)
+                            Nuke.loadImage(with: thumbnailUrl, into: cell.thumbnailView)
                         }
                     } catch {
                         print("error code: maj52kamv3")
@@ -229,10 +265,9 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     cell.notificationDescription.text = description
                 }
                 AF.request("http://10.0.0.2:3000/api/v1/channels/\(follower)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
-                    var JSON: [String: Any]?
                     do {
-                        JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                        let avatarUrl = JSON!["avatar_url"] as? String
+                        guard let JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any] else { return }
+                        let avatarUrl = JSON["avatar_url"] as? String
                         guard let url = URL(string: "http://10.0.0.2:3000\(avatarUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                         DispatchQueue.main.async {
                             Nuke.loadImage(with: url, into: cell.thumbnailView)
@@ -240,6 +275,72 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                         }
                     } catch {
                         print("error code: maj52kamv3")
+                        return
+                    }
+                }
+            case "Commented":
+                guard let video = parseJSON["video"] as? Int else { return UITableViewCell() }
+                guard let user = parseJSON["user"] as? String else { return UITableViewCell() }
+                guard let comment = parseJSON["comment"] as? String else { return UITableViewCell() }
+                let description = "@" + user + " commented, " + comment + ", on your video."
+                DispatchQueue.main.async {
+                    cell.notificationDescription.text = description
+                }
+                AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(video)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+                    guard let data = response.data else { return }
+                    do {
+                        guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
+                        guard let thumbnail = JSON["thumbnail_url"] as? String else { return }
+                        guard let thumbnailUrl = URL(string: thumbnail) else { return }
+                        DispatchQueue.main.async {
+                            Nuke.loadImage(with: thumbnailUrl, into: cell.thumbnailView)
+                        }
+                    } catch {
+                        print("error code: 42069hahah, error: failed parsing thumbnail, actual error: \(error)")
+                        return
+                    }
+                }
+            case "Replied":
+                guard let video = parseJSON["video"] as? Int else { return UITableViewCell() }
+                guard let user = parseJSON["user"] as? String else { return UITableViewCell() }
+                guard let reply = parseJSON["reply"] as? String else { return UITableViewCell() }
+                let description = "@" + user + " replied to your commenting saying, " + reply
+                DispatchQueue.main.async {
+                    cell.notificationDescription.text = description
+                }
+                AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(video)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+                    guard let data = response.data else { return }
+                    do {
+                        guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
+                        guard let thumbnail = JSON["thumbnail_url"] as? String else { return }
+                        guard let thumbnailUrl = URL(string: thumbnail) else { return }
+                        DispatchQueue.main.async {
+                            Nuke.loadImage(with: thumbnailUrl, into: cell.thumbnailView)
+                        }
+                    } catch {
+                        print("error code: asdf0asfasdf32, error: failed parsing thumbnail, actual error: \(error)")
+                        return
+                    }
+                }
+            case "Liked comment":
+                guard let video = parseJSON["video"] as? Int else { return UITableViewCell() }
+                guard let user = parseJSON["user"] as? String else { return UITableViewCell() }
+                guard let comment = parseJSON["comment"] as? String else { return UITableViewCell() }
+                let description = "@" + user + "liked your comment, " + comment
+                DispatchQueue.main.async {
+                    cell.notificationDescription.text = description
+                }
+                AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(video)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+                    guard let data = response.data else { return }
+                    do {
+                        guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
+                        guard let thumbnail = JSON["thumbnail_url"] as? String else { return }
+                        guard let thumbnailUrl = URL(string: thumbnail) else { return }
+                        DispatchQueue.main.async {
+                            Nuke.loadImage(with: thumbnailUrl, into: cell.thumbnailView)
+                        }
+                    } catch {
+                        print("error code: 1c2r298jaads, error: failed parsing thumbnail, actual error: \(error)")
                         return
                     }
                 }
@@ -252,3 +353,4 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
     
     
 }
+

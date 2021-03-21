@@ -751,7 +751,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ety-ge-e3T">
-                                <rect key="frame" x="16" y="179" width="343" height="19.333333333333343"/>
+                                <rect key="frame" x="16" y="186" width="343" height="19.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -763,7 +763,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Af4-p0-Xxy">
-                                <rect key="frame" x="0.0" y="213.33333333333331" width="375" height="544.66666666666674"/>
+                                <rect key="frame" x="0.0" y="220.33333333333331" width="375" height="537.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="25" minimumInteritemSpacing="10" id="Qcm-xz-fWo">
                                     <size key="itemSize" width="108" height="192"/>
@@ -842,17 +842,9 @@
                                 <color key="textColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="aIS-79-Ttk">
-                                <rect key="frame" x="10" y="71" width="107" height="100"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="aIS-79-Ttk">
+                                <rect key="frame" x="10" y="71" width="107" height="107"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nvd-xk-rh0">
-                                        <rect key="frame" x="0.0" y="0.0" width="107" height="100"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="52.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcT-1v-s0H">
                                         <rect key="frame" x="0.0" y="0.0" width="49" height="0.0"/>
                                         <color key="backgroundColor" red="0.91622814119999996" green="0.86840908549999996" blue="0.87959575059999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -902,12 +894,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Nvd-xk-rh0" secondAttribute="bottom" id="fg3-6v-gSn"/>
-                                    <constraint firstItem="Nvd-xk-rh0" firstAttribute="top" secondItem="mcT-1v-s0H" secondAttribute="bottom" id="kUL-lU-f9Z"/>
-                                    <constraint firstItem="Nvd-xk-rh0" firstAttribute="leading" secondItem="aIS-79-Ttk" secondAttribute="leading" id="rtZ-EA-gtN"/>
-                                    <constraint firstAttribute="trailing" secondItem="Nvd-xk-rh0" secondAttribute="trailing" id="z9Z-Nc-8jO"/>
-                                </constraints>
                             </stackView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User has blocked you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qM-ME-TeM">
                                 <rect key="frame" x="16" y="367" width="343" height="24"/>
@@ -935,6 +921,15 @@
                                 <color key="textColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nvd-xk-rh0">
+                                <rect key="frame" x="10" y="71" width="107" height="107"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="52.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oP4-gb-LJI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -948,7 +943,7 @@
                             <constraint firstItem="oP4-gb-LJI" firstAttribute="trailing" secondItem="Qfr-oR-0FF" secondAttribute="trailing" constant="20" id="Kmy-LG-YbZ"/>
                             <constraint firstItem="uzw-Tq-P48" firstAttribute="top" secondItem="fB5-sr-lPI" secondAttribute="bottom" constant="34" id="LH3-T0-to2"/>
                             <constraint firstItem="sHH-62-lgO" firstAttribute="leading" secondItem="uzw-Tq-P48" secondAttribute="trailing" constant="5" id="Luu-rQ-jeQ"/>
-                            <constraint firstItem="aIS-79-Ttk" firstAttribute="height" secondItem="YMz-Hh-Adh" secondAttribute="height" multiplier="0.1305" constant="1" id="Ox1-mI-c8J"/>
+                            <constraint firstItem="aIS-79-Ttk" firstAttribute="height" secondItem="YMz-Hh-Adh" secondAttribute="height" multiplier="0.14" constant="1" id="Ox1-mI-c8J"/>
                             <constraint firstItem="5qM-ME-TeM" firstAttribute="centerY" secondItem="YMz-Hh-Adh" secondAttribute="centerY" id="Qnf-CR-ZqK"/>
                             <constraint firstItem="Mta-wt-Viq" firstAttribute="leading" secondItem="YSr-hM-0xL" secondAttribute="trailing" constant="22" id="SzI-uW-HHn"/>
                             <constraint firstItem="aIS-79-Ttk" firstAttribute="leading" secondItem="oP4-gb-LJI" secondAttribute="leading" constant="10" id="Tmm-NW-Eft"/>
@@ -1514,13 +1509,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kHw-nu-gLE"/>
-        <segue reference="xcm-IK-Wan"/>
+        <segue reference="exv-N4-hW9"/>
+        <segue reference="745-eJ-5Gd"/>
         <segue reference="rna-Y0-bYD"/>
         <segue reference="J7Q-1z-U6Z"/>
         <segue reference="grK-85-5Vn"/>
         <segue reference="ojZ-HU-szu"/>
-        <segue reference="APA-y0-haT"/>
+        <segue reference="x7h-h0-tYj"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="12" height="10"/>

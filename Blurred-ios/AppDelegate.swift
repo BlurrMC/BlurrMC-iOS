@@ -124,5 +124,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
     }
 
+    // If the user does not allow push notifications, this method will be called
+    private func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        NSLog("Error code: a04ewma, Failed to get token. Error: %@", error)
+   }
+
 }
 

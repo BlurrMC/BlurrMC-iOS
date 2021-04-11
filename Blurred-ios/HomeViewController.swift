@@ -183,6 +183,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     var name = String()
     var reported = Bool()
     var blocked = Bool()
+    var notificationToken = String()
     
     
     // MARK: Videos downloaded
@@ -261,13 +262,14 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                 print("there is an error")
                 return
             }
+            guard let data = data else { return }
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let status: String? = parseJSON["status"] as? String
                     switch status {
                     case "User is valid! YAY :)":
-                        return
+                        break
                     case "User is not valid. Oh no!":
                         try self.myValet.removeObject(forKey: "Id")
                         try self.tokenValet.removeObject(forKey: "Token")
@@ -307,6 +309,47 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         }
         task.resume()
     }
+    
+    // MARK: Send the notification token to the server
+    func sendNotificationTokenToServer() {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        let parameters: Parameters = [
+            "token": self.notificationToken
+        ]
+        AF.request("http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/", method: .post, parameters: parameters,headers: headers).responseJSON { response in
+            guard let data = response.data else {
+                print("error code: 98ijorkndfms,cx")
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    guard let status: String = parseJSON["status"] as? String else { return }
+                    if status != "Token has been saved" {
+                        print("notification token could not save, error code: 10ejasnfasdfk9, status: \(status)")
+                    }
+                }
+            } catch {
+                print("error code: f1e1212313123123")
+                return
+            }
+        }
+    }
+    
+    private func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        // Create and Store the device token on local database and send
+        // Token to backend API
+        // remove "<" and ">" from the string
+        let trimEnds = deviceToken.description.trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
+        // remove spaces
+        let cleanToken = trimEnds.replacingOccurrences(of: " ", with: "")
+        // Send cleanToken to rails
+        self.notificationToken = cleanToken
+   }
     
     
     // MARK: New rows for table node
@@ -354,6 +397,10 @@ extension HomeViewController: ASTableDataSource {
     }
 }
 extension HomeViewController: ASTableDelegate {
+    
+    
+    
+    
     // MARK: Size of each cell
     func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
         let width = UIScreen.main.bounds.size.width

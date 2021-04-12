@@ -183,7 +183,6 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     var name = String()
     var reported = Bool()
     var blocked = Bool()
-    var notificationToken = String()
     
     
     // MARK: Videos downloaded
@@ -269,10 +268,11 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                     let status: String? = parseJSON["status"] as? String
                     switch status {
                     case "User is valid! YAY :)":
-                        break
+                        self.sendNotificationTokenToServer()
                     case "User is not valid. Oh no!":
                         try self.myValet.removeObject(forKey: "Id")
                         try self.tokenValet.removeObject(forKey: "Token")
+                        try self.tokenValet.removeObject(forKey: "NotificationToken")
                         try self.myValet.removeAllObjects()
                         try self.tokenValet.removeAllObjects()
                         let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
@@ -313,14 +313,15 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     // MARK: Send the notification token to the server
     func sendNotificationTokenToServer() {
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        guard let notificationToken: String = try? tokenValet.string(forKey: "NotificationToken") else { return }
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
         let parameters: Parameters = [
-            "token": self.notificationToken
+            "token": notificationToken
         ]
-        AF.request("http://10.0.0.2:3000/api/v1/videos/\(videoId)/comments/", method: .post, parameters: parameters,headers: headers).responseJSON { response in
+        AF.request("http://10.0.0.2:3000/api/v1/registernotificationtoken", method: .post, parameters: parameters,headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: 98ijorkndfms,cx")
                 return
@@ -334,22 +335,11 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                     }
                 }
             } catch {
-                print("error code: f1e1212313123123")
+                print("error code: f1e1212313123123, error: \(error)")
                 return
             }
         }
     }
-    
-    private func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        // Create and Store the device token on local database and send
-        // Token to backend API
-        // remove "<" and ">" from the string
-        let trimEnds = deviceToken.description.trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
-        // remove spaces
-        let cleanToken = trimEnds.replacingOccurrences(of: " ", with: "")
-        // Send cleanToken to rails
-        self.notificationToken = cleanToken
-   }
     
     
     // MARK: New rows for table node
@@ -384,6 +374,7 @@ extension HomeViewController: ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         return self.videos.count
     }
+    
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         let videourll = self.videos[indexPath.row].videourl
         let videoId = self.videos[indexPath.row].videoid
@@ -397,9 +388,6 @@ extension HomeViewController: ASTableDataSource {
     }
 }
 extension HomeViewController: ASTableDelegate {
-    
-    
-    
     
     // MARK: Size of each cell
     func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {

@@ -58,6 +58,7 @@ class SettingsViewController: UIViewController {
         let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
         try? myValet.removeObject(forKey: "Id")
         try? tokenValet.removeObject(forKey: "Token")
+        try? tokenValet.removeObject(forKey: "NotificationToken")
         try? myValet.removeAllObjects()
         try? tokenValet.removeAllObjects()
         self.removeFilePath(forKey: "Avatar")

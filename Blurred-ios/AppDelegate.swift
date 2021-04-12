@@ -11,6 +11,7 @@ import CoreData
 import Valet
 import AVFoundation
 import Alamofire
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -89,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = homePage
             return finishLoadingHomepage()
         }
-        registerForPushNotifications()
+        requestNotificationAuthorization()
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 50
         return true
@@ -99,29 +100,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func finishLoadingHomepage() -> Bool {
         self.window?.makeKeyAndVisible()
         self.isItLoading = true
-        registerForPushNotifications()
+        requestNotificationAuthorization()
         return true
     }
     
     
     // MARK: Register For Notifications
-    func registerForPushNotifications() {
-      UNUserNotificationCenter.current()
-        .requestAuthorization(options: [.alert, .sound, .badge]) {
-          [weak self] granted, error in
-            
-          print("Permission granted: \(granted)")
-          guard granted else { return }
-          self?.getNotificationSettings()
-      }
+    func requestNotificationAuthorization(){
+        UNUserNotificationCenter.current() .requestAuthorization( options: [.alert, .sound, .badge]) { [weak self] granted, error in
+            guard granted else { return }
+            self?.getNotificationSettings()
+        }
     }
-    
     
     // MARK: Get Notification Settings
     func getNotificationSettings() {
-      UNUserNotificationCenter.current().getNotificationSettings { settings in
-        print("Notification settings: \(settings)")
-      }
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        try? self.tokenValet.setString(token, forKey: "NotificationToken")
     }
 
     // If the user does not allow push notifications, this method will be called

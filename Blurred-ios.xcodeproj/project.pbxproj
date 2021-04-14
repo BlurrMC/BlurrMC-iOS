@@ -76,6 +76,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E1611F7226253E5500DA84BA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0FD9B289C1FE67D1AB705F3B /* Pods-Blurred-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		59303CECF0E6FF74AE914CB6 /* Pods-Blurred-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Blurred-iosTests/Pods-Blurred-iosTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -411,9 +424,9 @@
 				E1DF6F68244F550300E11BF9 /* Blurred-ios */,
 				E1DF6F84244F550600E11BF9 /* Blurred-iosTests */,
 				E1DF6F8F244F550700E11BF9 /* Blurred-iosUITests */,
-				E1DF6F67244F550300E11BF9 /* Products */,
-				15B5D27D935DD3C520B2F0DE /* Pods */,
 				6F43770AC0D498D027D073B3 /* Frameworks */,
+				15B5D27D935DD3C520B2F0DE /* Pods */,
+				E1DF6F67244F550300E11BF9 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -430,20 +443,20 @@
 		E1DF6F68244F550300E11BF9 /* Blurred-ios */ = {
 			isa = PBXGroup;
 			children = (
-				E1E6F163261674C800783952 /* Blurred.entitlements */,
-				E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */,
 				E196F5F224A8D589001BE742 /* Cells */,
 				E196F5F424A8D5E4001BE742 /* Channels */,
 				590D20AB24EDAEA300109359 /* Nodes */,
 				E196F5F324A8D5AE001BE742 /* Recording Related Views */,
 				E15D6FC524BA5E4C00CC1E0E /* Storyboards */,
-				E1DF6F69244F550300E11BF9 /* AppDelegate.swift */,
 				E196F5F524A8D626001BE742 /* Settings */,
 				5B2527AD2484388C0014F6CA /* Assets.xcassets */,
+				E1DF6F69244F550300E11BF9 /* AppDelegate.swift */,
 				E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */,
+				E1E6F163261674C800783952 /* Blurred.entitlements */,
 				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
 				E19286EB24D72F1B00382D98 /* Blurred-ios-Bridging-Header.h */,
 				E1BA897024E0427A0015C546 /* CacheManager.swift */,
+				E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */,
 				E1DF6F6D244F550300E11BF9 /* HomeViewController.swift */,
 				E125D30D2566E15D005E4E27 /* ImagePublisher.swift */,
 				E1DF6F7C244F550600E11BF9 /* Info.plist */,
@@ -487,6 +500,7 @@
 				E1DF6F63244F550300E11BF9 /* Frameworks */,
 				E1DF6F64244F550300E11BF9 /* Resources */,
 				B44D62B56F96016AAC8BED6C /* [CP] Embed Pods Frameworks */,
+				E1611F7226253E5500DA84BA /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -542,7 +556,7 @@
 		E1DF6F5E244F550300E11BF9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = BlurrMC;
 				TargetAttributes = {

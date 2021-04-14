@@ -83,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
         let userId: String? = try? myValet.string(forKey: "Id")
+        requestNotificationAuthorization()
         if accessToken != nil && userId != nil {
             let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             self.window =  UIWindow(frame: UIScreen.main.bounds)
@@ -90,7 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = homePage
             return finishLoadingHomepage()
         }
-        requestNotificationAuthorization()
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 50
         return true
@@ -100,7 +100,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func finishLoadingHomepage() -> Bool {
         self.window?.makeKeyAndVisible()
         self.isItLoading = true
-        requestNotificationAuthorization()
         return true
     }
     
@@ -112,6 +111,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self?.getNotificationSettings()
         }
     }
+    
+    // MARK: Received Notification
+    private func application(application: UIApplication,  didReceiveRemoteNotification userInfo: [NSObject : AnyObject],  fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        completionHandler(.newData)
+    }
+    
     
     // MARK: Get Notification Settings
     func getNotificationSettings() {
@@ -127,11 +132,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         try? self.tokenValet.setString(token, forKey: "NotificationToken")
     }
+    
+    
 
     // If the user does not allow push notifications, this method will be called
     private func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         NSLog("Error code: a04ewma, Failed to get token. Error: %@", error)
    }
 
+}
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound, .list])
+      }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        // TODO: Either present that notification in it's appropriate container (i.e. channel page, show video, etc.) or
+        completionHandler()
+    }
 }
 

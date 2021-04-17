@@ -18,6 +18,8 @@ class NotificationsViewController: UIViewController {
     
     // MARK: Mark notifications as read
     func markAsRead() {
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UIApplication.shared.applicationIconBadgeNumber = 0
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
@@ -141,6 +143,7 @@ class NotificationsViewController: UIViewController {
         super.viewWillAppear(true)
         markAsRead()
         // Maybe put getNotifications() here ????
+        /// No
     }
     
     // MARK: Classes

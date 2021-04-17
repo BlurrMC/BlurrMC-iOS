@@ -27,6 +27,15 @@ class MainTabBarViewController: UITabBarController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(tapFromNotification(_:)), name: .notificationtap, object: nil)
+    }
+    
+    @objc func tapFromNotification(_ notification: Notification) {
+        self.selectedIndex = 3
+    }
+    
     // MARK: Load avatar for tab bar
     private func retrieveImage(forKey key: String) -> UIImage? {
         if let filePath = self.filePath(forKey: key),

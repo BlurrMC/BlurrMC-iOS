@@ -62,6 +62,8 @@ class SettingsViewController: UIViewController {
         try? myValet.removeAllObjects()
         try? tokenValet.removeAllObjects()
         self.removeFilePath(forKey: "Avatar")
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         let signInPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = signInPage

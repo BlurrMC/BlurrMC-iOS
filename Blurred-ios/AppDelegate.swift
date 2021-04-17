@@ -81,6 +81,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
         let userId: String? = try? myValet.string(forKey: "Id")
         requestNotificationAuthorization()
@@ -88,6 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             self.window =  UIWindow(frame: UIScreen.main.bounds)
             let homePage = storyboard.instantiateViewController(withIdentifier: "MainTabBarViewController") as! MainTabBarViewController
+            if(launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] != nil){
+                homePage.selectedIndex = 3
+            }
             self.window?.rootViewController = homePage
             return finishLoadingHomepage()
         }
@@ -128,6 +133,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         try? self.tokenValet.setString(token, forKey: "NotificationToken")
@@ -145,11 +152,17 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound, .list])
-      }
+    }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        // TODO: Either present that notification in it's appropriate container (i.e. channel page, show video, etc.) or
+          
+        NotificationCenter.default.post(name: .notificationtap, object: nil)
+        
         completionHandler()
     }
+
 }
 
+extension Notification.Name {
+    static let notificationtap = Notification.Name("tapfromnotification")
+}

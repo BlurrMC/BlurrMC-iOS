@@ -15,12 +15,11 @@ class ChannelVideoCellNode: ASCellNode {
     weak var delegate: ChannelVideoOverlayViewDelegate?
     
     // MARK: Variables
-    var videoNode = ASVideoNode()
+    var videoNode: ASVideoNode
 
     required init(with videoUrl: URL, videoId: Int, doesParentHaveTabBar: Bool) {
         self.videoNode = ASVideoNode()
         super.init()
-        self.addSubnode(self.videoNode)
         self.videoNode.shouldAutoplay = true
         self.videoNode.shouldAutorepeat = true
         self.videoNode.muted = false
@@ -34,24 +33,25 @@ class ChannelVideoCellNode: ASCellNode {
             overlay.videoId = videoId
             overlay.videoUrl = videoUrl
             overlay.delegate = self.delegate
+            overlay.frame = CGRect(origin: CGPoint(x: 320, y: 335), size: CGSize(width: 40, height: 239))
             self.view.addSubview(overlay)
-            overlay.translatesAutoresizingMaskIntoConstraints = false
-            overlay.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 5).isActive = true
-            overlay.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+            //overlay.translatesAutoresizingMaskIntoConstraints = false
+            //overlay.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 5).isActive = true
+            //overlay.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
             DispatchQueue.global(qos: .default).async {
                 switch doesParentHaveTabBar {
                 case true:
                     DispatchQueue.main.async {
                         let overlay2 = DescriptionOverlayView()
                         overlay.delegate2 = overlay2
-                        overlay2.frame = CGRect(x: 40, y: 565, width: 287, height: 45)
+                        overlay2.frame = CGRect(x: 45, y: 655, width: 287, height: 45)
                         self.view.addSubview(overlay2)
                     }
                 case false:
                     DispatchQueue.main.async {
                         let overlay2 = DescriptionOverlayView()
                         overlay.delegate2 = overlay2
-                        overlay2.frame = CGRect(x: 40, y: 614, width: 287, height: 45)
+                        overlay2.frame = CGRect(x: 40, y: 655, width: 287, height: 45)
                         self.view.addSubview(overlay2)
                     }
                 }
@@ -66,6 +66,8 @@ class ChannelVideoCellNode: ASCellNode {
         let ratioSpec = ASRatioLayoutSpec(ratio:ratio, child:self.videoNode)
         return ratioSpec
     }
+    
+    
     
   
 }

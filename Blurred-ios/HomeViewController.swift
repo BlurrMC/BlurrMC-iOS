@@ -149,6 +149,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.tableNode.frame = self.view.bounds
+        
     }
     
     
@@ -215,14 +216,14 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     // MARK: Styling for table node
     func applyStyle() {
         let tableView = self.tableNode.view
-        let margins = view.layoutMarginsGuide
+        //let margins = view.layoutMarginsGuide
         tableView.separatorStyle = .none
         tableView.isPagingEnabled = true
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        /*tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 0).isActive = true
         tableView.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 0).isActive = true
         tableView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 0).isActive = true*/
     }
     
     // MARK: Delegates for table node
@@ -235,6 +236,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Home"
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
         self.tableNode = ASTableNode(style: .plain)
         self.wireDelegates()

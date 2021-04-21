@@ -237,6 +237,11 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Home"
+        if traitCollection.userInterfaceStyle == .light {
+            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
+        } else {
+            self.view.backgroundColor = UIColor(hexString: "#141414")
+        }
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
         self.tableNode = ASTableNode(style: .plain)
         self.wireDelegates()

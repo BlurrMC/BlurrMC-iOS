@@ -340,6 +340,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Search"
         searchBarTextField?.delegate? = self
         tableView.refreshControl = refreshControl
         videoTableView.refreshControl = refreshControl

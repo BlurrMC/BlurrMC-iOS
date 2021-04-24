@@ -271,10 +271,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Contact api to search the query
         let search = searchBarTextField.text
         guard let replaceHashtags = search?.replacingOccurrences(of: "#", with: "%23", options: .regularExpression) else { return }
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/search/?search=\(replaceHashtags)")  // 23:40
-        guard let downloadURL = url else { return }
-        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-            guard let data = data, error == nil, urlResponse != nil else {
+        let params = [
+            "search": replaceHashtags
+        ]
+        AF.request("http://10.0.0.2:3000/api/v1/search/", method: .get, parameters: params).responseJSON { response in
+            guard let data = response.data else {
+                print("error code: asdfasf9j")
                 return
             }
             do {
@@ -296,12 +298,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             } catch {
                 return
             }
-        }.resume()
+        }
     }
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // put recommended search heree
+        // put recommended search heree (maybe?)
     }
     
     

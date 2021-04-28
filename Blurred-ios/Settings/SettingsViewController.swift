@@ -9,8 +9,11 @@
 import UIKit
 import Valet
 import Nuke
+import Alamofire
 
 class SettingsViewController: UIViewController {
+    
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
     
     // MARK: Clear Cache
@@ -51,22 +54,35 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    
-    // MARK: Signout the user
-    @IBAction func signOutButtonPressed(_ sender: Any) {
+    // MARK: Remove all objects for user
+    func removeObjectsFromUser() {
         let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
-        let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
-        try? myValet.removeObject(forKey: "Id")
+        try? myValet.removeObject(forKey: "Id") 
         try? tokenValet.removeObject(forKey: "Token")
         try? tokenValet.removeObject(forKey: "NotificationToken")
         try? myValet.removeAllObjects()
         try? tokenValet.removeAllObjects()
         self.removeFilePath(forKey: "Avatar")
+        removeNotificationTokenFromBackend()
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNMutableNotificationContent().badge = 0
         let signInPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = signInPage
+    }
+    
+    
+    // MARK: Signout the user
+    @IBAction func signOutButtonPressed(_ sender: Any) {
+        let networkStatus = Reachability().connectionStatus()
+        switch networkStatus {
+        case .Unknown, .Offline :
+            showMessage(title: "Alert", message: "Signing out without an internet connection is not recommended. Are you sure???", alertActionTitle: "I'll go back...", cancelAction: true, secondAlertActionTitle: "Sign out")
+        case .Online(_):
+            removeObjectsFromUser()
+        }
+
     }
     
     
@@ -94,5 +110,52 @@ class SettingsViewController: UIViewController {
     // MARK: Settings Back Button
     @IBAction func settingsBackButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // MARK: Removes the notification token from backend
+    func removeNotificationTokenFromBackend() {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        AF.request("http://10.0.0.2:3000/api/v1/notificationtokenremoval", method: .get, headers: headers).responseJSON { response in
+            guard let data = response.data else {
+                print("error code: asfd9j1diasjck")
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
+                if let parseJSON = json {
+                    guard let status: String = parseJSON["status"] as? String else { return }
+                    if status != "Successfully cleared notification token" {
+                        print("notification token could not be removed, error code: asdf9j1edssadcaz, status: \(status)")
+                    }
+                }
+            } catch {
+                print("error code: f1e1212313123123, error: \(error)")
+                return
+            }
+        }
+
+    }
+    
+    // MARK: Show Message
+    func showMessage(title: String, message: String, alertActionTitle: String, cancelAction: Bool, secondAlertActionTitle: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        switch cancelAction {
+        case true:
+            alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: secondAlertActionTitle, style: UIAlertAction.Style.destructive, handler: {_ in
+                self.removeObjectsFromUser()
+            }))
+        case false:
+            alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
+        }
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

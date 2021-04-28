@@ -45,7 +45,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
-        let Id: Int? = videos[indexPath.row].id
         var resizedImageProcessors: [ImageProcessing] {
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
             return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
@@ -53,10 +52,11 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let options = ImageLoadingOptions(
             placeholder: UIImage(named: "load-image"),
             transition: .fadeIn(duration: 0.25))
-        AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(Id!).json").responseJSON { response in
+        AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(videos[indexPath.row].id).json").responseJSON { response in
             var JSON: [String: Any]?
+            guard let data = response.data else { return }
             do {
-                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 guard let imageUrl = JSON!["thumbnail_url"] as? String else { return }
                 guard let likenumber = JSON!["likecount"] as? Int else { return }
                 switch likenumber {
@@ -152,6 +152,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     // MARK: View did load
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        // Line view seperator
         let lineView = UIView()
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
@@ -162,6 +164,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             self.collectionView.backgroundColor = UIColor(hexString: "#141414")
             lineView.backgroundColor = UIColor.white
         }
+        
+        // Gesture for labels
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshVideos(_:)), for: .valueChanged)
         self.view.addSubview(lineView)
@@ -170,6 +174,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         lineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         lineView.bottomAnchor.constraint(equalTo: self.collectionView.topAnchor, constant: 0).isActive = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.imageTapped(gesture:)))
+        
+        // UIImage improvments (i guess?)
         avatarImage.isUserInteractionEnabled = true
         ImageCache.shared.ttl = 120
         avatarImage.addGestureRecognizer(tapGesture)
@@ -179,11 +185,13 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let tapp = UITapGestureRecognizer(target: self, action: #selector(ChannelViewController.tappFunction))
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
-        self.avatarImage.contentScaleFactor = 1.5 // WHy does IT LOOKS SO BAD
+        self.avatarImage.layer.cornerRadius = self.avatarImage.bounds.height / 2 /// how tall are you? oh, 6 foot. Then why the hell can't you stick to just being a perfect circle.
+        
+        
+        // Channel + videos
         loadMemberChannel()
         channelVideoIds()
         generator.prepare()
-        self.avatarImage.layer.cornerRadius = (self.avatarImage.frame.height + self.avatarImage.frame.width) / 4
         self.navigationItem.title = "My Channel"
     }
     

@@ -320,8 +320,12 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Eh
         ImageCache.shared.ttl = 120
         collectionView.refreshControl = refreshControl
+        
+        // Taps for avatars and follower/ing (they're labels)
         refreshControl.addTarget(self, action: #selector(refreshVideos(_:)), for: .valueChanged)
         let tap = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tapFunction))
         let tapp = UITapGestureRecognizer(target: self, action: #selector(OtherChannelViewController.tappFunction))
@@ -329,14 +333,27 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         avatarImage.addGestureRecognizer(tappp)
         followersLabel.addGestureRecognizer(tap)
         followingLabel.addGestureRecognizer(tapp)
+        
+        // Load channel + videos
         loadMemberChannel()
         channelVideoIds()
+        
+        // Put border for dropdown buttons
+        let almostwhite = CGColor.init(red: 252, green: 252, blue: 252, alpha: 100)
+        self.dropDownButtons.forEach({ button in
+            button.layer.borderColor = almostwhite
+            button.layer.borderWidth = 1
+        })
+        
+        // Seperation line
         let lineView = UIView()
         self.view.addSubview(lineView)
         lineView.translatesAutoresizingMaskIntoConstraints = false
         lineView.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
         lineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         lineView.centerYAnchor.constraint(equalTo: self.bioLabel.bottomAnchor, constant: 15).isActive = true
+        
+        // Setting colors based on dark mode on or off
         if traitCollection.userInterfaceStyle == .light {
             lineView.backgroundColor = UIColor.black
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
@@ -346,6 +363,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             self.collectionView.backgroundColor = UIColor(hexString: "#141414")
             lineView.backgroundColor = UIColor.white
         }
+        
+        // Make images look better
         self.avatarImage.contentScaleFactor = 1.5
         let contentModes = ImageLoadingOptions.ContentModes(
           success: .scaleAspectFill,
@@ -356,6 +375,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         ImageLoadingOptions.shared.failureImage = UIImage(named: "load-image")
         ImageLoadingOptions.shared.transition = .fadeIn(duration: 0.2)
         DataLoader.sharedUrlCache.diskCapacity = 0
+        
+        // Fetch username from segue (faster) and set the nav title
         guard let username = self.segueUsername else { return }
         self.navigationItem.title = "@" + username
     }
@@ -422,7 +443,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     
     // MARK: Dropdown menu tap
-    @objc func tapppFunction(sender:UITapGestureRecognizer) {
+    @objc func tapppFunction(sender:UITapGestureRecognizer) { /// These god damn names, [tap, tapp, tappp, tapppp]. what and why the hell
         if isItThemselves == false {
             // Check if user is following before showing the follow/block button.
             switch following {

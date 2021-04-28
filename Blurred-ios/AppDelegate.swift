@@ -156,7 +156,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
           
-        NotificationCenter.default.post(name: .notificationtap, object: nil)
+        NotificationCenter.default.post(name: .notificationtap, object: "notificationtap")
         
         completionHandler()
     }

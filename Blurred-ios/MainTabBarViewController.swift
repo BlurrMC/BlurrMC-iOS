@@ -29,7 +29,7 @@ class MainTabBarViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        NotificationCenter.default.addObserver(self, selector: #selector(tapFromNotification(_:)), name: .notificationtap, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tapFromNotification(_:)), name: .notificationtap, object: "notificationtap")
     }
     
     @objc func tapFromNotification(_ notification: Notification) {

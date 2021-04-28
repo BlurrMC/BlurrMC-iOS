@@ -55,6 +55,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
     @IBOutlet weak var userBlockedLabel: UILabel!
+    @IBOutlet weak var dropDownStack: UIStackView!
     
     
     // MARK: Lets
@@ -338,11 +339,13 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         loadMemberChannel()
         channelVideoIds()
         
-        // Put border for dropdown buttons
+        // dropdown
         let almostwhite = CGColor.init(red: 252, green: 252, blue: 252, alpha: 100)
+        self.dropDownStack.frame.size.width = self.avatarImage.bounds.width
         self.dropDownButtons.forEach({ button in
             button.layer.borderColor = almostwhite
             button.layer.borderWidth = 1
+            button.isHidden = true
         })
         
         // Seperation line

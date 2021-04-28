@@ -45,6 +45,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
+        cell.layer.cornerRadius = 12
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
         var resizedImageProcessors: [ImageProcessing] {
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
             return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]

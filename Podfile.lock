@@ -19,7 +19,6 @@ PODS:
   - PINRemoteImage/PINCache (3.0.3):
     - PINCache (~> 3.0.3)
     - PINRemoteImage/Core
-  - ReachabilitySwift (5.0.0)
   - Texture (3.0.0):
     - Texture/AssetsLibrary (= 3.0.0)
     - Texture/Core (= 3.0.0)
@@ -48,7 +47,6 @@ DEPENDENCIES:
   - NextLevel
   - Nuke
   - PINCache
-  - ReachabilitySwift
   - Texture
   - Valet
 
@@ -61,7 +59,6 @@ SPEC REPOS:
     - PINCache
     - PINOperation
     - PINRemoteImage
-    - ReachabilitySwift
     - Texture
     - Valet
 
@@ -73,10 +70,9 @@ SPEC CHECKSUMS:
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
-  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   Valet: 11ab0e318b7284888a81392e36136563b4af5deb
 
-PODFILE CHECKSUM: 506ce906b363e0711b4c9fd5e70b761565013156
+PODFILE CHECKSUM: b37f5a50341eb4754514543ce24ee3609c814802
 
 COCOAPODS: 1.10.1

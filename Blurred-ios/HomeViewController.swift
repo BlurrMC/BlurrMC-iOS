@@ -16,6 +16,7 @@ import Alamofire
 class HomeViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
 
+    @IBOutlet weak var progressView: UIProgressView!
     var resizedImageProcessors = [ImageProcessing]()
     
     

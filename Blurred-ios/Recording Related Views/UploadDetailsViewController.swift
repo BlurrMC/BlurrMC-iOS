@@ -90,7 +90,7 @@ class UploadDetailsViewController: UIViewController {
             to: "http://10.0.0.2:3000/api/v1/videouploads.json", method: .post, headers: headers)
             .response { resp in
                 print(resp)
-        }
+            }
         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
     }
     

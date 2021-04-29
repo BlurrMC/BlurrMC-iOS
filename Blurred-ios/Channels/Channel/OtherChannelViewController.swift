@@ -221,6 +221,13 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }
+        cell.layer.cornerRadius = 12
+        cell.layer.borderWidth = 1
+        if traitCollection.userInterfaceStyle == .light {
+            cell.layer.borderColor = UIColor.black.cgColor
+        } else {
+            cell.layer.borderColor = UIColor.white.cgColor
+        }
         let Id: Int? = videos[indexPath.row].id
         var resizedImageProcessors: [ImageProcessing] {
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)

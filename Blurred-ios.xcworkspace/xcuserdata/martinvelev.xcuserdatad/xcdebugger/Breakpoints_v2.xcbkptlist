@@ -1640,8 +1640,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "373"
             endingLineNumber = "373"
-            landmarkName = "HomeViewController"
-            landmarkType = "21">
+            landmarkName = "showMessage(title:message:alertActionTitle:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

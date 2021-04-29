@@ -47,7 +47,11 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
         cell.layer.cornerRadius = 12
         cell.layer.borderWidth = 1
-        cell.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
+        if traitCollection.userInterfaceStyle == .light {
+            cell.layer.borderColor = UIColor.black.cgColor
+        } else {
+            cell.layer.borderColor = UIColor.white.cgColor
+        }
         var resizedImageProcessors: [ImageProcessing] {
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
             return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]

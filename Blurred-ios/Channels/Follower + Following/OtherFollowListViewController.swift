@@ -61,6 +61,12 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
         case false:
             self.navigationItem.title = "@" + self.followingVar + "'s Follows"
         }
+        // Colors
+        if traitCollection.userInterfaceStyle == .light {
+            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
+        } else {
+            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
+        }
     }
     
     

@@ -167,7 +167,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
             self.collectionView.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
-            self.view.backgroundColor = UIColor(hexString: "#141414")
+            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
             self.collectionView.backgroundColor = UIColor(hexString: "#141414")
             lineView.backgroundColor = UIColor.white
         }

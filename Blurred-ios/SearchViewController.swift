@@ -353,7 +353,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             self.tableView.backgroundColor = UIColor(hexString: "#eaeaea")
             self.videoTableView.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
-            self.view.backgroundColor = UIColor(hexString: "#141414")
+            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
             self.tableView.backgroundColor = UIColor(hexString: "#141414")
             self.videoTableView.backgroundColor = UIColor(hexString: "#141414")
         }

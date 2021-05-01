@@ -41,6 +41,12 @@ class UploadDetailsViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Colors
+        if traitCollection.userInterfaceStyle == .light {
+            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
+        } else {
+            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
+        }
     }
     
     

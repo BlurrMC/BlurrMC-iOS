@@ -181,7 +181,7 @@ class NotificationsViewController: UIViewController {
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
             self.tableView.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
-            self.view.backgroundColor = UIColor(hexString: "#141414")
+            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
             self.tableView.backgroundColor = UIColor(hexString: "#141414")
         }
     }

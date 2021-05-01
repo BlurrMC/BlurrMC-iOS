@@ -67,6 +67,7 @@ class SettingsViewController: UIViewController {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNMutableNotificationContent().badge = 0
+        UIApplication.shared.applicationIconBadgeNumber = 0
         let signInPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = signInPage

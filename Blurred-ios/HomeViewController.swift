@@ -5,6 +5,7 @@
 //  Created by Martin Velev on 4/21/20.
 //  Copyright © 2020 BlurrMC. All rights reserved.
 //
+// EAT THE HAMCAT
 
 import UIKit
 import Valet
@@ -14,6 +15,8 @@ import Nuke
 import Alamofire
 
 class HomeViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
+    
+    var shouldBatchFetch = true
     
 
     @IBOutlet weak var progressView: UIProgressView!
@@ -120,7 +123,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("http://10.0.0.2:3000/api/v1/apihomefeed.json", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("http://10.0.0.2:3000/api/v1/apihomefeed", method: .post, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -407,7 +410,7 @@ extension HomeViewController: ASTableDelegate {
     
     // MARK: Batch fetch bool
     func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        return true
+        return shouldBatchFetch
     }
     
     // MARK: Batch fetch function
@@ -421,13 +424,11 @@ extension HomeViewController: ASTableDelegate {
             do {
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                let videos = downloadedVideo.videos + self.videos
-                self.videos = videos
-                if self.videos.count != 0 {
-                    DispatchQueue.main.async {
-                        self.tableNode.reloadData()
-                    }
+                if downloadedVideo.videos.count < 5 {
+                    self.shouldBatchFetch = false
                 }
+                self.insertNewRowsInTableNode(newVideos: downloadedVideo.videos)
+                context.completeBatchFetching(true)
             } catch {
                 print("error code: g09an242, controller: homeview, error: \(error)")
                 return
@@ -436,8 +437,5 @@ extension HomeViewController: ASTableDelegate {
             print("error code: 1kd03l103-2")
             print(error as Any)
         })
-        context.completeBatchFetching(true)
     }
-
-    
 }

@@ -152,7 +152,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         if isReported != true {
             self.isReported = true
             dropDownButtons.forEach { (button) in
-                UIView.animate(withDuration: 0.15, animations: {
+                UIView.animate(withDuration: 0.35, animations: {
                     button.isHidden = !button.isHidden
                     
                     self.view.layoutIfNeeded()

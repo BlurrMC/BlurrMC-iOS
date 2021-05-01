@@ -624,10 +624,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let status: String? = parseJSON["status"] as? String
-                    let relationshipId: Int? = parseJSON["relationship_id"] as? Int
+                    guard let relationshipId: Int = parseJSON["relationship_id"] as? Int else { return }
                     if status == "User Followed" {
                         self.following = true
-                        self.relationshipId = relationshipId!
+                        self.relationshipId = relationshipId
                     } else {
                         self.following = false
                     }
@@ -786,122 +786,112 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: Load the user's channel info
     func loadMemberChannel() {
-        if avatarUrl != nil, let avatarUrl = avatarUrl {
-            guard let avatarUrl = URL(string: avatarUrl) else { return }
+        if avatarUrl != nil, let avatar = avatarUrl, let avatarUrl = URL(string: avatar) {
             DispatchQueue.main.async {
                 self.loadImage(url: avatarUrl)
             }
         }
         let Id = chanelVar
         guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
-        var request = URLRequest(url:myUrl!)
-        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if error != nil {
-                self.showMessage(title: "Eror", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
-                return
-            }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(accessToken)",
+            "Accept": "application/json"
+        ]
+        AF.request("http://10.0.0.2:3000/api/v1/channels/\(Id)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            guard let data = response.data else { return }
+            var parseJSON: [String: Any]?
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                if let parseJSON = json {
-                    guard let username: String = parseJSON["username"] as? String else { return }
-                    self.channelUsername = username
+                parseJSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                guard let username: String = parseJSON?["username"] as? String else { return }
+                self.channelUsername = username
+                DispatchQueue.main.async {
+                    self.navigationItem.title = "@" + username
+                }
+                guard let name: String = parseJSON?["name"] as? String else { return }
+                let imageUrl: String? = parseJSON?["avatar_url"] as? String // Forgot to change to the new api here
+                guard let followerCount: Int = parseJSON?["followers_count"] as? Int else { return }
+                guard let followingCount: Int = parseJSON?["following_count"] as? Int else { return }
+                guard let isBlocked: Bool = parseJSON?["isblocked"] as? Bool else { return }
+                guard let isReported: Bool = parseJSON?["reported"] as? Bool else { return }
+                self.isReported = isReported
+                DispatchQueue.main.async {
+                    self.reportButton.isHidden = true
+                }
+                let bio: String = parseJSON?["bio"] as? String ?? ""
+                guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                DispatchQueue.main.async {
+                    self.usernameLabel.text = username
+                    self.nameLabel.text = name
+                    self.bioLabel.text = bio
+                }
+                switch isBlocked {
+                case true:
                     DispatchQueue.main.async {
-                        self.navigationItem.title = "@" + username
+                        self.collectionView.isHidden = true
+                        self.userBlockedLabel.isHidden = false
                     }
-                    guard let name: String = parseJSON["name"] as? String else { return }
-                    let imageUrl: String? = parseJSON["avatar_url"] as? String // Forgot to change to the new api here
-                    guard let followerCount: Int = parseJSON["followers_count"] as? Int else { return }
-                    guard let followingCount: Int = parseJSON["following_count"] as? Int else { return }
-                    guard let isBlocked: Bool = parseJSON["isblocked"] as? Bool else { return }
-                    guard let isReported: Bool = parseJSON["reported"] as? Bool else { return }
-                    self.isReported = isReported
+                case false:
+                    break
+                }
+                switch followerCount {
+                case _ where followerCount < 1000:
                     DispatchQueue.main.async {
-                        self.reportButton.isHidden = true
+                        self.followersLabel.text = "\(followerCount)"
                     }
-                    guard let bio: String = parseJSON["bio"] as? String else { return }
-                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                case _ where followerCount > 1000 && followerCount < 100000:
                     DispatchQueue.main.async {
-                        self.usernameLabel.text = username
-                        self.nameLabel.text = name
-                        self.bioLabel.text = bio
-                    }
-                    switch isBlocked {
-                    case true:
-                        DispatchQueue.main.async {
-                            self.collectionView.isHidden = true
-                            self.userBlockedLabel.isHidden = false
-                        }
-                    case false:
-                        break
-                    }
-                    switch followerCount {
-                    case _ where followerCount < 1000:
-                        DispatchQueue.main.async {
-                            self.followersLabel.text = "\(followerCount)"
-                        }
-                    case _ where followerCount > 1000 && followerCount < 100000:
-                        DispatchQueue.main.async {
-                            self.followersLabel.text = "\(followerCount/1000).\((followerCount/100)%10)k" }
-                    case _ where followerCount > 100000 && followerCount < 1000000:
-                        DispatchQueue.main.async {
-                            self.followersLabel.text = "\(followerCount/1000)k"
-                        }
-                    case _ where followerCount > 1000000 && followerCount < 100000000:
-                        DispatchQueue.main.async {
-                            self.followersLabel.text = "\(followerCount/1000000).\((followerCount/1000)%10)M"
-                        }
-                    case _ where followerCount > 100000000:
-                        DispatchQueue.main.async {
-                            self.followersLabel.text = "\(followerCount/1000000)M"
-                        }
-                    default:
-                        DispatchQueue.main.async {
-                            self.followersLabel.text = "\(followerCount)"
-                        }
-                    }
-                    switch followingCount {
-                    case _ where followingCount < 1000:
-                        DispatchQueue.main.async {
-                            self.followingLabel.text = "\(followingCount)"
-                        }
-                    case _ where followingCount > 1000 && followingCount < 100000:
-                        DispatchQueue.main.async {
-                            self.followingLabel.text = "\(followingCount/1000).\((followingCount/100)%10)k" }
-                    case _ where followingCount > 100000 && followingCount < 1000000:
-                        DispatchQueue.main.async {
-                            self.followingLabel.text = "\(followingCount/1000)k"
-                        }
-                    case _ where followingCount > 1000000 && followingCount < 100000000:
-                        DispatchQueue.main.async {
-                            self.followingLabel.text = "\(followingCount/1000000).\((followingCount/1000)%10)M"
-                        }
-                    case _ where followingCount > 100000000:
-                        DispatchQueue.main.async {
-                            self.followingLabel.text = "\(followingCount/1000000)M"
-                        }
-                    default:
-                        DispatchQueue.main.async {
-                            self.followingLabel.text = "\(followingCount)"
-                        }
-                    }
+                        self.followersLabel.text = "\(followerCount/1000).\((followerCount/100)%10)k" }
+                case _ where followerCount > 100000 && followerCount < 1000000:
                     DispatchQueue.main.async {
-                        self.loadImage(url: railsUrl)
-                        //Nuke.loadImage(with: railsUrl, into: self.avatarImage)
+                        self.followersLabel.text = "\(followerCount/1000)k"
                     }
-                    
-                } else {
-                    print(error ?? "")
-                    return
+                case _ where followerCount > 1000000 && followerCount < 100000000:
+                    DispatchQueue.main.async {
+                        self.followersLabel.text = "\(followerCount/1000000).\((followerCount/1000)%10)M"
+                    }
+                case _ where followerCount > 100000000:
+                    DispatchQueue.main.async {
+                        self.followersLabel.text = "\(followerCount/1000000)M"
+                    }
+                default:
+                    DispatchQueue.main.async {
+                        self.followersLabel.text = "\(followerCount)"
+                    }
+                }
+                switch followingCount {
+                case _ where followingCount < 1000:
+                    DispatchQueue.main.async {
+                        self.followingLabel.text = "\(followingCount)"
+                    }
+                case _ where followingCount > 1000 && followingCount < 100000:
+                    DispatchQueue.main.async {
+                        self.followingLabel.text = "\(followingCount/1000).\((followingCount/100)%10)k" }
+                case _ where followingCount > 100000 && followingCount < 1000000:
+                    DispatchQueue.main.async {
+                        self.followingLabel.text = "\(followingCount/1000)k"
+                    }
+                case _ where followingCount > 1000000 && followingCount < 100000000:
+                    DispatchQueue.main.async {
+                        self.followingLabel.text = "\(followingCount/1000000).\((followingCount/1000)%10)M"
+                    }
+                case _ where followingCount > 100000000:
+                    DispatchQueue.main.async {
+                        self.followingLabel.text = "\(followingCount/1000000)M"
+                    }
+                default:
+                    DispatchQueue.main.async {
+                        self.followingLabel.text = "\(followingCount)"
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.loadImage(url: railsUrl)
+                    //Nuke.loadImage(with: railsUrl, into: self.avatarImage)
                 }
             } catch {
-                    print(error)
+                print("error code: 12ejasdcvcxicvnz9234hrasdf")
                 return
             }
         }
-        task.resume()
     }
     
     
@@ -1005,7 +995,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         processors: resizedImageProcessors)
         let originalImagePublisher = ImagePipeline.shared.imagePublisher(with: url)
         guard let failedImage = ImageLoadingOptions.shared.failureImage else {
-          return
+            Nuke.loadImage(with: url, into: self.avatarImage)
+            return
         }
       
       let resizedImagePublisher = ImagePipeline.shared
@@ -1022,6 +1013,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
               self.avatarImage.image = $0
               self.avatarImage.contentMode = $1
             }
+        if self.avatarImage == nil {
+            Nuke.loadImage(with: url, into: self.avatarImage)
+        }
     }
 
     

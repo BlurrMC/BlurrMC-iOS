@@ -111,7 +111,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         }
         
         if notification.name == UIApplication.keyboardWillShowNotification {
-            replyField.frame.origin.y = keyboardRect.minY - replyField.frame.height - 40
+            replyField.frame.origin.y = keyboardRect.minY - replyField.frame.height - 50
         } else {
             replyField.frame.origin.y = 0
             replyField.isHidden = true
@@ -317,15 +317,15 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     // MARK: Avatar Tapped
     @objc func avatarTap(sender:UITapGestureRecognizer) {
         let destinationVC = OtherChannelViewController()
-        destinationVC.usernameLabel.text = username
         destinationVC.chanelVar = username
         if let avatarUrl: String  = try? myValet.string(forKey: "avatar url") {
             destinationVC.avatarUrl = avatarUrl
         }
         destinationVC.channelUsername = username
-        destinationVC.nameLabel.text = name
         DispatchQueue.main.async {
             destinationVC.performSegue(withIdentifier: "showCommentChannel", sender: self)
+            destinationVC.usernameLabel.text = self.username
+            destinationVC.nameLabel.text = self.name
         }
     }
     
@@ -373,7 +373,7 @@ extension CommentingViewController: CommentCellDelegate {
             destinationVC.avatarUrl = avatarUrl
             destinationVC.chanelVar = username
             DispatchQueue.main.async {
-                destinationVC.performSegue(withIdentifier: "showCommentChannel", sender: self)
+                self.performSegue(withIdentifier: "showCommentChannel", sender: self)
             }
         case false:
             let username = self.comments[indexPath.section].created_by
@@ -385,7 +385,7 @@ extension CommentingViewController: CommentCellDelegate {
             destinationVC.avatarUrl = avatarUrl
             destinationVC.chanelVar = username
             DispatchQueue.main.async {
-                destinationVC.performSegue(withIdentifier: "showCommentChannel", sender: self)
+                self.performSegue(withIdentifier: "showCommentChannel", sender: self)
             }
         }
     }
@@ -1022,10 +1022,11 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: Height For Row
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if comments[indexPath.section].replies?.isEmpty != true && indexPath.row != 0 {
+        if comments[indexPath.section].replies?.isEmpty == false && indexPath.row != 0 {
             return 60
-        } else if comments[indexPath.section].replies?.isEmpty != true {
-            return 85
+        } else if comments[indexPath.section].replies?.isEmpty == false {
+            return 180 /// This is to fit the "replies" dbutton, but this making avatar stretched, heart icon and number far apart, and three dots really small.
+            // Also, replyField keyboard is misaligned, and we need to setup nav bar (for when clicking on channels)
         } else {
             return 60
         }

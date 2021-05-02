@@ -20,6 +20,7 @@ class CommentCell: UITableViewCell {
         likeButton.addGestureRecognizer(tap)
         moreButton.addGestureRecognizer(moreTap)
         commentAvatar.addGestureRecognizer(avatarTap)
+        self.commentAvatar.layer.cornerRadius = self.commentAvatar.bounds.height / 2
     }
     
     var delegate: CommentCellDelegate?

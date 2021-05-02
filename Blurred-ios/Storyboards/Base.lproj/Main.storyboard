@@ -30,7 +30,7 @@
                     <connections>
                         <outlet property="progressView" destination="oCc-mY-FcT" id="WnM-0F-N8W"/>
                         <segue destination="C9p-qA-0Zi" kind="show" identifier="showHomeVideoUserChannel" id="WHv-Wv-77X"/>
-                        <segue destination="jB3-j9-emY" kind="show" identifier="showHomeVideoComments" id="ojZ-HU-szu"/>
+                        <segue destination="jB3-j9-emY" kind="presentation" identifier="showHomeVideoComments" modalPresentationStyle="formSheet" id="ojZ-HU-szu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -1545,7 +1545,7 @@
         <!--Navigation Controller-->
         <scene sceneID="h2F-2W-XlZ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rXb-1n-v0V" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="rXb-1n-v0V" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="home" id="acW-dT-cKf" userLabel="Home"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="At4-I2-jGK">
@@ -1584,9 +1584,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="exv-N4-hW9"/>
         <segue reference="745-eJ-5Gd"/>
-        <segue reference="QXk-9R-dne"/>
+        <segue reference="WHv-Wv-77X"/>
         <segue reference="Bvt-h1-M8t"/>
-        <segue reference="ZQw-bI-U6Q"/>
+        <segue reference="ojZ-HU-szu"/>
         <segue reference="b95-Ol-zev"/>
     </inferredMetricsTieBreakers>
     <resources>

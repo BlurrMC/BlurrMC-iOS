@@ -359,6 +359,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             return
         }
         let section = 0
+        let oldVideoCount = self.videos.count
         var indexPaths: [IndexPath] = []
         let total = self.videos.count + newVideos.count
         for row in self.videos.count...total-1 {
@@ -366,7 +367,11 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             indexPaths.append(path)
         }
         self.videos.append(contentsOf: newVideos)
-        self.tableNode.insertRows(at: indexPaths, with: .none)
+        if (oldVideoCount + newVideos.count) == self.videos.count {
+            self.tableNode.insertRows(at: indexPaths, with: .none)
+        } else {
+            return
+        }
     }
     
     

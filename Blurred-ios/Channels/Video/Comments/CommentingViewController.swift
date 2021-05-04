@@ -946,9 +946,13 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
                     return
                 }
             }
-            if comment.replies?.count ?? 0 > 1 {
+            guard let repliesCount = comment.replies?.count else {
+                cell.readMoreButton.isHidden = true
+                return cell // This should be the end if the comment has no replies
+            }
+            if repliesCount > 1 {
                 cell.readMoreButton.setTitle("Read \(comment.replies?.count ?? 0) Replies", for: .normal)
-            } else {
+            } else if repliesCount == 1 {
                 cell.readMoreButton.setTitle("Read \(comment.replies?.count ?? 0) Reply", for: .normal)
             }
             return cell
@@ -1025,7 +1029,7 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
         if comments[indexPath.section].replies?.isEmpty == false && indexPath.row != 0 {
             return 60
         } else if comments[indexPath.section].replies?.isEmpty == false {
-            return 180 /// This is to fit the "replies" dbutton, but this making avatar stretched, heart icon and number far apart, and three dots really small.
+            return 85 /// This is to fit the "replies" dbutton, but this making avatar stretched, heart icon and number far apart, and three dots really small.
             // Also, replyField keyboard is misaligned, and we need to setup nav bar (for when clicking on channels)
         } else {
             return 60

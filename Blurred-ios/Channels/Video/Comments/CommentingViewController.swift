@@ -155,8 +155,10 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                         ]
                     ]
                     request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
-                    replyField.text = nil
-                    replyField.isHidden = true
+                    DispatchQueue.main.async {
+                        self.replyField.text = nil
+                        self.replyField.isHidden = true
+                    }
                 case false:
                     let patchString = ["comment": ["body": comment]]
                     request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
@@ -186,12 +188,16 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                             self.downloadJson(fromReply: reply)
                         }
                     } else {
-                        self.replyField.text = nil
+                        DispatchQueue.main.async {
+                            self.replyField.text = nil
+                        }
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         print(error ?? "No error")
                     }
                 } catch {
-                    self.replyField.text = nil
+                    DispatchQueue.main.async {
+                        self.replyField.text = nil
+                    }
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                     print(error)
@@ -323,7 +329,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         }
         destinationVC.channelUsername = username
         DispatchQueue.main.async {
-            destinationVC.performSegue(withIdentifier: "showCommentChannel", sender: self)
+            self.present(destinationVC, animated: true)
             destinationVC.usernameLabel.text = self.username
             destinationVC.nameLabel.text = self.name
         }
@@ -333,7 +339,14 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     // MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         getAvatar()
+    }
+    
+    // MARK: View Will Disappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     
@@ -373,7 +386,7 @@ extension CommentingViewController: CommentCellDelegate {
             destinationVC.avatarUrl = avatarUrl
             destinationVC.chanelVar = username
             DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "showCommentChannel", sender: self)
+                self.present(destinationVC, animated: true)
             }
         case false:
             let username = self.comments[indexPath.section].created_by
@@ -385,7 +398,7 @@ extension CommentingViewController: CommentCellDelegate {
             destinationVC.avatarUrl = avatarUrl
             destinationVC.chanelVar = username
             DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "showCommentChannel", sender: self)
+                self.present(destinationVC, animated: true)
             }
         }
     }

@@ -17,6 +17,7 @@ import Alamofire
 class HomeViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
     var shouldBatchFetch = true
+    var oldVideoCount = 0
     
 
     @IBOutlet weak var progressView: UIProgressView!
@@ -359,7 +360,6 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             return
         }
         let section = 0
-        let oldVideoCount = self.videos.count
         var indexPaths: [IndexPath] = []
         let total = self.videos.count + newVideos.count
         for row in self.videos.count...total-1 {
@@ -420,6 +420,7 @@ extension HomeViewController: ASTableDelegate {
     
     // MARK: Batch fetch function
     func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+        oldVideoCount = self.videos.count
         currentPage = currentPage + 1
         self.batchFetch(success: {(response) -> Void in
             guard let data = response?.data else {

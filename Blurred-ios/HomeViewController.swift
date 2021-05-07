@@ -145,8 +145,14 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     // MARK: Function for showing video comments
     func showVideoComments(videoId: Int) {
         self.videoId = videoId
-        self.performSegue(withIdentifier: "showHomeVideoComments", sender: self)
-        
+        let storyboard = UIStoryboard(name: "CommentBoard", bundle: nil)
+        let commentNavController = storyboard.instantiateViewController(withIdentifier: "commentNav") as! UINavigationController
+        let commentController = commentNavController.viewControllers.first as! CommentingViewController
+        commentController.videoId = self.videoId
+        commentNavController.modalPresentationStyle = .formSheet
+        DispatchQueue.main.async {
+            self.present(commentNavController, animated: true, completion: nil)
+        }
     }
     
     
@@ -161,12 +167,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     // MARK: Segue Data
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if let vc = segue.destination as? CommentingViewController {
-            if segue.identifier == "showHomeVideoComments" {
-                vc.presentationController?.delegate = self
-                vc.videoId = videoId
-            }
-        } else if let vc = segue.destination as? OtherChannelViewController {
+        if let vc = segue.destination as? OtherChannelViewController {
             if segue.identifier == "showHomeVideoUserChannel" {
                 vc.chanelVar = videoUsername
                 vc.resizedImageProcessors = self.resizedImageProcessors

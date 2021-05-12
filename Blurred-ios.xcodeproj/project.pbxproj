@@ -35,6 +35,8 @@
 		E179F01525E4AB5A003E14F2 /* ColorHexConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */; };
 		E17C5EF824E6A99000D1E079 /* OverlayViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */; };
 		E181026A25682A3200CA4522 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181026925682A3200CA4522 /* MainTabBarViewController.swift */; };
+		E181F84D264B4A5B00446AFA /* OTPBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E181F84C264B4A5B00446AFA /* OTPBoard.storyboard */; };
+		E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181F84E264B4C8200446AFA /* OTPViewController.swift */; };
 		E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */; };
 		E18C73982638DF620046A845 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18C73972638DF620046A845 /* Reachability.swift */; };
 		E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA897024E0427A0015C546 /* CacheManager.swift */; };
@@ -122,6 +124,8 @@
 		E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHexConverter.swift; sourceTree = "<group>"; };
 		E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewDelegate.swift; sourceTree = "<group>"; };
 		E181026925682A3200CA4522 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		E181F84C264B4A5B00446AFA /* OTPBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OTPBoard.storyboard; sourceTree = "<group>"; };
+		E181F84E264B4C8200446AFA /* OTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoViewController.swift; sourceTree = "<group>"; };
 		E18C73972638DF620046A845 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = SOURCE_ROOT; };
 		E19286EB24D72F1B00382D98 /* Blurred-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blurred-ios-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -347,8 +351,19 @@
 				E1DF6FA4244F578700E11BF9 /* LaunchScreen.storyboard */,
 				E1DF6F71244F550300E11BF9 /* Main.storyboard */,
 				E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */,
+				E181F84C264B4A5B00446AFA /* OTPBoard.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		E181F850264B4C8F00446AFA /* Auth Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E181F84E264B4C8200446AFA /* OTPViewController.swift */,
+				E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */,
+				E12808CC245659D6001BF3F3 /* SignupViewController.swift */,
+			);
+			path = "Auth Controllers";
 			sourceTree = "<group>";
 		};
 		E19413C12545C7540037D650 /* Comment */ = {
@@ -445,6 +460,7 @@
 		E1DF6F68244F550300E11BF9 /* Blurred-ios */ = {
 			isa = PBXGroup;
 			children = (
+				E181F850264B4C8F00446AFA /* Auth Controllers */,
 				E196F5F224A8D589001BE742 /* Cells */,
 				E196F5F424A8D5E4001BE742 /* Channels */,
 				590D20AB24EDAEA300109359 /* Nodes */,
@@ -453,7 +469,6 @@
 				E196F5F524A8D626001BE742 /* Settings */,
 				5B2527AD2484388C0014F6CA /* Assets.xcassets */,
 				E1DF6F69244F550300E11BF9 /* AppDelegate.swift */,
-				E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */,
 				E1E6F163261674C800783952 /* Blurred.entitlements */,
 				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
 				E19286EB24D72F1B00382D98 /* Blurred-ios-Bridging-Header.h */,
@@ -466,7 +481,6 @@
 				E1DF6FBA244F5DCE00E11BF9 /* NotificationsViewController.swift */,
 				E1DF6F6F244F550300E11BF9 /* SearchViewController.swift */,
 				E1D8C895246F119000F1EAD1 /* Settings.bundle */,
-				E12808CC245659D6001BF3F3 /* SignupViewController.swift */,
 				E139B92A24E871DF0035901E /* Throttler.swift */,
 				E18C73972638DF620046A845 /* Reachability.swift */,
 			);
@@ -607,6 +621,7 @@
 				E1DF6FA5244F578700E11BF9 /* LaunchScreen.storyboard in Resources */,
 				5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */,
 				E1BA897924E18CDC0015C546 /* ChannelVideoOverlay.xib in Resources */,
+				E181F84D264B4A5B00446AFA /* OTPBoard.storyboard in Resources */,
 				E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */,
 				E139B92624E826B10035901E /* DescriptionOverlay.xib in Resources */,
 			);
@@ -756,6 +771,7 @@
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
 				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,
+				E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
 				596AEE4724E89174002531C0 /* CommentCell.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,

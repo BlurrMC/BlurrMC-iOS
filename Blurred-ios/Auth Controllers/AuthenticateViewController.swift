@@ -65,9 +65,6 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         if (username?.isEmpty)! || (password?.isEmpty)! {
             print("Username \(String(describing: username)) or password \(String(describing: password)) is empty")
             self.showMessage(title: "Alert", message: "Username or password is empty.", alertActionTitle: "OK")
-
-             
-            
             return
         }
         // MAKE THE PEOPLE WAIT GOD DAMN ITz
@@ -104,6 +101,17 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 
                 if let parseJSON = json {
+                    let status = parseJSON["error"] as? String
+                    if status == "Invalid OTP code" {
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "showOTP", sender: self)
+                        }
+                        return
+                    } else if status == "invalid_credentials" {
+                        self.showMessage(title: "Invalid Credentials", message: "You put in the wrong login information.", alertActionTitle: "OK")
+                        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        return
+                    }
                     let userIdInt = parseJSON["id"] as? Int
                     if userIdInt == nil {
                         self.showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK")
@@ -145,6 +153,34 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             }
         }
         task.resume()
+    }
+    
+    // MARK: Pass data through segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+        case is OTPViewController:
+            let vc = segue.destination as? OTPViewController
+            if segue.identifier == "showOTP" {
+                guard let login = self.usernameTextField.text else { return }
+                guard let password = self.passwordTextField.text else { return }
+                vc?.login = login
+                vc?.password = password
+            }
+        default:
+            break
+        }
+    }
+    
+    // MARK: View Will Appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    // MARK: View Will Disappear
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     

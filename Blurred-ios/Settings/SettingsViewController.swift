@@ -23,6 +23,36 @@ class SettingsViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    @IBAction func tapped2FASettings(_ sender: Any) {
+        let token: String? = try? tokenValet.string(forKey: "Token")
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token!)",
+            "Accept": "application/json"
+        ]
+        AF.request("http://10.0.0.2:3000/api/v1/checkforotp", method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            guard let data = response.data else { return }
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                guard let status = JSON?["status"] as? String else {
+                    self.showMessage(title: "Error", message: "Unknown alert has occured. Try again later.", alertActionTitle: "OK", cancelAction: false, secondAlertActionTitle: nil)
+                    return
+                }
+                if status == "OTP required" {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "disableOTP", sender: self)
+                    }
+                } else if status == "OTP not required" {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "EnableOTP", sender: self)
+                    }
+                }
+                self.dismiss(animated: true, completion: nil)
+            } catch {
+                print("error code: asdf98uiqnjaksd")
+            }
+        }
+    }
     
     
     // MARK: Clear the cache

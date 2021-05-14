@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--EnableOTP View Controller-->
+        <scene sceneID="bE9-ez-gjp">
+            <objects>
+                <viewController storyboardIdentifier="EnableOTP" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PZ2-Gi-3Aw" customClass="EnableOTPViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zFd-HD-aG2">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable 2FA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJW-sY-gyW">
+                                <rect key="frame" x="134" y="119" width="122" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UUX-3D-i9I">
+                                <rect key="frame" x="57.666666666666657" y="264" width="275" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOe-qL-2UE">
+                                <rect key="frame" x="120.66666666666669" y="395" width="149" height="54"/>
+                                <color key="backgroundColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Enable 2FA"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="enableButtonTapped:" destination="PZ2-Gi-3Aw" eventType="touchUpInside" id="zhr-v8-m9l"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gla-kk-IFY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="UUX-3D-i9I" firstAttribute="top" secondItem="KJW-sY-gyW" secondAttribute="bottom" constant="115" id="1p1-Jd-JPz"/>
+                            <constraint firstItem="UUX-3D-i9I" firstAttribute="height" secondItem="zFd-HD-aG2" secondAttribute="height" multiplier="0.0402844" id="9fR-YJ-9xN"/>
+                            <constraint firstItem="KJW-sY-gyW" firstAttribute="top" secondItem="gla-kk-IFY" secondAttribute="top" constant="75" id="A4S-Zk-cgu"/>
+                            <constraint firstItem="bOe-qL-2UE" firstAttribute="centerX" secondItem="zFd-HD-aG2" secondAttribute="centerX" id="KRj-KT-gxL"/>
+                            <constraint firstItem="UUX-3D-i9I" firstAttribute="centerX" secondItem="zFd-HD-aG2" secondAttribute="centerX" id="Xt2-ps-a5u"/>
+                            <constraint firstItem="bOe-qL-2UE" firstAttribute="height" secondItem="zFd-HD-aG2" secondAttribute="height" multiplier="0.063981" id="dF9-gZ-ssu"/>
+                            <constraint firstItem="bOe-qL-2UE" firstAttribute="top" secondItem="UUX-3D-i9I" secondAttribute="bottom" constant="97" id="lPh-Yq-mN7"/>
+                            <constraint firstItem="bOe-qL-2UE" firstAttribute="width" secondItem="zFd-HD-aG2" secondAttribute="width" multiplier="0.382051" id="sli-MK-9PT"/>
+                            <constraint firstItem="KJW-sY-gyW" firstAttribute="centerX" secondItem="zFd-HD-aG2" secondAttribute="centerX" id="wVr-Ys-9fL"/>
+                            <constraint firstItem="UUX-3D-i9I" firstAttribute="width" secondItem="zFd-HD-aG2" secondAttribute="width" multiplier="0.705128" id="xkv-uS-6rp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="passwordField" destination="UUX-3D-i9I" id="ueV-n6-8NX"/>
+                        <segue destination="kc7-jL-t8f" kind="show" identifier="partTwoOTP" id="HsH-Ll-ExB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6cs-ek-ebD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-934" y="55"/>
+        </scene>
+        <!--DisableOTP View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="DisableOTP" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="DisableOTPViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disable 2FA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPz-fB-w0q">
+                                <rect key="frame" x="130.66666666666666" y="119" width="128.99999999999997" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ko6-fP-R7K">
+                                <rect key="frame" x="57.666666666666657" y="264" width="275" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="2FA Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mx2-kj-ArP">
+                                <rect key="frame" x="57.666666666666657" y="333" width="275" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G39-t4-Ue1">
+                                <rect key="frame" x="120.66666666666669" y="432" width="149" height="54"/>
+                                <color key="backgroundColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Disable 2FA"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="disabledTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="f0F-Wz-eDN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ko6-fP-R7K" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.705128" id="1hc-7g-l7J"/>
+                            <constraint firstItem="Mx2-kj-ArP" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.705128" id="Bla-cs-sM5"/>
+                            <constraint firstItem="G39-t4-Ue1" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.063981" id="Dja-u9-MNu"/>
+                            <constraint firstItem="Mx2-kj-ArP" firstAttribute="top" secondItem="Ko6-fP-R7K" secondAttribute="bottom" constant="35" id="JA7-ol-6o2"/>
+                            <constraint firstItem="Mx2-kj-ArP" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0402844" id="UCP-nZ-wVH"/>
+                            <constraint firstItem="G39-t4-Ue1" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="VOB-Ig-WHK"/>
+                            <constraint firstItem="gPz-fB-w0q" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="75" id="aDZ-Th-oEX"/>
+                            <constraint firstItem="Ko6-fP-R7K" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="dYb-50-RIW"/>
+                            <constraint firstItem="G39-t4-Ue1" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.382051" id="feQ-aP-DN3"/>
+                            <constraint firstItem="Ko6-fP-R7K" firstAttribute="top" secondItem="gPz-fB-w0q" secondAttribute="bottom" constant="115" id="m1W-vI-7xC"/>
+                            <constraint firstItem="gPz-fB-w0q" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="qdb-Ac-TxL"/>
+                            <constraint firstItem="G39-t4-Ue1" firstAttribute="top" secondItem="Mx2-kj-ArP" secondAttribute="bottom" constant="65" id="tuw-5d-N6t"/>
+                            <constraint firstItem="Mx2-kj-ArP" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="vTL-fv-IwI"/>
+                            <constraint firstItem="Ko6-fP-R7K" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0402844" id="zfG-h4-aQV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="OTPCode" destination="Mx2-kj-ArP" id="6h6-bM-nha"/>
+                        <outlet property="passwordTextField" destination="Ko6-fP-R7K" id="IZQ-Hl-bqe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="41.53846153846154" y="55.45023696682464"/>
+        </scene>
+        <!--EnableOTP2 View Controller-->
+        <scene sceneID="WGd-YQ-O6u">
+            <objects>
+                <viewController storyboardIdentifier="EnableOTP2" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kc7-jL-t8f" customClass="EnableOTP2ViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="geL-eP-2bx">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ilw-Mg-Mre">
+                                <rect key="frame" x="120.66666666666669" y="397" width="149" height="50.666666666666686"/>
+                                <color key="backgroundColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Enable 2FA"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="enableTapped:" destination="kc7-jL-t8f" eventType="touchUpInside" id="xWk-L2-z3r"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="2FA Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qW9-RF-6ou">
+                                <rect key="frame" x="57.666666666666657" y="300.33333333333331" width="275" height="31.666666666666686"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2FA Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pvc-9x-uKf">
+                                <rect key="frame" x="157.66666666666666" y="220" width="74.666666666666657" height="20.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="doc.on.clipboard.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JCL-2i-jOn">
+                                <rect key="frame" x="242.33333333333337" y="218.66666666666666" width="30" height="29.666666666666657"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="JCL-2i-jOn" secondAttribute="height" multiplier="10:9" id="lMC-7S-mXB"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add To 2FA App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAQ-T3-qn5">
+                                <rect key="frame" x="108" y="75" width="174" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="3nw-j0-a2Q"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="JAQ-T3-qn5" firstAttribute="centerX" secondItem="geL-eP-2bx" secondAttribute="centerX" id="1rs-bN-g3i"/>
+                            <constraint firstItem="qW9-RF-6ou" firstAttribute="top" secondItem="Pvc-9x-uKf" secondAttribute="bottom" constant="60" id="2er-zE-n1T"/>
+                            <constraint firstItem="Pvc-9x-uKf" firstAttribute="top" secondItem="JAQ-T3-qn5" secondAttribute="bottom" constant="115" id="3O6-xT-QtA"/>
+                            <constraint firstItem="JCL-2i-jOn" firstAttribute="width" secondItem="geL-eP-2bx" secondAttribute="width" multiplier="0.0769231" id="8d4-DC-rnP"/>
+                            <constraint firstItem="Pvc-9x-uKf" firstAttribute="centerX" secondItem="geL-eP-2bx" secondAttribute="centerX" id="A80-WC-SyX"/>
+                            <constraint firstItem="JAQ-T3-qn5" firstAttribute="centerX" secondItem="geL-eP-2bx" secondAttribute="centerX" id="DlT-pz-rMl"/>
+                            <constraint firstItem="qW9-RF-6ou" firstAttribute="centerX" secondItem="geL-eP-2bx" secondAttribute="centerX" id="FQb-i9-vE1"/>
+                            <constraint firstItem="Pvc-9x-uKf" firstAttribute="top" secondItem="JAQ-T3-qn5" secondAttribute="bottom" constant="115" id="Kgq-R8-YMA"/>
+                            <constraint firstItem="qW9-RF-6ou" firstAttribute="height" secondItem="geL-eP-2bx" secondAttribute="height" multiplier="0.0402844" id="OHm-JR-4JW"/>
+                            <constraint firstItem="JAQ-T3-qn5" firstAttribute="top" secondItem="3nw-j0-a2Q" secondAttribute="top" constant="75" id="Rcl-QH-skt"/>
+                            <constraint firstItem="JCL-2i-jOn" firstAttribute="top" secondItem="JAQ-T3-qn5" secondAttribute="bottom" constant="115" id="bt9-lg-EIV"/>
+                            <constraint firstItem="qW9-RF-6ou" firstAttribute="width" secondItem="geL-eP-2bx" secondAttribute="width" multiplier="0.705128" id="dSH-Z4-cX0"/>
+                            <constraint firstItem="JCL-2i-jOn" firstAttribute="leading" secondItem="Pvc-9x-uKf" secondAttribute="trailing" constant="10" id="eg7-46-lCJ"/>
+                            <constraint firstItem="Ilw-Mg-Mre" firstAttribute="width" secondItem="geL-eP-2bx" secondAttribute="width" multiplier="0.382051" id="hqx-q1-N6X"/>
+                            <constraint firstItem="Ilw-Mg-Mre" firstAttribute="height" secondItem="geL-eP-2bx" secondAttribute="height" multiplier="0.063981" id="nVe-gn-kR6"/>
+                            <constraint firstItem="Ilw-Mg-Mre" firstAttribute="centerX" secondItem="geL-eP-2bx" secondAttribute="centerX" id="rfU-vB-GKD"/>
+                            <constraint firstItem="Ilw-Mg-Mre" firstAttribute="top" secondItem="qW9-RF-6ou" secondAttribute="bottom" constant="65" id="xhe-LK-Qtu"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="SJu-gy-qgt"/>
+                    <connections>
+                        <outlet property="OTPSetupCode" destination="Pvc-9x-uKf" id="Zsh-tw-BgS"/>
+                        <outlet property="clipboardIcon" destination="JCL-2i-jOn" id="ekV-pG-ggy"/>
+                        <outlet property="userOTPCode" destination="qW9-RF-6ou" id="kQI-GC-7uf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8f5-dS-gkM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-935.38461538461536" y="746.44549763033172"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="doc.on.clipboard.fill" catalog="system" width="116" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

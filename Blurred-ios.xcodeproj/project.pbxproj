@@ -32,11 +32,15 @@
 		E1477EB22548C64C006A3008 /* ReplyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1477EB12548C64C006A3008 /* ReplyTableViewCell.swift */; };
 		E15D6FC224BA5DCD00CC1E0E /* CommentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */; };
 		E15D6FC424BA5E3F00CC1E0E /* CommentBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */; };
+		E162053D264DFB1700F62613 /* EnableOTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162053C264DFB1700F62613 /* EnableOTPViewController.swift */; };
+		E162053F264DFB2900F62613 /* EnableOTP2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162053E264DFB2900F62613 /* EnableOTP2ViewController.swift */; };
+		E1620541264DFB7A00F62613 /* DisableOTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1620540264DFB7A00F62613 /* DisableOTPViewController.swift */; };
 		E179F01525E4AB5A003E14F2 /* ColorHexConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */; };
 		E17C5EF824E6A99000D1E079 /* OverlayViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */; };
 		E181026A25682A3200CA4522 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181026925682A3200CA4522 /* MainTabBarViewController.swift */; };
 		E181F84D264B4A5B00446AFA /* OTPBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E181F84C264B4A5B00446AFA /* OTPBoard.storyboard */; };
 		E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181F84E264B4C8200446AFA /* OTPViewController.swift */; };
+		E181F854264DE35000446AFA /* 2FASettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E181F853264DE35000446AFA /* 2FASettings.storyboard */; };
 		E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */; };
 		E18C73982638DF620046A845 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18C73972638DF620046A845 /* Reachability.swift */; };
 		E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA897024E0427A0015C546 /* CacheManager.swift */; };
@@ -121,11 +125,15 @@
 		E1477EB12548C64C006A3008 /* ReplyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyTableViewCell.swift; sourceTree = "<group>"; };
 		E15D6FC124BA5DCD00CC1E0E /* CommentingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentingViewController.swift; sourceTree = "<group>"; };
 		E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommentBoard.storyboard; sourceTree = "<group>"; };
+		E162053C264DFB1700F62613 /* EnableOTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableOTPViewController.swift; sourceTree = "<group>"; };
+		E162053E264DFB2900F62613 /* EnableOTP2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableOTP2ViewController.swift; sourceTree = "<group>"; };
+		E1620540264DFB7A00F62613 /* DisableOTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPViewController.swift; sourceTree = "<group>"; };
 		E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHexConverter.swift; sourceTree = "<group>"; };
 		E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewDelegate.swift; sourceTree = "<group>"; };
 		E181026925682A3200CA4522 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		E181F84C264B4A5B00446AFA /* OTPBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OTPBoard.storyboard; sourceTree = "<group>"; };
 		E181F84E264B4C8200446AFA /* OTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
+		E181F853264DE35000446AFA /* 2FASettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = 2FASettings.storyboard; sourceTree = "<group>"; };
 		E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoViewController.swift; sourceTree = "<group>"; };
 		E18C73972638DF620046A845 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = SOURCE_ROOT; };
 		E19286EB24D72F1B00382D98 /* Blurred-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blurred-ios-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -350,10 +358,21 @@
 			children = (
 				E1DF6FA4244F578700E11BF9 /* LaunchScreen.storyboard */,
 				E1DF6F71244F550300E11BF9 /* Main.storyboard */,
+				E181F853264DE35000446AFA /* 2FASettings.storyboard */,
 				E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */,
 				E181F84C264B4A5B00446AFA /* OTPBoard.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		E1620542264DFB8100F62613 /* OTP */ = {
+			isa = PBXGroup;
+			children = (
+				E162053C264DFB1700F62613 /* EnableOTPViewController.swift */,
+				E162053E264DFB2900F62613 /* EnableOTP2ViewController.swift */,
+				E1620540264DFB7A00F62613 /* DisableOTPViewController.swift */,
+			);
+			path = OTP;
 			sourceTree = "<group>";
 		};
 		E181F850264B4C8F00446AFA /* Auth Controllers */ = {
@@ -410,6 +429,7 @@
 		E196F5F524A8D626001BE742 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E1620542264DFB8100F62613 /* OTP */,
 				E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */,
 				E1EBD0B8245377E800FE901F /* SettingsViewController.swift */,
 			);
@@ -620,6 +640,7 @@
 				E15D6FC424BA5E3F00CC1E0E /* CommentBoard.storyboard in Resources */,
 				E1DF6FA5244F578700E11BF9 /* LaunchScreen.storyboard in Resources */,
 				5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */,
+				E181F854264DE35000446AFA /* 2FASettings.storyboard in Resources */,
 				E1BA897924E18CDC0015C546 /* ChannelVideoOverlay.xib in Resources */,
 				E181F84D264B4A5B00446AFA /* OTPBoard.storyboard in Resources */,
 				E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */,
@@ -753,6 +774,7 @@
 			files = (
 				E1DF6F70244F550300E11BF9 /* SearchViewController.swift in Sources */,
 				594B8BD024E41793002D620D /* SearchCell.swift in Sources */,
+				E162053F264DFB2900F62613 /* EnableOTP2ViewController.swift in Sources */,
 				E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */,
 				E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */,
 				E139B92924E82C070035901E /* DescriptionOverlayDelegate.swift in Sources */,
@@ -771,9 +793,11 @@
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
 				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,
+				E162053D264DFB1700F62613 /* EnableOTPViewController.swift in Sources */,
 				E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
 				596AEE4724E89174002531C0 /* CommentCell.swift in Sources */,
+				E1620541264DFB7A00F62613 /* DisableOTPViewController.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E1477EB22548C64C006A3008 /* ReplyTableViewCell.swift in Sources */,
 				E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */,

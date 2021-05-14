@@ -3,6 +3,7 @@
     <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -1026,6 +1027,26 @@
             </objects>
             <point key="canvasLocation" x="4529" y="-675"/>
         </scene>
+        <!--EnableOTP-->
+        <scene sceneID="MFC-iF-8XG">
+            <objects>
+                <viewControllerPlaceholder storyboardName="2FASettings" referencedIdentifier="EnableOTP" id="BlW-2M-6ca" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="zka-rS-q9N"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FUm-ZR-5rf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2418" y="-1786"/>
+        </scene>
+        <!--DisableOTP-->
+        <scene sceneID="9Q6-Ow-ize">
+            <objects>
+                <viewControllerPlaceholder storyboardName="2FASettings" referencedIdentifier="DisableOTP" id="fhS-E2-oW9" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ccI-Qt-qVH"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z0X-Lo-jng" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2860" y="-1786"/>
+        </scene>
         <!--Settings Controller-->
         <scene sceneID="QI5-82-euP">
             <objects>
@@ -1034,27 +1055,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" id="HbB-oC-cXw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HbB-oC-cXw">
                                 <rect key="frame" x="20" y="20" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="LoI-94-f30"/>
+                                    <constraint firstAttribute="height" constant="50" id="zTa-CO-mp7"/>
+                                </constraints>
                                 <color key="tintColor" red="0.94557504836009887" green="0.72083421399019609" blue="0.97501105714716618" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="xmark" catalog="system"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="xmark" catalog="system" symbolScale="default"/>
+                                </state>
                                 <connections>
                                     <action selector="settingsBackButton:" destination="MJx-gh-FGt" eventType="touchUpInside" id="Zgt-3M-UV0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEm-gr-flR">
-                                <rect key="frame" x="95" y="117.66666666666669" width="185" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEm-gr-flR">
+                                <rect key="frame" x="95" y="119" width="185" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Account Settings"/>
+                                <state key="normal" title="Account Settings">
+                                    <color key="titleColor" red="0.19083178164243508" green="0.76942203070584037" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="3CI-Sa-bhX" kind="show" id="t7p-JM-yzq"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i89-Hg-g7h">
-                                <rect key="frame" x="136" y="569" width="108" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i89-Hg-g7h">
+                                <rect key="frame" x="133.66666666666666" y="571" width="108" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Clear Cache">
                                     <color key="titleColor" systemColor="systemPurpleColor"/>
@@ -1063,9 +1089,8 @@
                                     <action selector="clearCache:" destination="MJx-gh-FGt" eventType="touchUpInside" id="gvD-cf-TRF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rrs-sq-ymG">
-                                <rect key="frame" x="152" y="639" width="76" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rrs-sq-ymG">
+                                <rect key="frame" x="149.66666666666666" y="642" width="76" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Sign Out">
                                     <color key="titleColor" systemColor="systemRedColor"/>
@@ -1074,15 +1099,44 @@
                                     <action selector="signOutButtonPressed:" destination="MJx-gh-FGt" eventType="touchUpInside" id="3tE-gJ-lIB"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2K-L7-4kT">
+                                <rect key="frame" x="118.66666666666669" y="211" width="138" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="2FA Settings">
+                                    <color key="titleColor" red="0.33833584982417825" green="0.97622523356958768" blue="0.46450412991469331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapped2FASettings:" destination="MJx-gh-FGt" eventType="touchUpInside" id="gmu-GF-V9H"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kRT-IG-HB2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SEm-gr-flR" firstAttribute="top" secondItem="kRT-IG-HB2" secondAttribute="top" constant="75" id="2uR-sJ-mvl"/>
+                            <constraint firstItem="Q2K-L7-4kT" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="Apg-qq-Q9v"/>
+                            <constraint firstItem="Rrs-sq-ymG" firstAttribute="top" secondItem="i89-Hg-g7h" secondAttribute="bottom" constant="35" id="EWG-wt-zaY"/>
+                            <constraint firstItem="Q2K-L7-4kT" firstAttribute="top" secondItem="SEm-gr-flR" secondAttribute="bottom" constant="50" id="WC6-SC-ltr"/>
+                            <constraint firstItem="Rrs-sq-ymG" firstAttribute="height" secondItem="d5c-ZW-K9X" secondAttribute="height" multiplier="0.044335" id="Y9d-Ub-tvi"/>
+                            <constraint firstItem="Rrs-sq-ymG" firstAttribute="width" secondItem="d5c-ZW-K9X" secondAttribute="width" multiplier="0.202667" id="Z9V-es-aqP"/>
+                            <constraint firstItem="kRT-IG-HB2" firstAttribute="bottom" secondItem="Rrs-sq-ymG" secondAttribute="bottom" constant="100" id="egQ-eM-zLA"/>
+                            <constraint firstItem="HbB-oC-cXw" firstAttribute="top" secondItem="d5c-ZW-K9X" secondAttribute="top" constant="20" id="f9Y-Q9-oBG"/>
+                            <constraint firstItem="i89-Hg-g7h" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="jNP-7e-NUT"/>
+                            <constraint firstItem="Rrs-sq-ymG" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="oD6-Kg-nsZ"/>
+                            <constraint firstItem="i89-Hg-g7h" firstAttribute="top" secondItem="Q2K-L7-4kT" secondAttribute="bottom" constant="318" id="oUP-YP-7dc"/>
+                            <constraint firstItem="HbB-oC-cXw" firstAttribute="leading" secondItem="kRT-IG-HB2" secondAttribute="leading" constant="20" id="pys-1c-ucH"/>
+                            <constraint firstItem="SEm-gr-flR" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="zGW-gM-Prt"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2Vc-DM-q20"/>
+                    <connections>
+                        <segue destination="BlW-2M-6ca" kind="show" identifier="enableOTP" id="g3q-kN-KDD"/>
+                        <segue destination="fhS-E2-oW9" kind="show" identifier="disableOTP" id="NQU-XT-7YS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dhq-no-gDy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2642" y="-1410"/>
+            <point key="canvasLocation" x="2640.8000000000002" y="-1410.5911330049262"/>
         </scene>
         <!--Account Settings View Controller-->
         <scene sceneID="ZuY-HU-2f7">

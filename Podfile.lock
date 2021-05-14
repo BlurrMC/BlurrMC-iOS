@@ -39,6 +39,7 @@ PODS:
     - Texture/Core
   - Texture/Video (3.0.0):
     - Texture/Core
+  - TTGSnackbar (1.10.5)
   - Valet (4.1.1)
 
 DEPENDENCIES:
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - Nuke
   - PINCache
   - Texture
+  - TTGSnackbar
   - Valet
 
 SPEC REPOS:
@@ -60,6 +62,7 @@ SPEC REPOS:
     - PINOperation
     - PINRemoteImage
     - Texture
+    - TTGSnackbar
     - Valet
 
 SPEC CHECKSUMS:
@@ -71,8 +74,9 @@ SPEC CHECKSUMS:
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
+  TTGSnackbar: 2bd245d2bbf83639483410273fd936af0b7ba2a9
   Valet: 11ab0e318b7284888a81392e36136563b4af5deb
 
-PODFILE CHECKSUM: b37f5a50341eb4754514543ce24ee3609c814802
+PODFILE CHECKSUM: 47dcb1f9abf7cdce4dd9a1a1d8d2ec86d9be7fa5
 
 COCOAPODS: 1.10.1

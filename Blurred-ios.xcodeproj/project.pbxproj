@@ -16,6 +16,8 @@
 		E1104EC12511649800B52A11 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */; };
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
+		E11F5074264F1B2900626AB7 /* OTPBackupCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F5073264F1B2900626AB7 /* OTPBackupCodesViewController.swift */; };
+		E11F5076264F1D2C00626AB7 /* BackupCodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11F5075264F1D2C00626AB7 /* BackupCodeTableViewCell.swift */; };
 		E125D30E2566E15D005E4E27 /* ImagePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E125D30D2566E15D005E4E27 /* ImagePublisher.swift */; };
 		E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12808CC245659D6001BF3F3 /* SignupViewController.swift */; };
 		E13515CC25492078000437CB /* CommentCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13515CB25492078000437CB /* CommentCellDelegate.swift */; };
@@ -109,6 +111,8 @@
 		E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
+		E11F5073264F1B2900626AB7 /* OTPBackupCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPBackupCodesViewController.swift; sourceTree = "<group>"; };
+		E11F5075264F1D2C00626AB7 /* BackupCodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupCodeTableViewCell.swift; sourceTree = "<group>"; };
 		E125D30D2566E15D005E4E27 /* ImagePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePublisher.swift; sourceTree = "<group>"; };
 		E12808CC245659D6001BF3F3 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E13515CB25492078000437CB /* CommentCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellDelegate.swift; sourceTree = "<group>"; };
@@ -272,6 +276,14 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		E11F5077264F1D3600626AB7 /* OTP */ = {
+			isa = PBXGroup;
+			children = (
+				E11F5075264F1D2C00626AB7 /* BackupCodeTableViewCell.swift */,
+			);
+			path = OTP;
+			sourceTree = "<group>";
+		};
 		E125D32725670688005E4E27 /* Follower + Following */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				E162053C264DFB1700F62613 /* EnableOTPViewController.swift */,
+				E11F5073264F1B2900626AB7 /* OTPBackupCodesViewController.swift */,
 				E162053E264DFB2900F62613 /* EnableOTP2ViewController.swift */,
 				E1620540264DFB7A00F62613 /* DisableOTPViewController.swift */,
 			);
@@ -398,6 +411,7 @@
 		E196F5F224A8D589001BE742 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				E11F5077264F1D3600626AB7 /* OTP */,
 				E19413C12545C7540037D650 /* Comment */,
 				E1C3D95524BB977600323427 /* Channel */,
 				E13848CF24C87E1C00232C7B /* Search */,
@@ -783,6 +797,7 @@
 				E146ACF12474188700D3ED10 /* OtherChannelViewController.swift in Sources */,
 				E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */,
 				E146ACF9247441F100D3ED10 /* OtherFollowingCell.swift in Sources */,
+				E11F5074264F1B2900626AB7 /* OTPBackupCodesViewController.swift in Sources */,
 				E1BA897824E18CDC0015C546 /* OverlayView.swift in Sources */,
 				E1EBD0B9245377E800FE901F /* SettingsViewController.swift in Sources */,
 				E179F01525E4AB5A003E14F2 /* ColorHexConverter.swift in Sources */,
@@ -801,6 +816,7 @@
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,
 				E1477EB22548C64C006A3008 /* ReplyTableViewCell.swift in Sources */,
 				E146ACF52474255D00D3ED10 /* OtherFollowListViewController.swift in Sources */,
+				E11F5076264F1D2C00626AB7 /* BackupCodeTableViewCell.swift in Sources */,
 				E12808CD245659D6001BF3F3 /* SignupViewController.swift in Sources */,
 				E146ACF32474254400D3ED10 /* OtherFollowerListViewController.swift in Sources */,
 				E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */,

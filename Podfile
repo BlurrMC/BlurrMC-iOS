@@ -13,6 +13,7 @@ target 'Blurred-ios' do
   pod 'Texture'
   pod 'PINCache'
   pod 'AlamofireImage'
+  pod 'TTGSnackbar'
   target 'Blurred-iosTests' do
     inherit! :search_paths
     # Pods for testing

@@ -31,7 +31,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         usernameTextField?.tag = 0
         passwordTextField?.tag = 1
         // Colors
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
@@ -103,6 +103,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 if let parseJSON = json {
                     let status = parseJSON["error"] as? String
                     if status == "Invalid OTP code" {
+                        self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         DispatchQueue.main.async {
                             self.performSegue(withIdentifier: "showOTP", sender: self)
                         }

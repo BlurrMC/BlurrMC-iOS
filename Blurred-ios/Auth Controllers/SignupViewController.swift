@@ -124,7 +124,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         passwordTextField?.tag = 3
         confirmPasswordTextField?.tag = 4
         // Colors
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")

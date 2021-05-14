@@ -19,7 +19,7 @@ class DisableOTPViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Colors
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")

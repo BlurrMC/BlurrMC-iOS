@@ -47,7 +47,6 @@ class SettingsViewController: UIViewController {
                         self.performSegue(withIdentifier: "EnableOTP", sender: self)
                     }
                 }
-                self.dismiss(animated: true, completion: nil)
             } catch {
                 print("error code: asdf98uiqnjaksd")
             }
@@ -136,7 +135,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
         // Colors
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")

@@ -47,7 +47,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
         cell.layer.cornerRadius = 12
         cell.layer.borderWidth = 1
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             cell.layer.borderColor = UIColor.black.cgColor
         } else {
             cell.layer.borderColor = UIColor.white.cgColor
@@ -162,7 +162,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     
         // Line view seperator
         let lineView = UIView()
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             lineView.backgroundColor = UIColor.black
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
             self.collectionView.backgroundColor = UIColor(hexString: "#eaeaea")

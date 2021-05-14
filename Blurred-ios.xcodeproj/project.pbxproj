@@ -141,6 +141,8 @@
 		E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoViewController.swift; sourceTree = "<group>"; };
 		E18C73972638DF620046A845 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = SOURCE_ROOT; };
 		E19286EB24D72F1B00382D98 /* Blurred-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blurred-ios-Bridging-Header.h"; sourceTree = "<group>"; };
+		E1BA4933264F2A2500A518E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = Base; path = Base.lproj/CHANGELOG.md; sourceTree = "<group>"; };
+		E1BA4935264F2A2800A518E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = en; path = en.lproj/CHANGELOG.md; sourceTree = "<group>"; };
 		E1BA897024E0427A0015C546 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CacheManager.swift; path = "Blurred-ios/CacheManager.swift"; sourceTree = SOURCE_ROOT; };
 		E1BA897624E18CDC0015C546 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelVideoOverlay.xib; sourceTree = "<group>"; };
@@ -167,7 +169,6 @@
 		E1E6F163261674C800783952 /* Blurred.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Blurred.entitlements; sourceTree = "<group>"; };
 		E1EBD0B8245377E800FE901F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
-		E1EBD0BC2453A1CE00FE901F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = SOURCE_ROOT; };
 		E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoCell.swift; sourceTree = "<group>"; };
 		E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDetailsViewController.swift; sourceTree = "<group>"; };
 		E506893DA9FC7FA3C7672E2C /* Pods-Blurred-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -471,7 +472,7 @@
 		E1DF6F5D244F550300E11BF9 = {
 			isa = PBXGroup;
 			children = (
-				E1EBD0BC2453A1CE00FE901F /* CHANGELOG.md */,
+				E1BA4934264F2A2500A518E5 /* CHANGELOG.md */,
 				E1DF6F68244F550300E11BF9 /* Blurred-ios */,
 				E1DF6F84244F550600E11BF9 /* Blurred-iosTests */,
 				E1DF6F8F244F550700E11BF9 /* Blurred-iosUITests */,
@@ -866,6 +867,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E1BA4934264F2A2500A518E5 /* CHANGELOG.md */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1BA4933264F2A2500A518E5 /* Base */,
+				E1BA4935264F2A2800A518E5 /* en */,
+			);
+			name = CHANGELOG.md;
+			sourceTree = SOURCE_ROOT;
+		};
 		E1DF6F71244F550300E11BF9 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -323,6 +323,13 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         DataLoader.sharedUrlCache.diskCapacity = 0
         let avatarTap = UITapGestureRecognizer(target: self, action: #selector(self.avatarTap(sender:)))
         self.userAvatar.addGestureRecognizer(avatarTap)
+        
+        // Colors
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
+            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
+        } else {
+            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
+        }
     }
     
     // MARK: Segue Data

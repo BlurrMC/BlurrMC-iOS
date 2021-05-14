@@ -348,7 +348,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         videoTableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshSearch(_:)), for: .valueChanged)
         refreshControl.addTarget(self, action: #selector(refreshVideoSearch(_:)), for: .valueChanged)
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
             self.tableView.backgroundColor = UIColor(hexString: "#eaeaea")
             self.videoTableView.backgroundColor = UIColor(hexString: "#eaeaea")

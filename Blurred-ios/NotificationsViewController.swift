@@ -177,7 +177,7 @@ class NotificationsViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refreshNotifications), for: .valueChanged)
         generator.prepare()
         self.navigationItem.title = "Notifications"
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
             self.tableView.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {

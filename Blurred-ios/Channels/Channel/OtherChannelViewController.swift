@@ -223,7 +223,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }
         cell.layer.cornerRadius = 12
         cell.layer.borderWidth = 1
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             cell.layer.borderColor = UIColor.black.cgColor
         } else {
             cell.layer.borderColor = UIColor.white.cgColor
@@ -364,7 +364,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         lineView.centerYAnchor.constraint(equalTo: self.bioLabel.bottomAnchor, constant: 15).isActive = true
         
         // Setting colors based on dark mode on or off
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             lineView.backgroundColor = UIColor.black
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
             self.collectionView.backgroundColor = UIColor(hexString: "#eaeaea")

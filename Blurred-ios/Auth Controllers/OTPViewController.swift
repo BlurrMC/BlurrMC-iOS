@@ -26,7 +26,7 @@ class OTPViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "2FA"
         // Colors
-        if traitCollection.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
@@ -55,8 +55,9 @@ class OTPViewController: UIViewController {
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                if let _ = JSON?["error"] as? String {
+                if let error = JSON?["error"] as? String {
                     self.showMessage(title: "Error", message: "Invalid 2FA Code", alertActionTitle: "OK")
+                    print(error)
                     return
                 }
                 let accessToken = JSON?["token"] as? String

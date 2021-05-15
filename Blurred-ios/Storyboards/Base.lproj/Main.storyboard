@@ -427,13 +427,11 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="vhm-eJ-pwI" firstAttribute="width" secondItem="pf2-uH-y5s" secondAttribute="width" multiplier="0.133333" id="0mt-gX-CD5"/>
                                     <constraint firstItem="vhm-eJ-pwI" firstAttribute="top" secondItem="pf2-uH-y5s" secondAttribute="top" constant="50" id="FLv-49-d2l"/>
                                     <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="leading" secondItem="pf2-uH-y5s" secondAttribute="leading" constant="25" id="Fjs-kr-PP7"/>
                                     <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="height" secondItem="pf2-uH-y5s" secondAttribute="height" multiplier="0.0615764" id="Qks-UB-5NZ"/>
                                     <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="top" secondItem="pf2-uH-y5s" secondAttribute="top" constant="50" id="TeA-gA-yCg"/>
                                     <constraint firstItem="vhm-eJ-pwI" firstAttribute="height" secondItem="pf2-uH-y5s" secondAttribute="height" multiplier="0.0615764" id="X1v-wI-YCV"/>
-                                    <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="width" secondItem="pf2-uH-y5s" secondAttribute="width" multiplier="0.133333" id="cbI-sG-IP6"/>
                                     <constraint firstItem="vhm-eJ-pwI" firstAttribute="width" secondItem="pf2-uH-y5s" secondAttribute="height" multiplier="25:406" id="fP4-Sm-Xf0"/>
                                     <constraint firstItem="Jfk-Sa-Ah2" firstAttribute="width" secondItem="pf2-uH-y5s" secondAttribute="height" multiplier="25:406" id="ifq-A5-XGY"/>
                                     <constraint firstAttribute="trailing" secondItem="vhm-eJ-pwI" secondAttribute="trailing" constant="25" id="ywx-T0-PTo"/>
@@ -1867,6 +1865,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="kCc-RC-5eE"/>
         <segue reference="kHw-nu-gLE"/>
         <segue reference="xcm-IK-Wan"/>
         <segue reference="QXk-9R-dne"/>

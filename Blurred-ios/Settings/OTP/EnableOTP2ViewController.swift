@@ -75,10 +75,11 @@ class EnableOTP2ViewController: UIViewController {
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
         }
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.copyOTP(gesture:)))
+        let clipboardTap = UITapGestureRecognizer(target: self, action: #selector(self.copyOTP(gesture:)))
+        let textTap = UITapGestureRecognizer(target: self, action: #selector(self.copyOTP(gesture:)))
         self.OTPSetupCode.text = otpSecret
-        self.OTPSetupCode.addGestureRecognizer(tapGesture)
-        self.clipboardIcon.addGestureRecognizer(tapGesture)
+        self.OTPSetupCode.addGestureRecognizer(textTap)
+        self.clipboardIcon.addGestureRecognizer(clipboardTap)
     }
     
     // MARK: Copy OTP Secret

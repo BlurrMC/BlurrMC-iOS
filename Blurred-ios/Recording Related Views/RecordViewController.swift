@@ -17,7 +17,7 @@ import NextLevel
 // MARK: Maybe change camera method to CameraManager
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    // MARK: Variables
+    // MARK: Variables & Constants
     var timer = Timer()
     var flashMode = String()
     var usingFrontCamera = Bool()
@@ -29,14 +29,13 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     internal var _panStartZoom: CGFloat = 1
     let minimumZoom: CGFloat = 1.0
     let maximumZoom: CGFloat = 15.0
-    
-    // MARK: Lets
     let cameraButton = UIView()
 
     
     // MARK: Outlets
     @IBOutlet weak var flipCameraIcon: UIButton!
     @IBOutlet var videoView: UIView!
+    @IBOutlet weak var dismissButton: UIButton!
     
     
     // MARK: Valet
@@ -173,6 +172,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // No tab bar for you!
+        self.dismissButton.layer.zPosition = 10
+        
         
         originalFlip()
         

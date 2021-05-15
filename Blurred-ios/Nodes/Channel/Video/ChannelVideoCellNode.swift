@@ -28,18 +28,42 @@ class ChannelVideoCellNode: ASCellNode {
             self.videoNode.asset = AVAsset(url: videoUrl)
         }
         self.addSubnode(self.videoNode)
-        DispatchQueue.main.async() {
+        
+        // Overlays:
+        DispatchQueue.main.async {
+            // Side bar overlay
             let overlay = ChannelVideoOverlayView()
             overlay.videoId = videoId
             overlay.videoUrl = videoUrl
             overlay.delegate = self.delegate
-            overlay.frame = CGRect(origin: CGPoint(x: 320, y: 335), size: CGSize(width: 40, height: 239))
-            self.view.addSubview(overlay)
+            
+            // Description Overlay
             let overlay2 = DescriptionOverlayView()
             overlay.delegate2 = overlay2
-            overlay2.frame = CGRect(x: 45, y: 655, width: 287, height: 45)
-            self.view.addSubview(overlay2)
+            
+            // Add views
+            self.view.addSubview(overlay2) // description
+            self.view.addSubview(overlay) // side bar
+            
+            // Side bar overlay constraints:
+            overlay.translatesAutoresizingMaskIntoConstraints = false
+            overlay.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 75).isActive = true
+            overlay.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,
+                                              constant: -(overlay.bounds.width + 10)).isActive = true
+            overlay.widthAnchor.constraint(equalToConstant: 40).isActive = true
+            overlay.heightAnchor.constraint(equalToConstant: 239).isActive = true
+            
+            // Description overlay constraints:
+            overlay2.translatesAutoresizingMaskIntoConstraints = false
+            overlay2.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor, constant: -(overlay2.bounds.width / 2)).isActive = true
+            overlay2.heightAnchor.constraint(equalToConstant: 45).isActive = true
+            overlay2.widthAnchor.constraint(equalToConstant: 287).isActive = true
+            overlay2.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
+                                             constant: -100).isActive = true
+            
         }
+        
+        
         
     }
     

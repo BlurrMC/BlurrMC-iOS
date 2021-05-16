@@ -76,7 +76,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                         }
                 case .failure( _):
                     // Share the url of the video if downloading the video did not work (backup method)
-                    let videoToShare = [ URL(string: "http://10.0.0.2:3000/videos/\(videoId)") ]
+                    let videoToShare = [ URL(string: "https://bartenderdogseatmuffins.xyz/videos/\(videoId)") ]
                     let activityViewController = UIActivityViewController(activityItems: videoToShare as [Any], applicationActivities: nil)
                     activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
                     activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToFlickr,
@@ -127,7 +127,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     
     // MARK: Request for channel's videos
     func sendRequest() {
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(videoString).json")
+        let myUrl = URL(string: "https://bartenderdogseatmuffins.xyz/api/v1/videos/\(videoString).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -232,7 +232,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     
     // MARK: Download array of videos for channels
     func channelVideoIds() { // Still not done we need to add the user's butt image
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelvideos/\(channelId).json")
+        let url = URL(string: "https://bartenderdogseatmuffins.xyz/api/v1/channelvideos/\(channelId).json")
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -246,7 +246,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                 let pathTotRow = IndexPath.init(row: self.rowNumber, section: 0)
                 DispatchQueue.main.async {
                     self.tableNode.reloadData()
-                    self.tableNode.scrollToRow(at: pathTotRow, at: .none, animated: false)
+                    self.tableNode.scrollToRow(at: pathTotRow, at: .none, animated: true)
                 }
             } catch {
                 print("error code: 1kzka0aww3-2, controller: channelvideoview, error: \(error)")

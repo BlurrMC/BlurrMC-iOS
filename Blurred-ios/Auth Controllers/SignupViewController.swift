@@ -112,6 +112,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true // You gotta hide it
+        navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = "Sign Up"
         confirmPasswordTextField?.delegate = self
         passwordTextField?.delegate = self

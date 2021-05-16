@@ -1,5 +1,5 @@
 # Changelog
-## v1.0A (ALPHA)
+## v0.5 (ALPHA)
 * N/A
 ## v0.4 (PRERELEASE)
 * U.I.

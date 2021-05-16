@@ -40,6 +40,9 @@ class AccountSettingsViewController: UIViewController {
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
         }
+        self.nameField.textContentType = .name
+        self.usernameField.textContentType = .username
+        self.emailField.textContentType = .emailAddress
     }
     
     

@@ -30,6 +30,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         passwordTextField?.delegate = self
         usernameTextField?.tag = 0
         passwordTextField?.tag = 1
+        self.passwordTextField.textContentType = .password
+        self.usernameTextField.textContentType = .username
         // Colors
         if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
             self.view.backgroundColor = UIColor(hexString: "#eaeaea")

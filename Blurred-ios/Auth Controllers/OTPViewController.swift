@@ -24,6 +24,7 @@ class OTPViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.OTPCode.textContentType = .oneTimeCode
         self.navigationItem.title = "2FA"
         // Colors
         if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {

@@ -48,7 +48,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/registrations.json")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/registrations")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -130,6 +130,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
         }
+        self.nameTextField.textContentType = .name
+        self.usernameTextField.textContentType = .username
+        self.emailTextField.textContentType = .emailAddress
+        self.passwordTextField.textContentType = .newPassword
+        self.passwordTextField.textContentType = .password
     }
     
     

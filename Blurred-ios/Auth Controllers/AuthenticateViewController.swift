@@ -77,7 +77,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         }
 
         // Contact the server about the people ^ (if u don't they gonna be sad)
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/sessions.json")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/sessions.json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")

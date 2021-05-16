@@ -100,7 +100,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
     // MARK: Get the user's followings
     func downloadJson() { 
         let Id = followingVar
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowing/\(Id).json")  // 23:40
+        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowing/\(Id).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -174,7 +174,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
                 }
             }
         let Id: Int? = followings[indexPath.row].id
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id!).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -185,7 +185,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let imageUrl: String? = parseJSON["avatar_url"] as? String
-                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                    guard let railsUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl, into: cell.followingAvatar)
                     }

@@ -76,7 +76,7 @@ class AccountSettingsViewController: UIViewController {
         let userId: String? = try? myValet.string(forKey: "Id")
         let token: String? = try? tokenValet.string(forKey: "Token")
         let Id = Int(userId!)
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/registrations/\(Id!).json")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/registrations/\(Id!).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "content-type")

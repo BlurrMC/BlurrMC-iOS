@@ -165,7 +165,7 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Check the like count of video and set it
     func checkLikeCount() {
-        AF.request("http://10.0.0.2:3000/api/v1/videos/\(videoId).json").responseJSON { response in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
@@ -187,7 +187,7 @@ class ChannelVideoOverlayView: UIView {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/didyoulikeit/")
+        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/didyoulikeit/")
         AF.request(URL.init(string: url)!, method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else { return }
             var JSON: [String: Any]?
@@ -221,7 +221,7 @@ class ChannelVideoOverlayView: UIView {
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
-        let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/apilikes/")
+        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/apilikes/")
         AF.request(URL.init(string: url)!, method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
             do {
@@ -279,7 +279,7 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Send request for video info
     func sendRequest() {
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/videos/\(videoId).json")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -295,12 +295,12 @@ class ChannelVideoOverlayView: UIView {
                     guard let descriptionString: String = parseJSON["description"] as? String else { return }
                     guard let username: String = parseJSON["username"] as? String else { return }
                     self.videoUsername = username
-                    AF.request("http://10.0.0.2:3000/api/v1/channels/\(String(describing: username)).json").responseJSON {   response in
+                    AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(String(describing: username)).json").responseJSON {   response in
                         var JSON: [String: Any]?
                         do {
                             JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                             let avatarUrl = JSON!["avatar_url"] as? String
-                            let railsUrl = String("http://10.0.0.2:3000\(avatarUrl!)")
+                            let railsUrl = String("https://www.bartenderdogseatmuffins.xyz\(avatarUrl!)")
                             self.newAvatarUrl = railsUrl
                             self.changeChannelAvatar()
                             guard let name = JSON!["name"] as? String else { return }
@@ -333,7 +333,7 @@ class ChannelVideoOverlayView: UIView {
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
-        let url = String("http://10.0.0.2:3000/api/v1/videos/\(videoId)/apilikes/\(likeId)")
+        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/apilikes/\(likeId)")
         AF.request(URL.init(string: url)!, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
             do {

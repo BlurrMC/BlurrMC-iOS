@@ -70,7 +70,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                         }
                 case .failure( _):
                     // Share the url of the video if downloading the video did not work (backup method)
-                    let videoToShare = [ URL(string: "http://10.0.0.2:3000/videos/\(videoId)") ]
+                    let videoToShare = [ URL(string: "https://www.bartenderdogseatmuffins.xyz/videos/\(videoId)") ]
                     let activityViewController = UIActivityViewController(activityItems: videoToShare as [Any], applicationActivities: nil)
                     activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
                     activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToFlickr,
@@ -96,7 +96,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("http://10.0.0.2:3000/api/v1/apihomefeed.json", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/apihomefeed.json", method: .post, parameters: parameters, headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: 1kdm03o4-2")
                 return
@@ -124,7 +124,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("http://10.0.0.2:3000/api/v1/apihomefeed", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/apihomefeed", method: .post, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -263,7 +263,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     func checkUser() {
         guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
         guard let userId: String = try? myValet.string(forKey: "Id") else { return }
-        guard let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuservalid/\(userId)") else { return }
+        guard let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/isuservalid/\(userId)") else { return }
         var request = URLRequest(url:myUrl)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -334,7 +334,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         let parameters: Parameters = [
             "token": notificationToken
         ]
-        AF.request("http://10.0.0.2:3000/api/v1/registernotificationtoken", method: .post, parameters: parameters,headers: headers).responseJSON { response in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/registernotificationtoken", method: .post, parameters: parameters,headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: 98ijorkndfms,cx")
                 return

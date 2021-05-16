@@ -100,7 +100,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
     func downloadJson() { // Still not done we need to add the user's butt image
         let Id = followerVar
         followerId = Id
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channelsfollowers/\(followerId).json")  // 23:40
+        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowers/\(followerId).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -162,7 +162,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
                 }
             }
         let Id: Int? = followers[indexPath.row].id
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id!).json")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id!).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -174,7 +174,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let imageUrl: String? = parseJSON["avatar_url"] as? String
-                    guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                    guard let railsUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl, into: cell.followerAvatar)
                     }

@@ -39,7 +39,7 @@ class EnableOTP2ViewController: UIViewController {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("http://10.0.0.2:3000/api/v1/two_factor_settings/verifyotp", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/two_factor_settings/verifyotp", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else { return }
             var JSON: [String: Any]?
             do {

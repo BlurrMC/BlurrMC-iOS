@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController {
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
-        AF.request("http://10.0.0.2:3000/api/v1/checkforotp", method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/checkforotp", method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else { return }
             var JSON: [String: Any]?
             do {
@@ -156,7 +156,7 @@ class SettingsViewController: UIViewController {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("http://10.0.0.2:3000/api/v1/notificationtokenremoval", method: .get, headers: headers).responseJSON { response in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/notificationtokenremoval", method: .get, headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: asfd9j1diasjck")
                 return

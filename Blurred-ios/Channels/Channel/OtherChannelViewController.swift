@@ -85,7 +85,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         let userIdInt: Int? = Int(userId!)
         let userIdString: String = String("\(userIdInt)")
         let Id = chanelVar
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(Id).json")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -176,7 +176,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         let params = [
             "c_id": chanelVar
         ]
-        let url = String("http://10.0.0.2:3000/api/v1/reports")
+        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/reports")
         AF.request(URL.init(string: url)!, method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
             do {
@@ -233,7 +233,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
             return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
         }
-        AF.request("http://10.0.0.2:3000/api/v1/videoinfo/\(Id!).json").responseJSON { response in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videoinfo/\(Id!).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
@@ -298,7 +298,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Load the channel's videos
     func channelVideoIds() { // Still not done we need to add the user's butt image
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/channels/\(chanelVar).json")  // 23:40
+        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(chanelVar).json")  // 23:40
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -501,7 +501,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         let params = [
             "username": "\(chanelVar)"
         ] as [String: String]
-        let url = String("http://10.0.0.2:3000/api/v1/apirelationships/\(relationshipId)")
+        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/apirelationships/\(relationshipId)")
         AF.request(URL.init(string: url)!, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
             do {
@@ -530,7 +530,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         let params = [
             "username": "\(chanelVar)"
         ] as [String: String]
-        let url = URL(string: "http://10.0.0.2:3000/api/v1/blocks/\(blockId)")
+        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/blocks/\(blockId)")
         AF.request(url!, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
             do {
@@ -559,7 +559,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Block the user
     func blockUser() {
         guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/blocks/")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/blocks/")
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(accessToken)",
             "Accept": "application/json"
@@ -602,7 +602,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Follow the user
     func followUser() {
         guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/apirelationships/")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/apirelationships/")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -647,7 +647,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Check if user is following/blocking (for dropdown)
     func checkForFollowing() {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/isuserfollowing/\(chanelVar).json")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/isuserfollowing/\(chanelVar).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -730,7 +730,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
-        let url = String("http://10.0.0.2:3000/api/v1/registrations/\(Id!)")
+        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/registrations/\(Id!)")
         let image = avatarImage.image///haha im small
         // let image = [UIImagePickerController.InfoKey.editedImage]
         guard let imgcompressed = image!.jpegData(compressionQuality: 0.5) else { return }
@@ -797,7 +797,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             "Authorization": "Bearer \(accessToken)",
             "Accept": "application/json"
         ]
-        AF.request("http://10.0.0.2:3000/api/v1/channels/\(Id)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else { return }
             var parseJSON: [String: Any]?
             do {
@@ -818,7 +818,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                     self.reportButton.isHidden = true
                 }
                 let bio: String = parseJSON?["bio"] as? String ?? ""
-                guard let railsUrl = URL(string: "http://10.0.0.2:3000\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                guard let railsUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                 DispatchQueue.main.async {
                     self.usernameLabel.text = username
                     self.nameLabel.text = name

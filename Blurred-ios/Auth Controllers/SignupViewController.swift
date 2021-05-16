@@ -48,7 +48,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        let myUrl = URL(string: "http://10.0.0.2:3000/api/v1/registrations.json")
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/registrations.json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")

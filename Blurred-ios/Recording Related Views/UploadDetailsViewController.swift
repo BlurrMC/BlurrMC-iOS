@@ -93,7 +93,7 @@ class UploadDetailsViewController: UIViewController {
                 multipartFormData.append("\(Id!)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "user[Id]")
 
         },
-            to: "http://10.0.0.2:3000/api/v1/videouploads.json", method: .post, headers: headers)
+            to: "https://www.bartenderdogseatmuffins.xyz/api/v1/videouploads.json", method: .post, headers: headers)
             .response { resp in
                 print(resp)
             }

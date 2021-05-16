@@ -43,7 +43,7 @@ class MainTabBarViewController: UITabBarController {
            let image = UIImage(data: fileData) {
             return image
         }
-        print("error code: 0fmviq940ckc9rka93d")
+        print("error code: 0fmviq940ckc9rka93d, this is normal if there is no avatar saved (i.e. user is logging in for first time)")
         return nil
     }
     

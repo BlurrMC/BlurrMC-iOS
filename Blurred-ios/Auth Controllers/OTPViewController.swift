@@ -50,7 +50,7 @@ class OTPViewController: UIViewController {
             "password": password,
             "otp_attempt": otpCodeText
         ] as [String : Any]
-        AF.request("http://10.0.0.2:3000/api/v1/sessions/", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/sessions/", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
             guard let data = response.data else { return }
             var JSON: [String: Any]?
             do {

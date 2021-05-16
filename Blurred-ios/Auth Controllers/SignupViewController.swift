@@ -71,15 +71,15 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 guard let data = Data else { return }
                 let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
-                    let userId = parseJSON["userId"] as? String
-                    if userId == nil, let status = parseJSON["status"] as? String{
+                    let userId = parseJSON["userId"] as? Int
+                    if let status = parseJSON["status"] as? String{
                         if status == "User already exists" {
                             self.showMessage(title: "Error", message: "User already exsists", alertActionTitle: "OK")
                             return
                         }
                     }
                     print("User Id: \(String(describing: userId))")
-                    if (userId?.isEmpty)! {
+                    if userId == nil {
                         self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
                         return
                     } else {

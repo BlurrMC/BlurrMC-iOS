@@ -2054,8 +2054,8 @@
             filePath = "Blurred-ios/Recording Related Views/UploadDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "uploadRequest()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2102,8 +2102,8 @@
             filePath = "Blurred-ios/Recording Related Views/UploadDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "uploadRequest()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2118,8 +2118,8 @@
             filePath = "Blurred-ios/Recording Related Views/UploadDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "uploadRequest()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2134,8 +2134,8 @@
             filePath = "Blurred-ios/Recording Related Views/UploadDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "uploadRequest()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2143,7 +2143,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EEC9C556-F4CC-4CB8-9C33-F922934DC372"
+            uuid = "AEEDB6F2-E0A5-4FDC-9C32-6E0E1AB6B226"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -2159,22 +2159,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AEEDB6F2-E0A5-4FDC-9C32-6E0E1AB6B226"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Blurred-ios/Recording Related Views/UploadDetailsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "uploadRequest()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A4E77D2B-5660-4E90-A628-0810B773AAA3"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -2182,8 +2166,24 @@
             filePath = "Blurred-ios/Recording Related Views/UploadDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "uploadRequest()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C957F717-12C7-4015-8328-3118F055D16D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Blurred-ios/Recording Related Views/UploadDetailsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "uploadRequest()"
             landmarkType = "7">
          </BreakpointContent>

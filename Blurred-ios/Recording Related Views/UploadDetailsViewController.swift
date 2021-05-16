@@ -79,21 +79,20 @@ class UploadDetailsViewController: UIViewController {
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        let userId: String? = try? myValet.string(forKey: "Id")
-        let token: String? = try? tokenValet.string(forKey: "Token")
-        let Id = Int(userId!)
+        guard let userId: String = try? myValet.string(forKey: "Id") else { return }
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token!)",
+            "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
         AF.upload(
             multipartFormData: { multipartFormData in
                 multipartFormData.append("\(self.descriptionField.text ?? "")".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "video[description]") // Shows as an unknown paramater
                 multipartFormData.append(self.videoDetails, withName: "video[clip]", fileName: "clip.mp4", mimeType: "video/mp4")
-                multipartFormData.append("\(Id!)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "user[Id]")
+                multipartFormData.append(userId.data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "user[Id]")
 
         },
-            to: "https://www.bartenderdogseatmuffins.xyz/api/v1/videouploads.json", method: .post, headers: headers)
+            to: "https://www.bartenderdogseatmuffins.xyz/api/v1/videouploads", method: .post, headers: headers)
             .response { resp in
                 print(resp)
             }

@@ -115,8 +115,8 @@ class VideoPlaybackViewController: UIViewController {
         previewView.layer.insertSublayer(avPlayerLayer, at: 0)
 
         view.layoutIfNeeded()
-
-        let playerItem = AVPlayerItem(url: videoURL as URL)
+        guard let videoUrl = videoURL else { return }
+        let playerItem = AVPlayerItem(url: videoUrl as URL)
         avPlayer.replaceCurrentItem(with: playerItem)
         if isDismissed != true {
             let resetPlayer = {

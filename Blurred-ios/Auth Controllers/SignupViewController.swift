@@ -68,7 +68,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             do {
-                let json = try JSONSerialization.jsonObject(with: Data!, options: .mutableContainers) as? NSDictionary
+                guard let data = Data else { return }
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let userId = parseJSON["userId"] as? String
                     if userId == nil, let status = parseJSON["status"] as? String{

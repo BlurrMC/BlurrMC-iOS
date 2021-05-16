@@ -41,6 +41,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             self.showMessage(title: "Alert", message: "Confirmation passwords do not match. Try again.", alertActionTitle: "OK")
             return // YA YA YA Y A YA
         }
+        if passwordTextField.text!.count < 6 {
+            self.showMessage(title: "Alert", message: "Your password must be at least six characters long.", alertActionTitle: "OK")
+            return
+        }
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = true

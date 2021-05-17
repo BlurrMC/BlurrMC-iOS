@@ -240,7 +240,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         var reported: Bool
         var comment_is_editable: Bool
         var edited: Bool
-        init(created_by: String, likes: Int, body: String, id: Int, reply: Bool, time_since_creation: String, liked: Bool, parent_id: Int, replies: [Comment], likeId: Int, reported: Bool, comment_is_editable: Bool, edited: Bool) {
+        init(created_by: String, likes: Int, body: String, id: Int, reply: Bool, time_since_creation: String, liked: Bool, parent_id: Int, replies: [Comment]?, likeId: Int, reported: Bool, comment_is_editable: Bool, edited: Bool) {
             self.id = id
             self.reply = reply
             self.time_since_creation = time_since_creation

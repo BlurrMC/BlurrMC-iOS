@@ -10,7 +10,7 @@
 
 import Foundation
 
-class Throttler {
+public class Throttler {
 
     private var workItem: DispatchWorkItem = DispatchWorkItem(block: {})
     private var previousRun: Date = Date.distantPast

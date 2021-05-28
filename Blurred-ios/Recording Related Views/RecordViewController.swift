@@ -30,18 +30,54 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     let minimumZoom: CGFloat = 1.0
     let maximumZoom: CGFloat = 15.0
     let cameraButton = UIView()
+    var telephotoCamera: Bool = false
+    var ultraWideCamera: Bool = false
+    var cameraSetting: cameraSettingTypes = .main
+    enum cameraSettingTypes {
+        case telephoto
+        case main
+        case ultrawide
+    }
 
     
     // MARK: Outlets
     @IBOutlet weak var flipCameraIcon: UIButton!
     @IBOutlet var videoView: UIView!
     @IBOutlet weak var dismissButton: UIButton!
+    @IBOutlet weak var changeCamera: UIButton!
     
+    // MARK: Change camera to main, ultrawide, or telephoto
+    @IBAction func changeCamera(_ sender: Any) {
+        switch cameraSetting {
+        case .main:
+            switch telephotoCamera {
+            case true:
+                cameraSetting = .telephoto
+                try? NextLevel.shared.changeCaptureDeviceIfAvailable(captureDevice: NextLevelDeviceType.telephotoCamera)
+            case false:
+                cameraSetting = .ultrawide
+                try? NextLevel.shared.changeCaptureDeviceIfAvailable(captureDevice: NextLevelDeviceType.ultraWideAngleCamera)
+            }
+        case .telephoto:
+            switch ultraWideCamera {
+            case true:
+                cameraSetting = .ultrawide
+                try? NextLevel.shared.changeCaptureDeviceIfAvailable(captureDevice: NextLevelDeviceType.ultraWideAngleCamera)
+            case false:
+                cameraSetting = .main
+                try? NextLevel.shared.changeCaptureDeviceIfAvailable(captureDevice: NextLevelDeviceType.wideAngleCamera)
+            }
+            
+        case .ultrawide:
+            cameraSetting = .main
+            try? NextLevel.shared.changeCaptureDeviceIfAvailable(captureDevice: NextLevelDeviceType.wideAngleCamera)
+        }
+    }
     
     // MARK: Valet
     let myValet = Valet.valet(with: Identifier(nonEmpty: "frontCamera")!, accessibility: .whenUnlocked)
     let flashValet = Valet.valet(with: Identifier(nonEmpty: "flash")!, accessibility: .whenUnlocked)
-    
+    let cameraSettings = Valet.valet(with: Identifier(nonEmpty: "cameraSettings")!, accessibility: .whenUnlocked)
     
     // MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
@@ -103,7 +139,18 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     @objc func flipVideo() {
+        self.usingFrontCamera = !usingFrontCamera
         try? self.myValet.setString("\(usingFrontCamera)", forKey: "frontCamera")
+        switch usingFrontCamera {
+        case true:
+            DispatchQueue.main.async {
+                self.changeCamera.fadeOut()
+            }
+        case false:
+            DispatchQueue.main.async {
+                self.changeCamera.fadeIn()
+            }
+        }
         NextLevel.shared.flipCaptureDevicePosition()
     }
     
@@ -174,6 +221,17 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         self.tabBarController?.tabBar.isHidden = true // No tab bar for you!
         self.dismissButton.layer.zPosition = 10
         
+        let telephotoSetting = try? cameraSettings.string(forKey: "telephoto")
+        let ultraWideSetting = try? cameraSettings.string(forKey: "ultrawide")
+        if telephotoSetting == "on" {
+            self.telephotoCamera = true
+        }
+        if ultraWideSetting == "on" {
+            self.ultraWideCamera = true
+        }
+        if ultraWideSetting == "on" || telephotoSetting == "on" {
+            self.changeCamera.isHidden = false
+        }
         
         originalFlip()
         
@@ -181,6 +239,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         
         // New:
         setupCameraPreview()
+        
         NextLevel.shared.videoConfiguration.bitRate = 6000000
         NextLevel.shared.videoConfiguration.codec = AVVideoCodecType.h264
         NextLevel.shared.videoConfiguration.preset = AVCaptureSession.Preset.high
@@ -230,6 +289,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     // MARK: Start the recording
     func startRecording() {
         if NextLevel.shared.isRecording == false {
+            DispatchQueue.main.async {
+                self.changeCamera.fadeOut()
+            }
             timer = Timer.scheduledTimer(timeInterval: 7.1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
             NextLevel.shared.record()
         } else {
@@ -241,6 +303,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     // MARK: Stop the recording
     func stopRecording() {
         if NextLevel.shared.isRecording == true {
+            DispatchQueue.main.async {
+                self.changeCamera.fadeIn()
+            }
             if let session = NextLevel.shared.session {
                 if let clip = session.lastClipUrl {
                     self.outputURL = clip
@@ -302,4 +367,28 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
             picker.allowsEditing = true
             present(picker, animated: true, completion: nil)
     }
+}
+extension UIView {
+
+    func fadeIn(_ duration: TimeInterval? = 0.2, onCompletion: (() -> Void)? = nil) {
+        self.alpha = 0
+        self.isHidden = false
+        UIView.animate(withDuration: duration!,
+                       animations: { self.alpha = 1 },
+                       completion: { (value: Bool) in
+                          if let complete = onCompletion { complete() }
+                       }
+        )
+    }
+
+    func fadeOut(_ duration: TimeInterval? = 0.2, onCompletion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: duration!,
+                       animations: { self.alpha = 0 },
+                       completion: { (value: Bool) in
+                           self.isHidden = true
+                           if let complete = onCompletion { complete() }
+                       }
+        )
+    }
+
 }

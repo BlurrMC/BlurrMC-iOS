@@ -44,6 +44,8 @@
 		E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181F84E264B4C8200446AFA /* OTPViewController.swift */; };
 		E181F854264DE35000446AFA /* 2FASettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E181F853264DE35000446AFA /* 2FASettings.storyboard */; };
 		E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */; };
+		E18B17642660B0560006A474 /* AdditionalSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B17632660B0560006A474 /* AdditionalSettingsViewController.swift */; };
+		E18B17662660BA6C0006A474 /* AdditonalSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E18B17652660BA6C0006A474 /* AdditonalSettings.storyboard */; };
 		E18C73982638DF620046A845 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18C73972638DF620046A845 /* Reachability.swift */; };
 		E1A366742651788900435600 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A366732651788900435600 /* AuthenticationServices.framework */; };
 		E1BA897124E0427A0015C546 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA897024E0427A0015C546 /* CacheManager.swift */; };
@@ -140,6 +142,8 @@
 		E181F84E264B4C8200446AFA /* OTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		E181F853264DE35000446AFA /* 2FASettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = 2FASettings.storyboard; sourceTree = "<group>"; };
 		E189D854247F03D500B09F29 /* ChannelVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoViewController.swift; sourceTree = "<group>"; };
+		E18B17632660B0560006A474 /* AdditionalSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalSettingsViewController.swift; sourceTree = "<group>"; };
+		E18B17652660BA6C0006A474 /* AdditonalSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdditonalSettings.storyboard; sourceTree = "<group>"; };
 		E18C73972638DF620046A845 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = SOURCE_ROOT; };
 		E19286EB24D72F1B00382D98 /* Blurred-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blurred-ios-Bridging-Header.h"; sourceTree = "<group>"; };
 		E1A366732651788900435600 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
@@ -374,7 +378,7 @@
 			children = (
 				E1DF6FA4244F578700E11BF9 /* LaunchScreen.storyboard */,
 				E1DF6F71244F550300E11BF9 /* Main.storyboard */,
-				E181F853264DE35000446AFA /* 2FASettings.storyboard */,
+				E18B17672660BA770006A474 /* Settings */,
 				E15D6FC324BA5E3F00CC1E0E /* CommentBoard.storyboard */,
 				E181F84C264B4A5B00446AFA /* OTPBoard.storyboard */,
 			);
@@ -400,6 +404,15 @@
 				E12808CC245659D6001BF3F3 /* SignupViewController.swift */,
 			);
 			path = "Auth Controllers";
+			sourceTree = "<group>";
+		};
+		E18B17672660BA770006A474 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E181F853264DE35000446AFA /* 2FASettings.storyboard */,
+				E18B17652660BA6C0006A474 /* AdditonalSettings.storyboard */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		E19413C12545C7540037D650 /* Comment */ = {
@@ -449,6 +462,7 @@
 			children = (
 				E1620542264DFB8100F62613 /* OTP */,
 				E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */,
+				E18B17632660B0560006A474 /* AdditionalSettingsViewController.swift */,
 				E1EBD0B8245377E800FE901F /* SettingsViewController.swift */,
 			);
 			path = Settings;
@@ -662,6 +676,7 @@
 				E1BA897924E18CDC0015C546 /* ChannelVideoOverlay.xib in Resources */,
 				E181F84D264B4A5B00446AFA /* OTPBoard.storyboard in Resources */,
 				E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */,
+				E18B17662660BA6C0006A474 /* AdditonalSettings.storyboard in Resources */,
 				E139B92624E826B10035901E /* DescriptionOverlay.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -814,6 +829,7 @@
 				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,
 				E162053D264DFB1700F62613 /* EnableOTPViewController.swift in Sources */,
 				E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */,
+				E18B17642660B0560006A474 /* AdditionalSettingsViewController.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
 				596AEE4724E89174002531C0 /* CommentCell.swift in Sources */,
 				E1620541264DFB7A00F62613 /* DisableOTPViewController.swift in Sources */,
@@ -1016,7 +1032,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1056,7 +1072,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

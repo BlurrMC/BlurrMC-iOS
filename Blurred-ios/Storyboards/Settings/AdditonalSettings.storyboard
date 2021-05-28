@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--AdditionalSettingsViewController-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="AdditionalSettingsViewController" title="AdditionalSettingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="AdditionalSettingsViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Telephoto Lens Recording (Beta)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBZ-LD-cQZ">
+                                <rect key="frame" x="121" y="59" width="148" height="62"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ycs-Ye-DII">
+                                <rect key="frame" x="309" y="74.666666666666671" width="51" height="31"/>
+                                <color key="onTintColor" red="1" green="0.241620684" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="udS-Hm-W4Z">
+                                <rect key="frame" x="309.66666666666669" y="156.66666666666666" width="51" height="31"/>
+                                <color key="onTintColor" red="1" green="0.241620684" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ultrawide Lens Recording (Beta)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brb-85-Fyp">
+                                <rect key="frame" x="120.66666666666669" y="136" width="149" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="brb-85-Fyp" firstAttribute="top" secondItem="uBZ-LD-cQZ" secondAttribute="bottom" constant="15" id="3s7-4D-dZI"/>
+                            <constraint firstItem="uBZ-LD-cQZ" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.379487" id="AO7-YA-fmc"/>
+                            <constraint firstItem="uBZ-LD-cQZ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="15" id="Gxa-SG-pQ3"/>
+                            <constraint firstItem="udS-Hm-W4Z" firstAttribute="leading" secondItem="brb-85-Fyp" secondAttribute="trailing" constant="40" id="IoV-0I-EfZ"/>
+                            <constraint firstItem="brb-85-Fyp" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Pbf-Ve-bp2"/>
+                            <constraint firstItem="udS-Hm-W4Z" firstAttribute="centerY" secondItem="brb-85-Fyp" secondAttribute="centerY" id="T57-3d-F0l"/>
+                            <constraint firstItem="ycs-Ye-DII" firstAttribute="leading" secondItem="uBZ-LD-cQZ" secondAttribute="trailing" constant="40" id="Vrb-EP-8MY"/>
+                            <constraint firstItem="uBZ-LD-cQZ" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="gWz-81-r2Y"/>
+                            <constraint firstItem="ycs-Ye-DII" firstAttribute="centerY" secondItem="uBZ-LD-cQZ" secondAttribute="centerY" id="h4G-vq-641"/>
+                            <constraint firstItem="brb-85-Fyp" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.382051" id="ivf-ro-E83"/>
+                            <constraint firstItem="brb-85-Fyp" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0853081" id="ohw-RJ-oBl"/>
+                            <constraint firstItem="uBZ-LD-cQZ" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0734597" id="w1g-pP-C1E"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="telephotoLensSwitch" destination="ycs-Ye-DII" id="dzq-7v-62j"/>
+                        <outlet property="ultraWideAngleSwitch" destination="udS-Hm-W4Z" id="Bet-AF-WbG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="41.53846153846154" y="55.45023696682464"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -524,6 +524,15 @@
                                     <action selector="flipCamera:" destination="bMe-qO-UEv" eventType="touchUpInside" id="l3M-DP-222"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGE-pV-erI">
+                                <rect key="frame" x="167.66666666666666" y="615" width="40" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" image="camera.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="changeCamera:" destination="bMe-qO-UEv" eventType="touchUpInside" id="5xO-TW-j6J"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mku-17-YuH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -533,6 +542,7 @@
                             <constraint firstItem="e7k-H4-A1N" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.122667" id="3BC-JA-mjz"/>
                             <constraint firstItem="mku-17-YuH" firstAttribute="bottom" secondItem="ziz-ew-ZSm" secondAttribute="bottom" constant="55" id="5LJ-aE-o4t"/>
                             <constraint firstItem="Cgl-bZ-ljl" firstAttribute="top" secondItem="MlH-vA-2qO" secondAttribute="top" id="9bP-Ut-gBt"/>
+                            <constraint firstItem="ziz-ew-ZSm" firstAttribute="top" secondItem="kGE-pV-erI" secondAttribute="bottom" constant="8" id="BQu-Ha-TzL"/>
                             <constraint firstAttribute="bottom" secondItem="Cgl-bZ-ljl" secondAttribute="bottom" id="Bvm-yP-TLN"/>
                             <constraint firstItem="Cgl-bZ-ljl" firstAttribute="trailing" secondItem="mku-17-YuH" secondAttribute="trailing" id="DyS-dE-Q5p"/>
                             <constraint firstItem="4aI-7V-SRR" firstAttribute="leading" secondItem="ziz-ew-ZSm" secondAttribute="trailing" constant="50" id="FE5-DE-U5s"/>
@@ -541,12 +551,15 @@
                             <constraint firstItem="mku-17-YuH" firstAttribute="bottom" secondItem="e7k-H4-A1N" secondAttribute="bottom" constant="55" id="NYg-72-put"/>
                             <constraint firstItem="ziz-ew-ZSm" firstAttribute="leading" secondItem="e7k-H4-A1N" secondAttribute="trailing" constant="50" id="Oxw-6W-vGI"/>
                             <constraint firstItem="Eey-fy-Wj7" firstAttribute="height" secondItem="MlH-vA-2qO" secondAttribute="height" multiplier="0.0615764" id="Tu0-7F-MD1"/>
+                            <constraint firstItem="kGE-pV-erI" firstAttribute="centerX" secondItem="MlH-vA-2qO" secondAttribute="centerX" id="VcE-o2-dCZ"/>
                             <constraint firstItem="mku-17-YuH" firstAttribute="bottom" secondItem="4aI-7V-SRR" secondAttribute="bottom" constant="55" id="XCb-JJ-l5J"/>
                             <constraint firstItem="Eey-fy-Wj7" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.133333" id="bM6-fC-XPP"/>
                             <constraint firstItem="Cgl-bZ-ljl" firstAttribute="leading" secondItem="mku-17-YuH" secondAttribute="leading" id="f4x-JA-q7t"/>
                             <constraint firstItem="ziz-ew-ZSm" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.162667" id="h98-sE-Ufq"/>
+                            <constraint firstItem="kGE-pV-erI" firstAttribute="height" secondItem="MlH-vA-2qO" secondAttribute="height" multiplier="0.0492611" id="k61-5C-MX6"/>
                             <constraint firstItem="ziz-ew-ZSm" firstAttribute="centerX" secondItem="MlH-vA-2qO" secondAttribute="centerX" id="oMi-Iz-6cG"/>
                             <constraint firstItem="4aI-7V-SRR" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.122667" id="pJI-uf-osS"/>
+                            <constraint firstItem="kGE-pV-erI" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.106667" id="sSd-5u-R0G"/>
                             <constraint firstItem="Eey-fy-Wj7" firstAttribute="top" secondItem="mku-17-YuH" secondAttribute="top" constant="15" id="syI-wh-HIZ"/>
                         </constraints>
                     </view>
@@ -555,6 +568,7 @@
                     <navigationItem key="navigationItem" id="f5r-Jn-aNK"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="changeCamera" destination="kGE-pV-erI" id="yhV-fe-OLd"/>
                         <outlet property="dismissButton" destination="Eey-fy-Wj7" id="ad9-lg-PUW"/>
                         <outlet property="flipCameraIcon" destination="e7k-H4-A1N" id="A56-we-LA7"/>
                         <outlet property="videoView" destination="Cgl-bZ-ljl" id="IJl-qO-FER"/>
@@ -564,7 +578,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EZA-m4-xe9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1806" y="-675"/>
+            <point key="canvasLocation" x="1805.5999999999999" y="-675.3694581280788"/>
         </scene>
         <!--Notifications Controller-->
         <scene sceneID="ucp-2D-wzb">
@@ -1166,6 +1180,16 @@
             </objects>
             <point key="canvasLocation" x="2860" y="-1786"/>
         </scene>
+        <!--AdditionalSettingsViewController-->
+        <scene sceneID="0Qm-pc-MoB">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AdditonalSettings" referencedIdentifier="AdditionalSettingsViewController" id="cnW-qw-LRp" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="oHj-em-wvl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tbc-ce-uqF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2640" y="-1824"/>
+        </scene>
         <!--Settings Controller-->
         <scene sceneID="QI5-82-euP">
             <objects>
@@ -1228,16 +1252,28 @@
                                     <action selector="tapped2FASettings:" destination="MJx-gh-FGt" eventType="touchUpInside" id="gmu-GF-V9H"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMI-MH-52X">
+                                <rect key="frame" x="89" y="303" width="197" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Additonal Settings">
+                                    <color key="titleColor" systemColor="systemOrangeColor"/>
+                                </state>
+                                <connections>
+                                    <segue destination="cnW-qw-LRp" kind="show" id="bpy-iu-BnH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kRT-IG-HB2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="SEm-gr-flR" firstAttribute="top" secondItem="kRT-IG-HB2" secondAttribute="top" constant="75" id="2uR-sJ-mvl"/>
+                            <constraint firstItem="FMI-MH-52X" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="7Ma-1Y-cqu"/>
                             <constraint firstItem="Q2K-L7-4kT" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="Apg-qq-Q9v"/>
                             <constraint firstItem="Rrs-sq-ymG" firstAttribute="top" secondItem="i89-Hg-g7h" secondAttribute="bottom" constant="35" id="EWG-wt-zaY"/>
                             <constraint firstItem="Q2K-L7-4kT" firstAttribute="top" secondItem="SEm-gr-flR" secondAttribute="bottom" constant="50" id="WC6-SC-ltr"/>
                             <constraint firstItem="Rrs-sq-ymG" firstAttribute="height" secondItem="d5c-ZW-K9X" secondAttribute="height" multiplier="0.044335" id="Y9d-Ub-tvi"/>
                             <constraint firstItem="Rrs-sq-ymG" firstAttribute="width" secondItem="d5c-ZW-K9X" secondAttribute="width" multiplier="0.202667" id="Z9V-es-aqP"/>
+                            <constraint firstItem="FMI-MH-52X" firstAttribute="top" secondItem="Q2K-L7-4kT" secondAttribute="bottom" constant="50" id="cCd-2e-MCf"/>
                             <constraint firstItem="kRT-IG-HB2" firstAttribute="bottom" secondItem="Rrs-sq-ymG" secondAttribute="bottom" constant="100" id="egQ-eM-zLA"/>
                             <constraint firstItem="HbB-oC-cXw" firstAttribute="top" secondItem="d5c-ZW-K9X" secondAttribute="top" constant="50" id="f9Y-Q9-oBG"/>
                             <constraint firstItem="i89-Hg-g7h" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="jNP-7e-NUT"/>
@@ -1866,6 +1902,7 @@
         <image name="arrow.left" width="12" height="10"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="arrow.triangle.2.circlepath.camera" catalog="system" width="128" height="94"/>
+        <image name="camera.circle" catalog="system" width="128" height="121"/>
         <image name="channel" width="30" height="30"/>
         <image name="gear" width="15" height="15"/>
         <image name="grid" width="40" height="40"/>
@@ -1888,6 +1925,9 @@
         </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

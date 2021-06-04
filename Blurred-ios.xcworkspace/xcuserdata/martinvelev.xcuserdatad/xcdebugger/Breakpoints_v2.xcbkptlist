@@ -1318,8 +1318,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "607"
-            endingLineNumber = "607"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
             landmarkName = "moreButtonTapped(commentId:indexPath:reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1334,8 +1334,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "608"
-            endingLineNumber = "608"
+            startingLineNumber = "611"
+            endingLineNumber = "611"
             landmarkName = "moreButtonTapped(commentId:indexPath:reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1350,8 +1350,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "619"
-            endingLineNumber = "619"
+            startingLineNumber = "622"
+            endingLineNumber = "622"
             landmarkName = "moreButtonTapped(commentId:indexPath:reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1366,8 +1366,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "733"
-            endingLineNumber = "733"
+            startingLineNumber = "736"
+            endingLineNumber = "736"
             landmarkName = "sendDeleteLikeRequest(likeid:commentId:cell:indexPath:reply:)"
             landmarkType = "7">
             <Locations>
@@ -1414,8 +1414,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "731"
-            endingLineNumber = "731"
+            startingLineNumber = "734"
+            endingLineNumber = "734"
             landmarkName = "sendDeleteLikeRequest(likeid:commentId:cell:indexPath:reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1430,8 +1430,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "852"
-            endingLineNumber = "852"
+            startingLineNumber = "855"
+            endingLineNumber = "855"
             landmarkName = "like(alreadyLiked:cell:likes:indexPath:reply:)"
             landmarkType = "7">
             <Locations>
@@ -1478,8 +1478,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "859"
-            endingLineNumber = "859"
+            startingLineNumber = "862"
+            endingLineNumber = "862"
             landmarkName = "like(alreadyLiked:cell:likes:indexPath:reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1494,8 +1494,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "868"
-            endingLineNumber = "868"
+            startingLineNumber = "871"
+            endingLineNumber = "871"
             landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1510,8 +1510,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "874"
-            endingLineNumber = "874"
+            startingLineNumber = "877"
+            endingLineNumber = "877"
             landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1526,8 +1526,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "869"
-            endingLineNumber = "869"
+            startingLineNumber = "872"
+            endingLineNumber = "872"
             landmarkName = "changeHeartIcon(indexPath:reply:alreadyLiked:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1542,8 +1542,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "858"
-            endingLineNumber = "858"
+            startingLineNumber = "861"
+            endingLineNumber = "861"
             landmarkName = "like(alreadyLiked:cell:likes:indexPath:reply:)"
             landmarkType = "7">
             <Locations>
@@ -1590,8 +1590,8 @@
             filePath = "Blurred-ios/Channels/Video/Comments/CommentingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "submitComment(reply:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1654,8 +1654,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1013"
-            endingLineNumber = "1013"
+            startingLineNumber = "1007"
+            endingLineNumber = "1007"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1670,8 +1670,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "998"
-            endingLineNumber = "998"
+            startingLineNumber = "992"
+            endingLineNumber = "992"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1686,8 +1686,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1005"
-            endingLineNumber = "1005"
+            startingLineNumber = "999"
+            endingLineNumber = "999"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1702,8 +1702,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1014"
-            endingLineNumber = "1014"
+            startingLineNumber = "1008"
+            endingLineNumber = "1008"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1718,8 +1718,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "995"
-            endingLineNumber = "995"
+            startingLineNumber = "989"
+            endingLineNumber = "989"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1734,8 +1734,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "993"
-            endingLineNumber = "993"
+            startingLineNumber = "987"
+            endingLineNumber = "987"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1744,38 +1744,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9FFF4330-1E72-445D-A48A-D8CCE3BCD14F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "788"
-            endingLineNumber = "788"
-            landmarkName = "loadMemberChannel()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4F9AD880-71FC-4D36-AC32-B20B573ECDC0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "787"
-            endingLineNumber = "787"
-            landmarkName = "OtherChannelViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DF9F67AE-C2DE-45AC-8673-C2D1B04AEE04"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1791,6 +1759,38 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "4F9AD880-71FC-4D36-AC32-B20B573ECDC0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "788"
+            endingLineNumber = "788"
+            landmarkName = "OtherChannelViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF9F67AE-C2DE-45AC-8673-C2D1B04AEE04"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "790"
+            endingLineNumber = "790"
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "E93FEB74-EBD7-479F-8026-FF5227A36FF4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1798,8 +1798,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "791"
-            endingLineNumber = "791"
+            startingLineNumber = "792"
+            endingLineNumber = "792"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1814,8 +1814,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "800"
-            endingLineNumber = "800"
+            startingLineNumber = "801"
+            endingLineNumber = "801"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
             <Locations>
@@ -1862,8 +1862,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "810"
-            endingLineNumber = "810"
+            startingLineNumber = "815"
+            endingLineNumber = "815"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1878,8 +1878,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "812"
-            endingLineNumber = "812"
+            startingLineNumber = "817"
+            endingLineNumber = "817"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1894,8 +1894,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "813"
-            endingLineNumber = "813"
+            startingLineNumber = "818"
+            endingLineNumber = "818"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1910,8 +1910,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "814"
-            endingLineNumber = "814"
+            startingLineNumber = "819"
+            endingLineNumber = "819"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1920,22 +1920,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "ED3720F8-0CD0-4455-9D60-714AD779F6A0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "815"
-            endingLineNumber = "815"
-            landmarkName = "loadMemberChannel()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "23D5D10B-82C4-4395-B8D4-67A647FE6A5A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1951,6 +1935,22 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "23D5D10B-82C4-4395-B8D4-67A647FE6A5A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "825"
+            endingLineNumber = "825"
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "DCF91ECC-19D1-488A-BF29-9C10D1359316"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1958,8 +1958,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "821"
-            endingLineNumber = "821"
+            startingLineNumber = "826"
+            endingLineNumber = "826"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2201,6 +2201,22 @@
             startingLineNumber = "131"
             endingLineNumber = "131"
             landmarkName = "sendRequest()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EEE4F165-7F74-447F-9B55-FEEE0416D05B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Blurred-ios/Settings/AccountSettingsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

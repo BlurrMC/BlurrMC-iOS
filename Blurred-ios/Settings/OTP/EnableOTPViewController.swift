@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Valet
+import TTGSnackbar
 
 class EnableOTPViewController: UIViewController {
     
@@ -34,7 +35,7 @@ class EnableOTPViewController: UIViewController {
     func enableOTP() {
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         guard let password = passwordField.text else {
-            self.showMessage(title: "Error", message: "No Password Provided", alertActionTitle: "OK")
+            popupMessages().showMessage(title: "Error", message: "No Password Provided", alertActionTitle: "OK", viewController: self)
             return
         }
         let params = [
@@ -45,12 +46,16 @@ class EnableOTPViewController: UIViewController {
             "Accept": "application/json"
         ]
         AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/two_factor_settings", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
-            guard let data = response.data else { return }
+            guard let data = response.data else {
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
+                snackbar.show()
+                return
+            }
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 if let status = JSON?["status"] as? String, status == "Incorrect password" {
-                    self.showMessage(title: "Error", message: "Your password was incorrect", alertActionTitle: "OK")
+                    popupMessages().showMessage(title: "Error", message: "Your password was incorrect", alertActionTitle: "OK", viewController: self)
                     return
                 }
                 guard let backupCodes = JSON?["backupcodes"] as? [String] else { return }
@@ -91,15 +96,6 @@ class EnableOTPViewController: UIViewController {
             }
         default:
             break
-        }
-    }
-    
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
         }
     }
 

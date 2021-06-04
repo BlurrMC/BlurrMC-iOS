@@ -13,6 +13,7 @@
 		5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2527AD2484388C0014F6CA /* Assets.xcassets */; };
 		A400503340A44B2C542F084B /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55997397D8A83ECBD5F7161 /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
 		C0DB4F7E900B16800F0EFA38 /* Pods_Blurred_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B530160232BFC32BE06C4F /* Pods_Blurred_ios.framework */; };
+		E10D2C61266ADAEF001BD905 /* popupMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10D2C5F266AD815001BD905 /* popupMessages.swift */; };
 		E1104EC12511649800B52A11 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */; };
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
@@ -111,6 +112,7 @@
 		95B530160232BFC32BE06C4F /* Pods_Blurred_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC8B456F1A2903F763BF85C /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A54AE468CD7979EA2C7B6928 /* Pods_Blurred_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E10D2C5F266AD815001BD905 /* popupMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popupMessages.swift; sourceTree = "<group>"; };
 		E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
@@ -512,6 +514,7 @@
 		E1DF6F68244F550300E11BF9 /* Blurred-ios */ = {
 			isa = PBXGroup;
 			children = (
+				E10D2C5F266AD815001BD905 /* popupMessages.swift */,
 				E181F850264B4C8F00446AFA /* Auth Controllers */,
 				E196F5F224A8D589001BE742 /* Cells */,
 				E196F5F424A8D5E4001BE742 /* Channels */,
@@ -806,6 +809,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1DF6F70244F550300E11BF9 /* SearchViewController.swift in Sources */,
+				E10D2C61266ADAEF001BD905 /* popupMessages.swift in Sources */,
 				594B8BD024E41793002D620D /* SearchCell.swift in Sources */,
 				E162053F264DFB2900F62613 /* EnableOTP2ViewController.swift in Sources */,
 				E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */,

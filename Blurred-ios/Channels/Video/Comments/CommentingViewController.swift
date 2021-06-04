@@ -10,6 +10,7 @@ import UIKit
 import Nuke
 import Alamofire
 import Valet
+import TTGSnackbar
 
 class CommentingViewController: UIViewController, UITextFieldDelegate {
     
@@ -205,14 +206,15 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                         self.replyField.text = nil
                     }
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                    self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
+                    snackbar.show()
                     print(error)
                 }
             }
             task.resume()
         } else {
             replyField.text = nil
-            self.showMessage(title: "Alert", message: "Your comment is empty. Please fill it.", alertActionTitle: "OK")
+            self.showMessage(title: "Alert", message: "Your comment is empty. Just type something!", alertActionTitle: "OK")
         }
         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
     }
@@ -536,7 +538,8 @@ extension CommentingViewController: CommentCellDelegate {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                 let status = JSON!["status"] as? String
                 if status != "Comment Destroyed!" {
-                    self.showMessage(title: "Error", message: "Message could not be deleted. Try again later.", alertActionTitle: "OK")
+                    let snackbar = TTGSnackbar(message: "Message could not be deleted!", duration: .short)
+                    snackbar.show()
                 }
             } catch {
                 print(error)

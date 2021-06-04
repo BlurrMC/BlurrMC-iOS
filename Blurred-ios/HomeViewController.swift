@@ -374,16 +374,6 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             return
         }
     }
-    
-    
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
 
 }
 extension HomeViewController: ASTableDataSource {

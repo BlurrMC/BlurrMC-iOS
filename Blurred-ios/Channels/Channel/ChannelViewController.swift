@@ -11,6 +11,7 @@ import Valet
 import Nuke
 import Alamofire
 import AlamofireImage
+import TTGSnackbar
 
 class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource {
     
@@ -336,7 +337,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             request.httpMethod = "GET"
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if error != nil {
-                    self.showMessage(title: "Error", message: "There has been an error contacting the server. Try again later.", alertActionTitle: "OK")
+                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later. :(", duration: .short)
+                    snackbar.show()
                     return
                 } 
                 do {
@@ -539,16 +541,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         image.allowsEditing = true
         self.present(image, animated: true) {
             
-        }
-    }
-    
-    
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
         }
     }
     

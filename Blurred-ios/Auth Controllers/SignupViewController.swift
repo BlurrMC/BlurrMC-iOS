@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TTGSnackbar
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
     
@@ -34,15 +35,15 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             (emailTextField.text?.isEmpty)! ||
             (passwordTextField.text?.isEmpty)! ||
             (confirmPasswordTextField.text?.isEmpty)! {
-            self.showMessage(title: "Alert", message: "A field is empty. Please fill in all fields.", alertActionTitle: "OK")
+            popupMessages().showMessage(title: "Alert", message: "A field is empty. Please fill in all fields.", alertActionTitle: "OK", viewController: self)
             return
         }
         if ((passwordTextField.text?.elementsEqual(confirmPasswordTextField.text!))! != true) {
-            self.showMessage(title: "Alert", message: "Confirmation passwords do not match. Try again.", alertActionTitle: "OK")
+            popupMessages().showMessage(title: "Alert", message: "Confirmation passwords do not match. Try again.", alertActionTitle: "OK", viewController: self)
             return // YA YA YA Y A YA
         }
         if passwordTextField.text!.count < 6 {
-            self.showMessage(title: "Alert", message: "Your password must be at least six characters long.", alertActionTitle: "OK")
+            popupMessages().showMessage(title: "Alert", message: "Your password must be at least six characters long.", alertActionTitle: "OK", viewController: self)
             return
         }
         let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
@@ -61,13 +62,15 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
         } catch let error {
-            self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+            let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
+            snackbar.show()
             print(error.localizedDescription)
         }
         let task = URLSession.shared.dataTask(with: request) { (Data, URLResponse, Error) in
             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
             if Error != nil {
-                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
+                snackbar.show()
                 print("error=\(String(describing: Error))")
                 return
             }
@@ -78,25 +81,27 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                     let userId = parseJSON["userId"] as? Int
                     if let status = parseJSON["status"] as? String{
                         if status == "User already exists" {
-                            self.showMessage(title: "Error", message: "User already exsists", alertActionTitle: "OK")
+                            popupMessages().showMessage(title: "Error", message: "User already exsists", alertActionTitle: "OK", viewController: self)
                             return
                         }
                     }
                     print("User Id: \(String(describing: userId))")
                     if userId == nil {
-                        self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+                        popupMessages().showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK", viewController: self)
                         return
                     } else {
-                        self.showMessage(title: "Success", message: "You have succesfully signed up.", alertActionTitle: "OK")
+                        popupMessages().showMessage(title: "Success", message: "You have succesfully signed up.", alertActionTitle: "OK", viewController: self)
                         DispatchQueue.main.async {
                             self.dismiss(animated: true, completion: nil) 
                         }
                     }
                 } else {
-                    self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
+                    snackbar.show()
                 }
             } catch {
-                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
+                snackbar.show()
                 print(error)
             }
         }
@@ -122,7 +127,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.isHidden = true // You gotta hide it
+        self.tabBarController?.tabBar.isHidden = true // You gotta hide it (the drugs (ex. concaine))
         navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = "Sign Up"
         confirmPasswordTextField?.delegate = self
@@ -167,16 +172,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
-    }
-    
-    
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
     }
     
 

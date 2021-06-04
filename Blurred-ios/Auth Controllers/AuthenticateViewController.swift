@@ -8,6 +8,7 @@
 
 import UIKit
 import Valet
+import TTGSnackbar
 
 class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     
@@ -66,7 +67,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         
         if (username?.isEmpty)! || (password?.isEmpty)! {
             print("Username \(String(describing: username)) or password \(String(describing: password)) is empty")
-            self.showMessage(title: "Alert", message: "Username or password is empty.", alertActionTitle: "OK")
+            popupMessages().showMessage(title: "Alert", message: "Username or password is empty.", alertActionTitle: "OK", viewController: self)
             return
         }
         // MAKE THE PEOPLE WAIT GOD DAMN ITz
@@ -89,7 +90,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
         } catch let error { // Catch the VICTORY ROYALE
             print(error.localizedDescription) // I hope it doesn't screw up
-            self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+            let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
+            snackbar.show()
             removeActivityIndicator(activityIndicator: myActivityIndicator)
             return
         }
@@ -111,13 +113,13 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                         }
                         return
                     } else if status == "invalid_credentials" {
-                        self.showMessage(title: "Invalid Credentials", message: "You put in the wrong login information.", alertActionTitle: "OK")
+                        popupMessages().showMessage(title: "Invalid Credentials", message: "You put in the wrong login information.", alertActionTitle: "OK", viewController: self)
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         return
                     }
                     let userIdInt = parseJSON["id"] as? Int
                     if userIdInt == nil {
-                        self.showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK")
+                        popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     } else {
                         let userId = "\(userIdInt!)"
@@ -127,11 +129,11 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                         if ((errorToken?.isEmpty) == nil) {
                             print("No error")
                         } else {
-                            self.showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK")
+                            popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         }
                         if accessToken?.isEmpty == nil {
-                            self.showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK")
+                            popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         } else {
                             try? self.tokenValet.setString(accessToken!, forKey: "Token")
@@ -151,7 +153,8 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 
             } catch {
                 self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
+                snackbar.show()
                 print(error)
             }
         }
@@ -194,14 +197,5 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             activityIndicator.removeFromSuperview()
         }
     }
-    
-    
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
+
 }

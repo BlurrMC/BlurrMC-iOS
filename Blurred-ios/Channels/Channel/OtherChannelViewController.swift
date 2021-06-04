@@ -13,6 +13,7 @@ import Valet
 import Foundation
 import Alamofire
 import Combine
+import TTGSnackbar
 
 class OtherChannelViewController: UIViewController, UICollectionViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
@@ -798,7 +799,11 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             "Accept": "application/json"
         ]
         AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
-            guard let data = response.data else { return }
+            guard let data = response.data else {
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later. :(", duration: .short)
+                snackbar.show()
+                return
+            }
             var parseJSON: [String: Any]?
             do {
                 parseJSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
@@ -957,17 +962,6 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             break
         }
     }
-    
-    
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
     
     // MARK: Pick Avatar
     func pickAvatar() {

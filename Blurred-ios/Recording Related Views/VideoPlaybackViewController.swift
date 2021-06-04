@@ -68,7 +68,7 @@ class VideoPlaybackViewController: UIViewController {
                 return
             }
         } else {
-            self.showMessage(title: "Error", message: "There is no video present. Try again.", alertActionTitle: "OK")
+            popupMessages().showMessage(title: "what", message: "i dont know what to put here", alertActionTitle: "okay?", viewController: self)
         }
     }
     
@@ -137,16 +137,6 @@ class VideoPlaybackViewController: UIViewController {
     // MARK: Done Button
     @IBAction func doneButton(_ sender: Any) {
         performSegue(withIdentifier: "showUploadDetails", sender: self)
-    }
-    
-    
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
     }
     
     

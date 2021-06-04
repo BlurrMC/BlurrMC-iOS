@@ -33,11 +33,11 @@ class DisableOTPViewController: UIViewController {
     func deleteOTP() {
         let token: String? = try? tokenValet.string(forKey: "Token")
         guard let otpCodeText = self.OTPCode.text else {
-            self.showMessage(title: "Error", message: "No 2FA Code Provided", alertActionTitle: "OK")
+            popupMessages().showMessage(title: "Error", message: "No 2FA Code Provided", alertActionTitle: "OK", viewController: self)
             return
         }
         guard let password = passwordTextField.text else {
-            self.showMessage(title: "Error", message: "No Password Provided", alertActionTitle: "OK")
+            popupMessages().showMessage(title: "Error", message: "No Password Provided", alertActionTitle: "OK", viewController: self)
             return
         }
         let params = [
@@ -54,7 +54,7 @@ class DisableOTPViewController: UIViewController {
             do {
                 JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 if let _ = JSON?["error"] as? String {
-                    self.showMessage(title: "Error", message: "Invalid 2FA Code or Password", alertActionTitle: "OK")
+                    popupMessages().showMessage(title: "Error", message: "Invalid 2FA Code or Password", alertActionTitle: "OK", viewController: self)
                     return
                 }
                 DispatchQueue.main.async {
@@ -63,15 +63,6 @@ class DisableOTPViewController: UIViewController {
             } catch {
                 print("error code: asdf98uiqnjaksd")
             }
-        }
-    }
-    
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
         }
     }
 

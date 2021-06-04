@@ -43,7 +43,7 @@ class OTPViewController: UIViewController {
     // MARK: Submit OTP and login credentials
     func loginUser() {
         guard let otpCodeText = self.OTPCode.text else {
-            self.showMessage(title: "Error", message: "No 2FA Code Provided", alertActionTitle: "OK")
+            popupMessages().showMessage(title: "Error", message: "No 2FA Code Provided", alertActionTitle: "OK", viewController: self)
             return
         }
         let params = [
@@ -57,7 +57,7 @@ class OTPViewController: UIViewController {
             do {
                 JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 if let error = JSON?["error"] as? String {
-                    self.showMessage(title: "Error", message: "Invalid 2FA Code", alertActionTitle: "OK")
+                    popupMessages().showMessage(title: "Error", message: "Invalid 2FA Code", alertActionTitle: "OK", viewController: self)
                     print(error)
                     return
                 }
@@ -66,10 +66,10 @@ class OTPViewController: UIViewController {
                 if ((errorToken?.isEmpty) == nil) {
                     print("No error")
                 } else {
-                    self.showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK")
+                    popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                 }
                 if accessToken?.isEmpty == nil {
-                    self.showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK")
+                    popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                 } else {
                     guard let userIdInt = JSON?["id"] as? Int else { return }
                     let userId = String(userIdInt)
@@ -84,15 +84,6 @@ class OTPViewController: UIViewController {
             } catch {
                 print("error code: asiojzxcv9023rwes")
             }
-        }
-    }
-    
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
         }
     }
 

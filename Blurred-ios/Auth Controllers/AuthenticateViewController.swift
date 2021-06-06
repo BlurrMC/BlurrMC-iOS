@@ -71,7 +71,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             return
         }
         // MAKE THE PEOPLE WAIT GOD DAMN ITz
-        let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let myActivityIndicator = DifferencesActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = true
         myActivityIndicator.startAnimating()

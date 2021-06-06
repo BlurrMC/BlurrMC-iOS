@@ -51,7 +51,18 @@ class OTPViewController: UIViewController {
             "password": password,
             "otp_attempt": otpCodeText
         ] as [String : Any]
+        let myActivityIndicator = DifferencesActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = true
+        myActivityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.view.addSubview(myActivityIndicator)
+        }
         AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/sessions/", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
+            DispatchQueue.main.async {
+                myActivityIndicator.stopAnimating()
+                myActivityIndicator.removeFromSuperview()
+            }
             guard let data = response.data else { return }
             var JSON: [String: Any]?
             do {

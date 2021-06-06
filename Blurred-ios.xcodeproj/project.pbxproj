@@ -14,6 +14,7 @@
 		A400503340A44B2C542F084B /* Pods_Blurred_ios_Blurred_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55997397D8A83ECBD5F7161 /* Pods_Blurred_ios_Blurred_iosUITests.framework */; };
 		C0DB4F7E900B16800F0EFA38 /* Pods_Blurred_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B530160232BFC32BE06C4F /* Pods_Blurred_ios.framework */; };
 		E10D2C61266ADAEF001BD905 /* popupMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10D2C5F266AD815001BD905 /* popupMessages.swift */; };
+		E10D2C88266C8A4F001BD905 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10D2C87266C8A4F001BD905 /* ActivityIndicatorView.swift */; };
 		E1104EC12511649800B52A11 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */; };
 		E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */; };
 		E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */; };
@@ -39,6 +40,9 @@
 		E162053F264DFB2900F62613 /* EnableOTP2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162053E264DFB2900F62613 /* EnableOTP2ViewController.swift */; };
 		E1620541264DFB7A00F62613 /* DisableOTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1620540264DFB7A00F62613 /* DisableOTPViewController.swift */; };
 		E179F01525E4AB5A003E14F2 /* ColorHexConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */; };
+		E17B7AF8266C8CCE00E891FE /* DifferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B7AF5266C8CCE00E891FE /* DifferencesView.swift */; };
+		E17B7AF9266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B7AF6266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift */; };
+		E17B7AFA266C8CCE00E891FE /* DifferencesTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B7AF7266C8CCE00E891FE /* DifferencesTimeline.swift */; };
 		E17C5EF824E6A99000D1E079 /* OverlayViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */; };
 		E181026A25682A3200CA4522 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181026925682A3200CA4522 /* MainTabBarViewController.swift */; };
 		E181F84D264B4A5B00446AFA /* OTPBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E181F84C264B4A5B00446AFA /* OTPBoard.storyboard */; };
@@ -113,6 +117,7 @@
 		9DC8B456F1A2903F763BF85C /* Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios-Blurred-iosUITests/Pods-Blurred-ios-Blurred-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A54AE468CD7979EA2C7B6928 /* Pods_Blurred_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E10D2C5F266AD815001BD905 /* popupMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popupMessages.swift; sourceTree = "<group>"; };
+		E10D2C87266C8A4F001BD905 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		E1104EC02511649800B52A11 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		E1187D5924ACB7DE00F7BFB6 /* SearchVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideoCell.swift; sourceTree = "<group>"; };
@@ -138,6 +143,9 @@
 		E162053E264DFB2900F62613 /* EnableOTP2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableOTP2ViewController.swift; sourceTree = "<group>"; };
 		E1620540264DFB7A00F62613 /* DisableOTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPViewController.swift; sourceTree = "<group>"; };
 		E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHexConverter.swift; sourceTree = "<group>"; };
+		E17B7AF5266C8CCE00E891FE /* DifferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferencesView.swift; sourceTree = "<group>"; };
+		E17B7AF6266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferencesActivityIndicatorView.swift; sourceTree = "<group>"; };
+		E17B7AF7266C8CCE00E891FE /* DifferencesTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferencesTimeline.swift; sourceTree = "<group>"; };
 		E17C5EF724E6A99000D1E079 /* OverlayViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewDelegate.swift; sourceTree = "<group>"; };
 		E181026925682A3200CA4522 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		E181F84C264B4A5B00446AFA /* OTPBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OTPBoard.storyboard; sourceTree = "<group>"; };
@@ -398,6 +406,17 @@
 			path = OTP;
 			sourceTree = "<group>";
 		};
+		E17B7AFB266C8CDD00E891FE /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				E10D2C87266C8A4F001BD905 /* ActivityIndicatorView.swift */,
+				E17B7AF6266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift */,
+				E17B7AF7266C8CCE00E891FE /* DifferencesTimeline.swift */,
+				E17B7AF5266C8CCE00E891FE /* DifferencesView.swift */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
 		E181F850264B4C8F00446AFA /* Auth Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -515,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				E10D2C5F266AD815001BD905 /* popupMessages.swift */,
+				E17B7AFB266C8CDD00E891FE /* Flow */,
 				E181F850264B4C8F00446AFA /* Auth Controllers */,
 				E196F5F224A8D589001BE742 /* Cells */,
 				E196F5F424A8D5E4001BE742 /* Channels */,
@@ -579,6 +599,8 @@
 			dependencies = (
 			);
 			name = "Blurred-ios";
+			packageProductDependencies = (
+			);
 			productName = "Blurred-ios";
 			productReference = E1DF6F66244F550300E11BF9 /* Blurred.app */;
 			productType = "com.apple.product-type.application";
@@ -655,6 +677,8 @@
 				Base,
 			);
 			mainGroup = E1DF6F5D244F550300E11BF9;
+			packageReferences = (
+			);
 			productRefGroup = E1DF6F67244F550300E11BF9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -818,6 +842,7 @@
 				E1F28474247C19CE009F8B0B /* UploadDetailsViewController.swift in Sources */,
 				E1D92C9824732D6700EDABAA /* VideoPlaybackViewController.swift in Sources */,
 				E146ACF12474188700D3ED10 /* OtherChannelViewController.swift in Sources */,
+				E17B7AFA266C8CCE00E891FE /* DifferencesTimeline.swift in Sources */,
 				E1DF6F6E244F550300E11BF9 /* HomeViewController.swift in Sources */,
 				E146ACF9247441F100D3ED10 /* OtherFollowingCell.swift in Sources */,
 				E11F5074264F1B2900626AB7 /* OTPBackupCodesViewController.swift in Sources */,
@@ -829,12 +854,15 @@
 				E139B92B24E871DF0035901E /* Throttler.swift in Sources */,
 				E1104EC12511649800B52A11 /* NotificationsTableViewCell.swift in Sources */,
 				E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */,
+				E17B7AF8266C8CCE00E891FE /* DifferencesView.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
 				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,
+				E17B7AF9266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift in Sources */,
 				E162053D264DFB1700F62613 /* EnableOTPViewController.swift in Sources */,
 				E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */,
 				E18B17642660B0560006A474 /* AdditionalSettingsViewController.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
+				E10D2C88266C8A4F001BD905 /* ActivityIndicatorView.swift in Sources */,
 				596AEE4724E89174002531C0 /* CommentCell.swift in Sources */,
 				E1620541264DFB7A00F62613 /* DisableOTPViewController.swift in Sources */,
 				E1DF6FB9244F5DBD00E11BF9 /* RecordViewController.swift in Sources */,

@@ -46,7 +46,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             popupMessages().showMessage(title: "Alert", message: "Your password must be at least six characters long.", alertActionTitle: "OK", viewController: self)
             return
         }
-        let myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let myActivityIndicator = DifferencesActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = true
         myActivityIndicator.startAnimating()

@@ -206,8 +206,10 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                         self.replyField.text = nil
                     }
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
-                    snackbar.show()
+                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
+                    DispatchQueue.main.async {
+                        snackbar.show()
+                    }
                     print(error)
                 }
             }
@@ -538,8 +540,10 @@ extension CommentingViewController: CommentCellDelegate {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                 let status = JSON!["status"] as? String
                 if status != "Comment Destroyed!" {
-                    let snackbar = TTGSnackbar(message: "Message could not be deleted!", duration: .short)
-                    snackbar.show()
+                    let snackbar = TTGSnackbar(message: "Message could not be deleted!", duration: .middle)
+                    DispatchQueue.main.async {
+                        snackbar.show()
+                    }
                 }
             } catch {
                 print(error)

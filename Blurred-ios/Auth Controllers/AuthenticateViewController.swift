@@ -53,7 +53,6 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    
     // MARK: Submit Creds Button Tapped
     @IBAction func SubmitCreds(_ sender: UIButton) {
         sendCreds()
@@ -90,14 +89,20 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
         } catch let error { // Catch the VICTORY ROYALE
             print(error.localizedDescription) // I hope it doesn't screw up
-            let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
-            snackbar.show()
+            let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
+            DispatchQueue.main.async {
+                snackbar.show()
+            }
             removeActivityIndicator(activityIndicator: myActivityIndicator)
             return
         }
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in // error. Error? ERRORRRR???!!??!?!
             if error != nil {
                 self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later. (sorry!)", duration: .middle)
+                DispatchQueue.main.async {
+                    snackbar.show()
+                }
                 print("error=\(String(describing: error))")
                 return
             }
@@ -153,8 +158,10 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 
             } catch {
                 self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
-                snackbar.show()
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
+                DispatchQueue.main.async {
+                    snackbar.show()
+                }
                 print(error)
             }
         }

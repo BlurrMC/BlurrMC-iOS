@@ -800,8 +800,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         ]
         AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else {
-                let snackbar = TTGSnackbar(message: "Error contacting server, try again later. :(", duration: .short)
-                snackbar.show()
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later. :(", duration: .middle)
+                DispatchQueue.main.async {
+                    snackbar.show()
+                }
                 return
             }
             var parseJSON: [String: Any]?

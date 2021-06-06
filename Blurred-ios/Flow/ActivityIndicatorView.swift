@@ -38,6 +38,7 @@ class ActivityIndicatorView: UIActivityIndicatorView {
   private func setup() {
     view = createView()
     layer.backgroundColor = UIColor.clear.cgColor
+    self.color = UIColor.clear
     layer.shadowRadius = 4
     layer.masksToBounds = false
     layer.shadowRadius = 2

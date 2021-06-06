@@ -337,8 +337,10 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             request.httpMethod = "GET"
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if error != nil {
-                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later. :(", duration: .short)
-                    snackbar.show()
+                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later. :(", duration: .middle)
+                    DispatchQueue.main.async {
+                        snackbar.show()
+                    }
                     return
                 } 
                 do {

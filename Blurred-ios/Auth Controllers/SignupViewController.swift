@@ -62,15 +62,19 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
         } catch let error {
-            let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
-            snackbar.show()
+            let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
+            DispatchQueue.main.async {
+                snackbar.show()
+            }
             print(error.localizedDescription)
         }
         let task = URLSession.shared.dataTask(with: request) { (Data, URLResponse, Error) in
             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
             if Error != nil {
-                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
-                snackbar.show()
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
+                DispatchQueue.main.async {
+                    snackbar.show()
+                }
                 print("error=\(String(describing: Error))")
                 return
             }
@@ -96,12 +100,16 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         }
                     }
                 } else {
-                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
-                    snackbar.show()
+                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
+                    DispatchQueue.main.async {
+                        snackbar.show()
+                    }
                 }
             } catch {
-                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .short)
-                snackbar.show()
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
+                DispatchQueue.main.async {
+                    snackbar.show()
+                }
                 print(error)
             }
         }

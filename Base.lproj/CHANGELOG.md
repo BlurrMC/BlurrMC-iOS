@@ -1,6 +1,6 @@
 # Changelog
 ## v0.5 (ALPHA)
-* N/A
+* Alpha Release
 ## v0.4 (PRERELEASE)
 * U.I.
     * This version of U.I. has been updated for iPhone 12 mini (from iPhone 6s)

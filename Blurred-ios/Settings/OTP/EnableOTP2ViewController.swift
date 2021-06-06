@@ -84,8 +84,10 @@ class EnableOTP2ViewController: UIViewController {
     
     // MARK: Copy OTP Secret
     @objc func copyOTP(gesture: UIGestureRecognizer) {
-        let message = TTGSnackbar(message: "Copied OTP Secret To Clipboard", duration: .short)
-        message.show()
+        let message = TTGSnackbar(message: "Copied OTP Secret To Clipboard", duration: .middle)
+        DispatchQueue.main.async {
+            message.show()
+        }
         UIPasteboard.general.string = self.otpSecret
     }
     

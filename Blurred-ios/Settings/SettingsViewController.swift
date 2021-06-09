@@ -24,9 +24,9 @@ class SettingsViewController: UIViewController {
         }
     }
     @IBAction func tapped2FASettings(_ sender: Any) {
-        let token: String? = try? tokenValet.string(forKey: "Token")
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token!)",
+            "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
         AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/checkforotp", method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in

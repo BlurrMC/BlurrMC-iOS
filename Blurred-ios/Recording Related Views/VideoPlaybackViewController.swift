@@ -8,7 +8,6 @@
 import AVFoundation
 import UIKit
 import Valet
-import Alamofire
 
 class VideoPlaybackViewController: UIViewController {
     

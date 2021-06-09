@@ -76,18 +76,16 @@ class AccountSettingsViewController: UIViewController {
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        let userId: String? = try? myValet.string(forKey: "Id")
+        let Id: String? = try? myValet.string(forKey: "Id")
         let token: String? = try? tokenValet.string(forKey: "Token")
-        let Id = Int(userId!)
         let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/registrations/\(Id!).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("Bearer \(token!)", forHTTPHeaderField: "Authorization")
-        if nameField?.text?.isEmpty != true {
-            let name = nameField.text
-            let patchString = ["name": name!] as [String: String]
+        if nameField?.text?.isEmpty != true, let name = nameField.text {
+            let patchString = ["name": name] as [String: String]
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
             } catch let error {
@@ -95,9 +93,8 @@ class AccountSettingsViewController: UIViewController {
                 return
             }
         }
-        if usernameField?.text?.isEmpty != true {
-            let username = usernameField.text
-            let patchString = ["username": username!] as [String: String]
+        if usernameField?.text?.isEmpty != true, let username = usernameField.text {
+            let patchString = ["username": username] as [String: String]
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
             } catch let error {
@@ -105,9 +102,8 @@ class AccountSettingsViewController: UIViewController {
                 return
             }
         }
-        if emailField?.text?.isEmpty != true {
-            let email = emailField.text
-            let patchString = ["email": email!] as [String: String]
+        if emailField?.text?.isEmpty != true, let email = emailField.text {
+            let patchString = ["email": email] as [String: String]
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
             } catch let error {
@@ -115,9 +111,8 @@ class AccountSettingsViewController: UIViewController {
                 return
             }
         }
-        if bioField?.text?.isEmpty != true {
-            let bio = bioField.text
-            let patchString = ["bio": bio!] as [String: String]
+        if bioField?.text?.isEmpty != true, let bio = bioField.text {
+            let patchString = ["bio": bio] as [String: String]
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: patchString, options: .prettyPrinted)
             } catch let error {

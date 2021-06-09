@@ -10,7 +10,6 @@ import UIKit
 import Foundation
 import AVFoundation
 import MobileCoreServices
-import Alamofire
 import Valet
 import NextLevel
 

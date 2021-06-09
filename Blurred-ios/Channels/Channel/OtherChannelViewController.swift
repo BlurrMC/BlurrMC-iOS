@@ -23,10 +23,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     var chanelVar = String() // This is the channel's id
     var following = Bool()
     var blocking = Bool()
-    var relationshipId = Int()
+    var relationshipId = String()
     var channelUsername = String()
     var timer2 = Timer()
-    var blockId = Int()
+    var blockId = String()
     var isReported = Bool()
     var cancellable: AnyCancellable?
     var resizedImageProcessors: [ImageProcessing] = []
@@ -82,9 +82,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Checks the user if they are viewing themselves (dropdown menu).
     func checkIfOtherUserIsCurrentUser() {
-        let userId: String?  = try? myValet.string(forKey: "Id")
-        let userIdInt: Int? = Int(userId!)
-        let userIdString: String = String("\(userIdInt)")
+        guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
         let Id = chanelVar
         let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id).json")
         var request = URLRequest(url:myUrl!)
@@ -97,15 +95,14 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
-                    let username: Int? = parseJSON["id"] as? Int
-                    let usernameId = String("\(username)")
-                    if userIdString != usernameId {
+                    let username: String? = parseJSON["id"] as? String
+                    if userId != username {
                         self.isItThemselves = false
                     } else {
                         self.isItThemselves = true
                     }
                 } else {
-                    print(error ?? "")
+                    print(error ?? "no error but somehow error")
                     return
                 }
             } catch {
@@ -229,12 +226,12 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         } else {
             cell.layer.borderColor = UIColor.white.cgColor
         }
-        let Id: Int? = videos[indexPath.row].id
+        let Id: String = videos[indexPath.row].id
         var resizedImageProcessors: [ImageProcessing] {
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
             return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
         }
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videoinfo/\(Id!).json").responseJSON { response in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videoinfo/\(Id).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
@@ -290,8 +287,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     class Video: Codable {
-        let id: Int
-        init(username: String, name: String, id: Int) {
+        let id: String
+        init(username: String, name: String, id: String) {
             self.id = id
         }
     }
@@ -529,7 +526,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             "Accept": "application/json"
         ]
         let params = [
-            "username": "\(chanelVar)"
+            "username": chanelVar
         ] as [String: String]
         let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/blocks/\(blockId)")
         AF.request(url!, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
@@ -566,7 +563,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             "Accept": "application/json"
         ]
         let params = [
-            "id": "\(chanelVar)"
+            "id": chanelVar
         ] as [String: String]
         AF.request(myUrl!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else {
@@ -577,14 +574,14 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let status: String? = parseJSON["status"] as? String
-                    let blockId: Int? = parseJSON["blocked_id"] as? Int
+                    guard let blockId: String = parseJSON["blocked_id"] as? String else { return }
                     switch status {
                     case "User has been blocked":
                         self.blocking = true
-                        self.blockId = blockId!
+                        self.blockId = blockId
                     case "User is already blocked":
                         self.blocking = true
-                        self.blockId = blockId!
+                        self.blockId = blockId
                     case .none:
                         print("error code: 9nka0vmf9s32")
                         return
@@ -609,7 +606,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         request.addValue("application/json", forHTTPHeaderField: "content-type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        let params = ["id": "\(chanelVar)"] as [String: String]
+        let params = ["id": chanelVar] as [String: String]
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
         } catch {
@@ -625,7 +622,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let status: String? = parseJSON["status"] as? String
-                    guard let relationshipId: Int = parseJSON["relationship_id"] as? Int else { return }
+                    guard let relationshipId: String = parseJSON["relationship_id"] as? String else { return }
                     if status == "User Followed" {
                         self.following = true
                         self.relationshipId = relationshipId
@@ -663,8 +660,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let status: String? = parseJSON["status"] as? String
-                    let relationshipId: Int? = parseJSON["relationship_id"] as? Int
-                    let blockId: Int? = parseJSON["block_id"] as? Int
+                    guard let relationshipId: String = parseJSON["relationship_id"] as? String else { return }
+                    guard let blockId: String = parseJSON["block_id"] as? String else { return }
                     switch status {
                     case "User is not following or blocking":
                         self.following = false
@@ -672,16 +669,16 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                     case "User is not following but blocking":
                         self.following = false
                         self.blocking = true
-                        self.blockId = blockId!
+                        self.blockId = blockId
                     case "User is following but not blocking":
                         self.following = true
                         self.blocking = false
-                        self.relationshipId = relationshipId!
+                        self.relationshipId = relationshipId
                     case "User is following and blocking":
                         self.following = true
                         self.blocking = true
-                        self.relationshipId = relationshipId!
-                        self.blockId = blockId!
+                        self.relationshipId = relationshipId
+                        self.blockId = blockId
                     case .none:
                         print("error code: q01039bjtasme923hf7")
                     case .some(_):
@@ -724,20 +721,19 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Upload changed avatar
     func upload() {
-        let token: String?  = try? self.tokenValet.string(forKey: "Token")
-        let userId: String?  = try? self.myValet.string(forKey: "Id")
-        let Id = Int(userId!)
+        guard let token: String  = try? self.tokenValet.string(forKey: "Token") else { return }
+        guard let Id: String  = try? self.myValet.string(forKey: "Id") else { return }
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token!)",
+            "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/registrations/\(Id!)")
+        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/registrations/\(Id)")
         let image = avatarImage.image///haha im small
         // let image = [UIImagePickerController.InfoKey.editedImage]
         guard let imgcompressed = image!.jpegData(compressionQuality: 0.5) else { return }
         AF.upload(
             multipartFormData: { multipartFormData in
-                multipartFormData.append(imgcompressed, withName: "avatar" , fileName: "\(Id!)-avatar.png", mimeType: "image/png")
+                multipartFormData.append(imgcompressed, withName: "avatar" , fileName: "\(Id)-avatar.png", mimeType: "image/png")
         },
             to: url, method: .patch , headers: headers)
             .response { resp in
@@ -824,7 +820,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 DispatchQueue.main.async {
                     self.reportButton.isHidden = true
                 }
-                let bio: String = parseJSON?["bio"] as? String ?? ""
+                let bio: String = parseJSON?["bio"] as? String ?? "No bio :("
                 guard let railsUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                 DispatchQueue.main.async {
                     self.usernameLabel.text = username

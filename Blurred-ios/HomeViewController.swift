@@ -25,7 +25,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     
     // MARK: From delegate, for sharing
-    func didTapShare(_ view: ChannelVideoOverlayView, videoUrl: String, videoId: Int) {
+    func didTapShare(_ view: ChannelVideoOverlayView, videoUrl: String, videoId: String) {
         shareWindow(videoUrl: videoUrl, videoId: videoId)
     }
     
@@ -41,14 +41,14 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     
     // MARK: Tap for comments from overlay
-    func didTapComments(_ view: ChannelVideoOverlayView, videoid: Int) {
+    func didTapComments(_ view: ChannelVideoOverlayView, videoid: String) {
         showVideoComments(videoId: videoid)
     }
     
     
     // MARK: Setup window for sharing functionality
     // This may use A LOT of ram over a long period of time. Possible fix: deleting cache after user is done dealing with video?
-    func shareWindow(videoUrl: String, videoId: Int) {
+    func shareWindow(videoUrl: String, videoId: String) {
         CacheManager.shared.getFileWith(stringUrl: videoUrl) { result in
                 switch result {
                 case .success(let url):
@@ -143,7 +143,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     }
     
     // MARK: Function for showing video comments
-    func showVideoComments(videoId: Int) {
+    func showVideoComments(videoId: String) {
         self.videoId = videoId
         let storyboard = UIStoryboard(name: "CommentBoard", bundle: nil)
         let commentNavController = storyboard.instantiateViewController(withIdentifier: "commentNav") as! UINavigationController
@@ -181,7 +181,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     // MARK: Variables
     var window: UIWindow?
-    var videoId = Int()
+    var videoId = String()
     var videoUsername = String()
     var tableNode: ASTableNode!
     var lastNode: ChannelVideoCellNode?
@@ -202,8 +202,8 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     class Video: Codable {
         let videourl: String
-        let videoid: Int
-        init(videourl: String, videoid: Int) {
+        let videoid: String
+        init(videourl: String, videoid: String) {
             self.videourl = videourl
             self.videoid = videoid
         }

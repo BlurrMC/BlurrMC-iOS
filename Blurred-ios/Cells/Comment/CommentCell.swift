@@ -24,7 +24,7 @@ class CommentCell: UITableViewCell {
     }
     
     var delegate: CommentCellDelegate?
-    var commentId = Int()
+    var commentId = String()
     var indexPath = IndexPath()
     var commentName = String()
     var reported = Bool()

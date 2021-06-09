@@ -122,15 +122,13 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         return
                     }
-                    let userIdInt = parseJSON["id"] as? Int
-                    if userIdInt == nil {
+                    let userId = parseJSON["id"] as? String
+                    if userId == nil {
                         popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     } else {
-                        let userId = "\(userIdInt!)"
                         let accessToken = parseJSON["token"] as? String
                         let errorToken = parseJSON["error"] as? String
-                        print(userId)
                         if ((errorToken?.isEmpty) == nil) {
                             print("No error")
                         } else {
@@ -141,6 +139,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                             popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                         } else {
+                            guard let userId = userId else { return }
                             try? self.tokenValet.setString(accessToken!, forKey: "Token")
                             try? self.myValet.setString(userId, forKey: "Id")
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)

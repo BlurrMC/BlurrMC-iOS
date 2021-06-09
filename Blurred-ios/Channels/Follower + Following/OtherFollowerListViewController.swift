@@ -132,8 +132,8 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
     class Follower: Codable {
         let username: String
         let name: String
-        let id: Int
-        init(username: String, name: String, id: Int) {
+        let id: String
+        init(username: String, name: String, id: String) {
             self.username = username
             self.name = name
             self.id = id
@@ -161,8 +161,8 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
                     self.nothingHereLabel.text = String("")
                 }
             }
-        let Id: Int? = followers[indexPath.row].id
-        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id!).json")
+        let Id: String = followers[indexPath.row].id
+        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in

@@ -82,8 +82,7 @@ class OTPViewController: UIViewController {
                 if accessToken?.isEmpty == nil {
                     popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                 } else {
-                    guard let userIdInt = JSON?["id"] as? Int else { return }
-                    let userId = String(userIdInt)
+                    guard let userId = JSON?["id"] as? String else { return }
                     try? self.tokenValet.setString(accessToken!, forKey: "Token")
                     try? self.myValet.setString(userId, forKey: "Id")
                     DispatchQueue.main.async {

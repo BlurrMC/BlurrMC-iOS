@@ -11,9 +11,9 @@ import UIKit
 class ReplyTableViewCell: UITableViewCell {
     
     // MARK: Variables and Properties
-    var commentId = Int()
+    var commentId = String()
     var indexPath = IndexPath()
-    var parentId = Int()
+    var parentId = String()
     var delegate: CommentCellDelegate?
     var name = String()
     var isReported = Bool()

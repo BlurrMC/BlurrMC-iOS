@@ -17,7 +17,7 @@ class ChannelVideoCellNode: ASCellNode {
     // MARK: Variables
     var videoNode: ASVideoNode
     
-    required init(with videoUrl: URL, videoId: Int, doesParentHaveTabBar: Bool) {
+    required init(with videoUrl: URL, videoId: String, doesParentHaveTabBar: Bool) {
         self.videoNode = ASVideoNode()
         super.init()
         self.videoNode.shouldAutoplay = true

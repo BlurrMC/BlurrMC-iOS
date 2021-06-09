@@ -74,7 +74,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             return cell
         case self.videoTableView:
             guard let cell = videoTableView.dequeueReusableCell(withIdentifier: "SearchVideoCell") as? SearchVideoCell else { return UITableViewCell() }
-            let Id: Int = videos[indexPath.row].id
+            let Id: String = videos[indexPath.row].id
             AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videoinfo/\(Id).json").responseJSON { response in
                 var JSON: [String: Any]?
                 do {
@@ -124,7 +124,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             return cell
         default:
             guard let cell = videoTableView.dequeueReusableCell(withIdentifier: "SearchVideoCell") as? SearchVideoCell else { return UITableViewCell() }
-            let Id: Int = videos[indexPath.row].id
+            let Id: String = videos[indexPath.row].id
             AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videoinfo/\(Id).json").responseJSON { response in
                 var JSON: [String: Any]?
                 do {
@@ -332,8 +332,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     // MARK: Video Info From JSON
     class Video: Codable {
-        let id: Int
-        init(id: Int) {
+        let id: String
+        init(id: String) {
             self.id = id
         }
     }

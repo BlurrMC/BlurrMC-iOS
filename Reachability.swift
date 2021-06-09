@@ -64,7 +64,7 @@ public class Reachability {
     }
 
     func monitorReachabilityChanges() {
-        let host = "google.com"
+        let host = "bartenderdogseatmuffins.xyz"
         var context = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
         let reachability = SCNetworkReachabilityCreateWithName(nil, host)!
 

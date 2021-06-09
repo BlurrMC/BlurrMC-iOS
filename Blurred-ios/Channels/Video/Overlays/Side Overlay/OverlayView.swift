@@ -15,10 +15,10 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Variables
     var newAvatarUrl = String()
-    var videoId = Int()
+    var videoId = String()
     var isVideoLiked = Bool()
     var likenumber = Int()
-    var likeId = Int()
+    var likeId = String()
     var videoUsername = String()
     var videoUrl: URL?
     var name = String()
@@ -198,7 +198,7 @@ class ChannelVideoOverlayView: UIView {
                     self.isVideoLiked = true
                     self.changeHeartIcon()
                     guard let likeid = JSON!["likeid"] as? Dictionary<String, Any> else { return }
-                    guard let id = likeid["id"] as? Int else { return }
+                    guard let id = likeid["id"] as? String else { return }
                     self.likeId = id
                 } else if status == "Video has not been liked" {
                     self.isVideoLiked = false

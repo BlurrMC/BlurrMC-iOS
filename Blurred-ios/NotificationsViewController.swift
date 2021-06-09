@@ -57,7 +57,7 @@ class NotificationsViewController: UIViewController {
             switch notifications[indexPath.row].action {
             case "liked":
                 if let vc = segue.destination as? ChannelVideoViewController {
-                    guard let videoId = json["video"] as? Int else { return }
+                    guard let videoId = json["video"] as? String else { return }
                     vc.isItFromSearch = true
                     vc.videoString = videoId
                 }
@@ -68,19 +68,21 @@ class NotificationsViewController: UIViewController {
                 }
             case "Commented":
                 if let vc = segue.destination as? ChannelVideoViewController {
-                    guard let video = json["video"] as? Int else { return }
+                    guard let video = json["video"] as? String else { return }
                     vc.isItFromSearch = true
-                    vc.videoString = video // WHY is this named videoString when its AN INTEGER?!?!?!?!?!?!
+                    vc.videoString = video
+                    // WHY is this named videoString when its AN INTEGER?!?!?!?!?!?!
+                    // ^ Old comment, this is now fixed with uuids (well, it could be called videoUUID but eh) :)
                 }
             case "Replied":
                 if let vc = segue.destination as? ChannelVideoViewController {
-                    guard let video = json["video"] as? Int else { return }
+                    guard let video = json["video"] as? String else { return }
                     vc.isItFromSearch = true
                     vc.videoString = video
                 }
             case "Liked comment":
                 if let vc = segue.destination as? ChannelVideoViewController {
-                    guard let video = json["video"] as? Int else { return }
+                    guard let video = json["video"] as? String else { return }
                     vc.isItFromSearch = true
                     vc.videoString = video
                 }
@@ -240,8 +242,8 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
         if let parseJSON = json {
             switch notifications[indexPath.row].action {
             case "liked":
-                guard let videoId = parseJSON["video"] as? Int else { return UITableViewCell() }
-                guard let liker = parseJSON["liker"] as? String else { return UITableViewCell() }
+                guard let videoId = parseJSON["video"] as? String else { return cell }
+                guard let liker = parseJSON["liker"] as? String else { return cell }
                 let description = String("\(liker) liked your video.")
                 DispatchQueue.main.async {
                     cell.notificationDescription.text = description
@@ -282,7 +284,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     }
                 }
             case "Commented":
-                guard let video = parseJSON["video"] as? Int else { return UITableViewCell() }
+                guard let video = parseJSON["video"] as? String else { return UITableViewCell() }
                 guard let user = parseJSON["user"] as? String else { return UITableViewCell() }
                 guard let comment = parseJSON["comment"] as? String else { return UITableViewCell() }
                 let description = "@" + user + " commented, " + comment + ", on your video."
@@ -304,7 +306,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     }
                 }
             case "Replied":
-                guard let video = parseJSON["video"] as? Int else { return UITableViewCell() }
+                guard let video = parseJSON["video"] as? String else { return UITableViewCell() }
                 guard let user = parseJSON["user"] as? String else { return UITableViewCell() }
                 guard let reply = parseJSON["reply"] as? String else { return UITableViewCell() }
                 let description = "@" + user + " replied to your commenting saying, " + reply
@@ -326,7 +328,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     }
                 }
             case "Liked comment":
-                guard let video = parseJSON["video"] as? Int else { return UITableViewCell() }
+                guard let video = parseJSON["video"] as? String else { return UITableViewCell() }
                 guard let user = parseJSON["user"] as? String else { return UITableViewCell() }
                 guard let comment = parseJSON["comment"] as? String else { return UITableViewCell() }
                 let description = "@" + user + "liked your comment, " + comment

@@ -19,7 +19,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var resizedImageProcessors = [ImageProcessing]()
     
     // MARK: From delegate, for sharing
-    func didTapShare(_ view: ChannelVideoOverlayView, videoUrl: String, videoId: Int) {
+    func didTapShare(_ view: ChannelVideoOverlayView, videoUrl: String, videoId: String) {
         shareWindow(videoUrl: videoUrl, videoId: videoId)
     }
 
@@ -33,7 +33,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     }
     
     // MARK: Tap for comments from overlay
-    func didTapComments(_ view: ChannelVideoOverlayView, videoid: Int) {
+    func didTapComments(_ view: ChannelVideoOverlayView, videoid: String) {
         showVideoComments(videoId: videoid)
     }
     
@@ -43,10 +43,10 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     private var videos = [Video]()
     var videoUsername = String()
     var rowNumber = Int()
-    var videoString = Int()
+    var videoString = String()
     var videoUrlString = String()
     var isItFromSearch = Bool()
-    var videoId = Int()
+    var videoId = String()
     var channelId = String()
     var reported = Bool()
     var blocked = Bool()
@@ -54,7 +54,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     
     // MARK: Setup window for sharing functionality
     // This may use A LOT of ram over a long period of time. Possible fix: deleting cache after user is done dealing with video?
-    func shareWindow(videoUrl: String, videoId: Int) {
+    func shareWindow(videoUrl: String, videoId: String) {
         CacheManager.shared.getFileWith(stringUrl: videoUrl) { result in
                 switch result {
                 case .success(let url):
@@ -201,8 +201,8 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     
     class Video: Codable {
         let videourl: String
-        let videoid: Int
-        init(videourl: String, videoid: Int) {
+        let videoid: String
+        init(videourl: String, videoid: String) {
             self.videourl = videourl
             self.videoid = videoid
         }
@@ -224,7 +224,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     }
     
     // MARK: Function for showing video comments
-    func showVideoComments(videoId: Int) {
+    func showVideoComments(videoId: String) {
         self.videoId = videoId
         self.performSegue(withIdentifier: "showComments", sender: self)
         

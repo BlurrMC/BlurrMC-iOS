@@ -9,8 +9,8 @@
 import Foundation
 
 protocol CommentCellDelegate {
-    func likeButtonTapped(commentId: Int, indexPath: IndexPath, reply: Bool)
-    func readMoreButtonTapped(commentId: Int, indexPath: IndexPath)
-    func moreButtonTapped(commentId: Int, indexPath: IndexPath, reply: Bool)
-    func cellAvatarTapped(commentId: Int, indexPath: IndexPath, reply: Bool, name: String, isReported: Bool, avatarUrl: String)
+    func likeButtonTapped(commentId: String, indexPath: IndexPath, reply: Bool)
+    func readMoreButtonTapped(commentId: String, indexPath: IndexPath)
+    func moreButtonTapped(commentId: String, indexPath: IndexPath, reply: Bool)
+    func cellAvatarTapped(commentId: String, indexPath: IndexPath, reply: Bool, name: String, isReported: Bool, avatarUrl: String)
 }

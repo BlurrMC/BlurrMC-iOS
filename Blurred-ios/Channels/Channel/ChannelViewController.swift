@@ -280,8 +280,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     class Video: Codable {
-        let id: Int
-        init(username: String, name: String, id: Int) {
+        let id: String
+        init(username: String, name: String, id: String) {
             self.id = id
         }
     }
@@ -298,8 +298,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     // MARK: Load the channel's videos
     func channelVideoIds() { // Still not done we need to add the user's butt image
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
-        guard let Id = Int(userId) else { return }
-        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id).json")  // 23:40
+        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(userId).json")  // 23:40
             guard let downloadURL = url else { return }
             URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
                 guard let data = data, error == nil, urlResponse != nil else {
@@ -325,13 +324,12 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         ImageCache.shared.costLimit = 1024 * 1024 * 100
         ImageCache.shared.countLimit = 100
         ImageCache.shared.ttl = 120
-        guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
+        guard let Id: String  = try? myValet.string(forKey: "Id") else { return }
         if let image = self.retrieveImage(forKey: "Avatar") {
             DispatchQueue.main.async {
                 self.avatarImage.image = image
             }
         }
-        guard let Id = Int(userId) else { return }
         let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id).json")
             var request = URLRequest(url:myUrl!)
             request.httpMethod = "GET"
@@ -432,7 +430,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                                 self.store(image: image, forKey: "Avatar")
                             }
                         }
-                        try? self.myValet.setString("\(railsUrl)", forKey: "avatar url for \(userId)")
+                        try? self.myValet.setString("\(railsUrl)", forKey: "avatar url for \(Id)")
                     } else {
                         return
                     }
@@ -490,20 +488,19 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     
     // MARK: Upload avatar image
     func upload() {
-        let token: String?  = try? self.tokenValet.string(forKey: "Token")
-        let userId: String?  = try? self.myValet.string(forKey: "Id")
-        let Id = Int(userId!)
+        guard let token: String  = try? self.tokenValet.string(forKey: "Token") else { return }
+        guard let Id: String  = try? self.myValet.string(forKey: "Id") else { return }
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(token!)",
+            "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/registrations/\(Id!)")
+        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/registrations/\(Id)")
         let image = avatarImage.image///haha im small
         // let image = [UIImagePickerController.InfoKey.editedImage]
         guard let imgcompressed = image!.jpegData(compressionQuality: 0.5) else { return }
         AF.upload(
             multipartFormData: { multipartFormData in
-                multipartFormData.append(imgcompressed, withName: "avatar" , fileName: "\(Id!)-avatar.png", mimeType: "image/png")
+                multipartFormData.append(imgcompressed, withName: "avatar" , fileName: "\(Id)-avatar.png", mimeType: "image/png")
         },
             to: url, method: .patch , headers: headers)
             .response { resp in

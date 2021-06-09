@@ -16,9 +16,9 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Variables
     private var comments = [Comment]()
-    var videoId = Int()
+    var videoId = String()
     var isReplyKeyboardUp = Bool()
-    var replyParentId = Int()
+    var replyParentId = String()
     var replyIndex = IndexPath()
     var isItEditing: Bool = false
     var isEditingAReply = Bool()
@@ -232,19 +232,19 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     struct Comment: Codable {
         let created_by: String
         var likes: Int
-        let id: Int
+        let id: String
         let reply: Bool
         let time_since_creation: String
         var body: String
         var liked: Bool
-        let parent_id: Int
+        let parent_id: String?
         var replies: [Comment]?
         var opened: Bool? = false
-        var likeId: Int?
+        var likeId: String?
         var reported: Bool
         var comment_is_editable: Bool
         var edited: Bool
-        init(created_by: String, likes: Int, body: String, id: Int, reply: Bool, time_since_creation: String, liked: Bool, parent_id: Int, replies: [Comment]?, likeId: Int, reported: Bool, comment_is_editable: Bool, edited: Bool) {
+        init(created_by: String, likes: Int, body: String, id: String, reply: Bool, time_since_creation: String, liked: Bool, parent_id: String, replies: [Comment]?, likeId: String, reported: Bool, comment_is_editable: Bool, edited: Bool) {
             self.id = id
             self.reply = reply
             self.time_since_creation = time_since_creation
@@ -255,7 +255,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
             if parent_id != id {
                 self.parent_id = parent_id
             } else {
-                self.parent_id = 0
+                self.parent_id = nil
             }
             self.replies = replies
             self.reported = reported
@@ -408,7 +408,7 @@ extension CommentingViewController: CommentCellDelegate {
     
     
     // MARK: Avatar Tapped (Go to channel)
-    func cellAvatarTapped(commentId: Int, indexPath: IndexPath, reply: Bool, name: String, isReported: Bool, avatarUrl: String) {
+    func cellAvatarTapped(commentId: String, indexPath: IndexPath, reply: Bool, name: String, isReported: Bool, avatarUrl: String) {
         switch reply {
         case true:
             guard let username = self.comments[indexPath.section].replies?[indexPath.row - 1].created_by else { return }
@@ -455,7 +455,7 @@ extension CommentingViewController: CommentCellDelegate {
             guard let reply = self.comments[indexPath.section].replies?[indexPath.row - 1] else { return }
             let params = [
                 "body": reply.body,
-                "parent_id": reply.parent_id
+                "parent_id": reply.parent_id!
             ] as [String : Any]
             let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/\(reply.id)")
             AF.request(URL.init(string: url)!, method: .patch, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
@@ -518,7 +518,7 @@ extension CommentingViewController: CommentCellDelegate {
     
     
     // MARK: Delete a comment
-    func deleteComment(indexPath: IndexPath, commentId: Int?, reply: Bool) {
+    func deleteComment(indexPath: IndexPath, commentId: String?, reply: Bool) {
         switch reply {
         case true:
             self.comments.remove(at: indexPath.row - 1)
@@ -555,7 +555,8 @@ extension CommentingViewController: CommentCellDelegate {
     
     
     // MARK: Report a comment
-    func reportComment(commentId: Int?) {
+    func reportComment(commentId: String?) {
+        guard let commentId = commentId else { return }
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
@@ -564,7 +565,7 @@ extension CommentingViewController: CommentCellDelegate {
         let params = [
             "video_id": videoId,
             "comment_id": commentId
-        ]
+        ] as [String: Any]
         let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/reports")
         AF.request(URL.init(string: url)!, method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
@@ -582,7 +583,7 @@ extension CommentingViewController: CommentCellDelegate {
         }
     }
     
-    func moreButtonTapped(commentId: Int, indexPath: IndexPath, reply: Bool) {
+    func moreButtonTapped(commentId: String, indexPath: IndexPath, reply: Bool) {
         // Change the actionSheet to a custom made stack view to look better
         let alert = UIAlertController(title: "More", message: "More Options", preferredStyle: UIAlertController.Style.actionSheet)
 
@@ -626,7 +627,7 @@ extension CommentingViewController: CommentCellDelegate {
         }
     }
     
-    func likeButtonTapped(commentId: Int, indexPath: IndexPath, reply: Bool) {
+    func likeButtonTapped(commentId: String, indexPath: IndexPath, reply: Bool) {
         let commentIndex = indexPath.section
         switch reply {
         case true:
@@ -694,15 +695,15 @@ extension CommentingViewController: CommentCellDelegate {
     }
     
     // MARK: Unlike Video
-    func sendDeleteLikeRequest(likeid: Int?, commentId: Int, cell: Comment, indexPath: IndexPath, reply: Bool) {
+    func sendDeleteLikeRequest(likeid: String?, commentId: String, cell: Comment, indexPath: IndexPath, reply: Bool) {
         let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
         let throttler = Throttler(minimumDelay: 5)
-        if likeid != nil {
-            let url = "https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes/\(likeid ?? 0)"
+        if likeid != nil, let likeid = likeid {
+            let url = "https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes/\(likeid)"
             throttler.throttle( {
                 AF.request(URL.init(string: url)!, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                     var JSON: [String: Any]?
@@ -717,10 +718,10 @@ extension CommentingViewController: CommentCellDelegate {
                             case true:
                                 guard let _ = self.comments[safe: commentIndex]?.replies?[safe: replyIndex] else { return }
                                 self.comments[commentIndex].replies?[replyIndex].liked = false
-                                self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                                self.comments[commentIndex].replies?[replyIndex].likeId = nil
                             case false:
                                 self.comments[commentIndex].liked = false
-                                self.comments[commentIndex].likeId = 0
+                                self.comments[commentIndex].likeId = nil
                             }
                             
                         }
@@ -729,17 +730,17 @@ extension CommentingViewController: CommentCellDelegate {
                         case true:
                             guard let _ = self.comments[safe: commentIndex]?.replies?[safe: replyIndex] else { return }
                             self.comments[commentIndex].replies?[replyIndex].liked = false
-                            self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                            self.comments[commentIndex].replies?[replyIndex].likeId = nil
                         case false:
                             guard let _ = self.comments[safe: commentIndex] else { return }
                             self.comments[commentIndex].liked = false
-                            self.comments[commentIndex].likeId = 0
+                            self.comments[commentIndex].likeId = nil
                         }
                         print("This typically isn't supposed to happen, but might. Ignore this unless a serious issue. error code: 0fnboglap139gnza")
                         return
                     }
                 }
-            }, uniqueId: commentId)
+            }, uniqueId: indexPath.row)
             
         }
         
@@ -747,7 +748,7 @@ extension CommentingViewController: CommentCellDelegate {
     
     
     // MARK: Like the comment
-    func sendLikeRequest(commentId: Int, cell: Comment, indexPath: IndexPath, reply: Bool) {
+    func sendLikeRequest(commentId: String, cell: Comment, indexPath: IndexPath, reply: Bool) {
         let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",
@@ -765,10 +766,10 @@ extension CommentingViewController: CommentCellDelegate {
                     let replyIndex = indexPath.row - 1
                     switch status {
                     case "You have already liked it!":
-                        let likeid = JSON!["likeid"] as? Int
+                        let likeid = JSON!["likeid"] as? String
                         self.sendDeleteLikeRequest(likeid: likeid, commentId: commentId, cell: cell, indexPath: indexPath, reply: reply)
                     case "Video has been liked":
-                        let likeid = JSON!["likeid"] as? Int
+                        let likeid = JSON!["likeid"] as? String
                         switch reply {
                         case true:
                             guard let _ = self.comments[safe: commentIndex]?.replies?[safe: replyIndex] else { return }
@@ -785,11 +786,11 @@ extension CommentingViewController: CommentCellDelegate {
                         case true:
                             guard let _ = self.comments[safe: commentIndex]?.replies?[safe: replyIndex] else { return }
                             self.comments[commentIndex].replies?[replyIndex].liked = false
-                            self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                            self.comments[commentIndex].replies?[replyIndex].likeId = nil
                         case false:
                             guard let _ = self.comments[safe: commentIndex] else { return }
                             self.comments[commentIndex].replies?[replyIndex].liked = false
-                            self.comments[commentIndex].replies?[replyIndex].likeId = 0
+                            self.comments[commentIndex].replies?[replyIndex].likeId = nil
                         }
                         self.changeHeartIcon(indexPath: indexPath, reply: reply, alreadyLiked: false)
                     case .none:
@@ -804,7 +805,7 @@ extension CommentingViewController: CommentCellDelegate {
                 }
             }
 
-        }, uniqueId: commentId)
+        }, uniqueId: indexPath.row)
     }
     
     
@@ -906,7 +907,7 @@ extension CommentingViewController: CommentCellDelegate {
     
     
     // MARK: Read more button tap
-    func readMoreButtonTapped(commentId: Int, indexPath: IndexPath) {
+    func readMoreButtonTapped(commentId: String, indexPath: IndexPath) {
         if indexPath.row == 0 {
             switch comments[indexPath.section].opened {
             case true:
@@ -1011,7 +1012,8 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
             if reply.edited == true {
                 cell.comment.text = reply.body + " (edited)"
             }
-            cell.parentId = reply.parent_id
+            guard let parentId = reply.parent_id else { return cell }
+            cell.parentId = parentId
             cell.commentId = reply.id
             cell.indexPath = indexPath
             let username = reply.created_by
@@ -1087,7 +1089,8 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let dataIndex = indexPath.row - 1
         if indexPath.row == 0 {
-            self.replyParentId = self.comments[indexPath.section].parent_id
+            guard let parentId = self.comments[indexPath.section].parent_id else { return }
+            self.replyParentId = parentId
         } else {
             self.replyParentId = self.comments[indexPath.section].replies?[dataIndex].parent_id ?? self.comments[indexPath.section].id
         }

@@ -1181,6 +1181,16 @@
             </objects>
             <point key="canvasLocation" x="2860" y="-1786"/>
         </scene>
+        <!--NotificationSettingsViewController-->
+        <scene sceneID="mac-HL-YBZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="NotificationSettings" referencedIdentifier="NotificationSettingsViewController" id="rHY-Sq-I1l" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="7dL-Rn-Hm8"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Otw-lq-L6V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2640" y="-1872"/>
+        </scene>
         <!--AdditionalSettingsViewController-->
         <scene sceneID="0Qm-pc-MoB">
             <objects>
@@ -1254,13 +1264,23 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMI-MH-52X">
-                                <rect key="frame" x="88.666666666666686" y="303" width="198" height="42"/>
+                                <rect key="frame" x="88.666666666666686" y="395" width="198" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Additonal Settings">
                                     <color key="titleColor" systemColor="systemOrangeColor"/>
                                 </state>
                                 <connections>
                                     <segue destination="cnW-qw-LRp" kind="show" id="bpy-iu-BnH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PaA-wA-86k">
+                                <rect key="frame" x="78" y="303" width="219" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Notification Settings">
+                                    <color key="titleColor" systemColor="systemPinkColor"/>
+                                </state>
+                                <connections>
+                                    <segue destination="rHY-Sq-I1l" kind="show" id="tXS-L9-Nxo"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1274,13 +1294,15 @@
                             <constraint firstItem="Q2K-L7-4kT" firstAttribute="top" secondItem="SEm-gr-flR" secondAttribute="bottom" constant="50" id="WC6-SC-ltr"/>
                             <constraint firstItem="Rrs-sq-ymG" firstAttribute="height" secondItem="d5c-ZW-K9X" secondAttribute="height" multiplier="0.044335" id="Y9d-Ub-tvi"/>
                             <constraint firstItem="Rrs-sq-ymG" firstAttribute="width" secondItem="d5c-ZW-K9X" secondAttribute="width" multiplier="0.202667" id="Z9V-es-aqP"/>
-                            <constraint firstItem="FMI-MH-52X" firstAttribute="top" secondItem="Q2K-L7-4kT" secondAttribute="bottom" constant="50" id="cCd-2e-MCf"/>
+                            <constraint firstItem="FMI-MH-52X" firstAttribute="top" secondItem="PaA-wA-86k" secondAttribute="bottom" constant="50" id="cCd-2e-MCf"/>
                             <constraint firstItem="kRT-IG-HB2" firstAttribute="bottom" secondItem="Rrs-sq-ymG" secondAttribute="bottom" constant="100" id="egQ-eM-zLA"/>
                             <constraint firstItem="HbB-oC-cXw" firstAttribute="top" secondItem="d5c-ZW-K9X" secondAttribute="top" constant="50" id="f9Y-Q9-oBG"/>
+                            <constraint firstItem="PaA-wA-86k" firstAttribute="top" secondItem="Q2K-L7-4kT" secondAttribute="bottom" constant="50" id="g6p-7N-PbL"/>
                             <constraint firstItem="i89-Hg-g7h" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="jNP-7e-NUT"/>
                             <constraint firstItem="Rrs-sq-ymG" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="oD6-Kg-nsZ"/>
                             <constraint firstItem="i89-Hg-g7h" firstAttribute="top" secondItem="Q2K-L7-4kT" secondAttribute="bottom" constant="318" id="oUP-YP-7dc"/>
                             <constraint firstItem="HbB-oC-cXw" firstAttribute="leading" secondItem="kRT-IG-HB2" secondAttribute="leading" constant="25" id="pys-1c-ucH"/>
+                            <constraint firstItem="PaA-wA-86k" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="zDJ-jM-Jno"/>
                             <constraint firstItem="SEm-gr-flR" firstAttribute="centerX" secondItem="d5c-ZW-K9X" secondAttribute="centerX" id="zGW-gM-Prt"/>
                         </constraints>
                     </view>

@@ -39,6 +39,8 @@
 		E162053D264DFB1700F62613 /* EnableOTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162053C264DFB1700F62613 /* EnableOTPViewController.swift */; };
 		E162053F264DFB2900F62613 /* EnableOTP2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162053E264DFB2900F62613 /* EnableOTP2ViewController.swift */; };
 		E1620541264DFB7A00F62613 /* DisableOTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1620540264DFB7A00F62613 /* DisableOTPViewController.swift */; };
+		E16CDA5626765C8F00F6A695 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E16CDA5526765C8F00F6A695 /* NotificationSettings.storyboard */; };
+		E16CDA5826765CA900F6A695 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16CDA5726765CA900F6A695 /* NotificationSettingsViewController.swift */; };
 		E179F01525E4AB5A003E14F2 /* ColorHexConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */; };
 		E17B7AF8266C8CCE00E891FE /* DifferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B7AF5266C8CCE00E891FE /* DifferencesView.swift */; };
 		E17B7AF9266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B7AF6266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift */; };
@@ -74,6 +76,9 @@
 		E1EBD0BB2453A18B00FE901F /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */; };
 		E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */; };
 		E1F28474247C19CE009F8B0B /* UploadDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */; };
+		E1FE807F26726D1A007036E7 /* VideoWatchingPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FE807E26726D1A007036E7 /* VideoWatchingPreference.swift */; };
+		E1FE808126726D2F007036E7 /* VideoWatchingPreference.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FE808026726D2F007036E7 /* VideoWatchingPreference.xib */; };
+		E1FE808326726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FE808226726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +147,8 @@
 		E162053C264DFB1700F62613 /* EnableOTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableOTPViewController.swift; sourceTree = "<group>"; };
 		E162053E264DFB2900F62613 /* EnableOTP2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableOTP2ViewController.swift; sourceTree = "<group>"; };
 		E1620540264DFB7A00F62613 /* DisableOTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPViewController.swift; sourceTree = "<group>"; };
+		E16CDA5526765C8F00F6A695 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
+		E16CDA5726765CA900F6A695 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		E179F01425E4AB5A003E14F2 /* ColorHexConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHexConverter.swift; sourceTree = "<group>"; };
 		E17B7AF5266C8CCE00E891FE /* DifferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferencesView.swift; sourceTree = "<group>"; };
 		E17B7AF6266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferencesActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -186,6 +193,9 @@
 		E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
 		E1EC52E72481A6380086C993 /* ChannelVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVideoCell.swift; sourceTree = "<group>"; };
 		E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDetailsViewController.swift; sourceTree = "<group>"; };
+		E1FE807E26726D1A007036E7 /* VideoWatchingPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWatchingPreference.swift; sourceTree = "<group>"; };
+		E1FE808026726D2F007036E7 /* VideoWatchingPreference.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoWatchingPreference.xib; sourceTree = "<group>"; };
+		E1FE808226726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWatchingPreferenceDelegate.swift; sourceTree = "<group>"; };
 		E506893DA9FC7FA3C7672E2C /* Pods-Blurred-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.release.xcconfig"; sourceTree = "<group>"; };
 		E55997397D8A83ECBD5F7161 /* Pods_Blurred_ios_Blurred_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios_Blurred_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F41306D471E35B036F6E30B7 /* Pods-Blurred-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.debug.xcconfig"; sourceTree = "<group>"; };
@@ -432,6 +442,7 @@
 			children = (
 				E181F853264DE35000446AFA /* 2FASettings.storyboard */,
 				E18B17652660BA6C0006A474 /* AdditonalSettings.storyboard */,
+				E16CDA5526765C8F00F6A695 /* NotificationSettings.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -485,6 +496,7 @@
 				E110886A247031B500B9AA32 /* AccountSettingsViewController.swift */,
 				E18B17632660B0560006A474 /* AdditionalSettingsViewController.swift */,
 				E1EBD0B8245377E800FE901F /* SettingsViewController.swift */,
+				E16CDA5726765CA900F6A695 /* NotificationSettingsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -494,6 +506,7 @@
 			children = (
 				E156A66D24F5F940005F6F6C /* Side Overlay */,
 				E139B92724E826D20035901E /* Description Overlay */,
+				E1FE808426726DED007036E7 /* Top Overlay */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
@@ -578,6 +591,16 @@
 				E1DF6F92244F550700E11BF9 /* Info.plist */,
 			);
 			path = "Blurred-iosUITests";
+			sourceTree = "<group>";
+		};
+		E1FE808426726DED007036E7 /* Top Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				E1FE807E26726D1A007036E7 /* VideoWatchingPreference.swift */,
+				E1FE808026726D2F007036E7 /* VideoWatchingPreference.xib */,
+				E1FE808226726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift */,
+			);
+			path = "Top Overlay";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -700,6 +723,8 @@
 				E1DF6FA5244F578700E11BF9 /* LaunchScreen.storyboard in Resources */,
 				5B2527AE2484388C0014F6CA /* Assets.xcassets in Resources */,
 				E181F854264DE35000446AFA /* 2FASettings.storyboard in Resources */,
+				E1FE808126726D2F007036E7 /* VideoWatchingPreference.xib in Resources */,
+				E16CDA5626765C8F00F6A695 /* NotificationSettings.storyboard in Resources */,
 				E1BA897924E18CDC0015C546 /* ChannelVideoOverlay.xib in Resources */,
 				E181F84D264B4A5B00446AFA /* OTPBoard.storyboard in Resources */,
 				E1DF6F73244F550300E11BF9 /* Main.storyboard in Resources */,
@@ -835,6 +860,7 @@
 				E1DF6F70244F550300E11BF9 /* SearchViewController.swift in Sources */,
 				E10D2C61266ADAEF001BD905 /* popupMessages.swift in Sources */,
 				594B8BD024E41793002D620D /* SearchCell.swift in Sources */,
+				E1FE807F26726D1A007036E7 /* VideoWatchingPreference.swift in Sources */,
 				E162053F264DFB2900F62613 /* EnableOTP2ViewController.swift in Sources */,
 				E1DF6F76244F550300E11BF9 /* Blurred_ios.xcdatamodeld in Sources */,
 				E189D855247F03D500B09F29 /* ChannelVideoViewController.swift in Sources */,
@@ -857,11 +883,13 @@
 				E17B7AF8266C8CCE00E891FE /* DifferencesView.swift in Sources */,
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
 				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,
+				E16CDA5826765CA900F6A695 /* NotificationSettingsViewController.swift in Sources */,
 				E17B7AF9266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift in Sources */,
 				E162053D264DFB1700F62613 /* EnableOTPViewController.swift in Sources */,
 				E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */,
 				E18B17642660B0560006A474 /* AdditionalSettingsViewController.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
+				E1FE808326726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift in Sources */,
 				E10D2C88266C8A4F001BD905 /* ActivityIndicatorView.swift in Sources */,
 				596AEE4724E89174002531C0 /* CommentCell.swift in Sources */,
 				E1620541264DFB7A00F62613 /* DisableOTPViewController.swift in Sources */,

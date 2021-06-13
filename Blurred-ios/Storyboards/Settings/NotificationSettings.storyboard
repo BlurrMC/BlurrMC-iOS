@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19115.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_0" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19107.4"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Notification Settings View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="NotificationSettingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="NotificationSettingsViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Sqe-bo-p6r">
+                                <rect key="frame" x="106" y="64" width="236" height="31"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Follow Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIm-xZ-NBU">
+                                        <rect key="frame" x="0.0" y="0.0" width="179" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6oX-Nx-Hiy">
+                                        <rect key="frame" x="187" y="0.0" width="51" height="31"/>
+                                        <color key="onTintColor" systemColor="systemRedColor"/>
+                                        <connections>
+                                            <action selector="changedFollowSetting:" destination="Y6W-OH-hqX" eventType="valueChanged" id="q4K-eQ-rB2"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QhL-8u-3Vs">
+                                <rect key="frame" x="92" y="125" width="250" height="31"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coment Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2G-np-GRT">
+                                        <rect key="frame" x="0.0" y="0.0" width="193" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yXq-Vb-jMN">
+                                        <rect key="frame" x="201" y="0.0" width="51" height="31"/>
+                                        <color key="onTintColor" systemColor="systemOrangeColor"/>
+                                        <connections>
+                                            <action selector="changedCommentSetting:" destination="Y6W-OH-hqX" eventType="valueChanged" id="J8e-f8-ypy"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dNb-Vm-toT">
+                                <rect key="frame" x="48.333333333333343" y="186" width="293.66666666666663" height="31"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Liked Coment Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Blg-gF-Fs7">
+                                        <rect key="frame" x="0.0" y="0.0" width="236.66666666666666" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vfo-VY-JwJ">
+                                        <rect key="frame" x="244.66666666666663" y="0.0" width="51" height="31"/>
+                                        <color key="onTintColor" systemColor="systemYellowColor"/>
+                                        <connections>
+                                            <action selector="changedLikedCommmentSetting:" destination="Y6W-OH-hqX" eventType="valueChanged" id="yar-mI-lQ7"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Fh1-ot-UGj">
+                                <rect key="frame" x="121" y="247" width="221" height="31"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reply Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="It3-Vb-qaq">
+                                        <rect key="frame" x="0.0" y="0.0" width="164" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K25-9P-E25">
+                                        <rect key="frame" x="172" y="0.0" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="changedReplySetting:" destination="Y6W-OH-hqX" eventType="valueChanged" id="JsS-Nb-5C3"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yfd-kk-PEh">
+                                <rect key="frame" x="67.666666666666657" y="308" width="274.33333333333337" height="31"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Liked Video Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZ2-rV-F9s">
+                                        <rect key="frame" x="0.0" y="0.0" width="217.33333333333334" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xq5-qn-qRZ">
+                                        <rect key="frame" x="225.33333333333331" y="0.0" width="51" height="31"/>
+                                        <color key="onTintColor" systemColor="systemBlueColor"/>
+                                        <connections>
+                                            <action selector="changedLikedVideoSetting:" destination="Y6W-OH-hqX" eventType="valueChanged" id="nME-C1-2xa"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="yfd-kk-PEh" firstAttribute="top" secondItem="Fh1-ot-UGj" secondAttribute="bottom" constant="30" id="0vA-c5-gG8"/>
+                            <constraint firstItem="Fh1-ot-UGj" firstAttribute="top" secondItem="dNb-Vm-toT" secondAttribute="bottom" constant="30" id="DnE-Mf-Qta"/>
+                            <constraint firstItem="dNb-Vm-toT" firstAttribute="top" secondItem="QhL-8u-3Vs" secondAttribute="bottom" constant="30" id="Gkh-Vr-iLx"/>
+                            <constraint firstItem="Sqe-bo-p6r" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="OLt-3P-eMK"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="yfd-kk-PEh" secondAttribute="trailing" constant="48" id="Qf6-kV-xMD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Fh1-ot-UGj" secondAttribute="trailing" constant="48" id="QzW-Ch-T44"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Sqe-bo-p6r" secondAttribute="trailing" constant="48" id="Vqq-Fc-lrk"/>
+                            <constraint firstItem="QhL-8u-3Vs" firstAttribute="top" secondItem="Sqe-bo-p6r" secondAttribute="bottom" constant="30" id="hKf-ON-ssc"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="QhL-8u-3Vs" secondAttribute="trailing" constant="48" id="ozI-NO-PRS"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="dNb-Vm-toT" secondAttribute="trailing" constant="48" id="paT-AU-Qga"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="commentNotifications" destination="yXq-Vb-jMN" id="kj4-Zk-98h"/>
+                        <outlet property="followNotifications" destination="6oX-Nx-Hiy" id="j8L-N9-2dU"/>
+                        <outlet property="likeCommentNotifications" destination="Vfo-VY-JwJ" id="BAA-b7-Y8R"/>
+                        <outlet property="likedVideoNotifications" destination="Xq5-qn-qRZ" id="Le8-yy-dc0"/>
+                        <outlet property="replyNotifications" destination="K25-9P-E25" id="fzo-wh-Iwv"/>
+                        <outletCollection property="notificationSwitches" destination="6oX-Nx-Hiy" collectionClass="NSMutableArray" id="n6e-Qd-dBf"/>
+                        <outletCollection property="notificationSwitches" destination="yXq-Vb-jMN" collectionClass="NSMutableArray" id="M0D-B7-lCe"/>
+                        <outletCollection property="notificationSwitches" destination="Vfo-VY-JwJ" collectionClass="NSMutableArray" id="zjb-BJ-0Xn"/>
+                        <outletCollection property="notificationSwitches" destination="K25-9P-E25" collectionClass="NSMutableArray" id="dpm-x0-7kr"/>
+                        <outletCollection property="notificationSwitches" destination="Xq5-qn-qRZ" collectionClass="NSMutableArray" id="W70-ca-qTg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="41.53846153846154" y="82.464454976303315"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

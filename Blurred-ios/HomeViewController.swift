@@ -16,12 +16,19 @@ import Alamofire
 
 class HomeViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
+    func switchedPreference(newPreference: WatchingPreference) {
+        self.watchingPreference = newPreference
+        // Make tableNode refresh with different results
+    }
+    
+    // Variables
+    var watchingPreference: WatchingPreference = .following
     var shouldBatchFetch = true
     var oldVideoCount = 0
-    
+    var resizedImageProcessors = [ImageProcessing]()
 
     @IBOutlet weak var progressView: UIProgressView!
-    var resizedImageProcessors = [ImageProcessing]()
+    
     
     
     // MARK: From delegate, for sharing
@@ -88,15 +95,26 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         }
     }
     
+    @available(*, deprecated, renamed: "homeFeedRequest")
+    func getRandomVideos() { }
+    
     // MARK: Get Videos For Home Page
-    func getRandomVideos() {
+    func homeFeedRequest() {
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let parameters = ["page" : "\(currentPage)"]
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/apihomefeed.json", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+        var url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/apihomefeed")
+        switch self.watchingPreference {
+        case .following:
+            url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/apihomefeed")
+        case .trending:
+            url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/trending")
+        }
+        
+        AF.request(url!, method: .post, parameters: parameters, headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: 1kdm03o4-2")
                 return
@@ -254,7 +272,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         self.view.insertSubview(tableNode.view, at: 0)
         self.applyStyle()
         self.tableNode.leadingScreensForBatching = 1.0
-        getRandomVideos()
+        homeFeedRequest()
         checkUser() // This doesn't have to be the first thing
     }
     
@@ -386,8 +404,12 @@ extension HomeViewController: ASTableDataSource {
         let videourll = self.videos[indexPath.row].videourl
         let videoId = self.videos[indexPath.row].videoid
         let videoUrl = URL(string: videourll)
+        var firstVideo: Bool = false
+        if indexPath.row == 1 {
+            firstVideo = true
+        }
         return {
-            let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true)
+            let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true, firstVideo: firstVideo)
             node.delegate = self
             node.debugName = "\(self.videos[indexPath.row].videoid)"
             return node

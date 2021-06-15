@@ -10,8 +10,23 @@ import UIKit
 
 class VideoWatchingPreference: UIView {
 
-    weak var delegate: VideoWatchingPreferenceDelegate?
-
+    @IBOutlet weak var trendingOutlet: UIButton!
+    @IBOutlet weak var followingOutlet: UIButton!
+    weak var delegate: ChannelVideoOverlayViewDelegate?
+    
+    
+    @IBAction func followingTap(_ sender: Any) {
+        self.followingOutlet.tintColor = UIColor.systemRed
+        self.trendingOutlet.tintColor = UIColor.label
+        delegate?.switchedPreference(newPreference: .following)
+    }
+    
+    @IBAction func trendingTap(_ sender: Any) {
+        self.trendingOutlet.tintColor = UIColor.systemRed
+        self.followingOutlet.tintColor = UIColor.label
+        delegate?.switchedPreference(newPreference: .trending)
+    }
+    
 }
 enum WatchingPreference {
     case following

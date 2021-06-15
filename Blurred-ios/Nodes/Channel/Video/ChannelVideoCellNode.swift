@@ -17,7 +17,7 @@ class ChannelVideoCellNode: ASCellNode {
     // MARK: Variables
     var videoNode: ASVideoNode
     
-    required init(with videoUrl: URL, videoId: String, doesParentHaveTabBar: Bool) {
+    required init(with videoUrl: URL, videoId: String, doesParentHaveTabBar: Bool, firstVideo: Bool) {
         self.videoNode = ASVideoNode()
         super.init()
         self.videoNode.shouldAutoplay = true
@@ -60,6 +60,23 @@ class ChannelVideoCellNode: ASCellNode {
             overlay2.widthAnchor.constraint(equalToConstant: 287).isActive = true
             overlay2.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
                                              constant: -100).isActive = true
+            
+            // Top Overlay
+            if firstVideo == true {
+                // Declare view
+                let topOverlay = VideoWatchingPreference()
+                topOverlay.delegate = self.delegate
+                
+                // Add view
+                self.view.addSubview(topOverlay) // top overlay
+                
+                // Add constraints
+                topOverlay.translatesAutoresizingMaskIntoConstraints = false
+                topOverlay.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+                topOverlay.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+                topOverlay.heightAnchor.constraint(equalToConstant: 100).isActive = true
+                topOverlay.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+            }
             
         }
         

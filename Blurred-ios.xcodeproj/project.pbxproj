@@ -78,7 +78,6 @@
 		E1F28474247C19CE009F8B0B /* UploadDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */; };
 		E1FE807F26726D1A007036E7 /* VideoWatchingPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FE807E26726D1A007036E7 /* VideoWatchingPreference.swift */; };
 		E1FE808126726D2F007036E7 /* VideoWatchingPreference.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1FE808026726D2F007036E7 /* VideoWatchingPreference.xib */; };
-		E1FE808326726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FE808226726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,7 +194,6 @@
 		E1F28473247C19CE009F8B0B /* UploadDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDetailsViewController.swift; sourceTree = "<group>"; };
 		E1FE807E26726D1A007036E7 /* VideoWatchingPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWatchingPreference.swift; sourceTree = "<group>"; };
 		E1FE808026726D2F007036E7 /* VideoWatchingPreference.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoWatchingPreference.xib; sourceTree = "<group>"; };
-		E1FE808226726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWatchingPreferenceDelegate.swift; sourceTree = "<group>"; };
 		E506893DA9FC7FA3C7672E2C /* Pods-Blurred-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.release.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.release.xcconfig"; sourceTree = "<group>"; };
 		E55997397D8A83ECBD5F7161 /* Pods_Blurred_ios_Blurred_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blurred_ios_Blurred_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F41306D471E35B036F6E30B7 /* Pods-Blurred-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blurred-ios.debug.xcconfig"; path = "Target Support Files/Pods-Blurred-ios/Pods-Blurred-ios.debug.xcconfig"; sourceTree = "<group>"; };
@@ -598,7 +596,6 @@
 			children = (
 				E1FE807E26726D1A007036E7 /* VideoWatchingPreference.swift */,
 				E1FE808026726D2F007036E7 /* VideoWatchingPreference.xib */,
-				E1FE808226726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift */,
 			);
 			path = "Top Overlay";
 			sourceTree = "<group>";
@@ -889,7 +886,6 @@
 				E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */,
 				E18B17642660B0560006A474 /* AdditionalSettingsViewController.swift in Sources */,
 				E110886B247031B500B9AA32 /* AccountSettingsViewController.swift in Sources */,
-				E1FE808326726DE6007036E7 /* VideoWatchingPreferenceDelegate.swift in Sources */,
 				E10D2C88266C8A4F001BD905 /* ActivityIndicatorView.swift in Sources */,
 				596AEE4724E89174002531C0 /* CommentCell.swift in Sources */,
 				E1620541264DFB7A00F62613 /* DisableOTPViewController.swift in Sources */,

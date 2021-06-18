@@ -13,7 +13,7 @@ import Alamofire
 import AlamofireImage
 import TTGSnackbar
 
-class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource {
+class ChannelViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
     
     // MARK: Variables & Constants
     private var videos = [Video]()
@@ -23,6 +23,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     private let refreshControl = UIRefreshControl()
     let generator = UIImpactFeedbackGenerator(style: .light)
     var timesVideoReloaded = Int()
+    var currentPage: Int = 1
+    var oldVideoCount = Int()
+    var shouldBatchFetch: Bool = true
     
     // MARK: Collectionview
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -43,6 +46,64 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     
+    
+    // MARK: Prefetch Request
+    func PreFetch(success: @escaping (_ response: AFDataResponse<Any>?) -> Void, failure: @escaping (_ error: NSError?) -> Void) {
+        guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
+        let parameters = ["page" : "\(currentPage)"]
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channelvideos/\(userId)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                success(response)
+            case .failure(let error):
+                failure(error as NSError)
+            }
+            
+        }
+        
+    }
+    
+    // MARK: Cancel prefetching
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        // Implement some kind of function here to cancel prefetching
+    }
+    
+    // MARK: Prefetching
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        if shouldBatchFetch == true {
+            oldVideoCount = self.videos.count
+            currentPage = currentPage + 1
+            self.PreFetch(success: {(response) -> Void in
+                guard let data = response?.data else {
+                    print("error code: 4129481234981241bcxb9afasdf")
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                    if downloadedVideo.videos.count < 5 {
+                        self.shouldBatchFetch = false
+                    }
+                    self.videos.append(contentsOf: downloadedVideo.videos)
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadItems(at: indexPaths)
+                    }
+                } catch {
+                    print("error code: 98asd098fuas9d8f234asdf, controller: channel, error: \(error)")
+                    return
+                }
+            }, failure: { (error) -> Void in
+                print("error code: asfoaisjdf322928414")
+                print(error as Any)
+            })
+        }
+        
+    }
+    
+    // MARK: Cell for item at
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
@@ -60,7 +121,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let options = ImageLoadingOptions(
             placeholder: UIImage(named: "load-image"),
             transition: .fadeIn(duration: 0.25))
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videoinfo/\(videos[indexPath.row].id).json").responseJSON { response in
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videoinfo/\(videos[indexPath.row].videoid).json").responseJSON { response in
             var JSON: [String: Any]?
             guard let data = response.data else { return }
             do {
@@ -108,6 +169,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         return cell
     }
     
+    
+    // MARK: Did select row
     func collectionView(CollectionView: UICollectionView, didSelectRowAt indexPath: IndexPath) {
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
         let destinationVC = ChannelVideoViewController()
@@ -130,7 +193,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             if segue.identifier == "showVideo" {
                 if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
                     let selectedRow = indexPath.row
-                    vc?.videoString = videos[selectedRow].id
+                    vc?.videoString = videos[selectedRow].videoid
                     vc?.channelId = userId
                     vc?.rowNumber = indexPath.item
                     vc?.isItFromSearch = false
@@ -197,6 +260,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         
         
         // Channel + videos
+        collectionView.dataSource = self
+        collectionView.prefetchDataSource = self
+        collectionView.isPrefetchingEnabled = true
         loadMemberChannel()
         channelVideoIds()
         generator.prepare()
@@ -280,9 +346,9 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     class Video: Codable {
-        let id: String
-        init(username: String, name: String, id: String) {
-            self.id = id
+        let videoid: String
+        init(videoid: String) {
+            self.videoid = videoid
         }
     }
     
@@ -298,24 +364,30 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     // MARK: Load the channel's videos
     func channelVideoIds() { // Still not done we need to add the user's butt image
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
-        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(userId).json")  // 23:40
-            guard let downloadURL = url else { return }
-            URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-                guard let data = data, error == nil, urlResponse != nil else {
-                    return
+        let parameters = ["page" : "\(currentPage)"]
+        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelvideos/\(userId)")
+        guard let downloadURL = url else { return }
+        AF.request(downloadURL, method: .get, parameters: parameters).responseJSON { response in
+            guard let data = response.data else {
+                print("error code: asdfasi9fasdf")
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                self.videos = downloadedVideo.videos
+                if self.videos.count < 5 {
+                    self.shouldBatchFetch = false
                 }
-                do {
-                    let decoder = JSONDecoder()
-                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                    self.videos = downloadedVideo.videos
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                        self.refreshControl.endRefreshing()
-                    }
-                } catch {
-                    return
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
-            }.resume()
+            } catch {
+                print("error code: 1asdfasdfasf21341a, controller: channel, error: \(error)")
+                return
+            }
+        }
     }
     
     

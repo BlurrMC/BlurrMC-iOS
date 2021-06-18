@@ -1654,8 +1654,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1005"
-            endingLineNumber = "1005"
+            startingLineNumber = "1075"
+            endingLineNumber = "1075"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1670,8 +1670,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "990"
-            endingLineNumber = "990"
+            startingLineNumber = "1060"
+            endingLineNumber = "1060"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1686,8 +1686,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "997"
-            endingLineNumber = "997"
+            startingLineNumber = "1067"
+            endingLineNumber = "1067"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1702,8 +1702,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1006"
-            endingLineNumber = "1006"
+            startingLineNumber = "1076"
+            endingLineNumber = "1076"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1718,8 +1718,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "987"
-            endingLineNumber = "987"
+            startingLineNumber = "1057"
+            endingLineNumber = "1057"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1734,8 +1734,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "985"
-            endingLineNumber = "985"
+            startingLineNumber = "1055"
+            endingLineNumber = "1055"
             landmarkName = "loadImage(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1750,8 +1750,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "785"
-            endingLineNumber = "785"
+            startingLineNumber = "855"
+            endingLineNumber = "855"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1766,8 +1766,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "784"
-            endingLineNumber = "784"
+            startingLineNumber = "854"
+            endingLineNumber = "854"
             landmarkName = "OtherChannelViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1782,8 +1782,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "786"
-            endingLineNumber = "786"
+            startingLineNumber = "856"
+            endingLineNumber = "856"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1798,8 +1798,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "788"
-            endingLineNumber = "788"
+            startingLineNumber = "858"
+            endingLineNumber = "858"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1814,8 +1814,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "797"
-            endingLineNumber = "797"
+            startingLineNumber = "867"
+            endingLineNumber = "867"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
             <Locations>
@@ -1862,8 +1862,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "813"
-            endingLineNumber = "813"
+            startingLineNumber = "883"
+            endingLineNumber = "883"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1878,8 +1878,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "815"
-            endingLineNumber = "815"
+            startingLineNumber = "885"
+            endingLineNumber = "885"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1894,8 +1894,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "816"
-            endingLineNumber = "816"
+            startingLineNumber = "886"
+            endingLineNumber = "886"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1910,8 +1910,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "817"
-            endingLineNumber = "817"
+            startingLineNumber = "887"
+            endingLineNumber = "887"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1926,8 +1926,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "818"
-            endingLineNumber = "818"
+            startingLineNumber = "888"
+            endingLineNumber = "888"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1942,8 +1942,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "823"
-            endingLineNumber = "823"
+            startingLineNumber = "893"
+            endingLineNumber = "893"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1958,8 +1958,8 @@
             filePath = "Blurred-ios/Channels/Channel/OtherChannelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "824"
-            endingLineNumber = "824"
+            startingLineNumber = "894"
+            endingLineNumber = "894"
             landmarkName = "loadMemberChannel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2378,6 +2378,54 @@
             endingLineNumber = "97"
             landmarkName = "sendCreds()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "749A9A13-39DA-4CD0-9C05-E638F815B4E1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Blurred-ios/Channels/Channel/ChannelViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "749A9A13-39DA-4CD0-9C05-E638F815B4E1 - d041db994b741fd2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Blurred.ChannelViewController.PreFetch(success: (Swift.Optional&lt;Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;&gt;) -&gt; (), failure: (Swift.Optional&lt;__C.NSError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Blurred"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/martinvelev/Documents/BlurrMC/Blurred-ios/Channels/Channel/ChannelViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "904">
+               </Location>
+               <Location
+                  uuid = "749A9A13-39DA-4CD0-9C05-E638F815B4E1 - e9a04d14c674fbda"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in Blurred.ChannelViewController.PreFetch(success: (Swift.Optional&lt;Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;&gt;) -&gt; (), failure: (Swift.Optional&lt;__C.NSError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Blurred"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/martinvelev/Documents/BlurrMC/Blurred-ios/Channels/Channel/ChannelViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "404">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -15,12 +15,16 @@ import Alamofire
 import Combine
 import TTGSnackbar
 
-class OtherChannelViewController: UIViewController, UICollectionViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class OtherChannelViewController: UIViewController, UICollectionViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UICollectionViewDataSourcePrefetching {
     
-    // MARK: Variables
+    // MARK: Variables & Constants
     var isItThemselves = Bool()
     private var videos = [Video]()
     var chanelVar = String() // This is the channel's id
+    // Explainer for why it's called chanel var:
+    /// This view controller was made very early on in the development process (when I didn't know much) and I had two variables for the channel's id. One was called channelVar and the other (this one) was called chanelVar.
+    /// As I got more experience developing I realised that using two different variables made it very confusing, so I removed the one being used the least (which was channelVar). From that day on, I haven't
+    /// changed the variable name since I'm worried that it's gonna cause a chain of issues.
     var following = Bool()
     var blocking = Bool()
     var relationshipId = String()
@@ -36,7 +40,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     var segueFollowerCount: String?
     var segueBio: String?
     var timesReload = Int()
-    
+    var currentPage: Int = 1
+    var oldVideoCount = Int()
+    var shouldBatchFetch: Bool = true
+    private let refreshControl = UIRefreshControl()
     
     // MARK: Valet
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
@@ -59,8 +66,60 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     @IBOutlet weak var dropDownStack: UIStackView!
     
     
-    // MARK: Lets
-    private let refreshControl = UIRefreshControl()
+    // MARK: Prefetch Request
+    func PreFetch(success: @escaping (_ response: AFDataResponse<Any>?) -> Void, failure: @escaping (_ error: NSError?) -> Void) {
+        let parameters = ["page" : "\(currentPage)"]
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channelvideos/\(chanelVar)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                success(response)
+            case .failure(let error):
+                failure(error as NSError)
+            }
+            
+        }
+        
+    }
+    
+    // MARK: Cancel prefetching
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        // Implement some kind of function here to cancel prefetching
+    }
+    
+    // MARK: Prefetching
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        if shouldBatchFetch == true {
+            oldVideoCount = self.videos.count
+            currentPage = currentPage + 1
+            self.PreFetch(success: {(response) -> Void in
+                guard let data = response?.data else {
+                    print("error code: 90129fghcmoa93441haga8sd78") // This printing of error code: go0f0urself0finding0the0error system is actually getting really stupid
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                    if downloadedVideo.videos.count < 5 {
+                        self.shouldBatchFetch = false
+                    }
+                    self.videos.append(contentsOf: downloadedVideo.videos)
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadItems(at: indexPaths)
+                    }
+                } catch {
+                    print("error code: aifosdfasdf14czxcvbbnsdfg, controller: otherchannel, error: \(error)")
+                    return
+                }
+            }, failure: { (error) -> Void in
+                print("error code: 2r839b7twaefsdzxvcvt3498werfs")
+                print(error as Any)
+            })
+        }
+        
+    }
     
     
     // MARK: Number Of Items In Section
@@ -226,7 +285,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         } else {
             cell.layer.borderColor = UIColor.white.cgColor
         }
-        let Id: String = videos[indexPath.row].id
+        let Id: String = videos[indexPath.row].videoid
         var resizedImageProcessors: [ImageProcessing] {
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
             return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
@@ -287,33 +346,39 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     class Video: Codable {
-        let id: String
-        init(username: String, name: String, id: String) {
-            self.id = id
+        let videoid: String
+        init(videoid: String) {
+            self.videoid = videoid
         }
     }
     
     
     // MARK: Load the channel's videos
-    func channelVideoIds() { // Still not done we need to add the user's butt image
-        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(chanelVar).json")  // 23:40
+    func channelVideoIds() {
+        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelvideos/\(chanelVar)")
         guard let downloadURL = url else { return }
-        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-            guard let data = data, error == nil, urlResponse != nil else {
+        let parameters = ["page" : "\(currentPage)"]
+        AF.request(downloadURL, method: .get, parameters: parameters).responseJSON { response in
+            guard let data = response.data else {
+                print("error code: asdfh239419tugisdj")
                 return
             }
             do {
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
                 self.videos = downloadedVideo.videos
+                if self.videos.count < 5 {
+                    self.shouldBatchFetch = false
+                }
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                     self.refreshControl.endRefreshing()
                 }
             } catch {
+                print("error code: asdfasfasdfar23542325, controller: otherchannel, error: \(error)")
                 return
             }
-        }.resume()
+        }
     }
     
     
@@ -387,6 +452,11 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         // Fetch username from segue (faster) and set the nav title
         guard let username = self.segueUsername else { return }
         self.navigationItem.title = "@" + username
+        
+        // Collection View
+        self.collectionView.dataSource = self
+        self.collectionView.prefetchDataSource = self
+        self.collectionView.isPrefetchingEnabled = true
     }
     
     
@@ -945,7 +1015,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             if segue.identifier == "showOtherVideo" {
                 if let indexPath = collectionView?.indexPathsForSelectedItems?.first { /// Come on! There has to be a better way than two consecutive if statements
                     let selectedRow = indexPath.row
-                    vc?.videoString = videos[selectedRow].id
+                    vc?.videoString = videos[selectedRow].videoid
                     vc?.channelId = chanelVar
                     vc?.rowNumber = indexPath.item
                     vc?.isItFromSearch = false
@@ -953,7 +1023,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             } else if segue.identifier == "showOtherVideoo" { /// Are you serious? What is this segue name
                 if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
                     let selectedRow = indexPath.row
-                    vc?.videoString = videos[selectedRow].id
+                    vc?.videoString = videos[selectedRow].videoid
                 }
             }
         default:

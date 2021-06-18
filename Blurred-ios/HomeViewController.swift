@@ -431,7 +431,7 @@ extension HomeViewController: ASTableDelegate {
         return shouldBatchFetch
     }
     
-    // MARK: Batch fetch function
+    // MARK: Batch fetch
     func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
         oldVideoCount = self.videos.count
         currentPage = currentPage + 1

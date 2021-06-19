@@ -551,8 +551,8 @@
             filePath = "Blurred-ios/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "SearchViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -567,8 +567,8 @@
             filePath = "Blurred-ios/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -583,8 +583,8 @@
             filePath = "Blurred-ios/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "SearchViewController"
             landmarkType = "3">
             <Locations>
@@ -631,8 +631,8 @@
             filePath = "Blurred-ios/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "SearchViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -695,8 +695,8 @@
             filePath = "Blurred-ios/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -711,8 +711,8 @@
             filePath = "Blurred-ios/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -727,8 +727,8 @@
             filePath = "Blurred-ios/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -743,8 +743,8 @@
             filePath = "Blurred-ios/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1079,25 +1079,9 @@
             filePath = "Blurred-ios/Channels/Video/ChannelVideoViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "shouldBatchFetch(for:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "99C95391-E33C-439C-89CB-EAB8968D2157"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Blurred-ios/Channels/Video/ChannelVideoViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
-            landmarkName = "tableNode(_:willBeginBatchFetchWith:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1143,8 +1127,8 @@
             filePath = "Blurred-ios/NotificationsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1159,8 +1143,8 @@
             filePath = "Blurred-ios/NotificationsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "NotificationsViewController"
             landmarkType = "21">
          </BreakpointContent>
@@ -1175,8 +1159,8 @@
             filePath = "Blurred-ios/NotificationsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "NotificationsViewController"
             landmarkType = "21">
             <Locations>
@@ -2198,8 +2182,8 @@
             filePath = "Blurred-ios/Channels/Video/ChannelVideoViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "sendRequest()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2392,8 +2376,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
             endingLineNumber = "57"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "PreFetch(success:failure:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "749A9A13-39DA-4CD0-9C05-E638F815B4E1 - d041db994b741fd2"

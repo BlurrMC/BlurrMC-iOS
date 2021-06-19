@@ -15,6 +15,8 @@ import Nuke
 class NotificationsViewController: UIViewController {
     
     let generator = UIImpactFeedbackGenerator(style: .light)
+    var currentPage: Int = 1
+    var shouldBatchFetch: Bool = true
     
     // MARK: Mark notifications as read
     func markAsRead() {
@@ -129,6 +131,9 @@ class NotificationsViewController: UIViewController {
                 let decoder = JSONDecoder()
                 let downloadedNotifications = try decoder.decode(Notifications.self, from: data)
                 self.notifications = downloadedNotifications.notifications
+                if downloadedNotifications.notifications.count < 25 {
+                    self.shouldBatchFetch = false
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     self.refreshControl.endRefreshing()
@@ -194,7 +199,58 @@ class NotificationsViewController: UIViewController {
     }
     
 }
-extension NotificationsViewController: UITableViewDataSource, UITableViewDelegate {
+extension NotificationsViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
+    
+    // MARK: Prefetch Request
+    func PreFetch(success: @escaping (_ response: AFDataResponse<Any>?) -> Void, failure: @escaping (_ error: NSError?) -> Void) {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let parameters = ["page" : "\(currentPage)"]
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/notifications", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                success(response)
+            case .failure(let error):
+                failure(error as NSError)
+            }
+            
+        }
+    }
+    
+    // MARK: Prefetch Rows
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if shouldBatchFetch == true {
+            currentPage = currentPage + 1
+            self.PreFetch(success: {(response) -> Void in
+                guard let data = response?.data else {
+                    print("error code: nt(like windows nt!)3qn847fr63ds, GOS SMP!!!") // What if I started implementing actual useful debugging signs inside of error codes!
+                    /// Nah, couldn't be me.
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedNotifications = try decoder.decode(Notifications.self, from: data)
+                    if downloadedNotifications.notifications.count < 25 {
+                        self.shouldBatchFetch = false
+                    }
+                    self.notifications.append(contentsOf: downloadedNotifications.notifications)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: indexPaths, with: .fade)
+                    }
+                } catch {
+                    print("error code: rearjmcl1904fua, controller: following, error: \(error)")
+                    return
+                }
+            }, failure: { (error) -> Void in
+                print("error code: justdragonsolace3457ygfr457uyt3we")
+                print(error as Any)
+            })
+        }
+    }
+    
     
     // MARK: Did Select Row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -57,6 +57,9 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var reported = Bool()
     var blocked = Bool()
     var name = String()
+    var shouldBatchFetch: Bool = true
+    var oldVideoCount = Int()
+    var currentPage: Int = 1
     
     // MARK: Setup window for sharing functionality
     // This may use A LOT of ram over a long period of time. Possible fix: deleting cache after user is done dealing with video?
@@ -131,7 +134,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         self.tableNode.dataSource = self
     }
     
-    // MARK: Request for channel's videos
+    // MARK: Request for specific video
     func sendRequest() {
         let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoString).json")
         var request = URLRequest(url:myUrl!)
@@ -197,7 +200,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         }
     }
     
-    // MARK: Videos downloaded
+    // MARK: Videos
     class Videos: Codable {
         let videos: [Video]
         init(videos: [Video]) {
@@ -236,7 +239,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         
     }
     
-    // MARK: Download array of videos for channels
+    // MARK: Download channel videos
     func channelVideoIds() {
         let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelvideos/\(channelId).json")
         guard let downloadURL = url else { return }
@@ -276,6 +279,23 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         }
         self.videos.append(contentsOf: newVideos)
         self.tableNode.insertRows(at: indexPaths, with: .none)
+    }
+    
+    // MARK: Batch Fetch Request
+    func batchFetch(success: @escaping (_ response: AFDataResponse<Any>?) -> Void, failure: @escaping (_ error: NSError?) -> Void) {
+        let parameters = ["page" : "\(currentPage)"]
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channelvideos/\(channelId)", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                success(response)
+            case .failure(let error):
+                failure(error as NSError)
+            }
+            
+        }
     }
     
 }
@@ -323,15 +343,34 @@ extension ChannelVideoViewController: ASTableDelegate {
     
     // MARK: Batch fetch bool
     func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        return true
+        return shouldBatchFetch
     }
     
     // MARK: Batch fetch function
     func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
-        self.retrieveNextPageWithCompletion { (newVideos) in
-            self.insertNewRowsInTableNode(newVideos: newVideos)
-            context.completeBatchFetching(true)
-        }
+        oldVideoCount = self.videos.count
+        currentPage = currentPage + 1
+        self.batchFetch(success: {(response) -> Void in
+            guard let data = response?.data else {
+                print("error code: asdf23ruewifad")
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                if downloadedVideo.videos.count < 5 {
+                    self.shouldBatchFetch = false
+                }
+                self.insertNewRowsInTableNode(newVideos: downloadedVideo.videos)
+                context.completeBatchFetching(true)
+            } catch {
+                print("error code: tn5brtygs, controller: channel video, error: \(error)")
+                return
+            }
+        }, failure: { (error) -> Void in
+            print("error code: saaf")
+            print(error as Any)
+        })
         
     }
     

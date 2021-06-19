@@ -10,13 +10,67 @@
 import UIKit
 import Valet
 import Nuke
+import Alamofire
+import TTGSnackbar
 
-class OtherFollowListViewController: UIViewController, UITableViewDataSource {
+class OtherFollowListViewController: UIViewController, UITableViewDataSource, UITableViewDataSourcePrefetching {
+    
+    // MARK: Prefetch Request
+    func PreFetch(success: @escaping (_ response: AFDataResponse<Any>?) -> Void, failure: @escaping (_ error: NSError?) -> Void) {
+        let parameters = ["page" : "\(currentPage)"]
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowing/\(followingVar)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                success(response)
+            case .failure(let error):
+                failure(error as NSError)
+            }
+            
+        }
+        
+    }
+    
+    // MARK: Prefetch Rows
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if shouldBatchFetch == true {
+            oldFollowCount = self.followings.count
+            currentPage = currentPage + 1
+            self.PreFetch(success: {(response) -> Void in
+                guard let data = response?.data else {
+                    print("error code: nt3qn847fr63ds, cheemsburbger") /// No please don't change it I like cheemsburbger
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedFollows = try decoder.decode(Followings.self, from: data)
+                    if downloadedFollows.following.count < 50 {
+                        self.shouldBatchFetch = false
+                    }
+                    self.followings.append(contentsOf: downloadedFollows.following)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: indexPaths, with: .fade)
+                    }
+                } catch {
+                    print("error code: asd8vh9348euwiadsjnkc, controller: following, error: \(error)")
+                    return
+                }
+            }, failure: { (error) -> Void in
+                print("error code: a9009duvf908u98rejdfadf")
+                print(error as Any)
+            })
+        }
+    }
     
     // MARK: Variables
     var followingVar = String()
     private var followings = [Following]()
     var userIsSelf = Bool()
+    var currentPage: Int = 1
+    var oldFollowCount = Int()
+    var shouldBatchFetch = Bool()
     
     
     // MARK: Valet
@@ -67,6 +121,10 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
         }
+        
+        // Table
+        self.tableView.dataSource = self
+        self.tableView.prefetchDataSource = self
     }
     
     
@@ -100,25 +158,36 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource {
     // MARK: Get the user's followings
     func downloadJson() { 
         let Id = followingVar
-        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowing/\(Id).json")  // 23:40
+        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowing/\(Id).json")
         guard let downloadURL = url else { return }
-        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-            guard let data = data, error == nil, urlResponse != nil else {
-                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+        let parameters = ["page" : "\(currentPage)"]
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        AF.request(downloadURL, method: .get, parameters: parameters, headers: headers).responseJSON { response in
+            guard let data = response.data else {
+                print("error code: asdf9h934qfewa")
+                let snackbar = TTGSnackbar(message: "Error contacting server :O, try again later.", duration: .middle)
+                DispatchQueue.main.async {
+                    snackbar.show()
+                }
                 return
             }
             do {
                 let decoder = JSONDecoder()
-                let downloadedFollowing = try decoder.decode(Followings.self, from: data)
-                self.followings = downloadedFollowing.following
+                let downloadedFollows = try decoder.decode(Followings.self, from: data)
+                if downloadedFollows.following.count < 50 {
+                    self.shouldBatchFetch = false
+                }
+                self.followings = downloadedFollows.following
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     self.refreshControl.endRefreshing()
                 }
             } catch {
-                print(error)
+                return
             }
-        }.resume()
+        }
     }
     
     

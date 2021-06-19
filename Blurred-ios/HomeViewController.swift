@@ -122,7 +122,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             do {
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                self.videos = downloadedVideo.videos + self.videos
+                self.videos = downloadedVideo.videos
                 DispatchQueue.main.async {
                     self.tableNode.reloadData()
                 }

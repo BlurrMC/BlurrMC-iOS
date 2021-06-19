@@ -10,7 +10,67 @@ import UIKit
 import Alamofire
 import Nuke
 
-class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
+    
+    
+    // MARK: Prefetch Request
+    func PreFetch(success: @escaping (_ response: AFDataResponse<Any>?) -> Void, failure: @escaping (_ error: NSError?) -> Void) {
+        let search = searchBarTextField.text
+        guard let replaceHashtags = search?.replacingOccurrences(of: "#", with: "%23", options: .regularExpression) else { return }
+        let parameters = [
+            "search": replaceHashtags,
+            "page" : "\(currentPage)"
+        ]
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/search/", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                success(response)
+            case .failure(let error):
+                failure(error as NSError)
+            }
+            
+        }
+    }
+    
+    // MARK: Prefetch Rows
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if shouldBatchFetch == true {
+            switch isItUserSearch {
+            case true:
+                self.oldSearchCount = self.users.count
+            case false:
+                self.oldSearchCount = self.videos.count
+            }
+            currentPage = currentPage + 1
+            self.PreFetch(success: {(response) -> Void in
+                guard let data = response?.data else {
+                    print("error code: asdfashf8234uiqew")
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedResults = try decoder.decode(Users.self, from: data)
+                    self.videos.append(contentsOf: downloadedResults.videosearchresults)
+                    self.users.append(contentsOf: downloadedResults.searchresults)
+                    if downloadedResults.videosearchresults.count < 15 || downloadedResults.searchresults.count < 15 {
+                        self.shouldBatchFetch = false
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: indexPaths, with: .fade)
+                    }
+                } catch {
+                    print("error code: 0kg90rfvd9ioj98h324frw, controller: follower, error: \(error)")
+                    return
+                }
+            }, failure: { (error) -> Void in
+                print("error code: a9sdfj4982heiruds")
+                print(error as Any)
+            })
+        }
+    }
     
     
     // MARK: Number Of Rows In Section
@@ -26,10 +86,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     
-    // MARK: Lets
+    // MARK: Constants & Variables
     private let refreshControl = UIRefreshControl()
     private let videoRefreshControl = UIRefreshControl()
-    
+    var currentPage: Int = 1
+    var shouldBatchFetch: Bool = true
+    var oldSearchCount = Int()
     
     // MARK: Received Memory Warning
     override func didReceiveMemoryWarning() {
@@ -44,10 +106,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         case self.tableView:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell") as? SearchCell else { return UITableViewCell() }
             let username: String? = users[indexPath.row].username
-            
+            guard let username = username else { return cell }
             cell.searchAvatar.image = nil
             
-            AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(username!).json").responseJSON { response in
+            AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(username).json").responseJSON { response in
                 var JSON: [String: Any]?
                 do {
                     JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
@@ -266,9 +328,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     
-    // MARK: Submit the user's search query + loads the results
+    // MARK: Search request
     func search() {
-        // Contact api to search the query
+        // God there was this really stupid comment here saying "contact the api to search the query"
+        // Or something like that and I really hated it so I just wanted to remove it and replace it with
+        // this.
         let search = searchBarTextField.text
         guard let replaceHashtags = search?.replacingOccurrences(of: "#", with: "%23", options: .regularExpression) else { return }
         let params = [
@@ -284,6 +348,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 let downloadedResults = try decoder.decode(Users.self, from: data)
                 self.videos = downloadedResults.videosearchresults
                 self.users = downloadedResults.searchresults
+                if downloadedResults.videosearchresults.count < 15 || downloadedResults.searchresults.count < 15 {
+                    self.shouldBatchFetch = false
+                } else {
+                    self.shouldBatchFetch = true
+                }
                 if self.isItUserSearch == false {
                     DispatchQueue.main.async {
                         self.videoTableView.reloadData()
@@ -313,6 +382,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     // MARK: User Info From JSON
+    /// What the actual hell is this comment. Lil baby martin was probably trying to sound like he knew what he was talking about.
     class Users: Codable {
         let searchresults: [User]
         let videosearchresults: [Video]

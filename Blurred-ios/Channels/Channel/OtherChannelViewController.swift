@@ -102,7 +102,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 do {
                     let decoder = JSONDecoder()
                     let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                    if downloadedVideo.videos.count < 5 {
+                    if downloadedVideo.videos.count < 10 {
                         self.shouldBatchFetch = false
                     }
                     self.videos.append(contentsOf: downloadedVideo.videos)
@@ -367,7 +367,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
                 self.videos = downloadedVideo.videos
-                if self.videos.count < 5 {
+                if self.videos.count < 10 {
                     self.shouldBatchFetch = false
                 }
                 DispatchQueue.main.async {

@@ -9,8 +9,60 @@
 import UIKit
 import Valet
 import Nuke
+import Alamofire
+import TTGSnackbar
 
-class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
+class OtherFollowerListViewController: UIViewController, UITableViewDataSource, UITableViewDataSourcePrefetching {
+    
+    
+    // MARK: Prefetch Request
+    func PreFetch(success: @escaping (_ response: AFDataResponse<Any>?) -> Void, failure: @escaping (_ error: NSError?) -> Void) {
+        let parameters = ["page" : "\(currentPage)"]
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowers/\(followerVar)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                success(response)
+            case .failure(let error):
+                failure(error as NSError)
+            }
+            
+        }
+    }
+    
+    // MARK: Prefetch Rows
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if shouldBatchFetch == true {
+            oldFollowerCount = self.followers.count
+            currentPage = currentPage + 1
+            self.PreFetch(success: {(response) -> Void in
+                guard let data = response?.data else {
+                    print("error code: asdfj13984rjasdasdf")
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedFollowers = try decoder.decode(Followers.self, from: data)
+                    if downloadedFollowers.followers.count < 50 {
+                        self.shouldBatchFetch = false
+                    }
+                    self.followers.append(contentsOf: downloadedFollowers.followers)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: indexPaths, with: .fade)
+                    }
+                } catch {
+                    print("error code: 0kg90rfvd9ioj98h324frw, controller: follower, error: \(error)")
+                    return
+                }
+            }, failure: { (error) -> Void in
+                print("error code: a9sdfj4982heiruds")
+                print(error as Any)
+            })
+        }
+    }
+    
     
     // MARK: Outlets
     @IBOutlet weak var nothingHereLabel: UILabel!
@@ -21,6 +73,9 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
     private var followers = [Follower]()
     var followerId = String()
     var userIsSelf = Bool()
+    var shouldBatchFetch = Bool()
+    var oldFollowerCount = Int()
+    var currentPage: Int = 1
     
     
     // MARK: Valet
@@ -66,6 +121,10 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
         }
+        
+        // Table
+        self.tableView.dataSource = self
+        self.tableView.prefetchDataSource = self
     }
     
     
@@ -97,19 +156,30 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
     
     
     // MARK: Download the user's followers
-    func downloadJson() { // Still not done we need to add the user's butt image
+    func downloadJson() {
         let Id = followerVar
         followerId = Id
-        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowers/\(followerId).json")  // 23:40
+        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowers/\(followerId).json")
         guard let downloadURL = url else { return }
-        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-            guard let data = data, error == nil, urlResponse != nil else {
-                self.showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK")
+        let parameters = ["page" : "\(currentPage)"]
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        AF.request(downloadURL, method: .get, parameters: parameters, headers: headers).responseJSON { response in
+            guard let data = response.data else {
+                print("error code: asdf9h934qfewa")
+                let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
+                DispatchQueue.main.async {
+                    snackbar.show()
+                }
                 return
             }
             do {
                 let decoder = JSONDecoder()
                 let downloadedFollower = try decoder.decode(Followers.self, from: data)
+                if downloadedFollower.followers.count < 50 {
+                    self.shouldBatchFetch = false
+                }
                 self.followers = downloadedFollower.followers
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -118,7 +188,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
             } catch {
                 return
             }
-        }.resume()
+        }
     }
     
     
@@ -212,16 +282,6 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource {
             let selectedRow = indexPath.row
             let detailVC = segue.destination as! OtherChannelViewController
             detailVC.chanelVar = followers[selectedRow].username
-        }
-    }
-    
-
-    // MARK: Show Message
-    func showMessage(title: String, message: String, alertActionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: alertActionTitle, style: UIAlertAction.Style.default, handler: nil))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
         }
     }
 }

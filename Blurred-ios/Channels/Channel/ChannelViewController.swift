@@ -84,7 +84,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 do {
                     let decoder = JSONDecoder()
                     let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                    if downloadedVideo.videos.count < 5 {
+                    if downloadedVideo.videos.count < 10 {
                         self.shouldBatchFetch = false
                     }
                     self.videos.append(contentsOf: downloadedVideo.videos)
@@ -376,7 +376,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
                 self.videos = downloadedVideo.videos
-                if self.videos.count < 5 {
+                if self.videos.count < 10 {
                     self.shouldBatchFetch = false
                 }
                 DispatchQueue.main.async {

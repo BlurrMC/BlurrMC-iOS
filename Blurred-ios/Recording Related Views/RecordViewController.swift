@@ -18,7 +18,6 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     
     // MARK: Variables & Constants
     var timer = Timer()
-    var flashMode = String()
     var usingFrontCamera = Bool()
     var isCameraThere = Bool()
     var lastZoomFactor: CGFloat = 1.0
@@ -37,6 +36,12 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         case main
         case ultrawide
     }
+    enum flashType {
+        case auto
+        case on
+        case off
+    }
+    var flashMode: flashType = .off
 
     
     // MARK: Outlets
@@ -44,6 +49,33 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     @IBOutlet var videoView: UIView!
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var changeCamera: UIButton!
+    @IBOutlet weak var flashButton: UIButton!
+    
+    
+    @IBAction func flashTap(_ sender: Any) {
+        switch flashMode {
+        case .off:
+            // makes it auto
+            self.flashMode = .auto
+            self.flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
+            if NextLevel.shared.isFlashAvailable {
+                NextLevel.shared.flashMode = .auto
+            }
+        case .on:
+            // makes it off
+            self.flashMode = .off
+            self.flashButton.setImage(UIImage(systemName: "bolt.slash.fill"), for: .normal)
+            NextLevel.shared.flashMode = .off
+        case .auto:
+            // makes it on
+            self.flashMode = .on
+            self.flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .normal)
+            if NextLevel.shared.isFlashAvailable {
+                NextLevel.shared.flashMode = .on
+            }
+        }
+        try? self.cameraSettings.setString("\(self.flashMode)", forKey: "flash")
+    }
     
     // MARK: Change camera to main, ultrawide, or telephoto
     @IBAction func changeCamera(_ sender: Any) {
@@ -75,42 +107,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     
     // MARK: Valet
     let myValet = Valet.valet(with: Identifier(nonEmpty: "frontCamera")!, accessibility: .whenUnlocked)
-    let flashValet = Valet.valet(with: Identifier(nonEmpty: "flash")!, accessibility: .whenUnlocked)
     let cameraSettings = Valet.valet(with: Identifier(nonEmpty: "cameraSettings")!, accessibility: .whenUnlocked)
-    
-    // MARK: View Will Appear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        if usingFrontCamera == true {
-            switch NextLevel.shared.devicePosition {
-            case .back:
-                NextLevel.shared.flipCaptureDevicePosition()
-            case .front:
-                break
-            case .unspecified:
-                break
-            @unknown default:
-                break
-            }
-        } else if usingFrontCamera == false {
-            switch NextLevel.shared.devicePosition {
-            case .back:
-                break
-            case .front:
-                NextLevel.shared.flipCaptureDevicePosition()
-            case .unspecified:
-                break
-            @unknown default:
-                break
-            }
-        }
-        NextLevel.requestAuthorization(forMediaType: AVMediaType.video, completionHandler: {_,_ in
-            NextLevel.requestAuthorization(forMediaType: AVMediaType.audio, completionHandler: {_,_ in
-                try? NextLevel.shared.start()
-            })
-        })
-        
-    }
     
     // MARK: Setup Camera Preview
     func setupCameraPreview() {
@@ -144,10 +141,25 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         case true:
             DispatchQueue.main.async {
                 self.changeCamera.fadeOut()
+                self.flashButton.fadeOut()
             }
+            NextLevel.shared.flashMode = .off
         case false:
+            switch flashMode {
+            case .on:
+                if NextLevel.shared.isFlashAvailable {
+                    NextLevel.shared.flashMode = .on
+                }
+            case .auto:
+                if NextLevel.shared.isFlashAvailable {
+                    NextLevel.shared.flashMode = .auto
+                }
+            case .off:
+                NextLevel.shared.flashMode = .off
+            }
             DispatchQueue.main.async {
                 self.changeCamera.fadeIn()
+                self.flashButton.fadeIn()
             }
         }
         NextLevel.shared.flipCaptureDevicePosition()
@@ -222,6 +234,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         
         let telephotoSetting = try? cameraSettings.string(forKey: "telephoto")
         let ultraWideSetting = try? cameraSettings.string(forKey: "ultrawide")
+        let flashSetting = try? cameraSettings.string(forKey: "flash")
         if telephotoSetting == "on" {
             self.telephotoCamera = true
         }
@@ -231,8 +244,67 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         if ultraWideSetting == "on" || telephotoSetting == "on" {
             self.changeCamera.isHidden = false
         }
-        
         originalFlip()
+        switch flashSetting {
+        case "on":
+            if usingFrontCamera == false {
+                self.flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .normal)
+                self.flashMode = .on
+                if NextLevel.shared.isFlashAvailable {
+                    NextLevel.shared.flashMode = .on
+                }
+            } else {
+                NextLevel.shared.flashMode = .off
+                self.flashMode = .off
+                self.flashButton.setImage(UIImage(systemName: "bolt.slash.fill"), for: .normal)
+                try? self.cameraSettings.setString("off", forKey: "flash")
+                self.flashButton.isHidden = true
+            }
+        case "auto":
+            if usingFrontCamera == false {
+                self.flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
+                self.flashMode = .auto
+                if NextLevel.shared.isFlashAvailable {
+                    NextLevel.shared.flashMode = .auto
+                }
+            }
+        case "off":
+            NextLevel.shared.flashMode = .off
+        case .none:
+            NextLevel.shared.flashMode = .off
+        case .some(_):
+            break
+        }
+        // I didn't put this in the above switch since I would've put it multiple times and this just saves
+        // code (yes yes, i have only limited amount of code) :)
+        if usingFrontCamera {
+            NextLevel.shared.flashMode = .off
+            self.flashButton.isHidden = true
+        }
+        
+        if usingFrontCamera == true {
+            switch NextLevel.shared.devicePosition {
+            case .back:
+                NextLevel.shared.flipCaptureDevicePosition()
+            case .front:
+                break
+            case .unspecified:
+                break
+            @unknown default:
+                break
+            }
+        } else if usingFrontCamera == false {
+            switch NextLevel.shared.devicePosition {
+            case .back:
+                break
+            case .front:
+                NextLevel.shared.flipCaptureDevicePosition()
+            case .unspecified:
+                break
+            @unknown default:
+                break
+            }
+        }
         
         videoView.addSubview(cameraButton)
         
@@ -243,6 +315,12 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         NextLevel.shared.videoConfiguration.codec = AVVideoCodecType.h264
         NextLevel.shared.videoConfiguration.preset = AVCaptureSession.Preset.high
         NextLevel.shared.audioConfiguration.bitRate = 96000
+
+        NextLevel.requestAuthorization(forMediaType: AVMediaType.video, completionHandler: {_,_ in
+            NextLevel.requestAuthorization(forMediaType: AVMediaType.audio, completionHandler: {_,_ in
+                try? NextLevel.shared.start()
+            })
+        })
     }
     
     

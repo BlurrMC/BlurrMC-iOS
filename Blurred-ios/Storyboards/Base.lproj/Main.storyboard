@@ -501,6 +501,18 @@
                                     <segue destination="49e-Tb-3d3" kind="show" id="Bvt-h1-M8t"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4V-Ef-hIU">
+                                <rect key="frame" x="312" y="59" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="e4V-Ef-hIU" secondAttribute="height" multiplier="1:1" id="2wn-Yj-0K8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" image="bolt.slash.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="flashTap:" destination="bMe-qO-UEv" eventType="touchUpInside" id="eu0-aC-PmL"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ziz-ew-ZSm">
                                 <rect key="frame" x="157" y="663" width="61" height="60"/>
                                 <state key="normal" image="rrecord-button"/>
@@ -539,6 +551,7 @@
                         <constraints>
                             <constraint firstItem="4aI-7V-SRR" firstAttribute="height" secondItem="MlH-vA-2qO" secondAttribute="height" multiplier="0.0566502" id="0vJ-Ae-H3a"/>
                             <constraint firstItem="ziz-ew-ZSm" firstAttribute="height" secondItem="MlH-vA-2qO" secondAttribute="height" multiplier="0.0738916" id="1x6-B8-evf"/>
+                            <constraint firstItem="e4V-Ef-hIU" firstAttribute="top" secondItem="mku-17-YuH" secondAttribute="top" constant="15" id="2eB-5b-UyK"/>
                             <constraint firstItem="e7k-H4-A1N" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.122667" id="3BC-JA-mjz"/>
                             <constraint firstItem="mku-17-YuH" firstAttribute="bottom" secondItem="ziz-ew-ZSm" secondAttribute="bottom" constant="55" id="5LJ-aE-o4t"/>
                             <constraint firstItem="Cgl-bZ-ljl" firstAttribute="top" secondItem="MlH-vA-2qO" secondAttribute="top" id="9bP-Ut-gBt"/>
@@ -556,7 +569,9 @@
                             <constraint firstItem="Eey-fy-Wj7" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.133333" id="bM6-fC-XPP"/>
                             <constraint firstItem="Cgl-bZ-ljl" firstAttribute="leading" secondItem="mku-17-YuH" secondAttribute="leading" id="f4x-JA-q7t"/>
                             <constraint firstItem="ziz-ew-ZSm" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.162667" id="h98-sE-Ufq"/>
+                            <constraint firstItem="e4V-Ef-hIU" firstAttribute="height" secondItem="MlH-vA-2qO" secondAttribute="height" multiplier="0.0591133" id="jNh-aa-uU6"/>
                             <constraint firstItem="kGE-pV-erI" firstAttribute="height" secondItem="MlH-vA-2qO" secondAttribute="height" multiplier="0.0492611" id="k61-5C-MX6"/>
+                            <constraint firstItem="mku-17-YuH" firstAttribute="trailing" secondItem="e4V-Ef-hIU" secondAttribute="trailing" constant="15" id="oF6-au-MJe"/>
                             <constraint firstItem="ziz-ew-ZSm" firstAttribute="centerX" secondItem="MlH-vA-2qO" secondAttribute="centerX" id="oMi-Iz-6cG"/>
                             <constraint firstItem="4aI-7V-SRR" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.122667" id="pJI-uf-osS"/>
                             <constraint firstItem="kGE-pV-erI" firstAttribute="width" secondItem="MlH-vA-2qO" secondAttribute="width" multiplier="0.106667" id="sSd-5u-R0G"/>
@@ -570,6 +585,7 @@
                     <connections>
                         <outlet property="changeCamera" destination="kGE-pV-erI" id="yhV-fe-OLd"/>
                         <outlet property="dismissButton" destination="Eey-fy-Wj7" id="ad9-lg-PUW"/>
+                        <outlet property="flashButton" destination="e4V-Ef-hIU" id="oPz-ft-YvU"/>
                         <outlet property="flipCameraIcon" destination="e7k-H4-A1N" id="A56-we-LA7"/>
                         <outlet property="videoView" destination="Cgl-bZ-ljl" id="IJl-qO-FER"/>
                         <segue destination="i6k-Pp-sSl" kind="show" identifier="showVideo" id="zwu-Vq-I6h"/>
@@ -1913,6 +1929,7 @@
         <image name="arrow.left" width="12" height="10"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="arrow.triangle.2.circlepath.camera" catalog="system" width="128" height="94"/>
+        <image name="bolt.slash.fill" catalog="system" width="98" height="128"/>
         <image name="camera.circle" catalog="system" width="128" height="121"/>
         <image name="channel" width="30" height="30"/>
         <image name="gear" width="15" height="15"/>

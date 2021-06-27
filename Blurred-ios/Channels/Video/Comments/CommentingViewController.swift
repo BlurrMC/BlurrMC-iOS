@@ -25,12 +25,13 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     var originalUneditedText = String()
     var name = String()
     var username = String()
-    
     var cellIsReported = Bool()
     var cellName = String()
     var cellUsername = String()
     var cellAvatarUrl = String()
     var fromCell = Bool()
+    var currentPage: Int = 1
+    var shouldBatchFetch: Bool = true
     
     
     // MARK: Outlets
@@ -266,7 +267,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: Download the comments
-    func downloadJson(fromReply: Bool) { // Still not done we need to add the user's butt image
+    func downloadJson(fromReply: Bool) {
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
@@ -284,6 +285,9 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
                 if fromReply == true {
                     guard let _ = self.comments[safe: self.replyIndex.section] else { return }
                     self.comments[self.replyIndex.section].opened = true
+                }
+                if downloadedComments.comments.count < 10 {
+                    self.shouldBatchFetch = false
                 }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -1102,6 +1106,67 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
     
     
 }
+
+extension CommentingViewController: UITableViewDataSourcePrefetching {
+    
+    // MARK: Prefetch Request
+    func PreFetch(success: @escaping (_ response: AFDataResponse<Any>?) -> Void, failure: @escaping (_ error: NSError?) -> Void) {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        let parameters = ["page" : "\(currentPage)"]
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                success(response)
+            case .failure(let error):
+                failure(error as NSError)
+            }
+            
+        }
+        
+    }
+    
+    // MARK: Cancel Prefetching
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        // Implement some kind of function here to cancel prefetching
+        /// Only if I knew how to code this in within the next 10 minutes, but... I just can't...
+    }
+    
+    // MARK: Prefetch Rows
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if shouldBatchFetch == true {
+            currentPage = currentPage + 1
+            self.PreFetch(success: {(response) -> Void in
+                guard let data = response?.data else {
+                    print("error code: 6789huyuvtyughpppddd")
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedComments = try decoder.decode(Comments.self, from: data)
+                    if downloadedComments.comments.count < 10 {
+                        self.shouldBatchFetch = false
+                    }
+                    self.comments.append(contentsOf: downloadedComments.comments)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: indexPaths, with: .fade)
+                    }
+                } catch {
+                    print("error code: fea8sf73qerufasdfnvzxcz, controller: commenting, error: \(error)")
+                    return
+                }
+            }, failure: { (error) -> Void in
+                print("error code: whendoesthesunseteaf8sdhaa")
+                print(error as Any)
+            })
+        }
+    }
+    
+}
+
 extension Collection where Indices.Iterator.Element == Index {
     subscript (safe index: Index) -> Iterator.Element? {
         return indices.contains(index) ? self[index] : nil

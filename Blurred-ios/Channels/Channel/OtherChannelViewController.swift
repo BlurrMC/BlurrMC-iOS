@@ -44,6 +44,9 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     var oldVideoCount = Int()
     var shouldBatchFetch: Bool = true
     private let refreshControl = UIRefreshControl()
+    let followGenerator = UIImpactFeedbackGenerator(style: .light)
+    let blockGenerator = UIImpactFeedbackGenerator(style: .medium) // Medium since you did something SERIOUS...
+    // BLOCK SOMEONE!!!!!!
     
     // MARK: Valet
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
@@ -139,7 +142,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     
-    // MARK: Checks the user if they are viewing themselves (dropdown menu).
+    // MARK: Checks if user is themselves (dropdown menu).
     func checkIfOtherUserIsCurrentUser() {
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
         let Id = chanelVar
@@ -183,6 +186,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Follow Button Tap
     @IBAction func followButtonTap(_ sender: Any) {
+        self.followGenerator.impactOccurred()
         let throttler = Throttler(minimumDelay: 3)
         following = !following
         switch following {
@@ -257,6 +261,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Block Button Tap
     @IBAction func blockButtonTap(_ sender: Any) {
+        self.blockGenerator.impactOccurred()
         let throttler = Throttler(minimumDelay: 3)
         blocking = !blocking
         switch blocking {
@@ -526,6 +531,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Dropdown menu tap
     @objc func tapppFunction(sender:UITapGestureRecognizer) { /// These god damn names, [tap, tapp, tappp, tapppp]. what and why the hell
+        self.followGenerator.prepare()
+        self.blockGenerator.prepare()
         if isItThemselves == false {
             // Check if user is following before showing the follow/block button.
             switch following {
@@ -982,17 +989,13 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Dismiss The Dropdown
     func dismissView() {
-        if followButton.isHidden == false && blockButton.isHidden == false {
-            if isItThemselves == false {
-                    dropDownButtons.forEach { (button) in
-                        UIView.animate(withDuration: 0.15, animations: {
-                            button.isHidden = !button.isHidden
-                            self.view.layoutIfNeeded()
-                        }, completion: nil)
-                        
-                    }
+        if followButton.isHidden == false && blockButton.isHidden == false && isItThemselves == false {
+            dropDownButtons.forEach { (button) in
+                UIView.animate(withDuration: 0.15, animations: {
+                    button.isHidden = !button.isHidden
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
             }
-            
         }
         self.view.gestureRecognizers?.forEach(view.removeGestureRecognizer)
     }

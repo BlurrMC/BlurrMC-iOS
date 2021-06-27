@@ -61,6 +61,7 @@
                     </view>
                     <connections>
                         <outlet property="OTPCode" destination="Yxy-W9-2wY" id="ZWB-Ue-j1L"/>
+                        <outlet property="loginButton" destination="jcn-IL-Xeb" id="Hmc-sZ-pxV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

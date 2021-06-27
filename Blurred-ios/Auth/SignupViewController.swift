@@ -65,6 +65,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
             DispatchQueue.main.async {
                 snackbar.show()
+                self.SignUpButton.isEnabled = true
             }
             print(error.localizedDescription)
         }
@@ -74,6 +75,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
                 DispatchQueue.main.async {
                     snackbar.show()
+                    self.SignUpButton.isEnabled = true
                 }
                 print("error=\(String(describing: Error))")
                 return
@@ -86,11 +88,17 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                     if let status = parseJSON["status"] as? String{
                         if status == "User already exists" {
                             popupMessages().showMessage(title: "Error", message: "User already exsists", alertActionTitle: "OK", viewController: self)
+                            DispatchQueue.main.async {
+                                self.SignUpButton.isEnabled = true
+                            }
                             return
                         }
                     }
                     if userId == nil {
                         popupMessages().showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK", viewController: self)
+                        DispatchQueue.main.async {
+                            self.SignUpButton.isEnabled = true
+                        }
                         return
                     } else {
                         popupMessages().showMessage(title: "Success", message: "You have succesfully signed up.", alertActionTitle: "OK", viewController: self)
@@ -102,12 +110,14 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                     let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
                     DispatchQueue.main.async {
                         snackbar.show()
+                        self.SignUpButton.isEnabled = true
                     }
                 }
             } catch {
                 let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
                 DispatchQueue.main.async {
                     snackbar.show()
+                    self.SignUpButton.isEnabled = true
                 }
                 print(error)
             }
@@ -127,9 +137,15 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Sign Up Button Tapped
     @IBAction func signUpButtonTapped(_ sender: Any) {
+        self.SignUpButton.isEnabled = false
         sendSignupCreds()
     }
     
+    // MARK: View Will Appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.SignUpButton.isEnabled = true
+    }
     
     // MARK: View Did Load
     override func viewDidLoad() {

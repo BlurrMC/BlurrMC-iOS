@@ -13,7 +13,6 @@ import MobileCoreServices
 import Valet
 import NextLevel
 
-// MARK: Maybe change camera method to CameraManager
 class RecordViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // MARK: Variables & Constants

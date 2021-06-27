@@ -55,6 +55,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Submit Creds Button Tapped
     @IBAction func SubmitCreds(_ sender: UIButton) {
+        sender.isEnabled = false
         sendCreds()
     }
     
@@ -92,6 +93,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
             let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
             DispatchQueue.main.async {
                 snackbar.show()
+                self.loginButton.isEnabled = true
             }
             removeActivityIndicator(activityIndicator: myActivityIndicator)
             return
@@ -102,6 +104,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 let snackbar = TTGSnackbar(message: "Error contacting server, try again later. (sorry!)", duration: .middle)
                 DispatchQueue.main.async {
                     snackbar.show()
+                    self.loginButton.isEnabled = true
                 }
                 print("error=\(String(describing: error))")
                 return
@@ -120,12 +123,18 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                     } else if status == "invalid_credentials" {
                         popupMessages().showMessage(title: "Invalid Credentials", message: "You put in the wrong login information.", alertActionTitle: "OK", viewController: self)
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        DispatchQueue.main.async {
+                            self.loginButton.isEnabled = true
+                        }
                         return
                     }
                     let userId = parseJSON["id"] as? String
                     if userId == nil {
                         popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                        DispatchQueue.main.async {
+                            self.loginButton.isEnabled = true
+                        }
                     } else {
                         let accessToken = parseJSON["token"] as? String
                         let errorToken = parseJSON["error"] as? String
@@ -134,10 +143,16 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                         } else {
                             popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            DispatchQueue.main.async {
+                                self.loginButton.isEnabled = true
+                            }
                         }
                         if accessToken?.isEmpty == nil {
                             popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
+                            DispatchQueue.main.async {
+                                self.loginButton.isEnabled = true
+                            }
                         } else {
                             guard let userId = userId else { return }
                             try? self.tokenValet.setString(accessToken!, forKey: "Token")
@@ -145,7 +160,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                             DispatchQueue.main.async {
                                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                guard let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarViewController") as? UITabBarController else { return } /// Using segue would be better, but I don't have time to change that. It's 8:55 pm. Too bad!
+                                guard let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarViewController") as? UITabBarController else { return } /// Using segue would be better, but I don't have time to change that. It's 8:55 pm. Definetly past my bed time.
                                 self.present(nextViewController, animated: true, completion: nil)
                             }
                         }
@@ -153,6 +168,9 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 } else {
                     self.removeActivityIndicator(activityIndicator: myActivityIndicator)
                     print(error ?? "No error")
+                    DispatchQueue.main.async {
+                        self.loginButton.isEnabled = true
+                    }
                 }
                 
             } catch {
@@ -160,6 +178,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                 let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
                 DispatchQueue.main.async {
                     snackbar.show()
+                    self.loginButton.isEnabled = true
                 }
                 print(error)
             }
@@ -187,6 +206,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        self.loginButton.isEnabled = true
     }
     
     // MARK: View Will Disappear

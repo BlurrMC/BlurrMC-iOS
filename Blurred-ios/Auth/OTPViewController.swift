@@ -34,9 +34,17 @@ class OTPViewController: UIViewController {
         }
     }
     
+    // MARK: View will appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.loginButton.isEnabled = true
+    }
     
+    
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var OTPCode: UITextField!
     @IBAction func loginButtonTap(_ sender: Any) {
+        self.loginButton.isEnabled = false
         loginUser()
     }
     
@@ -44,6 +52,9 @@ class OTPViewController: UIViewController {
     func loginUser() {
         guard let otpCodeText = self.OTPCode.text else {
             popupMessages().showMessage(title: "Error", message: "No 2FA Code Provided", alertActionTitle: "OK", viewController: self)
+            DispatchQueue.main.async {
+                self.loginButton.isEnabled = true
+            }
             return
         }
         let params = [
@@ -62,6 +73,7 @@ class OTPViewController: UIViewController {
             DispatchQueue.main.async {
                 myActivityIndicator.stopAnimating()
                 myActivityIndicator.removeFromSuperview()
+                self.loginButton.isEnabled = true
             }
             guard let data = response.data else { return }
             var JSON: [String: Any]?
@@ -69,6 +81,9 @@ class OTPViewController: UIViewController {
                 JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 if let error = JSON?["error"] as? String {
                     popupMessages().showMessage(title: "Error", message: "Invalid 2FA Code", alertActionTitle: "OK", viewController: self)
+                    DispatchQueue.main.async {
+                        self.loginButton.isEnabled = true
+                    }
                     print(error)
                     return
                 }
@@ -78,9 +93,15 @@ class OTPViewController: UIViewController {
                     print("No error")
                 } else {
                     popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
+                    DispatchQueue.main.async {
+                        self.loginButton.isEnabled = true
+                    }
                 }
                 if accessToken?.isEmpty == nil {
                     popupMessages().showMessage(title: "Incorrect Credentials", message: "You have typed in the wrong credentials. Try again.", alertActionTitle: "OK", viewController: self)
+                    DispatchQueue.main.async {
+                        self.loginButton.isEnabled = true
+                    }
                 } else {
                     guard let userId = JSON?["id"] as? String else { return }
                     try? self.tokenValet.setString(accessToken!, forKey: "Token")

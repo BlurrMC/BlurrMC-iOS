@@ -425,14 +425,14 @@
 			path = Flow;
 			sourceTree = "<group>";
 		};
-		E181F850264B4C8F00446AFA /* Auth Controllers */ = {
+		E181F850264B4C8F00446AFA /* Auth */ = {
 			isa = PBXGroup;
 			children = (
 				E181F84E264B4C8200446AFA /* OTPViewController.swift */,
 				E1EBD0BA2453A18B00FE901F /* AuthenticateViewController.swift */,
 				E12808CC245659D6001BF3F3 /* SignupViewController.swift */,
 			);
-			path = "Auth Controllers";
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		E18B17672660BA770006A474 /* Settings */ = {
@@ -546,7 +546,7 @@
 			children = (
 				E10D2C5F266AD815001BD905 /* popupMessages.swift */,
 				E17B7AFB266C8CDD00E891FE /* Flow */,
-				E181F850264B4C8F00446AFA /* Auth Controllers */,
+				E181F850264B4C8F00446AFA /* Auth */,
 				E196F5F224A8D589001BE742 /* Cells */,
 				E196F5F424A8D5E4001BE742 /* Channels */,
 				590D20AB24EDAEA300109359 /* Nodes */,
@@ -1088,7 +1088,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1128,7 +1128,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

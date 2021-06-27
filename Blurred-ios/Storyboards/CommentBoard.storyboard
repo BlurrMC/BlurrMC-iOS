@@ -218,6 +218,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="Pkx-rH-zVe" id="8zN-B4-HkU"/>
                                     <outlet property="delegate" destination="Pkx-rH-zVe" id="yR0-fc-aqm"/>
+                                    <outlet property="prefetchDataSource" destination="Pkx-rH-zVe" id="SJZ-g7-M2g"/>
                                 </connections>
                             </tableView>
                             <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Reply..." minimumFontSize="17" id="mMr-Z0-W3q">

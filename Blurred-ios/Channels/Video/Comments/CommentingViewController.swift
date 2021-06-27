@@ -338,6 +338,8 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         } else {
             self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
         }
+        
+        self.tableView.prefetchDataSource = self
     }
     
     // MARK: Segue Data

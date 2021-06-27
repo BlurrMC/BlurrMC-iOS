@@ -13,12 +13,58 @@ import UserNotifications
 import AsyncDisplayKit
 import Nuke
 import Alamofire
+import TTGSnackbar
 
 class HomeViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
+    
+    // MARK: Report from delegate
+    func didPressReport(videoId: String) {
+        popupMessages().showMessageWithOptions(title: "Hey!", message: "Are you sure that you would like to report this video?", firstOptionTitle: "Yes", secondOptionTitle: "Nahhhh", viewController: self, {
+            guard let token: String = try? self.tokenValet.string(forKey: "Token") else { return }
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(token)",
+                "Accept": "application/json"
+            ]
+            let params = [
+                "video_id": videoId
+            ]
+            AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/reports", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+                guard let response = response.data else {
+                    let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
+                    DispatchQueue.main.async {
+                        snackbar.show()
+                    }
+                    return
+                }
+                var JSON: [String: Any]?
+                do {
+                    JSON = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
+                    let status = JSON!["status"] as? String
+                    if status != "Reported" {
+                        let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
+                        DispatchQueue.main.async {
+                            snackbar.show()
+                        }
+                        print("error code: afidj98j34fw9euainsdf")
+                    }
+                } catch {
+                    print(error)
+                    print("error code: adsv4837uehrafidsun")
+                    let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
+                    DispatchQueue.main.async {
+                        snackbar.show()
+                    }
+                    return
+                }
+            }
+        })
+    }
+    
+    
     func switchedPreference(newPreference: WatchingPreference) {
         self.watchingPreference = newPreference
-        // Make tableNode refresh with different results
+        self.homeFeedRequest()
     }
     
     // Variables

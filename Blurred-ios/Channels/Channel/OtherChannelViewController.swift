@@ -235,9 +235,13 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         ]
         let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/reports")
         AF.request(URL.init(string: url)!, method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            guard let response = response.data else {
+                print("error code: asdfh239urqhiewadjsnafsd")
+                return
+            }
             var JSON: [String: Any]?
             do {
-                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                JSON = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
                 let status = JSON!["status"] as? String
                 if status != "Reported" {
                     print("error code: amcir2bauinfs")

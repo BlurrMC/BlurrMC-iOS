@@ -23,7 +23,8 @@ class ChannelVideoOverlayView: UIView {
     var videoUrl: URL?
     var name = String()
     var blocked = Bool()
-    var reported = Bool()
+    var channelReported = Bool()
+    var videoReported = Bool()
     
     var resizedImageProcessors: [ImageProcessing] {
         let imageSize = CGSize(width: self.videoChannel.frame.width, height: self.videoChannel.frame.height)
@@ -118,11 +119,13 @@ class ChannelVideoOverlayView: UIView {
             let tappp = UITapGestureRecognizer(target: self, action: #selector(self.tapppFunction))
             let liketap = UITapGestureRecognizer(target: self, action: #selector(self.liketapFunction(_:)))
             let shareTap = UITapGestureRecognizer(target: self, action: #selector(self.shareTap(sender:)))
+            let reportPress = UILongPressGestureRecognizer(target: self, action: #selector(self.reportPress(sender:)))
             DispatchQueue.main.async {
                 self.videoComment.addGestureRecognizer(tappp)
                 self.videoChannel.addGestureRecognizer(tapp)
                 self.videoLike.addGestureRecognizer(liketap)
                 self.videoShare.addGestureRecognizer(shareTap)
+                self.videoShare.addGestureRecognizer(reportPress)
             }
             let pipeline = ImagePipeline {
               let dataCache = try? DataCache(name: "com.blurrmc.blurrmc.datacache")
@@ -130,6 +133,18 @@ class ChannelVideoOverlayView: UIView {
               $0.dataCache = dataCache
             }
             ImagePipeline.shared = pipeline
+        }
+    }
+    
+    
+    // MARK: Report Press Recognizer
+    @objc func reportPress(sender: UILongPressGestureRecognizer) {
+        if videoReported {
+            self.videoReported = true
+            delegate?.didPressReport(videoId: videoId)
+        } else {
+            guard let videoUrl = self.videoUrl?.absoluteString else { return }
+            delegate?.didTapShare(self, videoUrl: videoUrl, videoId: videoId)
         }
     }
     
@@ -142,7 +157,7 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Show user channel tap
     @objc func tappFunction(sender:UITapGestureRecognizer) {
-        delegate?.didTapChannel(self, videousername: videoUsername, resizedImageProcessor: resizedImageProcessors, isReported: reported, isBlocked: blocked, name: name)
+        delegate?.didTapChannel(self, videousername: videoUsername, resizedImageProcessor: resizedImageProcessors, isReported: channelReported, isBlocked: blocked, name: name)
     }
     
     // MARK: Show Video Comments Tap
@@ -279,51 +294,50 @@ class ChannelVideoOverlayView: UIView {
     
     // MARK: Send request for video info
     func sendRequest() {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
         let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if error != nil {
-                print("error code: 1kf01k3-2")
-                return
-            }
+        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId).json", method: .get, headers: headers).responseJSON { response in
+            guard let response = response.data else { return }
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                if let parseJSON = json {
-                    guard let publishDate: String = parseJSON["publishdate"] as? String else { return }
-                    guard let viewCount: Int = parseJSON["viewcount"] as? Int else { return }
-                    guard let descriptionString: String = parseJSON["description"] as? String else { return }
-                    guard let username: String = parseJSON["username"] as? String else { return }
+                if let json = try JSONSerialization.jsonObject(with: response, options: .mutableContainers) as? NSDictionary {
+                    guard let publishDate: String = json["publishdate"] as? String else { return }
+                    guard let viewCount: Int = json["viewcount"] as? Int else { return }
+                    guard let descriptionString: String = json["description"] as? String else { return }
+                    guard let username: String = json["username"] as? String else { return }
+                    guard let videoReported: Bool = json["reported"] as? Bool else { return }
+                    self.videoReported = videoReported
                     self.videoUsername = username
-                    AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(String(describing: username)).json").responseJSON {   response in
+                    AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(String(describing: username)).json", headers: headers).responseJSON {   response in
+                        guard let response = response.data else { return }
                         var JSON: [String: Any]?
                         do {
-                            JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                            JSON = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
                             let avatarUrl = JSON!["avatar_url"] as? String
                             let railsUrl = String("https://www.bartenderdogseatmuffins.xyz\(avatarUrl!)")
                             self.newAvatarUrl = railsUrl
                             self.changeChannelAvatar()
                             guard let name = JSON!["name"] as? String else { return }
                             guard let isBlocked = JSON!["isblocked"] as? Bool else { return }
-                            guard let isReported = JSON!["reported"] as? Bool else { return }
+                            guard let channelReported = JSON!["reported"] as? Bool else { return }
                             self.name = name
                             self.blocked = isBlocked
-                            self.reported = isReported
+                            self.channelReported = channelReported
                         } catch {
                             return
                         }
                     }
                     self.delegate2?.didReceiveInfo(self, views: viewCount, description: descriptionString, publishdate: publishDate)
-                } else {
-                    print("error: \(String(describing: error)) Error code: 1jfnt04l2-2")
-                    return
                 }
             } catch {
-                print("error:\(error) Error code: amr031k102-2")
                 return
             }
         }
-        task.resume()
     }
     
     // MARK: Delete's the like

@@ -12,15 +12,53 @@ import Alamofire
 import Photos
 import AsyncDisplayKit
 import Nuke
+import TTGSnackbar
 
 class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
     
-    func switchedPreference(newPreference: WatchingPreference) {
-        // Do literally nothing as it doesn't apply here (it's for home)
+    // MARK: Did perss report
+    func didPressReport(videoId: String) {
+        popupMessages().showMessageWithOptions(title: "Hey!", message: "Are you sure that you would like to report this video?", firstOptionTitle: "Yes", secondOptionTitle: "Nahhhh", viewController: self, {
+            guard let token: String = try? self.tokenValet.string(forKey: "Token") else { return }
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(token)",
+                "Accept": "application/json"
+            ]
+            let params = [
+                "video_id": videoId
+            ]
+            AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/reports", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+                guard let response = response.data else {
+                    let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
+                    DispatchQueue.main.async {
+                        snackbar.show()
+                    }
+                    return
+                }
+                var JSON: [String: Any]?
+                do {
+                    JSON = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
+                    let status = JSON!["status"] as? String
+                    if status != "Reported" {
+                        let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
+                        DispatchQueue.main.async {
+                            snackbar.show()
+                        }
+                        print("error code: afidj98j34fw9euainsdf")
+                    }
+                } catch {
+                    print(error)
+                    print("error code: adsv4837uehrafidsun")
+                    let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
+                    DispatchQueue.main.async {
+                        snackbar.show()
+                    }
+                    return
+                }
+            }
+        })
     }
-    
-    
     
     var resizedImageProcessors = [ImageProcessing]()
     
@@ -60,6 +98,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     var shouldBatchFetch: Bool = true
     var oldVideoCount = Int()
     var currentPage: Int = 1
+    let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
     
     // MARK: Setup window for sharing functionality
     // This may use A LOT of ram over a long period of time. Possible fix: deleting cache after user is done dealing with video?
@@ -85,6 +124,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                         }
                 case .failure( _):
                     // Share the url of the video if downloading the video did not work (backup method)
+                    // Response to comment: Backup method? Are you serious? Eh, whatever
                     let videoToShare = [ URL(string: "https://www.bartenderdogseatmuffins.xyz/videos/\(videoId)") ]
                     let activityViewController = UIActivityViewController(activityItems: videoToShare as [Any], applicationActivities: nil)
                     activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash

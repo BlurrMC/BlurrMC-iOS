@@ -72,12 +72,6 @@ class VideoPlaybackViewController: UIViewController {
     }
     
     
-    // MARK: Did Receive Memory Warning
-    override func didReceiveMemoryWarning() {
-        avPlayerLayer = nil
-    }
-    
-    
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()

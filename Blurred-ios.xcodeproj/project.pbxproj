@@ -1088,7 +1088,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1128,7 +1128,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

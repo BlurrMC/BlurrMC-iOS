@@ -2,7 +2,7 @@ PODS:
   - Alamofire (5.4.3)
   - AlamofireImage (4.2.0):
     - Alamofire (~> 5.4)
-  - FlowCommoniOS (1.10.0)
+  - FlowCommoniOS (1.11.1)
   - NextLevel (0.17.0)
   - Nuke (9.5.0)
   - PINCache (3.0.3):
@@ -71,7 +71,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
-  FlowCommoniOS: bcdf81a5f30717e711af08a8c812eb045411ba94
+  FlowCommoniOS: 38a5610943faa95f826e8e310e24f42bd8f69e46
   NextLevel: d07859347dd5c058e59bcde2fba90032c0d7aa23
   Nuke: 6f400a4ea957e09149ec335a3c6acdcc814d89e4
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086

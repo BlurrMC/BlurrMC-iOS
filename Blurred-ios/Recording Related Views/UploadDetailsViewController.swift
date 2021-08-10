@@ -92,10 +92,17 @@ class UploadDetailsViewController: UIViewController {
                 multipartFormData.append(userId.data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "user[Id]")
 
         },
-            to: "https://www.bartenderdogseatmuffins.xyz/api/v1/videouploads", method: .post, headers: headers)
-            .response { resp in
-                print(resp)
-            }
+            to: "https://www.bartenderdogseatmuffins.xyz/api/v1/videouploads", method: .post, headers: headers).responseJSON(completionHandler: { result in
+                guard let data = result.data else { return }
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
+                    if let parseJSON = json {
+                        NotificationCenter.default.post(name: .didUploadVideo, object: nil, userInfo: parseJSON as? [String: Any])
+                    }
+                } catch {
+                    return
+                }
+            })
         self.removeActivityIndicator(activityIndicator: myActivityIndicator)
     }
     

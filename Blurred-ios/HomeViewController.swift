@@ -320,6 +320,81 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         self.tableNode.leadingScreensForBatching = 1.0
         homeFeedRequest()
         checkUser() // This doesn't have to be the first thing
+        // Upload video notification complete
+        NotificationCenter.default.addObserver(self, selector: #selector(videoUploadedNotification(_:)), name: .didUploadVideo, object: nil)
+    }
+    
+    // MARK: Received notifcation that video has been uplaoded
+    @objc func videoUploadedNotification(_ notification: Notification) {
+        if let data = notification.userInfo as? [String: Any] {
+            let errorSnackBar = TTGSnackbar(
+                message: "Video failed to upload!",
+                duration: .long
+            )
+            guard let status: String = data["status"] as? String else {
+                DispatchQueue.main.async {
+                    errorSnackBar.show()
+                }
+                return
+            }
+            if status == "Video Uploaded" {
+                guard let id: String = data["video_id"] as? String else { return }
+                let successSnackBar = TTGSnackbar(
+                    message: "Video uploaded!",
+                    duration: .middle,
+                    actionText: "Undo",
+                    actionBlock: { snackbar in
+                        guard let token: String = try? self.tokenValet.string(forKey: "Token") else { return }
+                        let headers: HTTPHeaders = [
+                            "Authorization": "Bearer \(token)",
+                            "Accept": "application/json"
+                        ]
+                        let params = [
+                            "video": id
+                        ]
+                        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/registernotificationtoken", method: .post, parameters: params,headers: headers).responseJSON { response in
+                            guard let data = response.data else {
+                                print("error code: eajf9sdiofjkz, also btw if anybody else other martin is reading this then, just saying, these error codes mean nothing. Do not try to decode them martin just smashed his head against the keyboard for each error code")
+                                return
+                            }
+                            do {
+                                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
+                                if let parseJSON = json {
+                                    guard let status: String = parseJSON["status"] as? String else { return }
+                                    if status == "Da video is gone just like the infinity stones!!!" {
+                                        let happySnackBar = TTGSnackbar(
+                                            message: "The video has been destroyed :)",
+                                            duration: .long
+                                        )
+                                        DispatchQueue.main.async {
+                                            happySnackBar.show()
+                                        }
+                                    } else {
+                                        let sadSnackBar = TTGSnackbar(
+                                            message: "The video could not be destroyed :(",
+                                            duration: .long
+                                        )
+                                        DispatchQueue.main.async {
+                                            sadSnackBar.show()
+                                        }
+                                    }
+                                }
+                            } catch {
+                                print("error code: asdfj83qwaefouisdzn, error: \(error)")
+                                return
+                            }
+                        }
+                    }
+                )
+                DispatchQueue.main.async {
+                    successSnackBar.show()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    errorSnackBar.show()
+                }
+            }
+        }
     }
     
     
@@ -503,4 +578,7 @@ extension HomeViewController: ASTableDelegate {
             print(error as Any)
         })
     }
+}
+extension Notification.Name {
+    static let didUploadVideo = Notification.Name("uploadedVideo")
 }

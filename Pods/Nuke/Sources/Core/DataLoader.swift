@@ -4,10 +4,12 @@
 
 import Foundation
 
+/// A unit of work that can be cancelled.
 public protocol Cancellable: AnyObject {
     func cancel()
 }
 
+/// Fetches original image data.
 public protocol DataLoading {
     /// - parameter didReceiveData: Can be called multiple times if streaming
     /// is supported.
@@ -16,9 +18,6 @@ public protocol DataLoading {
     func loadData(with request: URLRequest,
                   didReceiveData: @escaping (Data, URLResponse) -> Void,
                   completion: @escaping (Error?) -> Void) -> Cancellable
-
-    /// Removes data for the given request.
-    func removeData(for request: URLRequest)
 }
 
 extension URLSessionTask: Cancellable {}
@@ -29,7 +28,6 @@ public final class DataLoader: DataLoading, _DataLoaderObserving {
     private let impl = _DataLoader()
 
     public var observer: DataLoaderObserving?
-    weak var pipeline: ImagePipeline?
 
     deinit {
         session.invalidateAndCancel()
@@ -53,12 +51,6 @@ public final class DataLoader: DataLoading, _DataLoaderObserving {
         #if TRACK_ALLOCATIONS
         Allocations.increment("DataLoader")
         #endif
-    }
-
-    // Performance optimization to reduce number of context switches.
-    func attach(pipeline: ImagePipeline) {
-        self.pipeline = pipeline
-        self.session.delegateQueue.underlyingQueue = pipeline.queue
     }
 
     /// Returns a default configuration which has a `sharedUrlCache` set
@@ -105,26 +97,15 @@ public final class DataLoader: DataLoading, _DataLoaderObserving {
     public func loadData(with request: URLRequest,
                          didReceiveData: @escaping (Data, URLResponse) -> Void,
                          completion: @escaping (Swift.Error?) -> Void) -> Cancellable {
-        return loadData(with: request, isConfined: false, didReceiveData: didReceiveData, completion: completion)
-    }
-
-    func loadData(with request: URLRequest,
-                  isConfined: Bool,
-                  didReceiveData: @escaping (Data, URLResponse) -> Void,
-                  completion: @escaping (Swift.Error?) -> Void) -> Cancellable {
-        return impl.loadData(with: request, session: session, isConfined: isConfined, didReceiveData: didReceiveData, completion: completion)
-    }
-
-    public func removeData(for request: URLRequest) {
-        session.configuration.urlCache?.removeCachedResponse(for: request)
+        impl.loadData(with: request, session: session, didReceiveData: didReceiveData, completion: completion)
     }
 
     /// Errors produced by `DataLoader`.
-    public enum Error: Swift.Error, CustomDebugStringConvertible {
+    public enum Error: Swift.Error, CustomStringConvertible {
         /// Validation failed.
         case statusCodeUnacceptable(Int)
 
-        public var debugDescription: String {
+        public var description: String {
             switch self {
             case let .statusCodeUnacceptable(code):
                 return "Response status code was unacceptable: \(code.description)"
@@ -150,17 +131,12 @@ private final class _DataLoader: NSObject, URLSessionDataDelegate {
     /// Loads data with the given request.
     func loadData(with request: URLRequest,
                   session: URLSession,
-                  isConfined: Bool,
                   didReceiveData: @escaping (Data, URLResponse) -> Void,
                   completion: @escaping (Error?) -> Void) -> Cancellable {
         let task = session.dataTask(with: request)
         let handler = _Handler(didReceiveData: didReceiveData, completion: completion)
-        if isConfined {
-            handlers[task] = handler
-        } else {
-            session.delegateQueue.addOperation { // `URLSession` is configured to use this same queue
-                self.handlers[task] = handler
-            }
+        session.delegateQueue.addOperation { // `URLSession` is configured to use this same queue
+            self.handlers[task] = handler
         }
         task.resume()
         send(task, .resumed)
@@ -231,6 +207,7 @@ private final class _DataLoader: NSObject, URLSessionDataDelegate {
 
 // MARK: - DataLoaderObserving
 
+/// An event send by the data loader.
 public enum DataTaskEvent {
     case resumed
     case receivedResponse(response: URLResponse)
@@ -244,6 +221,6 @@ public protocol DataLoaderObserving {
     func dataLoader(_ loader: DataLoader, urlSession: URLSession, dataTask: URLSessionDataTask, didReceiveEvent event: DataTaskEvent)
 }
 
-protocol _DataLoaderObserving: class {
+protocol _DataLoaderObserving: AnyObject {
     func dataTask(_ dataTask: URLSessionDataTask, didReceiveEvent event: DataTaskEvent)
 }

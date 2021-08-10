@@ -1622,8 +1622,8 @@
             filePath = "Blurred-ios/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "437"
-            endingLineNumber = "437"
+            startingLineNumber = "512"
+            endingLineNumber = "512"
             landmarkName = "insertNewRowsInTableNode(newVideos:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1640,8 +1640,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1082"
             endingLineNumber = "1082"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadImage(url:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1656,8 +1656,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1067"
             endingLineNumber = "1067"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadImage(url:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1672,8 +1672,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1074"
             endingLineNumber = "1074"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadImage(url:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1688,8 +1688,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1083"
             endingLineNumber = "1083"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadImage(url:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1704,8 +1704,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1064"
             endingLineNumber = "1064"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadImage(url:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1720,8 +1720,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1062"
             endingLineNumber = "1062"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadImage(url:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1736,8 +1736,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "866"
             endingLineNumber = "866"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1752,8 +1752,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "865"
             endingLineNumber = "865"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "OtherChannelViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1768,8 +1768,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "867"
             endingLineNumber = "867"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1784,8 +1784,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "869"
             endingLineNumber = "869"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1800,8 +1800,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "878"
             endingLineNumber = "878"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "C905CAB9-5D3D-41A2-9153-AE9CFC0D7053 - 74b9a91d8c5a8fd6"
@@ -1848,8 +1848,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "894"
             endingLineNumber = "894"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1864,8 +1864,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "896"
             endingLineNumber = "896"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1880,8 +1880,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "897"
             endingLineNumber = "897"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1896,8 +1896,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "898"
             endingLineNumber = "898"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1912,8 +1912,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "899"
             endingLineNumber = "899"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1928,8 +1928,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "904"
             endingLineNumber = "904"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1944,8 +1944,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "905"
             endingLineNumber = "905"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "loadMemberChannel()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2022,8 +2022,8 @@
             filePath = "Blurred-ios/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
             landmarkName = "checkUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2136,22 +2136,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
-            landmarkName = "uploadRequest()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A4E77D2B-5660-4E90-A628-0810B773AAA3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Blurred-ios/Recording Related Views/UploadDetailsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
             landmarkName = "uploadRequest()"
             landmarkType = "7">
          </BreakpointContent>

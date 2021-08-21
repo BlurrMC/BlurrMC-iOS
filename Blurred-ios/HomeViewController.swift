@@ -29,7 +29,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             let params = [
                 "video_id": videoId
             ]
-            AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/reports", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            AF.request("https://www.blurrmc.com/api/v1/reports", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                 guard let response = response.data else {
                     let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
                     DispatchQueue.main.async {
@@ -123,7 +123,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                         }
                 case .failure( _):
                     // Share the url of the video if downloading the video did not work (backup method)
-                    let videoToShare = [ URL(string: "https://www.bartenderdogseatmuffins.xyz/videos/\(videoId)") ]
+                    let videoToShare = [ URL(string: "https://www.blurrmc.com/videos/\(videoId)") ]
                     let activityViewController = UIActivityViewController(activityItems: videoToShare as [Any], applicationActivities: nil)
                     activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
                     activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToFlickr,
@@ -152,12 +152,12 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        var url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/apihomefeed")
+        var url = URL(string: "https://www.blurrmc.com/api/v1/apihomefeed")
         switch self.watchingPreference {
         case .following:
-            url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/apihomefeed")
+            url = URL(string: "https://www.blurrmc.com/api/v1/apihomefeed")
         case .trending:
-            url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/trending")
+            url = URL(string: "https://www.blurrmc.com/api/v1/trending")
         }
         
         AF.request(url!, method: .post, parameters: parameters, headers: headers).responseJSON { response in
@@ -188,7 +188,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/apihomefeed", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://www.blurrmc.com/api/v1/apihomefeed", method: .post, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -307,11 +307,6 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Home"
-        if traitCollection.userInterfaceStyle == .light {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#141414")
-        }
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
         self.tableNode = ASTableNode(style: .plain)
         self.wireDelegates()
@@ -352,7 +347,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                         let params = [
                             "video": id
                         ]
-                        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/registernotificationtoken", method: .post, parameters: params,headers: headers).responseJSON { response in
+                        AF.request("https://www.blurrmc.com/api/v1/registernotificationtoken", method: .post, parameters: params,headers: headers).responseJSON { response in
                             guard let data = response.data else {
                                 print("error code: eajf9sdiofjkz, also btw if anybody else other martin is reading this then, just saying, these error codes mean nothing. Do not try to decode them martin just smashed his head against the keyboard for each error code")
                                 return
@@ -402,7 +397,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     func checkUser() {
         guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
         guard let userId: String = try? myValet.string(forKey: "Id") else { return }
-        guard let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/isuservalid/\(userId)") else { return }
+        guard let myUrl = URL(string: "https://www.blurrmc.com/api/v1/isuservalid/\(userId)") else { return }
         var request = URLRequest(url:myUrl)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -473,7 +468,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         let parameters: Parameters = [
             "token": notificationToken
         ]
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/registernotificationtoken", method: .post, parameters: parameters,headers: headers).responseJSON { response in
+        AF.request("https://www.blurrmc.com/api/v1/registernotificationtoken", method: .post, parameters: parameters,headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: 98ijorkndfms,cx")
                 return
@@ -582,3 +577,4 @@ extension HomeViewController: ASTableDelegate {
 extension Notification.Name {
     static let didUploadVideo = Notification.Name("uploadedVideo")
 }
+

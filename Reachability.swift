@@ -64,9 +64,9 @@ public class Reachability {
     }
 
     func monitorReachabilityChanges() {
-        let host = "bartenderdogseatmuffins.xyz"
+        let host = "https://blurrmc.com"
         var context = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
-        let reachability = SCNetworkReachabilityCreateWithName(nil, host)!
+        guard let reachability = SCNetworkReachabilityCreateWithName(nil, host) else { return }
 
         SCNetworkReachabilitySetCallback(reachability, { (_, flags, _) in
             let status = ReachabilityStatus(reachabilityFlags: flags)

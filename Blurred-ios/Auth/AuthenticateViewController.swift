@@ -33,12 +33,6 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         passwordTextField?.tag = 1
         self.passwordTextField.textContentType = .password
         self.usernameTextField.textContentType = .username
-        // Colors
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-        }
     }
     
     
@@ -80,7 +74,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         }
 
         // Contact the server about the people ^ (if u don't they gonna be sad)
-        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/sessions.json")
+        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/sessions.json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")

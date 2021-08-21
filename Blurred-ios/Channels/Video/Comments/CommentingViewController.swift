@@ -54,12 +54,12 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
             }
         }
         guard let userId: String = try? myValet.string(forKey: "Id") else { return }
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(userId).json").responseJSON { response in
+        AF.request("https://www.blurrmc.com/api/v1/channels/\(userId).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                 guard let imageUrl = JSON!["avatar_url"] as? String else { return }
-                guard let railsUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz\(imageUrl)") else { return }
+                guard let railsUrl = URL(string: "https://www.blurrmc.com\(imageUrl)") else { return }
                 DispatchQueue.main.async {
                     Nuke.loadImage(with: railsUrl, into: self.userAvatar)
                     try? self.myValet.setString(railsUrl.absoluteString, forKey: "avatar url for \(userId)")
@@ -144,7 +144,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
             self.view.addSubview(myActivityIndicator)
         }
         let token: String? = try? tokenValet.string(forKey: "Token")
-        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/")
+        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/videos/\(videoId)/comments/")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -273,7 +273,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/", method: .get, headers: headers).responseJSON { response in
+        AF.request("https://www.blurrmc.com/api/v1/videos/\(videoId)/comments/", method: .get, headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: coi329fj482")
                 return
@@ -331,13 +331,6 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         DataLoader.sharedUrlCache.diskCapacity = 0
         let avatarTap = UITapGestureRecognizer(target: self, action: #selector(self.avatarTap(sender:)))
         self.userAvatar.addGestureRecognizer(avatarTap)
-        
-        // Colors
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-        }
         
         self.tableView.prefetchDataSource = self
     }
@@ -463,7 +456,7 @@ extension CommentingViewController: CommentCellDelegate {
                 "body": reply.body,
                 "parent_id": reply.parent_id!
             ] as [String : Any]
-            let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/\(reply.id)")
+            let url = String("https://www.blurrmc.com/api/v1/videos/\(videoId)/comments/\(reply.id)")
             AF.request(URL.init(string: url)!, method: .patch, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                 var JSON: [String: Any]?
                 do {
@@ -483,7 +476,7 @@ extension CommentingViewController: CommentCellDelegate {
             let params = [
                 "body": comment.body
             ] as [String : Any]
-            let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/\(comment.id)")
+            let url = String("https://www.blurrmc.com/api/v1/videos/\(videoId)/comments/\(comment.id)")
             AF.request(URL.init(string: url)!, method: .patch, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                 var JSON: [String: Any]?
                 do {
@@ -539,7 +532,7 @@ extension CommentingViewController: CommentCellDelegate {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/\(commentId)")
+        let url = String("https://www.blurrmc.com/api/v1/videos/\(videoId)/comments/\(commentId)")
         AF.request(URL.init(string: url)!, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
             do {
@@ -572,7 +565,7 @@ extension CommentingViewController: CommentCellDelegate {
             "video_id": videoId,
             "comment_id": commentId
         ] as [String: Any]
-        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/reports")
+        let url = String("https://www.blurrmc.com/api/v1/reports")
         AF.request(URL.init(string: url)!, method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
             do {
@@ -709,7 +702,7 @@ extension CommentingViewController: CommentCellDelegate {
         ]
         let throttler = Throttler(minimumDelay: 5)
         if likeid != nil, let likeid = likeid {
-            let url = "https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes/\(likeid)"
+            let url = "https://www.blurrmc.com/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes/\(likeid)"
             throttler.throttle( {
                 AF.request(URL.init(string: url)!, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                     var JSON: [String: Any]?
@@ -760,7 +753,7 @@ extension CommentingViewController: CommentCellDelegate {
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
-        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes")
+        let url = String("https://www.blurrmc.com/api/v1/videos/\(videoId)/comments/\(commentId)/commentlikes")
         let throttler = Throttler(minimumDelay: 5)
         throttler.throttle( {
             AF.request(URL.init(string: url)!, method: .post, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
@@ -981,13 +974,13 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.likeButton.tintColor = UIColor.lightGray
                 
             }
-            AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(usernameComment).json").responseJSON { response in
+            AF.request("https://www.blurrmc.com/api/v1/channels/\(usernameComment).json").responseJSON { response in
                 guard let data = response.data else { return }
                 var JSON: [String: Any]?
                 do {
                     JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                     let imageUrl = JSON!["avatar_url"] as? String
-                    guard let railsUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                    guard let railsUrl = URL(string: "https://www.blurrmc.com\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl, into: cell.commentAvatar)
                     }
@@ -1046,12 +1039,12 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.likeButton.tintColor = UIColor.lightGray
             }
             
-            AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(username).json").responseJSON { response in
+            AF.request("https://www.blurrmc.com/api/v1/channels/\(username).json").responseJSON { response in
                 var JSON: [String: Any]?
                 do {
                     JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
                     let imageUrl = JSON!["avatar_url"] as? String
-                    guard let railsUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                    guard let railsUrl = URL(string: "https://www.blurrmc.com\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl, into: cell.avatar)
                     }
@@ -1119,7 +1112,7 @@ extension CommentingViewController: UITableViewDataSourcePrefetching {
             "Accept": "application/json"
         ]
         let parameters = ["page" : "\(currentPage)"]
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videos/\(videoId)/comments/", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://www.blurrmc.com/api/v1/videos/\(videoId)/comments/", method: .get, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19142.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19129"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -37,6 +36,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GIY-Bm-U4c">
+                                <rect key="frame" x="99.666666666666686" y="710" width="191" height="35"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                <state key="normal" title="Privacy Policy">
+                                    <color key="titleColor" systemColor="systemGreenColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="privacyPolicyTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="KRX-Mz-a3O"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d22-vo-onV">
+                                <rect key="frame" x="99.666666666666686" y="760" width="191" height="35"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                <state key="normal" title="Terms of Service">
+                                    <color key="titleColor" systemColor="systemYellowColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="termsOfServiceTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="SkW-Na-AaH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -44,14 +63,22 @@
                             <constraint firstItem="brb-85-Fyp" firstAttribute="top" secondItem="uBZ-LD-cQZ" secondAttribute="bottom" constant="15" id="3s7-4D-dZI"/>
                             <constraint firstItem="uBZ-LD-cQZ" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.379487" id="AO7-YA-fmc"/>
                             <constraint firstItem="uBZ-LD-cQZ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="15" id="Gxa-SG-pQ3"/>
+                            <constraint firstItem="GIY-Bm-U4c" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="IVk-Iw-CoI"/>
                             <constraint firstItem="udS-Hm-W4Z" firstAttribute="leading" secondItem="brb-85-Fyp" secondAttribute="trailing" constant="40" id="IoV-0I-EfZ"/>
+                            <constraint firstItem="d22-vo-onV" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="OZh-aX-XHZ"/>
                             <constraint firstItem="brb-85-Fyp" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Pbf-Ve-bp2"/>
                             <constraint firstItem="udS-Hm-W4Z" firstAttribute="centerY" secondItem="brb-85-Fyp" secondAttribute="centerY" id="T57-3d-F0l"/>
                             <constraint firstItem="ycs-Ye-DII" firstAttribute="leading" secondItem="uBZ-LD-cQZ" secondAttribute="trailing" constant="40" id="Vrb-EP-8MY"/>
+                            <constraint firstItem="d22-vo-onV" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0414692" id="Xbv-QH-sb2"/>
                             <constraint firstItem="uBZ-LD-cQZ" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="gWz-81-r2Y"/>
                             <constraint firstItem="ycs-Ye-DII" firstAttribute="centerY" secondItem="uBZ-LD-cQZ" secondAttribute="centerY" id="h4G-vq-641"/>
+                            <constraint firstItem="d22-vo-onV" firstAttribute="top" secondItem="GIY-Bm-U4c" secondAttribute="bottom" constant="15" id="hQz-ot-Udi"/>
+                            <constraint firstItem="GIY-Bm-U4c" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0414692" id="i2F-IZ-mpR"/>
                             <constraint firstItem="brb-85-Fyp" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.382051" id="ivf-ro-E83"/>
+                            <constraint firstItem="GIY-Bm-U4c" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.489744" id="mRt-oj-X1I"/>
                             <constraint firstItem="brb-85-Fyp" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0853081" id="ohw-RJ-oBl"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="d22-vo-onV" secondAttribute="bottom" constant="15" id="p8e-Gj-Pr6"/>
+                            <constraint firstItem="d22-vo-onV" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.489744" id="sAD-XG-B9j"/>
                             <constraint firstItem="uBZ-LD-cQZ" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0734597" id="w1g-pP-C1E"/>
                         </constraints>
                     </view>
@@ -74,6 +101,9 @@
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

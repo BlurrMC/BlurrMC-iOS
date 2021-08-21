@@ -87,4 +87,16 @@ class AdditionalSettingsViewController: UIViewController {
             try? cameraSettings.setString("off", forKey: "ultrawide")
         }
     }
+    
+    // MARK: Go to privacy policy (web page)
+    @IBAction func privacyPolicyTap(_ sender: Any) {
+        guard let privacyPolicyUrl = URL(string: "https://blurrmc.com/privacy_policy/") else { return }
+        UIApplication.shared.open(privacyPolicyUrl)
+    }
+    
+    // MARK: Go to terms of service (web page)
+    @IBAction func termsOfServiceTap(_ sender: Any) {
+        guard let termsOfServiceUrl = URL(string: "https://blurrmc.com/terms_of_service/") else { return }
+        UIApplication.shared.open(termsOfServiceUrl)
+    }
 }

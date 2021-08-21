@@ -53,7 +53,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/registrations")
+        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/registrations")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -163,12 +163,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         emailTextField?.tag = 2
         passwordTextField?.tag = 3
         confirmPasswordTextField?.tag = 4
-        // Colors
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-        }
         self.nameTextField.textContentType = .name
         self.usernameTextField.textContentType = .username
         self.emailTextField.textContentType = .emailAddress

@@ -41,12 +41,6 @@ class UploadDetailsViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Colors
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-        }
     }
     
     
@@ -92,7 +86,7 @@ class UploadDetailsViewController: UIViewController {
                 multipartFormData.append(userId.data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "user[Id]")
 
         },
-            to: "https://www.bartenderdogseatmuffins.xyz/api/v1/videouploads", method: .post, headers: headers).responseJSON(completionHandler: { result in
+            to: "https://www.blurrmc.com/api/v1/videouploads", method: .post, headers: headers).responseJSON(completionHandler: { result in
                 guard let data = result.data else { return }
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary

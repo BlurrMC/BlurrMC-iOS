@@ -26,12 +26,6 @@ class OTPViewController: UIViewController {
         super.viewDidLoad()
         self.OTPCode.textContentType = .oneTimeCode
         self.navigationItem.title = "2FA"
-        // Colors
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-        }
     }
     
     // MARK: View will appear
@@ -69,7 +63,7 @@ class OTPViewController: UIViewController {
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/sessions/", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
+        AF.request("https://www.blurrmc.com/api/v1/sessions/", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
             DispatchQueue.main.async {
                 myActivityIndicator.stopAnimating()
                 myActivityIndicator.removeFromSuperview()

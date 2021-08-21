@@ -21,7 +21,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource, 
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowers/\(followerVar)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://www.blurrmc.com/api/v1/channelsfollowers/\(followerVar)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -115,12 +115,6 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource, 
         case false:
             self.navigationItem.title = "@" + self.followerVar + "'s Followers"
         }
-        // Colors
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-        }
         
         // Table
         self.tableView.dataSource = self
@@ -159,7 +153,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource, 
     func downloadJson() {
         let Id = followerVar
         followerId = Id
-        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelsfollowers/\(followerId).json")
+        let url = URL(string: "https://www.blurrmc.com/api/v1/channelsfollowers/\(followerId).json")
         guard let downloadURL = url else { return }
         let parameters = ["page" : "\(currentPage)"]
         let headers: HTTPHeaders = [
@@ -232,7 +226,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource, 
                 }
             }
         let Id: String = followers[indexPath.row].id
-        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id).json")
+        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/channels/\(Id).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -244,7 +238,7 @@ class OtherFollowerListViewController: UIViewController, UITableViewDataSource, 
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let imageUrl: String? = parseJSON["avatar_url"] as? String
-                    guard let railsUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                    guard let railsUrl = URL(string: "https://www.blurrmc.com\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl, into: cell.followerAvatar)
                     }

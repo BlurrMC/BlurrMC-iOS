@@ -39,7 +39,7 @@ class EnableOTP2ViewController: UIViewController {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/two_factor_settings/verifyotp", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        AF.request("https://www.blurrmc.com/api/v1/two_factor_settings/verifyotp", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else { return }
             var JSON: [String: Any]?
             do {
@@ -69,12 +69,6 @@ class EnableOTP2ViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Colors
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-        }
         let clipboardTap = UITapGestureRecognizer(target: self, action: #selector(self.copyOTP(gesture:)))
         let textTap = UITapGestureRecognizer(target: self, action: #selector(self.copyOTP(gesture:)))
         self.OTPSetupCode.text = otpSecret

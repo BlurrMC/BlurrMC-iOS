@@ -54,7 +54,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/channelvideos/\(userId)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://www.blurrmc.com/api/v1/channelvideos/\(userId)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -109,11 +109,6 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
         cell.layer.cornerRadius = 12
         cell.layer.borderWidth = 1
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            cell.layer.borderColor = UIColor.black.cgColor
-        } else {
-            cell.layer.borderColor = UIColor.white.cgColor
-        }
         var resizedImageProcessors: [ImageProcessing] {
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
             return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
@@ -121,7 +116,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         let options = ImageLoadingOptions(
             placeholder: UIImage(named: "load-image"),
             transition: .fadeIn(duration: 0.25))
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/videoinfo/\(videos[indexPath.row].videoid).json").responseJSON { response in
+        AF.request("https://www.blurrmc.com/api/v1/videoinfo/\(videos[indexPath.row].videoid).json").responseJSON { response in
             var JSON: [String: Any]?
             guard let data = response.data else { return }
             do {
@@ -226,15 +221,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     
         // Line view seperator
         let lineView = UIView()
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            lineView.backgroundColor = UIColor.black
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-            self.collectionView.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-            self.collectionView.backgroundColor = UIColor(hexString: "#141414")
-            lineView.backgroundColor = UIColor.white
-        }
+        lineView.backgroundColor = UIColor.label
         
         // Gesture for labels
         collectionView.refreshControl = refreshControl
@@ -365,7 +352,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     func channelVideoIds() { // Still not done we need to add the user's butt image
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
         let parameters = ["page" : "\(currentPage)"]
-        let url = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channelvideos/\(userId)")
+        let url = URL(string: "https://www.blurrmc.com/api/v1/channelvideos/\(userId)")
         guard let downloadURL = url else { return }
         AF.request(downloadURL, method: .get, parameters: parameters).responseJSON { response in
             guard let data = response.data else {
@@ -402,7 +389,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 self.avatarImage.image = image
             }
         }
-        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/channels/\(Id).json")
+        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/channels/\(Id).json")
             var request = URLRequest(url:myUrl!)
             request.httpMethod = "GET"
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -422,7 +409,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                         guard let followerCount: Int = parseJSON["followers_count"] as? Int else { return }
                         guard let followingCount: Int = parseJSON["following_count"] as? Int else { return }
                         let bio: String? = parseJSON["bio"] as? String 
-                        guard let railsUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else  { return }
+                        guard let railsUrl = URL(string: "https://www.blurrmc.com\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else  { return }
                         if bio?.isEmpty != true {
                             DispatchQueue.main.async {
                                 self.bioLabel.text = bio ?? ""
@@ -566,7 +553,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        let url = String("https://www.bartenderdogseatmuffins.xyz/api/v1/registrations/\(Id)")
+        let url = String("https://www.blurrmc.com/api/v1/registrations/\(Id)")
         let image = avatarImage.image///haha im small
         // let image = [UIImagePickerController.InfoKey.editedImage]
         guard let imgcompressed = image!.jpegData(compressionQuality: 0.5) else { return }

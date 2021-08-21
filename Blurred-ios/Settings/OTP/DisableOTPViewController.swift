@@ -18,12 +18,6 @@ class DisableOTPViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Colors
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-        }
     }
     
     @IBAction func disabledTapped(_ sender: Any) {
@@ -48,7 +42,7 @@ class DisableOTPViewController: UIViewController {
             "Authorization": "Bearer \(token!)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.bartenderdogseatmuffins.xyz/api/v1/two_factor_settings", method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        AF.request("https://www.blurrmc.com/api/v1/two_factor_settings", method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else { return }
             var JSON: [String: Any]?
             do {

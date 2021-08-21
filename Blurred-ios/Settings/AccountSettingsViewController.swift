@@ -34,12 +34,6 @@ class AccountSettingsViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Colors
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
-            self.view.backgroundColor = UIColor(hexString: "#eaeaea")
-        } else {
-            self.view.backgroundColor = UIColor(hexString: "#2d2d2d")
-        }
         self.nameField.textContentType = .name
         self.usernameField.textContentType = .username
         self.emailField.textContentType = .emailAddress
@@ -78,7 +72,7 @@ class AccountSettingsViewController: UIViewController {
         }
         let Id: String? = try? myValet.string(forKey: "Id")
         let token: String? = try? tokenValet.string(forKey: "Token")
-        let myUrl = URL(string: "https://www.bartenderdogseatmuffins.xyz/api/v1/registrations/\(Id!).json")
+        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/registrations/\(Id!).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "content-type")

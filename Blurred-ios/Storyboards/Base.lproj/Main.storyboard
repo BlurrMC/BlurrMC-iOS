@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19142.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="E3F-Hf-TFy">
-    <device id="retina5_9" orientation="portrait" appearance="dark"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="E3F-Hf-TFy">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19129"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -48,11 +47,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="128" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Age-Yd-d3N">
-                                <rect key="frame" x="0.0" y="112" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="107" width="375" height="568"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchVideoCell" rowHeight="130" id="hrs-qm-mge" customClass="SearchVideoCell" customModule="Blurred" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="130"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hrs-qm-mge" id="HKc-0v-y7Z">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
@@ -137,11 +136,11 @@
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="128" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tz5-Wv-VBc">
-                                <rect key="frame" x="0.0" y="112" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="107" width="375" height="568"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" rowHeight="130" id="ki1-dt-Kwh" customClass="SearchCell" customModule="Blurred" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="130"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ki1-dt-Kwh" id="Cjc-z5-kK0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
@@ -240,7 +239,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="mkw-xo-Qlp">
-                                <rect key="frame" x="1" y="56" width="375" height="56"/>
+                                <rect key="frame" x="1" y="56" width="375" height="51"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                 <connections>
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="4Hf-hB-cgM"/>
@@ -613,7 +612,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationsTableViewCell" id="Loh-8d-0Ra" customClass="NotificationsTableViewCell" customModule="Blurred" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Loh-8d-0Ra" id="pc4-MX-hxy">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -1277,7 +1276,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMI-MH-52X">
-                                <rect key="frame" x="88.666666666666686" y="395" width="198" height="42"/>
+                                <rect key="frame" x="89" y="395" width="197" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Additonal Settings">
                                     <color key="titleColor" systemColor="systemOrangeColor"/>
@@ -1439,7 +1438,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4j-2t-jHr">
                                 <rect key="frame" x="142" y="183" width="91" height="32.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" background="header5" translatesAutoresizingMaskIntoConstraints="NO" id="5fm-9y-UjU">
@@ -1476,7 +1474,6 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKM-Pt-Fqg">
                                         <rect key="frame" x="0.0" y="6.9999999999999982" width="178.66666666666666" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bA0-6a-xf5">
@@ -1638,7 +1635,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OtherFollowerCell" rowHeight="80" id="g1a-64-9bA" customClass="OtherFollowerCell" customModule="Blurred" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g1a-64-9bA" id="DeE-eF-DBh">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -1734,7 +1731,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OtherFollowingCell" rowHeight="80" id="rCQ-ao-dFg" customClass="OtherFollowingCell" customModule="Blurred" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rCQ-ao-dFg" id="eYe-fE-kuF">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -1916,12 +1913,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="exv-N4-hW9"/>
-        <segue reference="745-eJ-5Gd"/>
+        <segue reference="kHw-nu-gLE"/>
+        <segue reference="xcm-IK-Wan"/>
         <segue reference="QXk-9R-dne"/>
         <segue reference="grK-85-5Vn"/>
         <segue reference="ojZ-HU-szu"/>
-        <segue reference="b95-Ol-zev"/>
+        <segue reference="8ek-7r-oz7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="12" height="10"/>

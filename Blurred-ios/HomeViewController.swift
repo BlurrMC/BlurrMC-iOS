@@ -18,6 +18,15 @@ import TTGSnackbar
 class HomeViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
     
+    
+    // MARK: Present Alert
+    // This is for alerts from the overlay view
+    func willPresentAlert(alertController: UIAlertController) {
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
     // MARK: Report from delegate
     func didPressReport(videoId: String) {
         popupMessages().showMessageWithOptions(title: "Hey!", message: "Are you sure that you would like to report this video?", firstOptionTitle: "Yes", secondOptionTitle: "Nahhhh", viewController: self, {

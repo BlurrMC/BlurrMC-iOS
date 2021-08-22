@@ -223,7 +223,7 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // MARK: Comments Gotten From JSON
+    // MARK: Comments Codable
     struct Comments: Codable {
         let comments: [Comment]
         init(comments: [Comment]) {

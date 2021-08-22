@@ -17,7 +17,12 @@ import TTGSnackbar
 class ChannelVideoViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
     
-    // MARK: Did perss report
+    // MARK: Alert from delegate
+    func willPresentAlert(alertController: UIAlertController) {
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK: Did press report
     func didPressReport(videoId: String) {
         popupMessages().showMessageWithOptions(title: "Hey!", message: "Are you sure that you would like to report this video?", firstOptionTitle: "Yes", secondOptionTitle: "Nahhhh", viewController: self, {
             guard let token: String = try? self.tokenValet.string(forKey: "Token") else { return }

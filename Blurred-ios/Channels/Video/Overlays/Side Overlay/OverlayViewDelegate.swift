@@ -15,6 +15,7 @@ protocol ChannelVideoOverlayViewDelegate: AnyObject {
     func didTapShare(_ view:ChannelVideoOverlayView, videoUrl: String, videoId: String)
     func didPressReport(videoId: String)
     func switchedPreference(newPreference: WatchingPreference)
+    func willPresentAlert(alertController: UIAlertController)
 }
 extension ChannelVideoOverlayViewDelegate {
     func switchedPreference(newPreference: WatchingPreference) {

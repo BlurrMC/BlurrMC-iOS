@@ -5,6 +5,7 @@
 //  Created by Martin Velev on 8/8/20.
 //  Copyright © 2020 BlurrMC. All rights reserved.
 //
+// Coded with love <3 by Martin Velev
 
 import UIKit
 import Valet
@@ -25,6 +26,7 @@ class ChannelVideoOverlayView: UIView {
     var blocked = Bool()
     var channelReported = Bool()
     var videoReported = Bool()
+    var userOwnsVideo = Bool()
     
     var resizedImageProcessors: [ImageProcessing] {
         let imageSize = CGSize(width: self.videoChannel.frame.width, height: self.videoChannel.frame.height)
@@ -119,13 +121,13 @@ class ChannelVideoOverlayView: UIView {
             let tappp = UITapGestureRecognizer(target: self, action: #selector(self.tapppFunction))
             let liketap = UITapGestureRecognizer(target: self, action: #selector(self.liketapFunction(_:)))
             let shareTap = UITapGestureRecognizer(target: self, action: #selector(self.shareTap(sender:)))
-            let reportPress = UILongPressGestureRecognizer(target: self, action: #selector(self.reportPress(sender:)))
+            let secondaryPress = UILongPressGestureRecognizer(target: self, action: #selector(self.secondaryPress(sender:)))
             DispatchQueue.main.async {
                 self.videoComment.addGestureRecognizer(tappp)
                 self.videoChannel.addGestureRecognizer(tapp)
                 self.videoLike.addGestureRecognizer(liketap)
                 self.videoShare.addGestureRecognizer(shareTap)
-                self.videoShare.addGestureRecognizer(reportPress)
+                self.videoShare.addGestureRecognizer(secondaryPress)
             }
             let pipeline = ImagePipeline {
               let dataCache = try? DataCache(name: "com.blurrmc.blurrmc.datacache")
@@ -137,14 +139,52 @@ class ChannelVideoOverlayView: UIView {
     }
     
     
-    // MARK: Report Press Recognizer
-    @objc func reportPress(sender: UILongPressGestureRecognizer) {
-        if videoReported {
-            self.videoReported = true
-            delegate?.didPressReport(videoId: videoId)
-        } else {
+    // MARK: Secondary Press
+    @objc func secondaryPress(sender: UILongPressGestureRecognizer) {
+        let alert = UIAlertController(title: "Secondary Options", message: "Please select what to do", preferredStyle: UIAlertController.Style.actionSheet)
+        if self.videoReported {
+            alert.addAction(UIAlertAction(title: "Report Video", style: .default, handler: {_ in
+                self.delegate?.didPressReport(videoId: self.videoId)
+            }))
+        }
+        if self.userOwnsVideo {
+            alert.addAction(UIAlertAction(title: "Delete Video", style: .destructive, handler: {_ in
+                let alert = UIAlertController(title: "Are you sure?", message: "Are you sure that you want to delete your video? It will be gone forever!!!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {_ in
+                    self.deleteVideo()
+                }))
+                alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+                self.delegate?.willPresentAlert(alertController: alert)
+            }))
+        }
+        alert.addAction(UIAlertAction(title: "Share Video", style: .default, handler: {_ in
             guard let videoUrl = self.videoUrl?.absoluteString else { return }
-            delegate?.didTapShare(self, videoUrl: videoUrl, videoId: videoId)
+            self.delegate?.didTapShare(self, videoUrl: videoUrl, videoId: self.videoId)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.delegate?.willPresentAlert(alertController: alert)
+    }
+    
+    // MARK: Video Delete Request
+    func deleteVideo() {
+        guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        guard let url = URL(string: "https://www.blurrmc.com/api/v1/videos/\(videoId)") else { return }
+        AF.request(url, method: .delete, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            var JSON: [String: Any]?
+            do {
+                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                let status = JSON!["status"] as? String
+                if status != "The video has been destroyed, sad." {
+                    print("error code: a98jasdv9s9h, controller: overlay view, error: the status code when deleting the video wasnt right.")
+                }
+            } catch {
+                print("error code: asfdosu9idvjzkx, controller: overlay view, error: deleting video")
+                return
+            }
         }
     }
     
@@ -229,7 +269,7 @@ class ChannelVideoOverlayView: UIView {
         }
     }
     
-    // MARK: Sends request to like the video
+    // MARK: Like Video Request
     func sendLikeRequest() {
         let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
@@ -292,7 +332,7 @@ class ChannelVideoOverlayView: UIView {
         }
     }
     
-    // MARK: Send request for video info
+    // MARK: Video info request
     func sendRequest() {
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
@@ -311,6 +351,8 @@ class ChannelVideoOverlayView: UIView {
                     guard let descriptionString: String = json["description"] as? String else { return }
                     guard let username: String = json["username"] as? String else { return }
                     guard let videoReported: Bool = json["reported"] as? Bool else { return }
+                    guard let videoOwnedByUser: Bool = json["videoisowned"] as? Bool else { return }
+                    self.userOwnsVideo = videoOwnedByUser
                     self.videoReported = videoReported
                     self.videoUsername = username
                     AF.request("https://www.blurrmc.com/api/v1/channels/\(String(describing: username)).json", headers: headers).responseJSON {   response in
@@ -340,7 +382,7 @@ class ChannelVideoOverlayView: UIView {
         }
     }
     
-    // MARK: Delete's the like
+    // MARK: Like delete request
     func sendDeleteLikeRequest() {
         let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [

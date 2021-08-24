@@ -27,6 +27,20 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    // MARK: TOS Button Tapped
+    @IBAction func TOSButtonTap(_ sender: Any) {
+        guard let termsOfServiceUrl = URL(string: "https://blurrmc.com/terms_of_service/") else { return }
+        UIApplication.shared.open(termsOfServiceUrl)
+    }
+    
+    
+    // MARK: Privacy Policy Tapped
+    @IBAction func privacyPolicyTap(_ sender: Any) {
+        guard let privacyPolicyUrl = URL(string: "https://blurrmc.com/privacy_policy/") else { return }
+        UIApplication.shared.open(privacyPolicyUrl)
+    }
+    
+    
     // MARK: Send the new user's information
     func sendSignupCreds() {
         // Setup the api over here.

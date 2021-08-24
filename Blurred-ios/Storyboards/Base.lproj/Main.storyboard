@@ -1576,6 +1576,31 @@
                                     <action selector="signUpButtonTapped:" destination="4Hi-5f-KfX" eventType="touchUpInside" id="Dhn-NO-MfC"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rL4-wp-6zh">
+                                <rect key="frame" x="120.66666666666669" y="656.33333333333337" width="134" height="39.666666666666629"/>
+                                <string key="text">By signing up to BlurrMC 
+you are agreeing to the 
+TOS and Privacy Policy</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rde-q8-cgk">
+                                <rect key="frame" x="172.66666666666666" y="706" width="30" height="26"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                                <state key="normal" title="TOS"/>
+                                <connections>
+                                    <action selector="TOSButtonTap:" destination="4Hi-5f-KfX" eventType="touchUpInside" id="DFD-M3-1yy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOK-kn-oNv">
+                                <rect key="frame" x="150" y="742" width="75" height="26"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                                <state key="normal" title="Privacy Policy"/>
+                                <connections>
+                                    <action selector="privacyPolicyTap:" destination="4Hi-5f-KfX" eventType="touchUpInside" id="UyG-BD-qsO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pJs-xI-t2i"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1583,23 +1608,29 @@
                             <constraint firstItem="KIE-bB-Zm2" firstAttribute="height" secondItem="exd-Mh-gFh" secondAttribute="height" multiplier="0.0763547" id="0G8-hh-lzj"/>
                             <constraint firstItem="dv9-iJ-Chr" firstAttribute="height" secondItem="exd-Mh-gFh" secondAttribute="height" multiplier="0.0418719" id="3Dl-z9-pUB"/>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="width" secondItem="exd-Mh-gFh" secondAttribute="width" multiplier="0.554667" id="49i-7U-zda"/>
+                            <constraint firstItem="TOK-kn-oNv" firstAttribute="top" secondItem="Rde-q8-cgk" secondAttribute="bottom" constant="10" id="50N-qH-MvD"/>
                             <constraint firstItem="YQu-l8-y91" firstAttribute="top" secondItem="pJs-xI-t2i" secondAttribute="top" constant="75" id="7QV-im-NNg"/>
+                            <constraint firstItem="Rde-q8-cgk" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="C09-RY-of7"/>
                             <constraint firstItem="JF9-o9-ic0" firstAttribute="top" secondItem="yBT-Vy-Kr1" secondAttribute="bottom" constant="8" id="Cub-Ga-DJg"/>
                             <constraint firstItem="yBT-Vy-Kr1" firstAttribute="width" secondItem="exd-Mh-gFh" secondAttribute="width" multiplier="0.554667" id="DkB-JV-LVV"/>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="height" secondItem="exd-Mh-gFh" secondAttribute="height" multiplier="0.0418719" id="FPD-do-DrF"/>
                             <constraint firstItem="JF9-o9-ic0" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="G9x-rU-wGf"/>
                             <constraint firstItem="KIE-bB-Zm2" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="IDS-Wj-dcy"/>
+                            <constraint firstItem="TOK-kn-oNv" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="NXF-GB-fmI"/>
                             <constraint firstItem="KIE-bB-Zm2" firstAttribute="width" secondItem="exd-Mh-gFh" secondAttribute="width" multiplier="0.554667" id="Rew-qh-kZP"/>
                             <constraint firstItem="FsI-dl-zOA" firstAttribute="width" secondItem="exd-Mh-gFh" secondAttribute="width" multiplier="0.554667" id="TOa-eU-bTw"/>
                             <constraint firstItem="dv9-iJ-Chr" firstAttribute="width" secondItem="exd-Mh-gFh" secondAttribute="width" multiplier="0.554667" id="U7c-nk-Mrk"/>
                             <constraint firstItem="dv9-iJ-Chr" firstAttribute="top" secondItem="TZT-5r-p5u" secondAttribute="bottom" constant="8" id="XuO-MH-jPU"/>
+                            <constraint firstItem="Rde-q8-cgk" firstAttribute="top" secondItem="rL4-wp-6zh" secondAttribute="bottom" constant="10" id="beT-iu-GnS"/>
                             <constraint firstItem="FsI-dl-zOA" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="bfc-G9-Cu2"/>
                             <constraint firstItem="dv9-iJ-Chr" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="bp6-Jq-xX8"/>
                             <constraint firstItem="FsI-dl-zOA" firstAttribute="top" secondItem="dv9-iJ-Chr" secondAttribute="bottom" constant="8" id="dzs-gm-fFw"/>
+                            <constraint firstItem="pJs-xI-t2i" firstAttribute="bottom" secondItem="TOK-kn-oNv" secondAttribute="bottom" constant="10" id="enr-Vi-qCz"/>
                             <constraint firstItem="yBT-Vy-Kr1" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="jKE-YE-QfU"/>
                             <constraint firstItem="FsI-dl-zOA" firstAttribute="height" secondItem="exd-Mh-gFh" secondAttribute="height" multiplier="0.0418719" id="ki3-LH-HOQ"/>
                             <constraint firstItem="KIE-bB-Zm2" firstAttribute="top" secondItem="JF9-o9-ic0" secondAttribute="bottom" constant="25" id="pID-1Z-5cy"/>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="uPY-YS-I3V"/>
+                            <constraint firstItem="rL4-wp-6zh" firstAttribute="centerX" secondItem="exd-Mh-gFh" secondAttribute="centerX" id="xls-au-bol"/>
                             <constraint firstItem="JF9-o9-ic0" firstAttribute="height" secondItem="exd-Mh-gFh" secondAttribute="height" multiplier="0.0418719" id="y8J-yQ-EHm"/>
                             <constraint firstItem="TZT-5r-p5u" firstAttribute="top" secondItem="YQu-l8-y91" secondAttribute="bottom" constant="75" id="yVt-gw-cto"/>
                             <constraint firstItem="yBT-Vy-Kr1" firstAttribute="height" secondItem="exd-Mh-gFh" secondAttribute="height" multiplier="0.0418719" id="yxi-GN-d9h"/>
@@ -1915,10 +1946,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="kHw-nu-gLE"/>
         <segue reference="xcm-IK-Wan"/>
-        <segue reference="QXk-9R-dne"/>
+        <segue reference="J7Q-1z-U6Z"/>
         <segue reference="grK-85-5Vn"/>
         <segue reference="ojZ-HU-szu"/>
-        <segue reference="8ek-7r-oz7"/>
+        <segue reference="APA-y0-haT"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="12" height="10"/>

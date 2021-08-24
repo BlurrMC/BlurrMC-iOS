@@ -41,6 +41,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         case off
     }
     var flashMode: flashType = .off
+    var permissionsAreFine: Bool = false
 
     
     // MARK: Outlets
@@ -320,6 +321,11 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
                 try? NextLevel.shared.start()
             })
         })
+        if NextLevel.authorizationStatus(forMediaType: .video) == .notAuthorized || NextLevel.authorizationStatus(forMediaType: .audio) == .notAuthorized {
+            self.permissionsAreFine = false
+        } else if NextLevel.authorizationStatus(forMediaType: .video) == .authorized {
+            self.permissionsAreFine = true
+        }
     }
     
     
@@ -338,7 +344,15 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     
     // MARK: Start Capturing
     @objc func startCapture() {
-        startRecording()
+        if permissionsAreFine == true {
+            startRecording()
+        } else {
+            popupMessages().showMessageWithOptions(title: "Error", message: "You have camera permissions denied!", firstOptionTitle: "Settings", secondOptionTitle: "Cancel", viewController: self, {
+                if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+                }
+            })
+        }
     }
     
     

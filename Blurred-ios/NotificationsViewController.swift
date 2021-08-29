@@ -27,7 +27,7 @@ class NotificationsViewController: UIViewController {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/notifications/mark_as_read", method: .post, headers: headers).responseJSON { response in
+        AF.request("https://blurrmc.com/api/v1/notifications/mark_as_read", method: .post, headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: 34nf9adsi")
                 return
@@ -122,7 +122,7 @@ class NotificationsViewController: UIViewController {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/notifications.json", method: .get, headers: headers).responseJSON { response in
+        AF.request("https://blurrmc.com/api/v1/notifications.json", method: .get, headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: 1kdmg03l10")
                 return
@@ -202,7 +202,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/notifications", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://blurrmc.com/api/v1/notifications", method: .get, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -298,7 +298,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     cell.notificationDescription.text = description
                     
                 }
-                AF.request("https://www.blurrmc.com/api/v1/videoinfo/\(videoId)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+                AF.request("https://blurrmc.com/api/v1/videoinfo/\(videoId)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
                     guard let data = response.data else { return }
                     do {
                         guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
@@ -318,11 +318,11 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                 DispatchQueue.main.async {
                     cell.notificationDescription.text = description
                 }
-                AF.request("https://www.blurrmc.com/api/v1/channels/\(follower)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+                AF.request("https://blurrmc.com/api/v1/channels/\(follower)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
                     do {
                         guard let JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any] else { return }
                         let avatarUrl = JSON["avatar_url"] as? String
-                        guard let url = URL(string: "https://www.blurrmc.com\(avatarUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                        guard let url = URL(string: "https://blurrmc.com\(avatarUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                         DispatchQueue.main.async {
                             Nuke.loadImage(with: url, into: cell.thumbnailView)
                             cell.thumbnailView.layer.cornerRadius = 35
@@ -340,7 +340,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                 DispatchQueue.main.async {
                     cell.notificationDescription.text = description
                 }
-                AF.request("https://www.blurrmc.com/api/v1/videoinfo/\(video)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+                AF.request("https://blurrmc.com/api/v1/videoinfo/\(video)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
                     guard let data = response.data else { return }
                     do {
                         guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
@@ -362,7 +362,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                 DispatchQueue.main.async {
                     cell.notificationDescription.text = description
                 }
-                AF.request("https://www.blurrmc.com/api/v1/videoinfo/\(video)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+                AF.request("https://blurrmc.com/api/v1/videoinfo/\(video)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
                     guard let data = response.data else { return }
                     do {
                         guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
@@ -384,7 +384,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                 DispatchQueue.main.async {
                     cell.notificationDescription.text = description
                 }
-                AF.request("https://www.blurrmc.com/api/v1/videoinfo/\(video)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+                AF.request("https://blurrmc.com/api/v1/videoinfo/\(video)", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
                     guard let data = response.data else { return }
                     do {
                         guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }

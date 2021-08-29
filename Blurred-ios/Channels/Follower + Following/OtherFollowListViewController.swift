@@ -21,7 +21,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource, UI
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/channelsfollowing/\(followingVar)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://blurrmc.com/api/v1/channelsfollowing/\(followingVar)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -152,7 +152,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource, UI
     // MARK: Get the user's followings
     func downloadJson() { 
         let Id = followingVar
-        let url = URL(string: "https://www.blurrmc.com/api/v1/channelsfollowing/\(Id).json")
+        let url = URL(string: "https://blurrmc.com/api/v1/channelsfollowing/\(Id).json")
         guard let downloadURL = url else { return }
         let parameters = ["page" : "\(currentPage)"]
         let headers: HTTPHeaders = [
@@ -237,7 +237,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource, UI
                 }
             }
         let Id: String = followings[indexPath.row].id
-        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/channels/\(Id).json")
+        let myUrl = URL(string: "https://blurrmc.com/api/v1/channels/\(Id).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -248,7 +248,7 @@ class OtherFollowListViewController: UIViewController, UITableViewDataSource, UI
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     let imageUrl: String? = parseJSON["avatar_url"] as? String
-                    guard let railsUrl = URL(string: "https://www.blurrmc.com\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                    guard let railsUrl = URL(string: "https://blurrmc.com\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl, into: cell.followingAvatar)
                     }

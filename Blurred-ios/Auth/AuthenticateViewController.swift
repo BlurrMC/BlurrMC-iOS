@@ -66,7 +66,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         }
         // MAKE THE PEOPLE WAIT GOD DAMN ITz
         let myActivityIndicator = DifferencesActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        myActivityIndicator.center = view.center
+        myActivityIndicator.center = self.view.center
         myActivityIndicator.hidesWhenStopped = true
         myActivityIndicator.startAnimating()
         DispatchQueue.main.async {
@@ -74,7 +74,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         }
 
         // Contact the server about the people ^ (if u don't they gonna be sad)
-        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/sessions.json")
+        let myUrl = URL(string: "https://blurrmc.com/api/v1/sessions")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")

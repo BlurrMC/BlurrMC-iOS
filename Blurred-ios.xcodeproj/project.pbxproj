@@ -1088,7 +1088,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1107,7 +1107,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7;
+				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1128,7 +1128,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1147,7 +1147,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7;
+				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";

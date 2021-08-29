@@ -33,7 +33,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             let params = [
                 "video_id": videoId
             ]
-            AF.request("https://www.blurrmc.com/api/v1/reports", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            AF.request("https://blurrmc.com/api/v1/reports", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                 guard let response = response.data else {
                     let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
                     DispatchQueue.main.async {
@@ -130,7 +130,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                 case .failure( _):
                     // Share the url of the video if downloading the video did not work (backup method)
                     // Response to comment: Backup method? Are you serious? Eh, whatever
-                    let videoToShare = [ URL(string: "https://www.blurrmc.com/videos/\(videoId)") ]
+                    let videoToShare = [ URL(string: "https://blurrmc.com/videos/\(videoId)") ]
                     let activityViewController = UIActivityViewController(activityItems: videoToShare as [Any], applicationActivities: nil)
                     activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
                     activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToFlickr,
@@ -181,7 +181,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     
     // MARK: Request for specific video
     func sendRequest() {
-        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/videos/\(videoString).json")
+        let myUrl = URL(string: "https://blurrmc.com/api/v1/videos/\(videoString).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -286,7 +286,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     
     // MARK: Download channel videos
     func channelVideoIds() {
-        let url = URL(string: "https://www.blurrmc.com/api/v1/channelvideos/\(channelId).json")
+        let url = URL(string: "https://blurrmc.com/api/v1/channelvideos/\(channelId).json")
         guard let downloadURL = url else { return }
         URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
             guard let data = data, error == nil, urlResponse != nil else {
@@ -332,7 +332,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/channelvideos/\(channelId)", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://blurrmc.com/api/v1/channelvideos/\(channelId)", method: .post, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)

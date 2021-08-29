@@ -45,7 +45,7 @@ class EnableOTPViewController: UIViewController {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/two_factor_settings", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        AF.request("https://blurrmc.com/api/v1/two_factor_settings", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else {
                 let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
                 DispatchQueue.main.async {

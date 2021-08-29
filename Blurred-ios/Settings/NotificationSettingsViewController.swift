@@ -47,7 +47,7 @@ class NotificationSettingsViewController: UIViewController {
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        AF.request("https://www.blurrmc.com/api/v1/notification_settings", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        AF.request("https://blurrmc.com/api/v1/notification_settings", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
             guard let data = response.data else {
                 let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
@@ -118,7 +118,7 @@ class NotificationSettingsViewController: UIViewController {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/\(controller)", method: .patch, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        AF.request("https://blurrmc.com/api/v1/\(controller)", method: .patch, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else { return }
             var JSON: [String: Any]?
             do {

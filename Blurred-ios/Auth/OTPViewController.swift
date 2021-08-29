@@ -63,7 +63,7 @@ class OTPViewController: UIViewController {
         DispatchQueue.main.async {
             self.view.addSubview(myActivityIndicator)
         }
-        AF.request("https://www.blurrmc.com/api/v1/sessions/", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
+        AF.request("https://blurrmc.com/api/v1/sessions/", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { (response) in
             DispatchQueue.main.async {
                 myActivityIndicator.stopAnimating()
                 myActivityIndicator.removeFromSuperview()

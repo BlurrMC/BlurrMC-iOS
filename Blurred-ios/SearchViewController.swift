@@ -24,7 +24,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/search/", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://blurrmc.com/api/v1/search/", method: .get, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -109,7 +109,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             guard let username = username else { return cell }
             cell.searchAvatar.image = nil
             
-            AF.request("https://www.blurrmc.com/api/v1/channels/\(username).json").responseJSON { response in
+            AF.request("https://blurrmc.com/api/v1/channels/\(username).json").responseJSON { response in
                 var JSON: [String: Any]?
                 do {
                     JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
@@ -119,7 +119,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     let bio = JSON!["bio"] as? String
                     let followerCount = JSON!["followers_count"] as? Int
                     let followerCountString = String("\(followerCount ?? 0)")
-                    guard let railsUrl = URL(string: "https://www.blurrmc.com\(avatarUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                    guard let railsUrl = URL(string: "https://blurrmc.com\(avatarUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                     DispatchQueue.main.async {
                         Nuke.loadImage(with: railsUrl, into: cell.searchAvatar)
                         cell.searchName.text = name ?? ""
@@ -137,7 +137,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         case self.videoTableView:
             guard let cell = videoTableView.dequeueReusableCell(withIdentifier: "SearchVideoCell") as? SearchVideoCell else { return UITableViewCell() }
             let Id: String = videos[indexPath.row].id
-            AF.request("https://www.blurrmc.com/api/v1/videoinfo/\(Id).json").responseJSON { response in
+            AF.request("https://blurrmc.com/api/v1/videoinfo/\(Id).json").responseJSON { response in
                 var JSON: [String: Any]?
                 do {
                     JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
@@ -187,7 +187,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         default:
             guard let cell = videoTableView.dequeueReusableCell(withIdentifier: "SearchVideoCell") as? SearchVideoCell else { return UITableViewCell() }
             let Id: String = videos[indexPath.row].id
-            AF.request("https://www.blurrmc.com/api/v1/videoinfo/\(Id).json").responseJSON { response in
+            AF.request("https://blurrmc.com/api/v1/videoinfo/\(Id).json").responseJSON { response in
                 var JSON: [String: Any]?
                 do {
                     JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
@@ -196,7 +196,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     guard let username = JSON!["username"] as? String else { return }
                     guard let publishDate = JSON!["publishdate"] as? String else { return }
                     guard let viewCount = JSON!["viewcount"] as? Int else { return }
-                    guard let railsUrl = URL(string: "https://www.blurrmc.com\(thumbnailUrl)") else { return }
+                    guard let railsUrl = URL(string: "https://blurrmc.com\(thumbnailUrl)") else { return }
                     switch viewCount {
                     case _ where viewCount < 1000:
                         DispatchQueue.main.async {
@@ -338,7 +338,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         let params = [
             "search": replaceHashtags
         ]
-        AF.request("https://www.blurrmc.com/api/v1/search/", method: .get, parameters: params).responseJSON { response in
+        AF.request("https://blurrmc.com/api/v1/search/", method: .get, parameters: params).responseJSON { response in
             guard let data = response.data else {
                 print("error code: asdfasf9j")
                 return

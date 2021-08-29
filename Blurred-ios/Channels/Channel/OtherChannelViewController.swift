@@ -75,7 +75,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/channelvideos/\(chanelVar)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
+        AF.request("https://blurrmc.com/api/v1/channelvideos/\(chanelVar)", method: .get, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -146,7 +146,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     func checkIfOtherUserIsCurrentUser() {
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
         let Id = chanelVar
-        let myUrl = URL(string: "https://www.blurrmc.ocm/api/v1/channels/\(Id).json")
+        let myUrl = URL(string: "https://blurrmc.ocm/api/v1/channels/\(Id).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -237,7 +237,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         let params = [
             "c_id": chanelVar
         ]
-        let url = String("https://www.blurrmc.com/api/v1/reports")
+        let url = String("https://blurrmc.com/api/v1/reports")
         AF.request(URL.init(string: url)!, method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let response = response.data else {
                 print("error code: asdfh239urqhiewadjsnafsd")
@@ -294,7 +294,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
             return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
         }
-        AF.request("https://www.blurrmc.com/api/v1/videoinfo/\(Id).json").responseJSON { response in
+        AF.request("https://blurrmc.com/api/v1/videoinfo/\(Id).json").responseJSON { response in
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
@@ -359,7 +359,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Load the channel's videos
     func channelVideoIds() {
-        let url = URL(string: "https://www.blurrmc.com/api/v1/channelvideos/\(chanelVar)")
+        let url = URL(string: "https://blurrmc.com/api/v1/channelvideos/\(chanelVar)")
         guard let downloadURL = url else { return }
         let parameters = ["page" : "\(currentPage)"]
         AF.request(downloadURL, method: .get, parameters: parameters).responseJSON { response in
@@ -430,6 +430,11 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         lineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         lineView.centerYAnchor.constraint(equalTo: self.bioLabel.bottomAnchor, constant: 15).isActive = true
         lineView.backgroundColor = .label
+        lineView.layer.zPosition = 1
+        self.dropDownButtons.forEach({button in
+            button.layer.zPosition = 5
+        })
+        self.dropDownStack.layer.zPosition = 5
         
         // Make images look better
         self.avatarImage.contentScaleFactor = 1.5
@@ -565,11 +570,12 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         let params = [
             "username": "\(chanelVar)"
         ] as [String: String]
-        let url = String("https://www.blurrmc.com/api/v1/apirelationships/\(relationshipId)")
+        let url = String("https://blurrmc.com/api/v1/apirelationships/\(relationshipId)")
         AF.request(URL.init(string: url)!, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
+            guard let response = response.data else { return }
             do {
-                JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
+                JSON = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
                 let status = JSON!["status"] as? String
                 if status == "User unfollowed" {
                     self.following = false
@@ -594,7 +600,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         let params = [
             "username": chanelVar
         ] as [String: String]
-        let url = URL(string: "https://www.blurrmc.com/api/v1/blocks/\(blockId)")
+        let url = URL(string: "https://blurrmc.com/api/v1/blocks/\(blockId)")
         AF.request(url!, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
             do {
@@ -623,7 +629,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Block the user
     func blockUser() {
         guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
-        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/blocks/")
+        let myUrl = URL(string: "https://blurrmc.com/api/v1/blocks/")
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(accessToken)",
             "Accept": "application/json"
@@ -666,7 +672,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Follow the user
     func followUser() {
         guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
-        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/apirelationships/")
+        let myUrl = URL(string: "https://blurrmc.com/api/v1/apirelationships/")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -711,7 +717,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: Check if user is following/blocking (for dropdown)
     func checkForFollowing() {
         let accessToken: String? = try? tokenValet.string(forKey: "Token")
-        let myUrl = URL(string: "https://www.blurrmc.com/api/v1/isuserfollowing/\(chanelVar).json")
+        let myUrl = URL(string: "https://blurrmc.com/api/v1/isuserfollowing/\(chanelVar).json")
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -793,7 +799,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        let url = String("https://www.blurrmc.com/api/v1/registrations/\(Id)")
+        let url = String("https://blurrmc.com/api/v1/registrations/\(Id)")
         let image = avatarImage.image///haha im small
         // let image = [UIImagePickerController.InfoKey.editedImage]
         guard let imgcompressed = image!.jpegData(compressionQuality: 0.5) else { return }
@@ -860,18 +866,20 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             "Authorization": "Bearer \(accessToken)",
             "Accept": "application/json"
         ]
-        AF.request("https://www.blurrmc.com/api/v1/channels/\(Id)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        AF.request("https://blurrmc.com/api/v1/channels/\(Id)", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             guard let data = response.data else {
-                let snackbar = TTGSnackbar(message: "Error contacting server, try again later. :(", duration: .middle)
-                DispatchQueue.main.async {
-                    snackbar.show()
-                }
                 return
             }
             var parseJSON: [String: Any]?
             do {
                 parseJSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                guard let username: String = parseJSON?["username"] as? String else { return }
+                guard let username: String = parseJSON?["username"] as? String else {
+                    let snackbar = TTGSnackbar(message: "Error contacting server, try again later. :(", duration: .middle)
+                    DispatchQueue.main.async {
+                        snackbar.show()
+                    }
+                    return
+                }
                 self.channelUsername = username
                 DispatchQueue.main.async {
                     self.navigationItem.title = "@" + username
@@ -887,7 +895,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                     self.reportButton.isHidden = true
                 }
                 let bio: String = parseJSON?["bio"] as? String ?? "No bio :("
-                guard let railsUrl = URL(string: "https://www.blurrmc.com\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
+                guard let railsUrl = URL(string: "https://blurrmc.com\(imageUrl ?? "/assets/fallback/default-avatar-3.png")") else { return }
                 DispatchQueue.main.async {
                     self.usernameLabel.text = username
                     self.nameLabel.text = name

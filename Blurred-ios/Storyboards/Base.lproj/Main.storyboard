@@ -363,7 +363,7 @@
             <objects>
                 <viewController storyboardIdentifier="ChannelVideoViewController" modalPresentationStyle="fullScreen" id="G5I-TE-yWu" customClass="ChannelVideoViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nf1-h6-kZw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="TopLeft" semanticContentAttribute="forceLeftToRight" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M0z-g3-ywo">
@@ -844,6 +844,7 @@
                             <constraint firstItem="CaP-ep-KB9" firstAttribute="height" secondItem="tn3-A8-y1F" secondAttribute="height" multiplier="0.0184697" id="VQ0-Zw-MH8"/>
                             <constraint firstItem="jPa-fX-Vjp" firstAttribute="top" secondItem="yPG-m5-oMe" secondAttribute="top" constant="39" id="YbM-iJ-NL2"/>
                             <constraint firstItem="LQW-7F-FtJ" firstAttribute="top" secondItem="yPG-m5-oMe" secondAttribute="top" constant="15" id="aZS-ZQ-7T4"/>
+                            <constraint firstItem="jPa-fX-Vjp" firstAttribute="width" secondItem="i6n-qU-tOq" secondAttribute="width" multiplier="0.98" id="boY-K2-uci"/>
                             <constraint firstItem="LQW-7F-FtJ" firstAttribute="leading" secondItem="yPG-m5-oMe" secondAttribute="leading" constant="10" id="ew7-00-exy"/>
                             <constraint firstItem="CWO-bg-LiG" firstAttribute="top" secondItem="yPG-m5-oMe" secondAttribute="top" constant="27" id="hhb-y6-Q8i"/>
                             <constraint firstItem="jPa-fX-Vjp" firstAttribute="leading" secondItem="Vxn-mI-3dZ" secondAttribute="trailing" constant="22" id="iVx-tW-a2L"/>
@@ -855,6 +856,7 @@
                             <constraint firstItem="Vxn-mI-3dZ" firstAttribute="top" secondItem="yPG-m5-oMe" secondAttribute="top" constant="39" id="pbf-jc-W9X"/>
                             <constraint firstItem="CaP-ep-KB9" firstAttribute="top" secondItem="Vxn-mI-3dZ" secondAttribute="bottom" constant="8" id="w4b-hY-Jbd"/>
                             <constraint firstItem="yPG-m5-oMe" firstAttribute="trailing" secondItem="i6n-qU-tOq" secondAttribute="trailing" constant="19" id="xPj-Hz-Gb0"/>
+                            <constraint firstItem="Vxn-mI-3dZ" firstAttribute="width" secondItem="CaP-ep-KB9" secondAttribute="width" multiplier="0.98" id="xlc-0V-Bs2"/>
                         </constraints>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
@@ -1127,11 +1129,13 @@
                             <constraint firstItem="uzw-Tq-P48" firstAttribute="top" secondItem="fB5-sr-lPI" secondAttribute="bottom" constant="34" id="LH3-T0-to2"/>
                             <constraint firstItem="sHH-62-lgO" firstAttribute="leading" secondItem="uzw-Tq-P48" secondAttribute="trailing" constant="5" id="Luu-rQ-jeQ"/>
                             <constraint firstItem="Nvd-xk-rh0" firstAttribute="leading" secondItem="oP4-gb-LJI" secondAttribute="leading" constant="15" id="MnQ-BD-61T"/>
+                            <constraint firstItem="Mta-wt-Viq" firstAttribute="width" secondItem="Qfr-oR-0FF" secondAttribute="width" multiplier="0.98" id="OcC-vl-RAB"/>
                             <constraint firstItem="5qM-ME-TeM" firstAttribute="centerY" secondItem="YMz-Hh-Adh" secondAttribute="centerY" id="Qnf-CR-ZqK"/>
                             <constraint firstItem="fB5-sr-lPI" firstAttribute="leading" secondItem="Nvd-xk-rh0" secondAttribute="trailing" constant="8" id="Sjg-ki-h7h"/>
                             <constraint firstItem="Mta-wt-Viq" firstAttribute="leading" secondItem="YSr-hM-0xL" secondAttribute="trailing" constant="22" id="SzI-uW-HHn"/>
                             <constraint firstItem="Qfr-oR-0FF" firstAttribute="leading" secondItem="sHH-62-lgO" secondAttribute="trailing" constant="21" id="VH2-6f-sfr"/>
                             <constraint firstItem="Af4-p0-Xxy" firstAttribute="trailing" secondItem="oP4-gb-LJI" secondAttribute="trailing" id="XhY-1P-tSj"/>
+                            <constraint firstItem="sHH-62-lgO" firstAttribute="width" secondItem="YSr-hM-0xL" secondAttribute="width" multiplier="1.02041" id="YEH-oR-vqV"/>
                             <constraint firstItem="uzw-Tq-P48" firstAttribute="leading" secondItem="Nvd-xk-rh0" secondAttribute="trailing" constant="8" id="YrJ-1M-8Yt"/>
                             <constraint firstItem="Nvd-xk-rh0" firstAttribute="height" secondItem="YMz-Hh-Adh" secondAttribute="height" multiplier="0.131773" id="bu5-94-LYA"/>
                             <constraint firstItem="YSr-hM-0xL" firstAttribute="leading" secondItem="fB5-sr-lPI" secondAttribute="trailing" constant="5" id="cgr-RZ-emp"/>
@@ -1949,7 +1953,7 @@ TOS and Privacy Policy</string>
         <segue reference="J7Q-1z-U6Z"/>
         <segue reference="grK-85-5Vn"/>
         <segue reference="ojZ-HU-szu"/>
-        <segue reference="APA-y0-haT"/>
+        <segue reference="kJy-kc-POk"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="12" height="10"/>

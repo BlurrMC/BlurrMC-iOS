@@ -9,21 +9,28 @@
 import UIKit
 import Valet
 
-// This controller should only be shown to the user once.
+// NOTE: This controller should only be shown to the user once.
 class EULAViewController: UIViewController {
     
+    
+    // MARK: Valet
     let myValet = Valet.valet(with: Identifier(nonEmpty: "Id")!, accessibility: .whenUnlocked)
     let tokenValet = Valet.valet(with: Identifier(nonEmpty: "Token")!, accessibility: .whenUnlocked)
 
+    
+    // MARK: View did load
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "EULA"
     }
+    
+    // MARK: EULA tap (web)
     @IBAction func EULAButtonTap(_ sender: Any) {
         guard let eulaUrl = URL(string: "https://blurrmc.com/eula/") else { return }
         UIApplication.shared.open(eulaUrl)
     }
     
+    // MARK: User agreed
     @IBAction func agreeButtonTap(_ sender: Any) {
         try? self.myValet.setString("true", forKey: "EULAAgreed")
         DispatchQueue.main.async {
@@ -33,6 +40,7 @@ class EULAViewController: UIViewController {
         }
     }
     
+    // MARK: User disagreed
     @IBAction func disagreeButtonTap(_ sender: Any) {
         try? self.myValet.setString("false", forKey: "EULAAgreed")
         try? myValet.removeObject(forKey: "Id")

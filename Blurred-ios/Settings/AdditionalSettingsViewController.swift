@@ -88,15 +88,21 @@ class AdditionalSettingsViewController: UIViewController {
         }
     }
     
-    // MARK: Go to privacy policy (web page)
+    // MARK: Go to privacy policy (web)
     @IBAction func privacyPolicyTap(_ sender: Any) {
         guard let privacyPolicyUrl = URL(string: "https://blurrmc.com/privacy_policy/") else { return }
         UIApplication.shared.open(privacyPolicyUrl)
     }
     
-    // MARK: Go to terms of service (web page)
+    // MARK: Go to terms of service (web)
     @IBAction func termsOfServiceTap(_ sender: Any) {
         guard let termsOfServiceUrl = URL(string: "https://blurrmc.com/terms_of_service/") else { return }
         UIApplication.shared.open(termsOfServiceUrl)
+    }
+    
+    // MARK: Go to EULA (web)
+    @IBAction func eulaTap(_ sender: Any) {
+        guard let eulaUrl = URL(string: "https://blurrmc.com/eula/") else { return }
+        UIApplication.shared.open(eulaUrl)
     }
 }

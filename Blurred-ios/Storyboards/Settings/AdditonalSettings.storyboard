@@ -56,18 +56,30 @@
                                     <action selector="termsOfServiceTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="SkW-Na-AaH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6wy-dx-13F">
+                                <rect key="frame" x="100" y="654" width="190" height="41"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                <state key="normal" title="EULA">
+                                    <color key="titleColor" systemColor="systemOrangeColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="eulaTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="gin-3e-A0W"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="brb-85-Fyp" firstAttribute="top" secondItem="uBZ-LD-cQZ" secondAttribute="bottom" constant="15" id="3s7-4D-dZI"/>
                             <constraint firstItem="uBZ-LD-cQZ" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.379487" id="AO7-YA-fmc"/>
+                            <constraint firstItem="6wy-dx-13F" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="100" id="Azg-iq-3ER"/>
                             <constraint firstItem="uBZ-LD-cQZ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="15" id="Gxa-SG-pQ3"/>
                             <constraint firstItem="GIY-Bm-U4c" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="IVk-Iw-CoI"/>
                             <constraint firstItem="udS-Hm-W4Z" firstAttribute="leading" secondItem="brb-85-Fyp" secondAttribute="trailing" constant="40" id="IoV-0I-EfZ"/>
                             <constraint firstItem="d22-vo-onV" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="OZh-aX-XHZ"/>
                             <constraint firstItem="brb-85-Fyp" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Pbf-Ve-bp2"/>
                             <constraint firstItem="udS-Hm-W4Z" firstAttribute="centerY" secondItem="brb-85-Fyp" secondAttribute="centerY" id="T57-3d-F0l"/>
+                            <constraint firstItem="GIY-Bm-U4c" firstAttribute="top" secondItem="6wy-dx-13F" secondAttribute="bottom" constant="15" id="Txd-UX-qwP"/>
                             <constraint firstItem="ycs-Ye-DII" firstAttribute="leading" secondItem="uBZ-LD-cQZ" secondAttribute="trailing" constant="40" id="Vrb-EP-8MY"/>
                             <constraint firstItem="d22-vo-onV" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0414692" id="Xbv-QH-sb2"/>
                             <constraint firstItem="uBZ-LD-cQZ" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="gWz-81-r2Y"/>
@@ -76,6 +88,7 @@
                             <constraint firstItem="GIY-Bm-U4c" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0414692" id="i2F-IZ-mpR"/>
                             <constraint firstItem="brb-85-Fyp" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.382051" id="ivf-ro-E83"/>
                             <constraint firstItem="GIY-Bm-U4c" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.489744" id="mRt-oj-X1I"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="6wy-dx-13F" secondAttribute="trailing" constant="100" id="nI4-vc-YUd"/>
                             <constraint firstItem="brb-85-Fyp" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0853081" id="ohw-RJ-oBl"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="d22-vo-onV" secondAttribute="bottom" constant="15" id="p8e-Gj-Pr6"/>
                             <constraint firstItem="d22-vo-onV" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.489744" id="sAD-XG-B9j"/>

@@ -555,7 +555,7 @@ extension CommentingViewController: CommentCellDelegate {
     
     
     // MARK: Report a comment
-    func reportComment(commentId: String?) {
+    func reportComment(commentId: String?, indexPath: IndexPath) {
         guard let commentId = commentId else { return }
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
@@ -566,6 +566,10 @@ extension CommentingViewController: CommentCellDelegate {
             "video_id": videoId,
             "comment_id": commentId
         ] as [String: Any]
+        DispatchQueue.main.async {
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        self.comments.remove(at: indexPath.row)
         let url = String("https://blurrmc.com/api/v1/reports")
         AF.request(URL.init(string: url)!, method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
             var JSON: [String: Any]?
@@ -593,7 +597,7 @@ extension CommentingViewController: CommentCellDelegate {
             if reply?.reported != true {
                 alert.addAction(UIAlertAction(title: "Report", style: UIAlertAction.Style.default, handler: {_ in
                     self.comments[indexPath.section].replies?[indexPath.row - 1].reported = true
-                    self.reportComment(commentId: commentId)
+                    self.reportComment(commentId: commentId, indexPath: indexPath)
                 }))
             }
             if reply?.comment_is_editable == true {
@@ -609,7 +613,7 @@ extension CommentingViewController: CommentCellDelegate {
             if comment.reported != true {
                 alert.addAction(UIAlertAction(title: "Report", style: UIAlertAction.Style.default, handler: {_ in
                     self.comments[indexPath.section].reported = true
-                    self.reportComment(commentId: commentId)
+                    self.reportComment(commentId: commentId, indexPath: indexPath)
                 }))
             }
             if comment.comment_is_editable == true {
@@ -945,36 +949,41 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as? CommentCell else { return UITableViewCell() }
             let comment = comments[indexPath.section]
+            if comment.reported != true {
+                cell.delegate = self
+                cell.comment.text = comment.body // Add handling if comment is over a certain number of characters
+                if comment.edited == true {
+                    cell.comment.text = comment.body + " (edited)"
+                }
+                cell.indexPath = indexPath
+                let likeNumber = comment.likes
+                switch likeNumber {
+                case _ where likeNumber > 1000 && likeNumber < 100000:
+                    cell.likeNumber.text = "\(likeNumber/1000).\((likeNumber/100)%10)k"
+                case _ where likeNumber > 100000 && likeNumber < 1000000:
+                    cell.likeNumber.text = "\(likeNumber/1000)k"
+                case _ where likeNumber > 1000000 && likeNumber < 100000000:
+                    cell.likeNumber.text = "\(likeNumber/1000000).\((likeNumber/1000)%10)M"
+                case _ where likeNumber > 100000000:
+                    cell.likeNumber.text = "\(likeNumber/1000000)M"
+                default:
+                    cell.likeNumber.text = "\(likeNumber)"
+                }
+                switch comment.liked {
+                case true:
+                    cell.likeButton.image = UIImage(systemName: "heart.fill")
+                    cell.likeButton.tintColor = UIColor.systemRed
+                case false:
+                    cell.likeButton.image = UIImage(systemName: "heart")
+                    cell.likeButton.tintColor = UIColor.lightGray
+                    
+                }
+            } else {
+                cell.comment.tintColor = .purple
+                cell.comment.text = "You have reported this comment."
+            }
             let usernameComment = comment.created_by
-            cell.delegate = self
-            cell.comment.text = comment.body // Add handling if comment is over a certain number of characters
-            if comment.edited == true {
-                cell.comment.text = comment.body + " (edited)"
-            }
-            cell.indexPath = indexPath
             cell.commentUsername.text = usernameComment
-            let likeNumber = comment.likes
-            switch likeNumber {
-            case _ where likeNumber > 1000 && likeNumber < 100000:
-                cell.likeNumber.text = "\(likeNumber/1000).\((likeNumber/100)%10)k"
-            case _ where likeNumber > 100000 && likeNumber < 1000000:
-                cell.likeNumber.text = "\(likeNumber/1000)k"
-            case _ where likeNumber > 1000000 && likeNumber < 100000000:
-                cell.likeNumber.text = "\(likeNumber/1000000).\((likeNumber/1000)%10)M"
-            case _ where likeNumber > 100000000:
-                cell.likeNumber.text = "\(likeNumber/1000000)M"
-            default:
-                cell.likeNumber.text = "\(likeNumber)"
-            }
-            switch comment.liked {
-            case true:
-                cell.likeButton.image = UIImage(systemName: "heart.fill")
-                cell.likeButton.tintColor = UIColor.systemRed
-            case false:
-                cell.likeButton.image = UIImage(systemName: "heart")
-                cell.likeButton.tintColor = UIColor.lightGray
-                
-            }
             AF.request("https://blurrmc.com/api/v1/channels/\(usernameComment).json").responseJSON { response in
                 guard let data = response.data else { return }
                 var JSON: [String: Any]?

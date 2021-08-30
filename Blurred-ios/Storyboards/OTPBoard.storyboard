@@ -62,11 +62,22 @@
                     <connections>
                         <outlet property="OTPCode" destination="Yxy-W9-2wY" id="ZWB-Ue-j1L"/>
                         <outlet property="loginButton" destination="jcn-IL-Xeb" id="Hmc-sZ-pxV"/>
+                        <segue destination="diw-kb-hY0" kind="show" identifier="showEULAFromOTP" id="O6R-UA-iuN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="135.38461538461539" y="55.45023696682464"/>
+        </scene>
+        <!--EULAViewController-->
+        <scene sceneID="yVm-CV-vQi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="EULAViewController" id="diw-kb-hY0" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Xy0-ZU-h9A"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9YB-by-ans" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="702" y="79"/>
         </scene>
     </scenes>
     <resources>

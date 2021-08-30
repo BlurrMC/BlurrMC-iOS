@@ -89,7 +89,6 @@ class SettingsViewController: UIViewController {
         try? myValet.removeObject(forKey: "Id") 
         try? tokenValet.removeObject(forKey: "Token")
         try? tokenValet.removeObject(forKey: "NotificationToken")
-        try? myValet.removeAllObjects()
         try? tokenValet.removeAllObjects()
         self.removeFilePath(forKey: "Avatar")
         removeNotificationTokenFromBackend()

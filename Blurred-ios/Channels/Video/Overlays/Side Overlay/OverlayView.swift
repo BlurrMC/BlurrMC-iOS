@@ -27,6 +27,7 @@ class ChannelVideoOverlayView: UIView {
     var channelReported = Bool()
     var videoReported = Bool()
     var userOwnsVideo = Bool()
+    var indexPath = IndexPath()
     
     var resizedImageProcessors: [ImageProcessing] {
         let imageSize = CGSize(width: self.videoChannel.frame.width, height: self.videoChannel.frame.height)
@@ -144,7 +145,7 @@ class ChannelVideoOverlayView: UIView {
         let alert = UIAlertController(title: "Secondary Options", message: "Please select what to do", preferredStyle: UIAlertController.Style.actionSheet)
         if self.videoReported {
             alert.addAction(UIAlertAction(title: "Report Video", style: .default, handler: {_ in
-                self.delegate?.didPressReport(videoId: self.videoId)
+                self.delegate?.didPressReport(videoId: self.videoId, videoIndex: self.indexPath)
             }))
         }
         if self.userOwnsVideo {

@@ -229,6 +229,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Report the user
     func reportUser() {
+        self.blockUser()
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",

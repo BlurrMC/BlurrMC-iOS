@@ -17,18 +17,19 @@ class ChannelVideoCellNode: ASCellNode {
     // MARK: Variables
     var videoNode: ASVideoNode
     
-    required init(with videoUrl: URL, videoId: String, doesParentHaveTabBar: Bool, firstVideo: Bool) {
+    required init(with videoUrl: URL, videoId: String, doesParentHaveTabBar: Bool, firstVideo: Bool, indexPath: IndexPath, reported: Bool) {
         self.videoNode = ASVideoNode()
         super.init()
-        self.videoNode.shouldAutoplay = true
-        self.videoNode.shouldAutorepeat = true
-        self.videoNode.muted = false
-        self.videoNode.gravity = AVLayerVideoGravity.resizeAspect.rawValue
-        DispatchQueue.main.async {
-            self.videoNode.asset = AVAsset(url: videoUrl)
+        if reported != true {
+            self.videoNode.shouldAutoplay = true
+            self.videoNode.shouldAutorepeat = true
+            self.videoNode.muted = false
+            self.videoNode.gravity = AVLayerVideoGravity.resizeAspect.rawValue
+            DispatchQueue.main.async {
+                self.videoNode.asset = AVAsset(url: videoUrl)
+            }
+            self.addSubnode(self.videoNode)
         }
-        self.addSubnode(self.videoNode)
-        
         // Overlays:
         DispatchQueue.main.async {
             // Side bar overlay
@@ -36,10 +37,12 @@ class ChannelVideoCellNode: ASCellNode {
             overlay.videoId = videoId
             overlay.videoUrl = videoUrl
             overlay.delegate = self.delegate
+            overlay.indexPath = indexPath
             
             // Description Overlay
             let overlay2 = DescriptionOverlayView()
             overlay.delegate2 = overlay2
+            overlay2.reported = reported
             
             // Add views
             self.view.addSubview(overlay2) // description
@@ -61,24 +64,25 @@ class ChannelVideoCellNode: ASCellNode {
             overlay2.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
                                              constant: -100).isActive = true
             
-            // Top Overlay
-            if firstVideo == true {
-                // Declare view
-                let topOverlay = VideoWatchingPreference()
-                topOverlay.delegate = self.delegate
-                
-                // Add view
-                self.view.addSubview(topOverlay) // top overlay
-                
-                // Add constraints
-                topOverlay.translatesAutoresizingMaskIntoConstraints = false
-                topOverlay.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
-                topOverlay.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
-                topOverlay.heightAnchor.constraint(equalToConstant: 100).isActive = true
-                topOverlay.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
-            }
             
         }
+        // Top Overlay
+        if firstVideo == true {
+            // Declare view
+            let topOverlay = VideoWatchingPreference()
+            topOverlay.delegate = self.delegate
+            
+            // Add view
+            self.view.addSubview(topOverlay) // top overlay
+            
+            // Add constraints
+            topOverlay.translatesAutoresizingMaskIntoConstraints = false
+            topOverlay.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+            topOverlay.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+            topOverlay.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            topOverlay.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+        }
+        
         
         
         

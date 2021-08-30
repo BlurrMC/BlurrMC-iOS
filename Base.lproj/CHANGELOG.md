@@ -1,4 +1,8 @@
 # Changelog
+## 1.0 (Final Release)
+### Build 3
+* Added EULA popup to the first time the user logins
+* Changed report behavior for channels, videos, and comments
 ## v0.7 (Beta Release)
 * This is the beta release of BlurrMC. The beta release includes all the software neccessary for beta testers to start testing all the functionality of the app. Any future revisions up to v1.0 will be considered a beta.
 ## v0.5 (ALPHA)

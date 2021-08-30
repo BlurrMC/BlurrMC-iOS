@@ -100,10 +100,16 @@ class OTPViewController: UIViewController {
                     guard let userId = JSON?["id"] as? String else { return }
                     try? self.tokenValet.setString(accessToken!, forKey: "Token")
                     try? self.myValet.setString(userId, forKey: "Id")
-                    DispatchQueue.main.async {
-                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        guard let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarViewController") as? UITabBarController else { return }
-                        self.present(nextViewController, animated: true, completion: nil)
+                    if try self.myValet.string(forKey: "EULAAgreed") == "true" {
+                        DispatchQueue.main.async {
+                            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                            guard let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarViewController") as? UITabBarController else { return }
+                            self.present(nextViewController, animated: true, completion: nil)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "showEULAFromOTP", sender: self)
+                        }
                     }
                 }
             } catch {

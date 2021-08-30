@@ -59,6 +59,7 @@
 		E1BA897824E18CDC0015C546 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA897624E18CDC0015C546 /* OverlayView.swift */; };
 		E1BA897924E18CDC0015C546 /* ChannelVideoOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */; };
 		E1C406DC2482853F004345BE /* OtherChannelVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */; };
+		E1D2A29C26DC701000AFAE80 /* EULAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2A29B26DC701000AFAE80 /* EULAViewController.swift */; };
 		E1D8C896246F119000F1EAD1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E1D8C895246F119000F1EAD1 /* Settings.bundle */; };
 		E1D92C9824732D6700EDABAA /* VideoPlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */; };
 		E1DF6F6A244F550300E11BF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DF6F69244F550300E11BF9 /* AppDelegate.swift */; };
@@ -168,6 +169,7 @@
 		E1BA897624E18CDC0015C546 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		E1BA897724E18CDC0015C546 /* ChannelVideoOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelVideoOverlay.xib; sourceTree = "<group>"; };
 		E1C406DB2482853F004345BE /* OtherChannelVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChannelVideoCell.swift; sourceTree = "<group>"; };
+		E1D2A29B26DC701000AFAE80 /* EULAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EULAViewController.swift; sourceTree = "<group>"; };
 		E1D8C895246F119000F1EAD1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E1D92C9724732D6700EDABAA /* VideoPlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackViewController.swift; sourceTree = "<group>"; };
 		E1DF6F66244F550300E11BF9 /* Blurred.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blurred.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -544,6 +546,7 @@
 		E1DF6F68244F550300E11BF9 /* Blurred-ios */ = {
 			isa = PBXGroup;
 			children = (
+				E1D2A29B26DC701000AFAE80 /* EULAViewController.swift */,
 				E10D2C5F266AD815001BD905 /* popupMessages.swift */,
 				E17B7AFB266C8CDD00E891FE /* Flow */,
 				E181F850264B4C8F00446AFA /* Auth */,
@@ -881,6 +884,7 @@
 				E1EC52E82481A6380086C993 /* ChannelVideoCell.swift in Sources */,
 				E1187D5A24ACB7DE00F7BFB6 /* SearchVideoCell.swift in Sources */,
 				E16CDA5826765CA900F6A695 /* NotificationSettingsViewController.swift in Sources */,
+				E1D2A29C26DC701000AFAE80 /* EULAViewController.swift in Sources */,
 				E17B7AF9266C8CCE00E891FE /* DifferencesActivityIndicatorView.swift in Sources */,
 				E162053D264DFB1700F62613 /* EnableOTPViewController.swift in Sources */,
 				E181F84F264B4C8200446AFA /* OTPViewController.swift in Sources */,
@@ -1088,7 +1092,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1128,7 +1132,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

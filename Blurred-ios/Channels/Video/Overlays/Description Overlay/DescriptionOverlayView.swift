@@ -29,6 +29,7 @@ class DescriptionOverlayView: UIView, ChannelVideoDescriptionDelegate {
     var definedDescription = String()
     var viewCount = String()
     var publishdate = String()
+    var reported: Bool = false
     
     // MARK: Outlets
     @IBOutlet weak var videoDescription: UILabel!
@@ -36,16 +37,24 @@ class DescriptionOverlayView: UIView, ChannelVideoDescriptionDelegate {
     
     // MARK: Update Outlets
     func updateDescription() {
-        switch isItSwitched {
-        case true:
-            DispatchQueue.main.async {
-                self.videoDescription.text = String("\(self.publishdate) \n\(self.viewCount)")
+        if reported != true {
+            switch isItSwitched {
+            case true:
+                DispatchQueue.main.async {
+                    self.videoDescription.text = String("\(self.publishdate) \n\(self.viewCount)")
+                }
+            case false:
+                DispatchQueue.main.async {
+                    self.videoDescription.text = self.definedDescription
+                }
             }
-        case false:
+        } else {
             DispatchQueue.main.async {
-                self.videoDescription.text = self.definedDescription
+                self.videoDescription.text = "You reported this video!"
+                self.videoDescription.tintColor = .purple
             }
         }
+        
     }
     
     // MARK: Initialize
@@ -78,31 +87,34 @@ class DescriptionOverlayView: UIView, ChannelVideoDescriptionDelegate {
     
     // MARK: Video views + publish date
     func descriptionTap() {
-        if isItSwitched == false {
-            switch views {
-            case _ where views > 1000 && views < 100000:
-                self.viewCount = "\(self.views/1000).\((self.views/100)%10)k Views"
-            case _ where views > 100000 && views < 1000000:
-                self.viewCount = "\(self.views/1000)k Views "
-            case _ where views > 1000000 && views < 100000000:
-                self.viewCount = "\(self.views/1000000).\((self.views/1000)%10)M Views"
-            case _ where views > 100000000:
-                self.viewCount = "\(self.views/1000000)M Views"
-            case _ where views == 1:
-                self.viewCount = "\(self.views) View"
-            default:
-                self.viewCount = "\(self.views) Views"
-            }
-            isItSwitched = true
-            DispatchQueue.main.async {
-                self.updateDescription()
-            }
-        } else {
-            definedDescription = videoDesc
-            isItSwitched = false
-            DispatchQueue.main.async {
-                self.updateDescription()
+        if reported != true {
+            if isItSwitched == false {
+                switch views {
+                case _ where views > 1000 && views < 100000:
+                    self.viewCount = "\(self.views/1000).\((self.views/100)%10)k Views"
+                case _ where views > 100000 && views < 1000000:
+                    self.viewCount = "\(self.views/1000)k Views "
+                case _ where views > 1000000 && views < 100000000:
+                    self.viewCount = "\(self.views/1000000).\((self.views/1000)%10)M Views"
+                case _ where views > 100000000:
+                    self.viewCount = "\(self.views/1000000)M Views"
+                case _ where views == 1:
+                    self.viewCount = "\(self.views) View"
+                default:
+                    self.viewCount = "\(self.views) Views"
+                }
+                isItSwitched = true
+                DispatchQueue.main.async {
+                    self.updateDescription()
+                }
+            } else {
+                definedDescription = videoDesc
+                isItSwitched = false
+                DispatchQueue.main.async {
+                    self.updateDescription()
+                }
             }
         }
+        
     }
 }

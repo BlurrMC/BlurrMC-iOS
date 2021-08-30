@@ -358,12 +358,148 @@
             </objects>
             <point key="canvasLocation" x="1805.5999999999999" y="-2140.6403940886698"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="x99-1B-l5M">
+            <objects>
+                <viewController storyboardIdentifier="EULAViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="txB-UC-Wfa" customClass="EULAViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="nJB-tH-dUI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EULA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9c-gE-Ibj">
+                                <rect key="frame" x="151" y="25" width="73" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUT-C9-keS">
+                                <rect key="frame" x="25" y="91" width="325" height="61"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Uploading any content to ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="BlurrMC">
+                                        <attributes>
+                                            <color key="NSColor" red="0.93971488402061853" green="0.69276905432709179" blue="0.88160118903705043" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" that goes against the EULA will result in ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="disciplinary action">
+                                        <attributes>
+                                            <color key="NSColor" red="0.794458762886598" green="0.0" blue="0.0097257778698048355" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=".">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PN0-N5-AZ1">
+                                <rect key="frame" x="100" y="202" width="175" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                <state key="normal" title="BlurrMC EULA"/>
+                                <connections>
+                                    <action selector="EULAButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="UU8-oP-ogd"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By clicking the agree button below, you agree to BlurrMC's EULA." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmB-r8-3gN">
+                                <rect key="frame" x="75" y="288" width="225" height="61"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <color key="textColor" systemColor="systemTealColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usL-ta-14o">
+                                <rect key="frame" x="25" y="547" width="325" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.58012520648106547" blue="0.55735044107153486" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="TnO-dg-hnv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Disagree">
+                                    <color key="titleColor" red="0.4056669098814738" green="0.13225895074856894" blue="0.10240739233667674" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="disagreeButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="XkT-MQ-acq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-fx-iyO">
+                                <rect key="frame" x="25" y="491" width="325" height="40"/>
+                                <color key="backgroundColor" red="0.76222706700941456" green="1" blue="0.64639478626984248" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="YJk-UW-WX8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Agree">
+                                    <color key="titleColor" red="0.11542069446410848" green="0.33394493823198923" blue="0.090509884790491671" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="agreeButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="ehc-oJ-Ww5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OSY-bH-phl"/>
+                        <constraints>
+                            <constraint firstItem="zmB-r8-3gN" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="75" id="9pE-Gp-9P1"/>
+                            <constraint firstItem="7KW-fx-iyO" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="25" id="B9h-29-iPr"/>
+                            <constraint firstItem="zmB-r8-3gN" firstAttribute="top" secondItem="PN0-N5-AZ1" secondAttribute="bottom" constant="50" id="G9F-G0-gj2"/>
+                            <constraint firstItem="Y9c-gE-Ibj" firstAttribute="centerX" secondItem="nJB-tH-dUI" secondAttribute="centerX" id="Lts-A6-NXu"/>
+                            <constraint firstItem="7KW-fx-iyO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zmB-r8-3gN" secondAttribute="bottom" constant="25" id="V2w-ZP-4xv"/>
+                            <constraint firstItem="lUT-C9-keS" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="25" id="VbY-jy-pyv"/>
+                            <constraint firstItem="PN0-N5-AZ1" firstAttribute="top" secondItem="lUT-C9-keS" secondAttribute="bottom" constant="50" id="YcX-V3-eyK"/>
+                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="usL-ta-14o" secondAttribute="trailing" constant="25" id="ZP2-3N-B95"/>
+                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="zmB-r8-3gN" secondAttribute="trailing" constant="75" id="e29-gs-zh2"/>
+                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="PN0-N5-AZ1" secondAttribute="trailing" constant="100" id="emM-WY-ZTf"/>
+                            <constraint firstItem="Y9c-gE-Ibj" firstAttribute="top" secondItem="OSY-bH-phl" secondAttribute="top" constant="25" id="fET-z0-v4f"/>
+                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="7KW-fx-iyO" secondAttribute="trailing" constant="25" id="j4s-3G-vcc"/>
+                            <constraint firstItem="usL-ta-14o" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="25" id="lTG-To-CAl"/>
+                            <constraint firstItem="lUT-C9-keS" firstAttribute="top" secondItem="Y9c-gE-Ibj" secondAttribute="bottom" constant="30" id="s5d-ls-goX"/>
+                            <constraint firstItem="usL-ta-14o" firstAttribute="top" secondItem="7KW-fx-iyO" secondAttribute="bottom" constant="16" id="uVH-j2-PxK"/>
+                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="lUT-C9-keS" secondAttribute="trailing" constant="25" id="uVf-fd-O7T"/>
+                            <constraint firstItem="PN0-N5-AZ1" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="100" id="xF1-eY-0q3"/>
+                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="bottom" secondItem="usL-ta-14o" secondAttribute="bottom" constant="25" id="z3h-Ow-fId"/>
+                        </constraints>
+                        <viewLayoutGuide key="contentLayoutGuide" id="a6d-bs-p81"/>
+                        <viewLayoutGuide key="frameLayoutGuide" id="TtJ-Em-yaR"/>
+                    </scrollView>
+                    <navigationItem key="navigationItem" id="TY6-rJ-yi1"/>
+                    <size key="freeformSize" width="375" height="700"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vQ1-5r-t52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-324" y="947"/>
+        </scene>
         <!--Channel Video View Controller-->
         <scene sceneID="jnm-ht-vZm">
             <objects>
                 <viewController storyboardIdentifier="ChannelVideoViewController" modalPresentationStyle="fullScreen" id="G5I-TE-yWu" customClass="ChannelVideoViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nf1-h6-kZw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="TopLeft" semanticContentAttribute="forceLeftToRight" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M0z-g3-ywo">
@@ -1030,7 +1166,6 @@
                                 <rect key="frame" x="235" y="95" width="49" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="LpO-1i-gSY"/>
-                                    <constraint firstAttribute="width" constant="49" id="bfD-KQ-rpz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="1" green="0.77996477649999996" blue="0.95862302509999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1518,6 +1653,7 @@
                         <outlet property="passwordTextField" destination="5fm-9y-UjU" id="Qyy-xS-Djs"/>
                         <outlet property="usernameTextField" destination="qpU-iK-3sJ" id="ji4-4X-4qd"/>
                         <segue destination="K2Z-7a-mYa" kind="show" identifier="showOTP" id="QXl-s5-YbO"/>
+                        <segue destination="txB-UC-Wfa" kind="show" identifier="showEULA" id="Ihy-vJ-6el"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ExS-4M-l0k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1948,12 +2084,12 @@ TOS and Privacy Policy</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kHw-nu-gLE"/>
-        <segue reference="xcm-IK-Wan"/>
+        <segue reference="exv-N4-hW9"/>
+        <segue reference="745-eJ-5Gd"/>
         <segue reference="J7Q-1z-U6Z"/>
         <segue reference="grK-85-5Vn"/>
         <segue reference="ojZ-HU-szu"/>
-        <segue reference="kJy-kc-POk"/>
+        <segue reference="qUe-BW-JJn"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" width="12" height="10"/>
@@ -1995,6 +2131,9 @@ TOS and Privacy Policy</string>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

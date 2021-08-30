@@ -23,7 +23,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     }
     
     // MARK: Did press report
-    func didPressReport(videoId: String) {
+    func didPressReport(videoId: String, videoIndex: IndexPath) {
         popupMessages().showMessageWithOptions(title: "Hey!", message: "Are you sure that you would like to report this video?", firstOptionTitle: "Yes", secondOptionTitle: "Nahhhh", viewController: self, {
             guard let token: String = try? self.tokenValet.string(forKey: "Token") else { return }
             let headers: HTTPHeaders = [
@@ -33,6 +33,10 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
             let params = [
                 "video_id": videoId
             ]
+            DispatchQueue.main.async {
+                self.tableNode.deleteRows(at: [videoIndex], with: .automatic)
+            }
+            self.videos.remove(at: videoIndex.row)
             AF.request("https://blurrmc.com/api/v1/reports", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                 guard let response = response.data else {
                     let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
@@ -256,9 +260,11 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     class Video: Codable {
         let videourl: String
         let videoid: String
-        init(videourl: String, videoid: String) {
+        let reported: Bool
+        init(videourl: String, videoid: String, reported: Bool) {
             self.videourl = videourl
             self.videoid = videoid
+            self.reported = reported
         }
     }
     
@@ -286,13 +292,13 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     
     // MARK: Download channel videos
     func channelVideoIds() {
-        let url = URL(string: "https://blurrmc.com/api/v1/channelvideos/\(channelId).json")
-        guard let downloadURL = url else { return }
-        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-            guard let data = data, error == nil, urlResponse != nil else {
-                print("error code: 1kdm03o4-2")
-                return
-            }
+        guard let token: String = try? self.tokenValet.string(forKey: "Token") else { return }
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        AF.request("https://blurrmc.com/api/v1/channelvideos/\(channelId).json", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+            guard let data = response.data else { return }
             do {
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
@@ -307,7 +313,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                 print("\(self.channelId)")
                 return
             }
-        }.resume()
+        }
     }
     
     // MARK: New rows for table node
@@ -360,7 +366,7 @@ extension ChannelVideoViewController: ASTableDataSource {
             let videoId = self.videos[indexPath.row].videoid
             let videoUrl = URL(string: videourll)
             return {
-                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: false, firstVideo: false)
+                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported)
                 node.delegate = self
                 node.debugName = "\(self.videos[indexPath.row].videoid)"
                 return node
@@ -368,7 +374,7 @@ extension ChannelVideoViewController: ASTableDataSource {
         } else {
             let url = URL(string: videoUrlString)!
             return {
-                let node = ChannelVideoCellNode(with: url, videoId: self.videoString, doesParentHaveTabBar: false, firstVideo: false)
+                let node = ChannelVideoCellNode(with: url, videoId: self.videoString, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported)
                 node.delegate = self
                 node.debugName = "\(self.videoString)"
                 return node

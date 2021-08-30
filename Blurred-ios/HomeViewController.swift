@@ -18,7 +18,6 @@ import TTGSnackbar
 class HomeViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIScrollViewDelegate, ChannelVideoOverlayViewDelegate {
     
     
-    
     // MARK: Present Alert
     // This is for alerts from the overlay view
     func willPresentAlert(alertController: UIAlertController) {
@@ -28,7 +27,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     }
     
     // MARK: Report from delegate
-    func didPressReport(videoId: String) {
+    func didPressReport(videoId: String, videoIndex: IndexPath) {
         popupMessages().showMessageWithOptions(title: "Hey!", message: "Are you sure that you would like to report this video?", firstOptionTitle: "Yes", secondOptionTitle: "Nahhhh", viewController: self, {
             guard let token: String = try? self.tokenValet.string(forKey: "Token") else { return }
             let headers: HTTPHeaders = [
@@ -38,6 +37,10 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             let params = [
                 "video_id": videoId
             ]
+            DispatchQueue.main.async {
+                self.tableNode.deleteRows(at: [videoIndex], with: .automatic)
+            }
+            self.videos.remove(at: videoIndex.row)
             AF.request("https://blurrmc.com/api/v1/reports", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
                 guard let response = response.data else {
                     let snackbar = TTGSnackbar(message: "Error reporting the video. Maybe try later.", duration: .middle)
@@ -276,9 +279,11 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     class Video: Codable {
         let videourl: String
         let videoid: String
-        init(videourl: String, videoid: String) {
+        let reported: Bool
+        init(videourl: String, videoid: String, reported: Bool) {
             self.videourl = videourl
             self.videoid = videoid
+            self.reported = reported
         }
     }
 
@@ -534,7 +539,7 @@ extension HomeViewController: ASTableDataSource {
             firstVideo = true
         }
         return {
-            let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true, firstVideo: firstVideo)
+            let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true, firstVideo: firstVideo, indexPath: indexPath, reported: self.videos[indexPath.row].reported)
             node.delegate = self
             node.debugName = "\(self.videos[indexPath.row].videoid)"
             return node

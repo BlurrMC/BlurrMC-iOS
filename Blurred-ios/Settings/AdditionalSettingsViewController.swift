@@ -100,9 +100,16 @@ class AdditionalSettingsViewController: UIViewController {
         UIApplication.shared.open(termsOfServiceUrl)
     }
     
-    // MARK: Go to EULA (web)
-    @IBAction func eulaTap(_ sender: Any) {
-        guard let eulaUrl = URL(string: "https://blurrmc.com/eula/") else { return }
-        UIApplication.shared.open(eulaUrl)
+    // MARK: Pass data through segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.destination {
+        case is EULAViewController:
+            let vc = segue.destination as? EULAViewController
+            if segue.identifier == "showEulaAgain" {
+                vc?.alreadySeen = true
+            }
+        default:
+            break
+        }
     }
 }

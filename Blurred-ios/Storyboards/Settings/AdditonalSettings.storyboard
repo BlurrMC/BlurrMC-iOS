@@ -63,7 +63,7 @@
                                     <color key="titleColor" systemColor="systemOrangeColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="eulaTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="gin-3e-A0W"/>
+                                    <segue destination="6Ox-dk-bmr" kind="show" identifier="showEulaAgain" id="WHy-BB-BZ7"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -103,6 +103,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="41.53846153846154" y="55.45023696682464"/>
+        </scene>
+        <!--EULAViewController-->
+        <scene sceneID="yYa-TR-N0H">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="EULAViewController" id="6Ox-dk-bmr" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="nBb-HL-HIF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wc3-lD-CcN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="615" y="55"/>
         </scene>
     </scenes>
     <resources>

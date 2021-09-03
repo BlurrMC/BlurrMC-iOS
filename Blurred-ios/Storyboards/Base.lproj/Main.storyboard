@@ -362,18 +362,18 @@
         <scene sceneID="x99-1B-l5M">
             <objects>
                 <viewController storyboardIdentifier="EULAViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="txB-UC-Wfa" customClass="EULAViewController" customModule="Blurred" customModuleProvider="target" sceneMemberID="viewController">
-                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="nJB-tH-dUI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
+                    <view key="view" contentMode="scaleToFill" id="T55-fa-Ts5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EULA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9c-gE-Ibj">
-                                <rect key="frame" x="151" y="25" width="73" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EULA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fu9-og-5f4">
+                                <rect key="frame" x="125" y="113" width="125" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUT-C9-keS">
-                                <rect key="frame" x="25" y="91" width="325" height="61"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g25-fK-oqH">
+                                <rect key="frame" x="25" y="179" width="325" height="61"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Uploading any content to ">
                                         <attributes>
@@ -410,29 +410,29 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PN0-N5-AZ1">
-                                <rect key="frame" x="100" y="202" width="175" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbb-zq-4bs">
+                                <rect key="frame" x="50" y="290" width="275" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <state key="normal" title="BlurrMC EULA"/>
                                 <connections>
-                                    <action selector="EULAButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="UU8-oP-ogd"/>
+                                    <action selector="EULAButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="pIN-Ku-mSe"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By clicking the agree button below, you agree to BlurrMC's EULA." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmB-r8-3gN">
-                                <rect key="frame" x="75" y="288" width="225" height="61"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By clicking the agree button below, you agree to BlurrMC's EULA." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94q-Jz-Lc8">
+                                <rect key="frame" x="25" y="376" width="325" height="40.666666666666686"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <color key="textColor" systemColor="systemTealColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usL-ta-14o">
-                                <rect key="frame" x="25" y="547" width="325" height="40"/>
-                                <color key="backgroundColor" red="1" green="0.58012520648106547" blue="0.55735044107153486" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FbO-hB-sVJ">
+                                <rect key="frame" x="25" y="647" width="325" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.58012520649999999" blue="0.55735044109999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="TnO-dg-hnv"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="zAO-xM-gPK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Disagree">
-                                    <color key="titleColor" red="0.4056669098814738" green="0.13225895074856894" blue="0.10240739233667674" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="0.40566690989999998" green="0.13225895069999999" blue="0.1024073923" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -440,18 +440,18 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="disagreeButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="XkT-MQ-acq"/>
+                                    <action selector="disagreeButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="uMC-qd-OOC"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KW-fx-iyO">
-                                <rect key="frame" x="25" y="491" width="325" height="40"/>
-                                <color key="backgroundColor" red="0.76222706700941456" green="1" blue="0.64639478626984248" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9He-pt-b1H">
+                                <rect key="frame" x="25" y="591" width="325" height="40"/>
+                                <color key="backgroundColor" red="0.76222706699999998" green="1" blue="0.64639478630000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="YJk-UW-WX8"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="sF3-rS-iJ6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Agree">
-                                    <color key="titleColor" red="0.11542069446410848" green="0.33394493823198923" blue="0.090509884790491671" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="0.1154206945" green="0.33394493819999999" blue="0.090509884789999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -459,36 +459,34 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="agreeButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="ehc-oJ-Ww5"/>
+                                    <action selector="agreeButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="OLt-pc-ols"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="OSY-bH-phl"/>
+                        <viewLayoutGuide key="safeArea" id="FpE-lE-mQW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="zmB-r8-3gN" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="75" id="9pE-Gp-9P1"/>
-                            <constraint firstItem="7KW-fx-iyO" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="25" id="B9h-29-iPr"/>
-                            <constraint firstItem="zmB-r8-3gN" firstAttribute="top" secondItem="PN0-N5-AZ1" secondAttribute="bottom" constant="50" id="G9F-G0-gj2"/>
-                            <constraint firstItem="Y9c-gE-Ibj" firstAttribute="centerX" secondItem="nJB-tH-dUI" secondAttribute="centerX" id="Lts-A6-NXu"/>
-                            <constraint firstItem="7KW-fx-iyO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zmB-r8-3gN" secondAttribute="bottom" constant="25" id="V2w-ZP-4xv"/>
-                            <constraint firstItem="lUT-C9-keS" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="25" id="VbY-jy-pyv"/>
-                            <constraint firstItem="PN0-N5-AZ1" firstAttribute="top" secondItem="lUT-C9-keS" secondAttribute="bottom" constant="50" id="YcX-V3-eyK"/>
-                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="usL-ta-14o" secondAttribute="trailing" constant="25" id="ZP2-3N-B95"/>
-                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="zmB-r8-3gN" secondAttribute="trailing" constant="75" id="e29-gs-zh2"/>
-                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="PN0-N5-AZ1" secondAttribute="trailing" constant="100" id="emM-WY-ZTf"/>
-                            <constraint firstItem="Y9c-gE-Ibj" firstAttribute="top" secondItem="OSY-bH-phl" secondAttribute="top" constant="25" id="fET-z0-v4f"/>
-                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="7KW-fx-iyO" secondAttribute="trailing" constant="25" id="j4s-3G-vcc"/>
-                            <constraint firstItem="usL-ta-14o" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="25" id="lTG-To-CAl"/>
-                            <constraint firstItem="lUT-C9-keS" firstAttribute="top" secondItem="Y9c-gE-Ibj" secondAttribute="bottom" constant="30" id="s5d-ls-goX"/>
-                            <constraint firstItem="usL-ta-14o" firstAttribute="top" secondItem="7KW-fx-iyO" secondAttribute="bottom" constant="16" id="uVH-j2-PxK"/>
-                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="trailing" secondItem="lUT-C9-keS" secondAttribute="trailing" constant="25" id="uVf-fd-O7T"/>
-                            <constraint firstItem="PN0-N5-AZ1" firstAttribute="leading" secondItem="TtJ-Em-yaR" secondAttribute="leading" constant="100" id="xF1-eY-0q3"/>
-                            <constraint firstItem="TtJ-Em-yaR" firstAttribute="bottom" secondItem="usL-ta-14o" secondAttribute="bottom" constant="25" id="z3h-Ow-fId"/>
+                            <constraint firstItem="94q-Jz-Lc8" firstAttribute="top" secondItem="rbb-zq-4bs" secondAttribute="bottom" constant="50" id="33a-Kv-LEO"/>
+                            <constraint firstItem="FbO-hB-sVJ" firstAttribute="leading" secondItem="FpE-lE-mQW" secondAttribute="leading" constant="25" id="3ru-jR-pN7"/>
+                            <constraint firstItem="FpE-lE-mQW" firstAttribute="trailing" secondItem="9He-pt-b1H" secondAttribute="trailing" constant="25" id="5TA-bG-pWl"/>
+                            <constraint firstItem="FpE-lE-mQW" firstAttribute="trailing" secondItem="Fu9-og-5f4" secondAttribute="trailing" constant="125" id="73n-oW-lms"/>
+                            <constraint firstItem="94q-Jz-Lc8" firstAttribute="leading" secondItem="FpE-lE-mQW" secondAttribute="leading" constant="25" id="9wW-Dy-fGg"/>
+                            <constraint firstItem="rbb-zq-4bs" firstAttribute="leading" secondItem="FpE-lE-mQW" secondAttribute="leading" constant="50" id="FnR-L3-KJf"/>
+                            <constraint firstItem="FpE-lE-mQW" firstAttribute="trailing" secondItem="g25-fK-oqH" secondAttribute="trailing" constant="25" id="NtV-Mn-mOX"/>
+                            <constraint firstItem="rbb-zq-4bs" firstAttribute="top" secondItem="g25-fK-oqH" secondAttribute="bottom" constant="50" id="OnZ-ZG-Pz3"/>
+                            <constraint firstItem="FbO-hB-sVJ" firstAttribute="top" secondItem="9He-pt-b1H" secondAttribute="bottom" constant="16" id="RjF-jO-lvc"/>
+                            <constraint firstItem="9He-pt-b1H" firstAttribute="top" relation="greaterThanOrEqual" secondItem="94q-Jz-Lc8" secondAttribute="bottom" constant="25" id="RsC-4R-s3V"/>
+                            <constraint firstItem="FpE-lE-mQW" firstAttribute="trailing" secondItem="rbb-zq-4bs" secondAttribute="trailing" constant="50" id="SAW-P3-xfv"/>
+                            <constraint firstItem="Fu9-og-5f4" firstAttribute="leading" secondItem="FpE-lE-mQW" secondAttribute="leading" constant="125" id="b5C-us-zhO"/>
+                            <constraint firstItem="9He-pt-b1H" firstAttribute="leading" secondItem="FpE-lE-mQW" secondAttribute="leading" constant="25" id="bta-dr-T9U"/>
+                            <constraint firstItem="FpE-lE-mQW" firstAttribute="trailing" secondItem="94q-Jz-Lc8" secondAttribute="trailing" constant="25" id="evd-aV-3ev"/>
+                            <constraint firstItem="Fu9-og-5f4" firstAttribute="top" secondItem="FpE-lE-mQW" secondAttribute="top" constant="25" id="khL-v0-NnY"/>
+                            <constraint firstItem="g25-fK-oqH" firstAttribute="leading" secondItem="FpE-lE-mQW" secondAttribute="leading" constant="25" id="lYI-Eq-dk3"/>
+                            <constraint firstItem="FpE-lE-mQW" firstAttribute="trailing" secondItem="FbO-hB-sVJ" secondAttribute="trailing" constant="25" id="rgS-Kh-hSi"/>
+                            <constraint firstItem="g25-fK-oqH" firstAttribute="top" secondItem="Fu9-og-5f4" secondAttribute="bottom" constant="30" id="t63-WN-7QZ"/>
                         </constraints>
-                        <viewLayoutGuide key="contentLayoutGuide" id="a6d-bs-p81"/>
-                        <viewLayoutGuide key="frameLayoutGuide" id="TtJ-Em-yaR"/>
-                    </scrollView>
+                    </view>
                     <navigationItem key="navigationItem" id="TY6-rJ-yi1"/>
-                    <size key="freeformSize" width="375" height="700"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQ1-5r-t52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -594,6 +592,126 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lmf-SX-vhn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1806" y="-1411"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tgY-TV-zer">
+            <objects>
+                <viewController id="0bd-bo-C1L" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qz7-ba-ZWD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="EULA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9VT-lY-dhx">
+                                <rect key="frame" x="151" y="142" width="73" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-8r-PvP">
+                                <rect key="frame" x="25" y="208" width="325" height="61"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Uploading any content to ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="BlurrMC">
+                                        <attributes>
+                                            <color key="NSColor" red="0.93971488402061853" green="0.69276905432709179" blue="0.88160118903705043" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" that goes against the EULA will result in ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="disciplinary action">
+                                        <attributes>
+                                            <color key="NSColor" red="0.794458762886598" green="0.0" blue="0.0097257778698048355" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=".">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaV-NF-lsN">
+                                <rect key="frame" x="100" y="319" width="175" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                <state key="normal" title="BlurrMC EULA"/>
+                                <connections>
+                                    <action selector="EULAButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="JXf-YN-bQF"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="By clicking the agree button below, you agree to BlurrMC's EULA." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDc-gf-eVO">
+                                <rect key="frame" x="75" y="405" width="225" height="61"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <color key="textColor" systemColor="systemTealColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OlO-eT-Zsa">
+                                <rect key="frame" x="25" y="664" width="325" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.58012520649999999" blue="0.55735044109999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="U9T-ZM-TFt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Disagree">
+                                    <color key="titleColor" red="0.40566690989999998" green="0.13225895069999999" blue="0.1024073923" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="disagreeButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="eHy-Pw-uUn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4e-LO-4p3">
+                                <rect key="frame" x="25" y="608" width="325" height="40"/>
+                                <color key="backgroundColor" red="0.76222706699999998" green="1" blue="0.64639478630000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="AUG-hU-rm7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Agree">
+                                    <color key="titleColor" red="0.1154206945" green="0.33394493819999999" blue="0.090509884789999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="agreeButtonTap:" destination="txB-UC-Wfa" eventType="touchUpInside" id="R9G-MT-b3l"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="AVr-On-f3u"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Gdw-8r-PvP" firstAttribute="top" secondItem="9VT-lY-dhx" secondAttribute="bottom" constant="30" id="0j4-Ck-zjn"/>
+                            <constraint firstItem="ZaV-NF-lsN" firstAttribute="top" secondItem="Gdw-8r-PvP" secondAttribute="bottom" constant="50" id="4CU-jY-4xF"/>
+                            <constraint firstItem="oDc-gf-eVO" firstAttribute="top" secondItem="ZaV-NF-lsN" secondAttribute="bottom" constant="50" id="MUs-Qs-MNA"/>
+                            <constraint firstItem="M4e-LO-4p3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="oDc-gf-eVO" secondAttribute="bottom" constant="25" id="b61-df-A8G"/>
+                            <constraint firstItem="OlO-eT-Zsa" firstAttribute="top" secondItem="M4e-LO-4p3" secondAttribute="bottom" constant="16" id="gcw-Dd-mk0"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6zu-UP-GQR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="141" y="375"/>
         </scene>
         <!--Main Tab Bar View Controller-->
         <scene sceneID="yl2-sM-qoP">

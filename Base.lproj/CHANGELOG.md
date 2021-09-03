@@ -1,4 +1,6 @@
 # Changelog
+## 1.5
+* Fixed login bug
 ## 1.0 (Final Release)
 ### Build 3
 * Added EULA popup to the first time the user logins

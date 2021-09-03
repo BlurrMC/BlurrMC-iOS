@@ -556,9 +556,9 @@
 				E196F5F324A8D5AE001BE742 /* Recording Related Views */,
 				E15D6FC524BA5E4C00CC1E0E /* Storyboards */,
 				E196F5F524A8D626001BE742 /* Settings */,
+				E1E6F163261674C800783952 /* Blurred.entitlements */,
 				5B2527AD2484388C0014F6CA /* Assets.xcassets */,
 				E1DF6F69244F550300E11BF9 /* AppDelegate.swift */,
-				E1E6F163261674C800783952 /* Blurred.entitlements */,
 				E1DF6F74244F550300E11BF9 /* Blurred_ios.xcdatamodeld */,
 				E19286EB24D72F1B00382D98 /* Blurred-ios-Bridging-Header.h */,
 				E1BA897024E0427A0015C546 /* CacheManager.swift */,
@@ -1092,7 +1092,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1111,7 +1111,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1132,7 +1132,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Blurred-ios/Blurred.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 693PKCRWW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1151,7 +1151,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";

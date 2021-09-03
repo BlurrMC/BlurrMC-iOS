@@ -152,7 +152,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
                             try? self.tokenValet.setString(accessToken!, forKey: "Token")
                             try? self.myValet.setString(userId, forKey: "Id")
                             self.removeActivityIndicator(activityIndicator: myActivityIndicator)
-                            if try self.myValet.string(forKey: "EULAAgreed") == "true" {
+                            if ((try? self.myValet.string(forKey: "EULAAgreed") == "true") != nil) {
                                 DispatchQueue.main.async {
                                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                                     guard let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarViewController") as? UITabBarController else { return } /// Using segue would be better, but I don't have time to change that. It's 8:55 pm. Definetly past my bed time.

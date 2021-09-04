@@ -1622,9 +1622,9 @@
             filePath = "Blurred-ios/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
-            landmarkName = "insertNewRowsInTableNode(newVideos:)"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
+            landmarkName = "tableNode(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2022,8 +2022,8 @@
             filePath = "Blurred-ios/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "413"
-            endingLineNumber = "413"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "checkUser()"
             landmarkType = "7">
          </BreakpointContent>

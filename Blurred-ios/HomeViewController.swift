@@ -409,7 +409,19 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     // MARK: Check user's account to make sure it's valid
     func checkUser() {
-        guard let accessToken: String = try? tokenValet.string(forKey: "Token") else { return }
+        guard let accessToken: String = try? tokenValet.string(forKey: "Token") else {
+            try? self.myValet.removeObject(forKey: "Id")
+            try? self.tokenValet.removeObject(forKey: "Token")
+            try? self.tokenValet.removeObject(forKey: "NotificationToken")
+            try? self.myValet.removeAllObjects()
+            try? self.tokenValet.removeAllObjects()
+            let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
+            self.present(loginPage, animated:false, completion:nil)
+            self.window =  UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController = loginPage
+            self.window?.makeKeyAndVisible()
+            return
+        }
         guard let userId: String = try? myValet.string(forKey: "Id") else { return }
         guard let myUrl = URL(string: "https://blurrmc.com/api/v1/isuservalid/\(userId)") else { return }
         var request = URLRequest(url:myUrl)

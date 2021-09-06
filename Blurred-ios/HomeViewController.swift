@@ -78,12 +78,6 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         self.watchingPreference = newPreference
         self.homeFeedRequest()
     }
-    
-    // Variables
-    var watchingPreference: WatchingPreference = .following
-    var shouldBatchFetch = true
-    var oldVideoCount = 0
-    var resizedImageProcessors = [ImageProcessing]()
 
     @IBOutlet weak var progressView: UIProgressView!
     
@@ -181,8 +175,16 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
                 self.videos = downloadedVideo.videos
-                DispatchQueue.main.async {
-                    self.tableNode.reloadData()
+                if self.videos.count != 0 {
+                    DispatchQueue.main.async {
+                        self.tableNode.reloadData()
+                    }
+                } else {
+                    self.watchingPreference = .trending
+                    self.shouldShowPreference = false
+                    self.homeFeedRequest()
+                    // Explanation for this:
+                    /// This code will make it so the user only sees trending videos. This is caused by the user if they are not following anybody. If this code was not here, then whenever the user was not following anyone then they would see nothing and not be able to switch over to trending and watch anything in the home page.
                 }
             } catch {
                 print("error code: 1kasfio23uena, controller: homeview, error: \(error)")
@@ -266,6 +268,11 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     var name = String()
     var reported = Bool()
     var blocked = Bool()
+    var watchingPreference: WatchingPreference = .following
+    var shouldBatchFetch = true
+    var oldVideoCount = 0
+    var resizedImageProcessors = [ImageProcessing]()
+    var shouldShowPreference: Bool = true
     
     
     // MARK: Videos downloaded
@@ -546,12 +553,11 @@ extension HomeViewController: ASTableDataSource {
         let videourll = self.videos[indexPath.row].videourl
         let videoId = self.videos[indexPath.row].videoid
         let videoUrl = URL(string: videourll)
-        var firstVideo: Bool = false
-        if indexPath.row == 1 {
-            firstVideo = true
+        var firstVideo: Bool {
+            return indexPath.row == 0
         }
         return {
-            let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true, firstVideo: firstVideo, indexPath: indexPath, reported: self.videos[indexPath.row].reported)
+            let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true, firstVideo: firstVideo, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: self.watchingPreference, shouldShowPreferences: self.shouldShowPreference)
             node.delegate = self
             node.debugName = "\(self.videos[indexPath.row].videoid)"
             return node

@@ -366,7 +366,7 @@ extension ChannelVideoViewController: ASTableDataSource {
             let videoId = self.videos[indexPath.row].videoid
             let videoUrl = URL(string: videourll)
             return {
-                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported)
+                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: .following, shouldShowPreferences: false)
                 node.delegate = self
                 node.debugName = "\(self.videos[indexPath.row].videoid)"
                 return node
@@ -374,7 +374,7 @@ extension ChannelVideoViewController: ASTableDataSource {
         } else {
             let url = URL(string: videoUrlString)!
             return {
-                let node = ChannelVideoCellNode(with: url, videoId: self.videoString, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported)
+                let node = ChannelVideoCellNode(with: url, videoId: self.videoString, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: .following, shouldShowPreferences: false)
                 node.delegate = self
                 node.debugName = "\(self.videoString)"
                 return node

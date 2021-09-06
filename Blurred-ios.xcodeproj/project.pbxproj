@@ -501,6 +501,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		E1B356D826E5988D00367997 /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				E1FE808026726D2F007036E7 /* VideoWatchingPreference.xib */,
+			);
+			path = XIB;
+			sourceTree = "<group>";
+		};
 		E1BA897424E18C680015C546 /* Overlays */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,7 +606,7 @@
 			isa = PBXGroup;
 			children = (
 				E1FE807E26726D1A007036E7 /* VideoWatchingPreference.swift */,
-				E1FE808026726D2F007036E7 /* VideoWatchingPreference.xib */,
+				E1B356D826E5988D00367997 /* XIB */,
 			);
 			path = "Top Overlay";
 			sourceTree = "<group>";
@@ -1111,7 +1119,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1151,7 +1159,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blurrmc.blurrmc;
 				PRODUCT_NAME = Blurred;
 				PROVISIONING_PROFILE_SPECIFIER = "";

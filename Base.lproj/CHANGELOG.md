@@ -1,4 +1,9 @@
 # Changelog
+## 3.0
+* Added code to make "BlurrMC servers are currently offline" appear (under additionalsettings storyboard)
+## 2.5
+* Fixed switches between following and trending videos.
+* Fixed upload bug.
 ## 1.5
 * Fixed login bug
 ## 1.0 (Final Release)

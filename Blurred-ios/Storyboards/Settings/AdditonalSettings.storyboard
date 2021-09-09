@@ -114,8 +114,62 @@
             </objects>
             <point key="canvasLocation" x="615" y="55"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="SoK-8c-pvs">
+            <objects>
+                <viewController storyboardIdentifier="BlurrMCOfflineViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ozx-wt-I3X" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e75-2m-fL1">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="server.rack" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="U5J-EO-vXS">
+                                <rect key="frame" x="146.66666666666666" y="258.33333333333337" width="97" height="78.000000000000028"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BlurrMC is currently offline" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jnb-Ab-X2T">
+                                <rect key="frame" x="0.0" y="407.66666666666669" width="390" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We're dusting off the servers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2m-fC-LTr">
+                                <rect key="frame" x="0.0" y="451.66666666666669" width="390" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hbH-mI-RkT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="n2m-fC-LTr" firstAttribute="top" secondItem="Jnb-Ab-X2T" secondAttribute="bottom" constant="15" id="FgT-Gs-1nD"/>
+                            <constraint firstItem="hbH-mI-RkT" firstAttribute="trailing" secondItem="n2m-fC-LTr" secondAttribute="trailing" id="Ja2-je-5Rx"/>
+                            <constraint firstItem="U5J-EO-vXS" firstAttribute="width" secondItem="e75-2m-fL1" secondAttribute="width" multiplier="0.248718" id="YKt-rS-U7X"/>
+                            <constraint firstItem="n2m-fC-LTr" firstAttribute="leading" secondItem="hbH-mI-RkT" secondAttribute="leading" id="YNM-lp-1tn"/>
+                            <constraint firstItem="hbH-mI-RkT" firstAttribute="trailing" secondItem="Jnb-Ab-X2T" secondAttribute="trailing" id="aiR-S5-CEa"/>
+                            <constraint firstItem="Jnb-Ab-X2T" firstAttribute="centerX" secondItem="e75-2m-fL1" secondAttribute="centerX" id="cNM-Gd-dlQ"/>
+                            <constraint firstItem="U5J-EO-vXS" firstAttribute="centerX" secondItem="e75-2m-fL1" secondAttribute="centerX" id="dHU-1x-B1L"/>
+                            <constraint firstItem="Jnb-Ab-X2T" firstAttribute="leading" secondItem="hbH-mI-RkT" secondAttribute="leading" id="lf0-gE-d9O"/>
+                            <constraint firstItem="U5J-EO-vXS" firstAttribute="centerY" secondItem="e75-2m-fL1" secondAttribute="centerY" constant="-125" id="na9-Id-N9v"/>
+                            <constraint firstItem="U5J-EO-vXS" firstAttribute="height" secondItem="e75-2m-fL1" secondAttribute="height" multiplier="0.0959716" id="qdn-bj-duG"/>
+                            <constraint firstItem="U5J-EO-vXS" firstAttribute="width" secondItem="e75-2m-fL1" secondAttribute="height" multiplier="97:844" id="qhV-hQ-dfw"/>
+                            <constraint firstItem="Jnb-Ab-X2T" firstAttribute="centerY" secondItem="e75-2m-fL1" secondAttribute="centerY" id="v53-GE-fWe"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qc7-e5-SJX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1195" y="55"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="server.rack" catalog="system" width="128" height="93"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

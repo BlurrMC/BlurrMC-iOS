@@ -422,11 +422,13 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             try? self.tokenValet.removeObject(forKey: "NotificationToken")
             try? self.myValet.removeAllObjects()
             try? self.tokenValet.removeAllObjects()
-            let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
-            self.present(loginPage, animated:false, completion:nil)
-            self.window =  UIWindow(frame: UIScreen.main.bounds)
-            self.window?.rootViewController = loginPage
-            self.window?.makeKeyAndVisible()
+            DispatchQueue.main.async {
+                let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
+                self.present(loginPage, animated:false, completion:nil)
+                self.window =  UIWindow(frame: UIScreen.main.bounds)
+                self.window?.rootViewController = loginPage
+                self.window?.makeKeyAndVisible()
+            }
             return
         }
         guard let userId: String = try? myValet.string(forKey: "Id") else { return }
@@ -455,10 +457,18 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                         try self.tokenValet.removeObject(forKey: "NotificationToken")
                         try self.myValet.removeAllObjects()
                         try self.tokenValet.removeAllObjects()
-                        let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
-                        self.present(loginPage, animated:false, completion:nil)
+                        DispatchQueue.main.async {
+                            let loginPage = self.storyboard?.instantiateViewController(identifier: "AuthenticateViewController") as! AuthenticateViewController
+                            self.present(loginPage, animated:false, completion:nil)
+                            self.window =  UIWindow(frame: UIScreen.main.bounds)
+                            self.window?.rootViewController = loginPage
+                            self.window?.makeKeyAndVisible()
+                        }
+                    case "Servers are currently offline, how unlucky":
+                        let storyboard = UIStoryboard(name: "AdditionalSettings", bundle: nil)
+                        let offlineController  = storyboard.instantiateViewController(identifier: "BlurrMCOfflineViewController")
+                        self.present(offlineController, animated: true, completion:nil)
                         self.window =  UIWindow(frame: UIScreen.main.bounds)
-                        self.window?.rootViewController = loginPage
                         self.window?.makeKeyAndVisible()
                     case .none:
                         break

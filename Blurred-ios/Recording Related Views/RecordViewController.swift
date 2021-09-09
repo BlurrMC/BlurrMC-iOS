@@ -173,6 +173,12 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         NextLevel.shared.stop()
     }
     
+    // MARK: View will appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setupCameraPreview()
+    }
+    
     
     // MARK: Timer Action
     @objc func timerAction() {
@@ -347,11 +353,17 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         if permissionsAreFine == true {
             startRecording()
         } else {
-            popupMessages().showMessageWithOptions(title: "Error", message: "You have camera permissions denied!", firstOptionTitle: "Settings", secondOptionTitle: "Cancel", viewController: self, {
-                if let appSettings = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
-                }
-            })
+            // One final check to make sure that the user has video and audio permissions
+            if NextLevel.authorizationStatus(forMediaType: .video) == .notAuthorized || NextLevel.authorizationStatus(forMediaType: .audio) == .notAuthorized {
+                popupMessages().showMessageWithOptions(title: "Error", message: "You have camera permissions denied!", firstOptionTitle: "Settings", secondOptionTitle: "Cancel", viewController: self, {
+                    if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+                    }
+                })
+            } else {
+                startRecording()
+            }
+            
         }
     }
     

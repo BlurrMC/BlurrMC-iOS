@@ -27,6 +27,12 @@ class VideoWatchingPreference: UIView {
         commonInit()
     }
     
+    init(frame: CGRect, watchingPreference: WatchingPreference) {
+        self.watchingPreference = watchingPreference
+        super.init(frame: frame)
+        commonInit()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()

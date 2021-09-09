@@ -81,7 +81,7 @@ class UploadDetailsViewController: UIViewController {
         ]
         AF.upload(
             multipartFormData: { multipartFormData in
-                multipartFormData.append("\(self.descriptionField.text ?? "")".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "video[description]") // Shows as an unknown paramater
+                multipartFormData.append("\(self.descriptionField.text ?? " ")".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "video[description]") // Shows as an unknown paramater
                 multipartFormData.append(self.videoDetails, withName: "video[clip]", fileName: "clip.mp4", mimeType: "video/mp4")
                 multipartFormData.append(userId.data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "user[Id]")
 

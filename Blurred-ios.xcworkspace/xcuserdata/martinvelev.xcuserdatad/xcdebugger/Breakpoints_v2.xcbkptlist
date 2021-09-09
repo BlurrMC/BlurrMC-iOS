@@ -1254,8 +1254,8 @@
             filePath = "Blurred-ios/Recording Related Views/RecordViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
             landmarkName = "stopRecording()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1270,8 +1270,8 @@
             filePath = "Blurred-ios/Recording Related Views/RecordViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "pinch(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1622,8 +1622,8 @@
             filePath = "Blurred-ios/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "540"
-            endingLineNumber = "540"
+            startingLineNumber = "550"
+            endingLineNumber = "550"
             landmarkName = "insertNewRowsInTableNode(newVideos:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2022,8 +2022,8 @@
             filePath = "Blurred-ios/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
             landmarkName = "checkUser()"
             landmarkType = "7">
          </BreakpointContent>

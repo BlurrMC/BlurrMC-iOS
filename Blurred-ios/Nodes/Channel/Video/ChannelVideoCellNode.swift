@@ -70,7 +70,7 @@ class ChannelVideoCellNode: ASCellNode {
         if firstVideo == true && shouldShowPreferences == true {
             DispatchQueue.main.async {
                 // Declare view
-                let topOverlay = VideoWatchingPreference()
+                let topOverlay = VideoWatchingPreference(frame: CGRect.zero, watchingPreference: watchingPreference)
                 topOverlay.delegate = self.delegate
 
                 // Add view

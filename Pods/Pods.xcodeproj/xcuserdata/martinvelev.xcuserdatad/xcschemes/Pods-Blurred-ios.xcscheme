@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7A4891EF9718DE03F9EC8B26C9765560"
-               BuildableName = "Pods-Blurred-ios.framework"
+               BuildableName = "Pods_Blurred_ios.framework"
                BlueprintName = "Pods-Blurred-ios"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

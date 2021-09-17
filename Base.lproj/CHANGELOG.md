@@ -1,6 +1,7 @@
 # Changelog
 ## 3.0
 * Added code to make "BlurrMC servers are currently offline" appear (under additionalsettings storyboard)
+* BlurrMC is now open source!
 ## 2.5
 * Fixed switches between following and trending videos.
 * Fixed upload bug.

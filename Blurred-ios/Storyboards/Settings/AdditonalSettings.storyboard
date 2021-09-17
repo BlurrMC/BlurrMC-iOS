@@ -114,10 +114,10 @@
             </objects>
             <point key="canvasLocation" x="615" y="55"/>
         </scene>
-        <!--View Controller-->
+        <!--BlurrMCOfflineViewController-->
         <scene sceneID="SoK-8c-pvs">
             <objects>
-                <viewController storyboardIdentifier="BlurrMCOfflineViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ozx-wt-I3X" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BlurrMCOfflineViewController" title="BlurrMCOfflineViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ozx-wt-I3X" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e75-2m-fL1">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -144,7 +144,6 @@
                         <constraints>
                             <constraint firstItem="n2m-fC-LTr" firstAttribute="top" secondItem="Jnb-Ab-X2T" secondAttribute="bottom" constant="15" id="FgT-Gs-1nD"/>
                             <constraint firstItem="hbH-mI-RkT" firstAttribute="trailing" secondItem="n2m-fC-LTr" secondAttribute="trailing" id="Ja2-je-5Rx"/>
-                            <constraint firstItem="U5J-EO-vXS" firstAttribute="width" secondItem="e75-2m-fL1" secondAttribute="width" multiplier="0.248718" id="YKt-rS-U7X"/>
                             <constraint firstItem="n2m-fC-LTr" firstAttribute="leading" secondItem="hbH-mI-RkT" secondAttribute="leading" id="YNM-lp-1tn"/>
                             <constraint firstItem="hbH-mI-RkT" firstAttribute="trailing" secondItem="Jnb-Ab-X2T" secondAttribute="trailing" id="aiR-S5-CEa"/>
                             <constraint firstItem="Jnb-Ab-X2T" firstAttribute="centerX" secondItem="e75-2m-fL1" secondAttribute="centerX" id="cNM-Gd-dlQ"/>

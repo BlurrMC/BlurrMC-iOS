@@ -2,7 +2,7 @@
 This is the BlurrMC social media platform for IOS! WOOOOOOO!
 On this version of the social media platform, you have the full featured version of Blurred.
 ## Note:
-BlurrMC is now a defunct social media platform. I'll still accept merge requests and any plans to try and bring it "back to life", but I'm not gonna be maintaing this personally. All hosting for BlurrMC has also been stopped, so don't run the app and then come back to me asking why it no work. If you really would like to run this app, make sure to change every single "https://blurrmc.com" reference to wherever you are hosting BlurrMC's web app.
+BlurrMC is a defunct social media platform. All hosting for BlurrMC has also been stopped, meaning the app will not run.
 # Dependencies
 This project depends on the rails version as well.
 *  Cocoapods

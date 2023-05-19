@@ -303,7 +303,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     do {
                         guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
                         guard let thumbnail = JSON["thumbnail_url"] as? String else { return }
-                        guard let thumbnailUrl = URL(string: thumbnail) else { return }
+                        guard let thumbnailUrl = URL(string: "https://blurrmc.com\(thumbnail)") else { return }
                         DispatchQueue.main.async {
                             Nuke.loadImage(with: thumbnailUrl, into: cell.thumbnailView)
                         }
@@ -345,7 +345,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     do {
                         guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
                         guard let thumbnail = JSON["thumbnail_url"] as? String else { return }
-                        guard let thumbnailUrl = URL(string: thumbnail) else { return }
+                        guard let thumbnailUrl = URL(string: "https://blurrmc.com\(thumbnail)") else { return }
                         DispatchQueue.main.async {
                             Nuke.loadImage(with: thumbnailUrl, into: cell.thumbnailView)
                         }
@@ -367,7 +367,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     do {
                         guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
                         guard let thumbnail = JSON["thumbnail_url"] as? String else { return }
-                        guard let thumbnailUrl = URL(string: thumbnail) else { return }
+                        guard let thumbnailUrl = URL(string: "https://blurrmc.com\(thumbnail)") else { return }
                         DispatchQueue.main.async {
                             Nuke.loadImage(with: thumbnailUrl, into: cell.thumbnailView)
                         }
@@ -389,7 +389,7 @@ extension NotificationsViewController: UITableViewDataSource, UITableViewDelegat
                     do {
                         guard let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
                         guard let thumbnail = JSON["thumbnail_url"] as? String else { return }
-                        guard let thumbnailUrl = URL(string: thumbnail) else { return }
+                        guard let thumbnailUrl = URL(string: "https://blurrmc.com\(thumbnail)") else { return }
                         DispatchQueue.main.async {
                             Nuke.loadImage(with: thumbnailUrl, into: cell.thumbnailView)
                         }

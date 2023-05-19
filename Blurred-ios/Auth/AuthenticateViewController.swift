@@ -82,7 +82,7 @@ class AuthenticateViewController: UIViewController, UITextFieldDelegate {
         let postString = ["login": username!, "password": password!] as [String: String]
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: postString, options: .prettyPrinted)
-        } catch let error { // Catch the VICTORY ROYALE
+        } catch let error {
             print(error.localizedDescription) // I hope it doesn't screw up
             let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
             DispatchQueue.main.async {

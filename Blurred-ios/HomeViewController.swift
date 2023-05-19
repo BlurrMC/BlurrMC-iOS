@@ -5,7 +5,6 @@
 //  Created by Martin Velev on 4/21/20.
 //  Copyright © 2020 BlurrMC. All rights reserved.
 //
-// EAT THE HAMCAT
 
 import UIKit
 import Valet
@@ -152,6 +151,8 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     // MARK: Get Videos For Home Page
     func homeFeedRequest() {
+        self.currentPage = 1
+        self.shouldBatchFetch = true
         guard let token: String = try? tokenValet.string(forKey: "Token") else { return }
         let parameters = ["page" : "\(currentPage)"]
         let headers: HTTPHeaders = [
@@ -165,7 +166,6 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         case .trending:
             url = URL(string: "https://blurrmc.com/api/v1/trending")
         }
-        
         AF.request(url!, method: .post, parameters: parameters, headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: 1kdm03o4-2")
@@ -178,13 +178,12 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
                 if self.videos.count != 0 {
                     DispatchQueue.main.async {
                         self.tableNode.reloadData()
+                        self.tableNode.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: false)
                     }
                 } else {
                     self.watchingPreference = .trending
                     self.shouldShowPreference = false
                     self.homeFeedRequest()
-                    // Explanation for this:
-                    /// This code will make it so the user only sees trending videos. This is caused by the user if they are not following anybody. If this code was not here, then whenever the user was not following anyone then they would see nothing and not be able to switch over to trending and watch anything in the home page.
                 }
             } catch {
                 print("error code: 1kasfio23uena, controller: homeview, error: \(error)")
@@ -202,7 +201,15 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://blurrmc.com/api/v1/apihomefeed", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+        print(token)
+        var url = URL(string: "https://blurrmc.com/api/v1/apihomefeed")
+        switch self.watchingPreference {
+        case .following:
+            url = URL(string: "https://blurrmc.com/api/v1/apihomefeed")
+        case .trending:
+            url = URL(string: "https://blurrmc.com/api/v1/trending")
+        }
+        AF.request(url!, method: .post, parameters: parameters, headers: headers).responseJSON { response in
             switch response.result {
             case .success:
                 success(response)
@@ -268,7 +275,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     var name = String()
     var reported = Bool()
     var blocked = Bool()
-    var watchingPreference: WatchingPreference = .following
+    var watchingPreference: WatchingPreference = .trending
     var shouldBatchFetch = true
     var oldVideoCount = 0
     var resizedImageProcessors = [ImageProcessing]()
@@ -330,6 +337,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
         self.navigationItem.title = "Home"
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
         self.tableNode = ASTableNode(style: .plain)
+        self.tableNode.view.showsVerticalScrollIndicator = false
         self.wireDelegates()
         self.view.insertSubview(tableNode.view, at: 0)
         self.applyStyle()
@@ -534,7 +542,7 @@ class HomeViewController: UIViewController, UIAdaptivePresentationControllerDele
     
     // MARK: New rows for table node
     func insertNewRowsInTableNode(newVideos: [Video]) {
-        guard newVideos.count > 0 else {
+        if newVideos.count == 0 {
             return
         }
         let section = 0
@@ -560,17 +568,25 @@ extension HomeViewController: ASTableDataSource {
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        let videourll = self.videos[indexPath.row].videourl
+        let videourll = "https://blurrmc.com\(self.videos[indexPath.row].videourl)"
         let videoId = self.videos[indexPath.row].videoid
         let videoUrl = URL(string: videourll)
         var firstVideo: Bool {
             return indexPath.row == 0
         }
         return {
-            let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true, firstVideo: firstVideo, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: self.watchingPreference, shouldShowPreferences: self.shouldShowPreference)
-            node.delegate = self
-            node.debugName = "\(self.videos[indexPath.row].videoid)"
-            return node
+            if firstVideo {
+                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true, firstVideo: firstVideo, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: self.watchingPreference, shouldShowPreferences: self.shouldShowPreference, initalPlay: true)
+                node.delegate = self
+                node.debugName = "\(self.videos[indexPath.row].videoid)"
+                return node
+            } else {
+                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: true, firstVideo: firstVideo, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: self.watchingPreference, shouldShowPreferences: self.shouldShowPreference, initalPlay: false)
+                node.delegate = self
+                node.debugName = "\(self.videos[indexPath.row].videoid)"
+                return node
+            }
+            
         }
     }
 }
@@ -586,34 +602,37 @@ extension HomeViewController: ASTableDelegate {
     
     // MARK: Batch fetch bool
     func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        return shouldBatchFetch
+        return true
     }
     
     // MARK: Batch fetch
     func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
         oldVideoCount = self.videos.count
-        currentPage = currentPage + 1
-        self.batchFetch(success: {(response) -> Void in
-            guard let data = response?.data else {
-                print("error code: 1kdm03o4-2")
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                if downloadedVideo.videos.count < 5 {
-                    self.shouldBatchFetch = false
+        if shouldBatchFetch {
+            currentPage = currentPage + 1
+            self.batchFetch(success: {(response) -> Void in
+                guard let data = response?.data else {
+                    print("error code: 1kdm03o4-2")
+                    return
                 }
-                self.insertNewRowsInTableNode(newVideos: downloadedVideo.videos)
-                context.completeBatchFetching(true)
-            } catch {
-                print("error code: g09an242, controller: homeview, error: \(error)")
-                return
-            }
-        }, failure: { (error) -> Void in
-            print("error code: 1kd03l103-2")
-            print(error as Any)
-        })
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                    if downloadedVideo.videos.count != 5 {
+                        self.shouldBatchFetch = false
+                    }
+                    self.insertNewRowsInTableNode(newVideos: downloadedVideo.videos)
+                    context.completeBatchFetching(true)
+                } catch {
+                    print("error code: g09an242, controller: homeview, error: \(error)")
+                    return
+                }
+            }, failure: { (error) -> Void in
+                print("error code: 1kd03l103-2")
+                print(error as Any)
+            })
+        }
+        
     }
 }
 extension Notification.Name {

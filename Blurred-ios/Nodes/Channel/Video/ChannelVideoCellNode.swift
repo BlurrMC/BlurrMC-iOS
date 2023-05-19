@@ -16,15 +16,28 @@ class ChannelVideoCellNode: ASCellNode {
     
     // MARK: Variables
     var videoNode: ASVideoNode
+    var activityIndicator: ActivityIndicatorView!
+    var initalPlay = Bool()
     
-    required init(with videoUrl: URL, videoId: String, doesParentHaveTabBar: Bool, firstVideo: Bool, indexPath: IndexPath, reported: Bool, watchingPreference: WatchingPreference, shouldShowPreferences: Bool) {
+    required init(with videoUrl: URL, videoId: String, doesParentHaveTabBar: Bool, firstVideo: Bool, indexPath: IndexPath, reported: Bool, watchingPreference: WatchingPreference, shouldShowPreferences: Bool, initalPlay: Bool) {
         self.videoNode = ASVideoNode()
         super.init()
+        self.videoNode.delegate = self
+        self.initalPlay = initalPlay
+        DispatchQueue.main.async {
+            let myActivityIndicator = DifferencesActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+            self.activityIndicator = myActivityIndicator
+            self.activityIndicator.center = self.view.center
+            self.activityIndicator.hidesWhenStopped = true
+            self.activityIndicator.startAnimating()
+            self.view.addSubview(self.activityIndicator)
+        }
+        
         if reported != true {
             self.videoNode.shouldAutoplay = true
             self.videoNode.shouldAutorepeat = true
             self.videoNode.muted = false
-            self.videoNode.gravity = AVLayerVideoGravity.resizeAspect.rawValue
+            self.videoNode.gravity = AVLayerVideoGravity.resizeAspectFill.rawValue
             DispatchQueue.main.async {
                 self.videoNode.asset = AVAsset(url: videoUrl)
             }
@@ -97,7 +110,25 @@ class ChannelVideoCellNode: ASCellNode {
         return ratioSpec
     }
     
+    // MARK: Remove Activity Indicator
+    func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
+        DispatchQueue.main.async {
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        }
+    }
+    
+
+    
     
     
   
 }
+
+extension ChannelVideoCellNode: ASVideoNodeDelegate {
+    
+    func videoNodeDidFinishInitialLoading(_ videoNode: ASVideoNode) {
+        removeActivityIndicator(activityIndicator: activityIndicator)
+    }
+}
+

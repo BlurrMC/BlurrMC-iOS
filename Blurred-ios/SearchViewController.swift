@@ -146,7 +146,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     guard let username = JSON!["username"] as? String else { return }
                     guard let publishDate = JSON!["publishdate"] as? String else { return }
                     guard let viewCount = JSON!["viewcount"] as? Int else { return }
-                    guard let railsUrl = URL(string: thumbnailUrl) else { return }
+                    guard let railsUrl = URL(string: "https://blurrmc.com\(thumbnailUrl)") else { return }
                     switch viewCount {
                     case _ where viewCount < 1000:
                         DispatchQueue.main.async {

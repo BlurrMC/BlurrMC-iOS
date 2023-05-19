@@ -112,14 +112,14 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     // MARK: Setup window for sharing functionality
     // This may use A LOT of ram over a long period of time. Possible fix: deleting cache after user is done dealing with video?
     func shareWindow(videoUrl: String, videoId: String) {
-        CacheManager.shared.getFileWith(stringUrl: videoUrl) { result in
+        CacheManager.shared.getFileWith(stringUrl: "videoUrl") { result in
                 switch result {
                 case .success(let url):
                     let videoToShare = [ url ]
                     let activityViewController = UIActivityViewController(activityItems: videoToShare as [Any], applicationActivities: nil)
                     activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
                     activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.postToFlickr,
-                        UIActivity.ActivityType.postToTwitter, UIActivity.ActivityType.postToTencentWeibo
+                        UIActivity.ActivityType.postToTwitter, UIActivity.ActivityType.postToTencentWeibo,
                     ]
                     DispatchQueue.main.async {
                         self.present(activityViewController, animated: true, completion: nil)
@@ -186,6 +186,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     // MARK: Request for specific video
     func sendRequest() {
         let myUrl = URL(string: "https://blurrmc.com/api/v1/videos/\(videoString).json")
+        self.shouldBatchFetch = false
         var request = URLRequest(url:myUrl!)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -196,12 +197,9 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 if let parseJSON = json {
                     guard let videoUrl: String = parseJSON["video_url"] as? String else { return }
+                    guard let reported: Bool = parseJSON["reported"] as? Bool else { return }
+                    self.videos.append(Video(videourl: videoUrl, videoid: self.videoString, reported: reported))
                     self.videoUrlString = videoUrl
-                    let array: [String : [[String : Any]]] = ["videos": [["videourl": "\(videoUrl)", "videoid": self.videoString]]]
-                    let jsonData = try JSONSerialization.data(withJSONObject: array, options: .init(rawValue: 0)) as Data
-                    let decoder = JSONDecoder()
-                    let downloadedVideo = try decoder.decode(Videos.self, from: jsonData)
-                    self.videos = downloadedVideo.videos
                     DispatchQueue.main.async {
                         self.tableNode.reloadData()
                     }
@@ -223,6 +221,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
         super.viewDidLoad() 
         try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
         self.tableNode = ASTableNode(style: .plain)
+        self.tableNode.view.showsVerticalScrollIndicator = false
         self.wireDelegates()
         self.view.insertSubview(tableNode.view, at: 0)
         self.applyStyle()
@@ -232,12 +231,7 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     // MARK: Segue Data
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if let vc = segue.destination as? CommentingViewController {
-            if segue.identifier == "showComments" {
-                vc.presentationController?.delegate = self
-                vc.videoId = videoId
-            }
-        } else if let vc = segue.destination as? OtherChannelViewController {
+        if let vc = segue.destination as? OtherChannelViewController {
             if segue.identifier == "showVideoUserChannel" {
                 vc.chanelVar = videoUsername
                 vc.resizedImageProcessors = self.resizedImageProcessors
@@ -285,35 +279,77 @@ class ChannelVideoViewController: UIViewController, UIAdaptivePresentationContro
     
     // MARK: Function for showing video comments
     func showVideoComments(videoId: String) {
-        self.videoId = videoId
-        self.performSegue(withIdentifier: "showComments", sender: self)
-        
+        let storyboard = UIStoryboard(name: "CommentBoard", bundle: nil)
+        let commentNavController = storyboard.instantiateViewController(withIdentifier: "commentNav") as! UINavigationController
+        let commentController = commentNavController.viewControllers.first as! CommentingViewController
+        commentController.videoId = videoId
+        commentNavController.modalPresentationStyle = .formSheet
+        DispatchQueue.main.async {
+            self.present(commentNavController, animated: true, completion: nil)
+        }
     }
     
-    // MARK: Download channel videos
-    func channelVideoIds() {
+    
+    func loadPage(_ page: Int) {
+        
         guard let token: String = try? self.tokenValet.string(forKey: "Token") else { return }
+        let parameters = ["page" : "\(page)"]
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        AF.request("https://blurrmc.com/api/v1/channelvideos/\(channelId).json", method: .get, encoding: JSONEncoding.default, headers: headers).responseJSON { (response) in
+        
+        AF.request("https://blurrmc.com/api/v1/channelvideos/\(channelId)", method: .get, parameters: parameters,headers: headers).responseJSON { (response) in
             guard let data = response.data else { return }
             do {
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                self.videos = downloadedVideo.videos
-                let pathTotRow = IndexPath.init(row: self.rowNumber, section: 0)
-                DispatchQueue.main.async {
-                    self.tableNode.reloadData()
-                    self.tableNode.scrollToRow(at: pathTotRow, at: .none, animated: true)
-                }
+                    self.videos.append(contentsOf: downloadedVideo.videos)
+                    print("page: \(page), currentPage: \(self.currentPage)")
+                    if !((page+1) <= self.currentPage) {
+                        if downloadedVideo.videos.count != 10 {
+                            self.shouldBatchFetch = false
+                        }
+                        let pathTotRow = IndexPath.init(row: self.rowNumber, section: 0)
+                        DispatchQueue.main.async {
+                            self.tableNode.reloadData()
+                            self.tableNode.scrollToRow(at: pathTotRow, at: .middle, animated: true)
+                        }
+                    }
+                
             } catch {
                 print("error code: 1kzka0aww3-2, controller: channelvideoview, error: \(error)")
-                print("\(self.channelId)")
                 return
             }
+            
+            // Load the next page if it hasn't been loaded yet
+            let nextPage = page + 1
+            if nextPage <= self.currentPage {
+                self.loadPage(nextPage)
+            }
+            
         }
+    }
+    
+    // MARK: Download channel videos
+    func channelVideoIds() {
+        self.currentPage = 1
+        shouldBatchFetch = true
+        if rowNumber > 10 {
+            for item in 1...rowNumber {
+                if item % 10 == 0 {
+                    currentPage += 1
+                }
+                // Do something with each item here
+                print("Item \(item) is on page \(currentPage)")
+            }
+        } else {
+            self.currentPage = 1
+        }
+        loadPage(1)
+        
+        
+        
     }
     
     // MARK: New rows for table node
@@ -362,19 +398,28 @@ extension ChannelVideoViewController: ASTableDataSource {
     }
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         if isItFromSearch != true {
-            let videourll = self.videos[indexPath.row].videourl
+            let videourll = "https://blurrmc.com\(self.videos[indexPath.row].videourl)"
             let videoId = self.videos[indexPath.row].videoid
             let videoUrl = URL(string: videourll)
             return {
-                let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: .following, shouldShowPreferences: false)
-                node.delegate = self
-                node.debugName = "\(self.videos[indexPath.row].videoid)"
-                return node
+                if self.rowNumber == indexPath.row {
+                    let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: .following, shouldShowPreferences: false, initalPlay: true)
+                    node.delegate = self
+                    node.debugName = "\(self.videos[indexPath.row].videoid)"
+                    return node
+                } else {
+                    let node = ChannelVideoCellNode(with: videoUrl!, videoId: videoId, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: .following, shouldShowPreferences: false, initalPlay: false)
+                    node.delegate = self
+                    node.debugName = "\(self.videos[indexPath.row].videoid)"
+                    return node
+                }
+                
             }
         } else {
-            let url = URL(string: videoUrlString)!
+            let videourll = "https://blurrmc.com\(videoUrlString)"
+            let url = URL(string: videourll)!
             return {
-                let node = ChannelVideoCellNode(with: url, videoId: self.videoString, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: .following, shouldShowPreferences: false)
+                let node = ChannelVideoCellNode(with: url, videoId: self.videoString, doesParentHaveTabBar: false, firstVideo: false, indexPath: indexPath, reported: self.videos[indexPath.row].reported, watchingPreference: .following, shouldShowPreferences: false, initalPlay: true)
                 node.delegate = self
                 node.debugName = "\(self.videoString)"
                 return node
@@ -394,34 +439,37 @@ extension ChannelVideoViewController: ASTableDelegate {
     
     // MARK: Batch fetch bool
     func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        return shouldBatchFetch
+        return true
     }
     
     // MARK: Batch fetch function
     func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
         oldVideoCount = self.videos.count
-        currentPage = currentPage + 1
-        self.batchFetch(success: {(response) -> Void in
-            guard let data = response?.data else {
-                print("error code: asdf23ruewifad")
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                if downloadedVideo.videos.count < 5 {
-                    self.shouldBatchFetch = false
+        if shouldBatchFetch {
+            currentPage = currentPage + 1
+            self.batchFetch(success: {(response) -> Void in
+                guard let data = response?.data else {
+                    print("error code: asdf23ruewifad")
+                    return
                 }
-                self.insertNewRowsInTableNode(newVideos: downloadedVideo.videos)
-                context.completeBatchFetching(true)
-            } catch {
-                print("error code: tn5brtygs, controller: channel video, error: \(error)")
-                return
-            }
-        }, failure: { (error) -> Void in
-            print("error code: saaf")
-            print(error as Any)
-        })
+                do {
+                    let decoder = JSONDecoder()
+                    let downloadedVideo = try decoder.decode(Videos.self, from: data)
+                    if downloadedVideo.videos.count != 10 {
+                        self.shouldBatchFetch = false
+                    }
+                    self.insertNewRowsInTableNode(newVideos: downloadedVideo.videos)
+                    context.completeBatchFetching(true)
+                } catch {
+                    print("error code: tn5brtygs, controller: channel video, error: \(error)")
+                    return
+                }
+            }, failure: { (error) -> Void in
+                print("error code: saaf")
+                print(error as Any)
+            })
+        }
+        
         
     }
     

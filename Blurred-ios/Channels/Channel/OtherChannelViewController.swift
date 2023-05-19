@@ -92,6 +92,26 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
         // Implement some kind of function here to cancel prefetching
     }
     
+    // MARK: New rows for table node
+    func insertNewRowsInTableNode(newVideos: [Video]) {
+        if newVideos.count == 0 {
+            return
+        }
+        let section = 0
+        var indexPaths: [IndexPath] = []
+        let total = self.videos.count + newVideos.count
+        for item in self.videos.count...total-1 {
+            let path = IndexPath(item: item, section: section)
+            indexPaths.append(path)
+        }
+        self.videos.append(contentsOf: newVideos)
+        if (oldVideoCount + newVideos.count) == self.videos.count {
+            self.collectionView.insertItems(at: indexPaths)
+        } else {
+            return
+        }
+    }
+    
     // MARK: Prefetching
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         if shouldBatchFetch == true {
@@ -105,13 +125,10 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
                 do {
                     let decoder = JSONDecoder()
                     let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                    if downloadedVideo.videos.count < 10 {
+                    if downloadedVideo.videos.count != 10 {
                         self.shouldBatchFetch = false
                     }
-                    self.videos.append(contentsOf: downloadedVideo.videos)
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadItems(at: indexPaths)
-                    }
+                    self.insertNewRowsInTableNode(newVideos: downloadedVideo.videos)
                 } catch {
                     print("error code: aifosdfasdf14czxcvbbnsdfg, controller: otherchannel, error: \(error)")
                     return
@@ -288,8 +305,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherChannelVideoCell", for: indexPath) as? OtherChannelVideoCell else { return UICollectionViewCell() }
-        cell.layer.cornerRadius = 12
-        cell.layer.borderWidth = 1
+        //cell.layer.cornerRadius = 12
+        //cell.layer.borderWidth = 1
         let Id: String = videos[indexPath.row].videoid
         var resizedImageProcessors: [ImageProcessing] {
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
@@ -299,7 +316,8 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
             var JSON: [String: Any]?
             do {
                 JSON = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String: Any]
-                guard let imageUrl = JSON!["thumbnail_url"] as? String else { return }
+                guard let imageUrll = JSON!["thumbnail_url"] as? String else { return }
+                let imageUrl = "https://blurrmc.com\(imageUrll)"
                 guard let likenumber = JSON!["likecount"] as? Int else { return }
                 switch likenumber {
                 case _ where likenumber > 1000 && likenumber < 100000:
@@ -360,6 +378,7 @@ class OtherChannelViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: Load the channel's videos
     func channelVideoIds() {
+        self.currentPage = 1
         let url = URL(string: "https://blurrmc.com/api/v1/channelvideos/\(chanelVar)")
         guard let downloadURL = url else { return }
         let parameters = ["page" : "\(currentPage)"]

@@ -71,6 +71,26 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
         // Implement some kind of function here to cancel prefetching
     }
     
+    // MARK: New rows for table node
+    func insertNewRowsInTableNode(newVideos: [Video]) {
+        if newVideos.count == 0 {
+            return
+        }
+        let section = 0
+        var indexPaths: [IndexPath] = []
+        let total = self.videos.count + newVideos.count
+        for item in self.videos.count...total-1 {
+            let path = IndexPath(item: item, section: section)
+            indexPaths.append(path)
+        }
+        self.videos.append(contentsOf: newVideos)
+        if (oldVideoCount + newVideos.count) == self.videos.count {
+            self.collectionView.insertItems(at: indexPaths)
+        } else {
+            return
+        }
+    }
+    
     // MARK: Prefetching
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         if shouldBatchFetch == true {
@@ -84,13 +104,10 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 do {
                     let decoder = JSONDecoder()
                     let downloadedVideo = try decoder.decode(Videos.self, from: data)
-                    if downloadedVideo.videos.count < 10 {
+                    if downloadedVideo.videos.count != 10 {
                         self.shouldBatchFetch = false
                     }
-                    self.videos.append(contentsOf: downloadedVideo.videos)
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadItems(at: indexPaths)
-                    }
+                    self.insertNewRowsInTableNode(newVideos: downloadedVideo.videos)
                 } catch {
                     print("error code: 98asd098fuas9d8f234asdf, controller: channel, error: \(error)")
                     return
@@ -107,8 +124,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Need to add something here to make it compile
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChannelVideoCell", for: indexPath) as? ChannelVideoCell else { return UICollectionViewCell() }
-        cell.layer.cornerRadius = 12
-        cell.layer.borderWidth = 1
+        //cell.layer.cornerRadius = 12
+        //cell.layer.borderWidth = 1
         var resizedImageProcessors: [ImageProcessing] {
             let imageSize = CGSize(width: cell.thumbnailView.frame.width, height: cell.thumbnailView.frame.height)
             return [ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)]
@@ -121,7 +138,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
             guard let data = response.data else { return }
             do {
                 JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                guard let imageUrl = JSON!["thumbnail_url"] as? String else { return }
+                guard let imageUrll = JSON!["thumbnail_url"] as? String else { return }
+                let imageUrl = "https://blurrmc.com\(imageUrll)"
                 guard let likenumber = JSON!["likecount"] as? Int else { return }
                 switch likenumber {
                 case _ where likenumber > 1000 && likenumber < 100000:
@@ -349,7 +367,8 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
     
     
     // MARK: Load the channel's videos
-    func channelVideoIds() { // Still not done we need to add the user's butt image
+    func channelVideoIds() {
+        self.currentPage = 1
         guard let userId: String  = try? myValet.string(forKey: "Id") else { return }
         let parameters = ["page" : "\(currentPage)"]
         let url = URL(string: "https://blurrmc.com/api/v1/channelvideos/\(userId)")
@@ -363,7 +382,7 @@ class ChannelViewController: UIViewController, UINavigationControllerDelegate, U
                 let decoder = JSONDecoder()
                 let downloadedVideo = try decoder.decode(Videos.self, from: data)
                 self.videos = downloadedVideo.videos
-                if self.videos.count < 10 {
+                if self.videos.count != 10 {
                     self.shouldBatchFetch = false
                 }
                 DispatchQueue.main.async {

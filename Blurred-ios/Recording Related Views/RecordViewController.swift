@@ -115,8 +115,8 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         self.videoView = UIView(frame: screenBounds)
         if let previewView = self.videoView {
             previewView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            previewView.backgroundColor = UIColor.black
-            NextLevel.shared.previewLayer.frame = previewView.bounds
+            //previewView.backgroundColor = UIColor.black
+            NextLevel.shared.previewLayer.frame = screenBounds
             previewView.layer.addSublayer(NextLevel.shared.previewLayer)
             let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
             let flipGesture = UITapGestureRecognizer(target: self, action: #selector(flipVideo))

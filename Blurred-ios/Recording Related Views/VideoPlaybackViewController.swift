@@ -75,7 +75,11 @@ class VideoPlaybackViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        try! AVAudioSession.sharedInstance().setCategory(.playback, options: [])
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, options: [])
+        } catch {
+            print(error)
+        }
         babaPlayer()
         self.previewView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(VideoPlaybackViewController.tapFunction))

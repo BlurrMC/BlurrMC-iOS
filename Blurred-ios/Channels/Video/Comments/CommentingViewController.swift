@@ -241,11 +241,11 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
         let parent_id: String?
         var replies: [Comment]?
         var opened: Bool? = false
-        var likeId: String?
+        var likeId: Int?
         var reported: Bool
         var comment_is_editable: Bool
         var edited: Bool
-        init(created_by: String, likes: Int, body: String, id: String, reply: Bool, time_since_creation: String, liked: Bool, parent_id: String, replies: [Comment]?, likeId: String, reported: Bool, comment_is_editable: Bool, edited: Bool) {
+        init(created_by: String, likes: Int, body: String, id: String, reply: Bool, time_since_creation: String, liked: Bool, parent_id: String, replies: [Comment]?, likeId: Int?, reported: Bool, comment_is_editable: Bool, edited: Bool) {
             self.id = id
             self.reply = reply
             self.time_since_creation = time_since_creation
@@ -273,7 +273,6 @@ class CommentingViewController: UIViewController, UITextFieldDelegate {
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
         ]
-        print(videoId)
         AF.request("https://blurrmc.com/api/v1/videos/\(videoId)/comments/", method: .get, headers: headers).responseJSON { response in
             guard let data = response.data else {
                 print("error code: coi329fj482")
@@ -699,7 +698,7 @@ extension CommentingViewController: CommentCellDelegate {
     }
     
     // MARK: Unlike Video
-    func sendDeleteLikeRequest(likeid: String?, commentId: String, cell: Comment, indexPath: IndexPath, reply: Bool) {
+    func sendDeleteLikeRequest(likeid: Any?, commentId: String, cell: Comment, indexPath: IndexPath, reply: Bool) {
         let token: String? = try? tokenValet.string(forKey: "Token")
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(token!)",
@@ -770,10 +769,10 @@ extension CommentingViewController: CommentCellDelegate {
                     let replyIndex = indexPath.row - 1
                     switch status {
                     case "You have already liked it!":
-                        let likeid = JSON!["likeid"] as? String
+                        let likeid = JSON!["likeid"] as? Int
                         self.sendDeleteLikeRequest(likeid: likeid, commentId: commentId, cell: cell, indexPath: indexPath, reply: reply)
                     case "Video has been liked":
-                        let likeid = JSON!["likeid"] as? String
+                        let likeid = JSON!["likeid"] as? Int
                         switch reply {
                         case true:
                             guard let _ = self.comments[safe: commentIndex]?.replies?[safe: replyIndex] else { return }
@@ -949,7 +948,7 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as? CommentCell else { return UITableViewCell() }
             let comment = comments[indexPath.section]
-            if comment.reported != true {
+            if comment.reported != true || comment.created_by == self.username {
                 cell.delegate = self
                 cell.comment.text = comment.body // Add handling if comment is over a certain number of characters
                 if comment.edited == true {
@@ -976,7 +975,6 @@ extension CommentingViewController: UITableViewDataSource, UITableViewDelegate {
                 case false:
                     cell.likeButton.image = UIImage(systemName: "heart")
                     cell.likeButton.tintColor = UIColor.lightGray
-                    
                 }
             } else {
                 cell.comment.tintColor = .purple

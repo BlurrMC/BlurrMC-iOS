@@ -42,6 +42,7 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     var flashMode: flashType = .off
     var permissionsAreFine: Bool = false
+    var quickRecordButton: Bool = false
 
     
     // MARK: Outlets
@@ -177,6 +178,9 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setupCameraPreview()
+        if permissionsAreFine {
+            try? NextLevel.shared.start()
+        }
     }
     
     
@@ -191,10 +195,16 @@ class RecordViewController: UIViewController, UINavigationControllerDelegate, UI
         openVideoGallery()
     }
     
-    
     // MARK: Record Button Pressed Up
     @IBAction func recordButtonReleased(_ sender: Any) {
-        stopRecording()
+        if timer.timeInterval < 0.2 {
+            if quickRecordButton {
+                stopRecording()
+            }
+            quickRecordButton = !quickRecordButton
+        } else {
+            stopRecording()
+        }
     }
     
     // MARK: Record Button Pressed Down

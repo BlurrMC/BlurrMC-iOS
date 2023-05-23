@@ -108,17 +108,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                             return
                         }
                     }
-                    if userId == nil {
-                        popupMessages().showMessage(title: "Error", message: "Error contacting the server. Try again later.", alertActionTitle: "OK", viewController: self)
-                        DispatchQueue.main.async {
-                            self.SignUpButton.isEnabled = true
-                        }
-                        return
-                    } else {
-                        popupMessages().showMessage(title: "Success", message: "You have succesfully signed up.", alertActionTitle: "OK", viewController: self)
-                        DispatchQueue.main.async {
-                            self.dismiss(animated: true, completion: nil) 
-                        }
+                    // Removed check for userID nil since api doesn't send email confirmations right now
+                    popupMessages().showMessage(title: "Success", message: "You have succesfully signed up.", alertActionTitle: "OK", viewController: self)
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
                     }
                 } else {
                     let snackbar = TTGSnackbar(message: "Error contacting server, try again later.", duration: .middle)
